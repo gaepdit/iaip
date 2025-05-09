@@ -926,6 +926,11 @@ Public Class FeesManagement
     End Sub
 
     Private Sub cboAvailableFeeYears_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboAvailableFeeYears.SelectedIndexChanged
+        lblFeeYearCount.Text = ""
+        lblMailoutCount.Text = ""
+        lblEnrollmentCount.Text = ""
+        lblInitialMailoutDate.Text = ""
+
         If cboAvailableFeeYears.SelectedIndex > 0 Then
             btnGenerateMailoutList.Enabled = False
             btnFirstEnrollment.Enabled = False
@@ -940,6 +945,29 @@ Public Class FeesManagement
             btnUpdateContactData.Enabled = True
             btnSetMailoutDate.Enabled = True
             dtpDateMailoutSent.Enabled = True
+        End If
+
+        Dim p As New SqlParameter("@FeeYear", cboAvailableFeeYears.Text)
+        Dim row As DataRow = DB.SPGetDataRow("dbo.GetFeeYearStats", p)
+
+        If row IsNot Nothing Then
+            lblFeeYearCount.Text = GetNullable(Of Integer)(row("FeeYearCount"))
+            lblEnrollmentCount.Text = GetNullable(Of Integer)(row("EnrollmentCount"))
+
+            Dim mailoutCount As Integer = GetNullable(Of Integer)(row("MailoutCount"))
+            lblMailoutCount.Text = mailoutCount
+            If mailoutCount > 0 Then
+                btnGenerateMailoutList.Enabled = False
+            Else
+                btnUpdateContactData.Enabled = False
+            End If
+
+            Dim initialMailoutDate As Date? = GetNullable(Of Date?)(row("InitialMailoutDate"))
+            If initialMailoutDate IsNot Nothing Then
+                lblInitialMailoutDate.Text = "Initial Mailout Date: " & vbNewLine & initialMailoutDate.Value.ToString("dd-MMM-yyyy")
+                btnSetMailoutDate.Enabled = False
+            End If
+
         End If
     End Sub
 
