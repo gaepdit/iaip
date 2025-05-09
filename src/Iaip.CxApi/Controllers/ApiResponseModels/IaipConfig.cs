@@ -1,7 +1,7 @@
 ﻿using Microsoft.Data.SqlClient;
 using System.Text.Json.Serialization;
 
-namespace Iaip.CxApi.Models;
+namespace Iaip.CxApi.Controllers.ApiResponseModels;
 
 public record IaipConfig
 {
