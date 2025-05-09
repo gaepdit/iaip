@@ -22,8 +22,8 @@ Partial Class FeesManagement
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.FeeManagementTabControl = New System.Windows.Forms.TabControl()
         Me.TPFeeAdminTools = New System.Windows.Forms.TabPage()
         Me.TabControl2 = New System.Windows.Forms.TabControl()
@@ -101,6 +101,7 @@ Partial Class FeesManagement
         Me.Label107 = New System.Windows.Forms.Label()
         Me.TPFeeManagementTools = New System.Windows.Forms.TabPage()
         Me.FeeManagementSidePanel = New System.Windows.Forms.Panel()
+        Me.AIRSNumberEntry = New Iaip.AirsNumberEntryForm()
         Me.dgvFeeManagementLists = New Iaip.IaipDataGridView()
         Me.FeeManagementListCountLabel = New System.Windows.Forms.Label()
         Me.btnOpenFeesLog = New System.Windows.Forms.Button()
@@ -111,6 +112,9 @@ Partial Class FeesManagement
         Me.EnrollmentGroupbox = New System.Windows.Forms.GroupBox()
         Me.btnUnenrollFeeYear = New System.Windows.Forms.Button()
         Me.btnFirstEnrollment = New System.Windows.Forms.Button()
+        Me.lblEnrollmentCount = New System.Windows.Forms.Label()
+        Me.lblMailoutCount = New System.Windows.Forms.Label()
+        Me.lblFeeYearCount = New System.Windows.Forms.Label()
         Me.btnViewMailout = New System.Windows.Forms.Button()
         Me.btnViewEnrolledFacilities = New System.Windows.Forms.Button()
         Me.btnViewFacilitiesSubjectToFees = New System.Windows.Forms.Button()
@@ -121,7 +125,7 @@ Partial Class FeesManagement
         Me.btnSetMailoutDate = New System.Windows.Forms.Button()
         Me.btnGenerateMailoutList = New System.Windows.Forms.Button()
         Me.btnUpdateContactData = New System.Windows.Forms.Button()
-        Me.AIRSNumberEntry = New Iaip.AirsNumberEntryForm()
+        Me.lblInitialMailoutDate = New System.Windows.Forms.Label()
         Me.FeeManagementTabControl.SuspendLayout()
         Me.TPFeeAdminTools.SuspendLayout()
         Me.TabControl2.SuspendLayout()
@@ -242,8 +246,8 @@ Partial Class FeesManagement
         '
         'dgvFeeRates
         '
-        DataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgvFeeRates.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvFeeRates.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.dgvFeeRates.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -1004,15 +1008,28 @@ Partial Class FeesManagement
         Me.FeeManagementSidePanel.Controls.Add(Me.FeeManagementListCountLabel)
         Me.FeeManagementSidePanel.Controls.Add(Me.btnOpenFeesLog)
         Me.FeeManagementSidePanel.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.FeeManagementSidePanel.Location = New System.Drawing.Point(188, 3)
+        Me.FeeManagementSidePanel.Location = New System.Drawing.Point(206, 3)
         Me.FeeManagementSidePanel.Name = "FeeManagementSidePanel"
-        Me.FeeManagementSidePanel.Size = New System.Drawing.Size(627, 627)
+        Me.FeeManagementSidePanel.Size = New System.Drawing.Size(609, 627)
         Me.FeeManagementSidePanel.TabIndex = 0
+        '
+        'AIRSNumberEntry
+        '
+        Me.AIRSNumberEntry.AirsNumber = Nothing
+        Me.AIRSNumberEntry.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange
+        Me.AIRSNumberEntry.ErrorMessageLabel = Nothing
+        Me.AIRSNumberEntry.FacilityMustExist = True
+        Me.AIRSNumberEntry.Location = New System.Drawing.Point(6, 11)
+        Me.AIRSNumberEntry.Name = "AIRSNumberEntry"
+        Me.AIRSNumberEntry.ReadOnly = False
+        Me.AIRSNumberEntry.Size = New System.Drawing.Size(78, 20)
+        Me.AIRSNumberEntry.TabIndex = 465
+        Me.AIRSNumberEntry.TextBoxBackColor = System.Drawing.SystemColors.Window
         '
         'dgvFeeManagementLists
         '
-        DataGridViewCellStyle3.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgvFeeManagementLists.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvFeeManagementLists.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle2
         Me.dgvFeeManagementLists.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -1026,7 +1043,7 @@ Partial Class FeesManagement
         Me.dgvFeeManagementLists.Name = "dgvFeeManagementLists"
         Me.dgvFeeManagementLists.ResultsCountLabel = Nothing
         Me.dgvFeeManagementLists.ResultsCountLabelFormat = "{0} found"
-        Me.dgvFeeManagementLists.Size = New System.Drawing.Size(627, 586)
+        Me.dgvFeeManagementLists.Size = New System.Drawing.Size(609, 586)
         Me.dgvFeeManagementLists.StandardTab = True
         Me.dgvFeeManagementLists.TabIndex = 3
         '
@@ -1054,6 +1071,9 @@ Partial Class FeesManagement
         '
         Me.FeeManagementToolPanel.Controls.Add(Me.GroupBox1)
         Me.FeeManagementToolPanel.Controls.Add(Me.EnrollmentGroupbox)
+        Me.FeeManagementToolPanel.Controls.Add(Me.lblEnrollmentCount)
+        Me.FeeManagementToolPanel.Controls.Add(Me.lblMailoutCount)
+        Me.FeeManagementToolPanel.Controls.Add(Me.lblFeeYearCount)
         Me.FeeManagementToolPanel.Controls.Add(Me.btnViewMailout)
         Me.FeeManagementToolPanel.Controls.Add(Me.btnViewEnrolledFacilities)
         Me.FeeManagementToolPanel.Controls.Add(Me.btnViewFacilitiesSubjectToFees)
@@ -1063,7 +1083,7 @@ Partial Class FeesManagement
         Me.FeeManagementToolPanel.Dock = System.Windows.Forms.DockStyle.Left
         Me.FeeManagementToolPanel.Location = New System.Drawing.Point(3, 3)
         Me.FeeManagementToolPanel.Name = "FeeManagementToolPanel"
-        Me.FeeManagementToolPanel.Size = New System.Drawing.Size(185, 627)
+        Me.FeeManagementToolPanel.Size = New System.Drawing.Size(203, 627)
         Me.FeeManagementToolPanel.TabIndex = 0
         '
         'GroupBox1
@@ -1126,6 +1146,33 @@ Partial Class FeesManagement
         Me.btnFirstEnrollment.Text = "Enroll All Active Facilities For New Fee Year"
         Me.btnFirstEnrollment.UseVisualStyleBackColor = True
         '
+        'lblEnrollmentCount
+        '
+        Me.lblEnrollmentCount.Location = New System.Drawing.Point(161, 102)
+        Me.lblEnrollmentCount.Name = "lblEnrollmentCount"
+        Me.lblEnrollmentCount.Size = New System.Drawing.Size(35, 13)
+        Me.lblEnrollmentCount.TabIndex = 464
+        Me.lblEnrollmentCount.Text = "Count"
+        Me.lblEnrollmentCount.TextAlign = System.Drawing.ContentAlignment.TopRight
+        '
+        'lblMailoutCount
+        '
+        Me.lblMailoutCount.Location = New System.Drawing.Point(161, 73)
+        Me.lblMailoutCount.Name = "lblMailoutCount"
+        Me.lblMailoutCount.Size = New System.Drawing.Size(35, 13)
+        Me.lblMailoutCount.TabIndex = 464
+        Me.lblMailoutCount.Text = "Count"
+        Me.lblMailoutCount.TextAlign = System.Drawing.ContentAlignment.TopRight
+        '
+        'lblFeeYearCount
+        '
+        Me.lblFeeYearCount.Location = New System.Drawing.Point(161, 44)
+        Me.lblFeeYearCount.Name = "lblFeeYearCount"
+        Me.lblFeeYearCount.Size = New System.Drawing.Size(35, 13)
+        Me.lblFeeYearCount.TabIndex = 464
+        Me.lblFeeYearCount.Text = "Count"
+        Me.lblFeeYearCount.TextAlign = System.Drawing.ContentAlignment.TopRight
+        '
         'btnViewMailout
         '
         Me.btnViewMailout.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
@@ -1177,6 +1224,7 @@ Partial Class FeesManagement
         '
         Me.InitialMailoutGroupbox.Controls.Add(Me.dtpDateMailoutSent)
         Me.InitialMailoutGroupbox.Controls.Add(Me.btnSetMailoutDate)
+        Me.InitialMailoutGroupbox.Controls.Add(Me.lblInitialMailoutDate)
         Me.InitialMailoutGroupbox.Controls.Add(Me.btnGenerateMailoutList)
         Me.InitialMailoutGroupbox.Controls.Add(Me.btnUpdateContactData)
         Me.InitialMailoutGroupbox.Location = New System.Drawing.Point(12, 139)
@@ -1190,7 +1238,7 @@ Partial Class FeesManagement
         '
         Me.dtpDateMailoutSent.CustomFormat = "dd-MMM-yyyy"
         Me.dtpDateMailoutSent.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpDateMailoutSent.Location = New System.Drawing.Point(22, 119)
+        Me.dtpDateMailoutSent.Location = New System.Drawing.Point(22, 168)
         Me.dtpDateMailoutSent.Name = "dtpDateMailoutSent"
         Me.dtpDateMailoutSent.Size = New System.Drawing.Size(105, 20)
         Me.dtpDateMailoutSent.TabIndex = 2
@@ -1198,7 +1246,7 @@ Partial Class FeesManagement
         'btnSetMailoutDate
         '
         Me.btnSetMailoutDate.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnSetMailoutDate.Location = New System.Drawing.Point(6, 145)
+        Me.btnSetMailoutDate.Location = New System.Drawing.Point(6, 103)
         Me.btnSetMailoutDate.Name = "btnSetMailoutDate"
         Me.btnSetMailoutDate.Size = New System.Drawing.Size(137, 36)
         Me.btnSetMailoutDate.TabIndex = 3
@@ -1225,18 +1273,14 @@ Partial Class FeesManagement
         Me.btnUpdateContactData.Text = "Update Mailout List With Current Fee Contacts"
         Me.btnUpdateContactData.UseVisualStyleBackColor = True
         '
-        'AIRSNumberEntry
+        'lblInitialMailoutDate
         '
-        Me.AIRSNumberEntry.AirsNumber = Nothing
-        Me.AIRSNumberEntry.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange
-        Me.AIRSNumberEntry.ErrorMessageLabel = Nothing
-        Me.AIRSNumberEntry.FacilityMustExist = True
-        Me.AIRSNumberEntry.Location = New System.Drawing.Point(6, 11)
-        Me.AIRSNumberEntry.Name = "AIRSNumberEntry"
-        Me.AIRSNumberEntry.ReadOnly = False
-        Me.AIRSNumberEntry.Size = New System.Drawing.Size(78, 20)
-        Me.AIRSNumberEntry.TabIndex = 465
-        Me.AIRSNumberEntry.TextBoxBackColor = System.Drawing.SystemColors.Window
+        Me.lblInitialMailoutDate.Location = New System.Drawing.Point(6, 142)
+        Me.lblInitialMailoutDate.Name = "lblInitialMailoutDate"
+        Me.lblInitialMailoutDate.Size = New System.Drawing.Size(137, 32)
+        Me.lblInitialMailoutDate.TabIndex = 464
+        Me.lblInitialMailoutDate.Text = "Count"
+        Me.lblInitialMailoutDate.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
         'FeesManagement
         '
@@ -1377,4 +1421,8 @@ Partial Class FeesManagement
     Friend WithEvents btnViewEmailList As Button
     Friend WithEvents btnViewPhysicalMailList As Button
     Friend WithEvents AIRSNumberEntry As AirsNumberEntryForm
+    Friend WithEvents lblEnrollmentCount As Label
+    Friend WithEvents lblMailoutCount As Label
+    Friend WithEvents lblFeeYearCount As Label
+    Friend WithEvents lblInitialMailoutDate As Label
 End Class
