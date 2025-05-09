@@ -926,20 +926,43 @@ Public Class FeesManagement
     End Sub
 
     Private Sub cboAvailableFeeYears_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboAvailableFeeYears.SelectedIndexChanged
-        If cboAvailableFeeYears.SelectedIndex > 0 Then
-            btnGenerateMailoutList.Enabled = False
-            btnFirstEnrollment.Enabled = False
-            btnUnenrollFeeYear.Enabled = False
-            btnUpdateContactData.Enabled = False
-            btnSetMailoutDate.Enabled = False
-            dtpDateMailoutSent.Enabled = False
-        Else
-            btnGenerateMailoutList.Enabled = True
-            btnFirstEnrollment.Enabled = True
-            btnUnenrollFeeYear.Enabled = True
-            btnUpdateContactData.Enabled = True
-            btnSetMailoutDate.Enabled = True
-            dtpDateMailoutSent.Enabled = True
+        lblFeeYearCount.Text = ""
+        lblMailoutCount.Text = ""
+        lblEnrollmentCount.Text = ""
+        lblInitialMailoutDate.Text = ""
+
+        Dim buttonsEnabled As Boolean = cboAvailableFeeYears.SelectedIndex = 0
+
+        btnGenerateMailoutList.Enabled = buttonsEnabled
+        btnFirstEnrollment.Enabled = buttonsEnabled
+        btnUnenrollFeeYear.Enabled = buttonsEnabled
+        btnUpdateContactData.Enabled = buttonsEnabled
+        btnSetMailoutDate.Enabled = buttonsEnabled
+        dtpDateMailoutSent.Enabled = buttonsEnabled
+        btnViewEmailList.Enabled = buttonsEnabled
+        btnViewPhysicalMailList.Enabled = buttonsEnabled
+
+        Dim p As New SqlParameter("@FeeYear", cboAvailableFeeYears.Text)
+        Dim row As DataRow = DB.SPGetDataRow("dbo.GetFeeYearStats", p)
+
+        If row IsNot Nothing Then
+            lblFeeYearCount.Text = GetNullable(Of Integer)(row("FeeYearCount"))
+            lblEnrollmentCount.Text = GetNullable(Of Integer)(row("EnrollmentCount"))
+
+            Dim mailoutCount As Integer = GetNullable(Of Integer)(row("MailoutCount"))
+            lblMailoutCount.Text = mailoutCount
+            If mailoutCount > 0 Then
+                btnGenerateMailoutList.Enabled = False
+            Else
+                btnUpdateContactData.Enabled = False
+            End If
+
+            Dim initialMailoutDate As Date? = GetNullable(Of Date?)(row("InitialMailoutDate"))
+            If initialMailoutDate IsNot Nothing Then
+                lblInitialMailoutDate.Text = "Initial Mailout Date: " & vbNewLine & initialMailoutDate.Value.ToString("dd-MMM-yyyy")
+                btnSetMailoutDate.Enabled = False
+            End If
+
         End If
     End Sub
 
