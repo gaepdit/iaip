@@ -263,7 +263,11 @@
     <Compile Include="Users\IaipUserSecurity.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="_ApiCalls\EmailQueue\BatchRequest.vb" />
     <Compile Include="_ApiCalls\EmailQueue\EmailQueueApi.vb" />
+    <Compile Include="_ApiCalls\EmailQueue\EmailQueueResponse.vb" />
+    <Compile Include="_ApiCalls\EmailQueue\EmailTaskResult.vb" />
+    <Compile Include="_ApiCalls\EmailQueue\NewEmailTask.vb" />
     <Compile Include="_ApiCalls\IaipCx\CxApiRequestModels.vb" />
     <Compile Include="_ApiCalls\Utils\WebApiUtils.vb" />
     <Compile Include="_ApiCalls\Utils\WebRequestUtils.vb" />
