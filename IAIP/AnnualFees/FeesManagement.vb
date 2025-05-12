@@ -5,6 +5,8 @@ Imports Iaip.DAL
 Imports Microsoft.Data.SqlClient
 
 Public Class FeesManagement
+    Private SelectedFeeYearIndex As Integer = -1
+
 
     Private Sub PASPFeeManagement_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         LoadFeeRates()
@@ -926,6 +928,13 @@ Public Class FeesManagement
     End Sub
 
     Private Sub cboAvailableFeeYears_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboAvailableFeeYears.SelectedIndexChanged
+        If cboAvailableFeeYears.SelectedIndex < 0 OrElse cboAvailableFeeYears.SelectedIndex = SelectedFeeYearIndex Then
+            Return
+        End If
+        SelectedFeeYearIndex = cboAvailableFeeYears.SelectedIndex
+        FeeManagementListCountLabel.Text = ""
+        dgvFeeManagementLists.DataSource = Nothing
+
         lblFeeYearCount.Text = ""
         lblMailoutCount.Text = ""
         lblEnrollmentCount.Text = ""
