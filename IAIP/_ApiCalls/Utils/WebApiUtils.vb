@@ -8,22 +8,22 @@ Namespace ApiCalls.ApiUtils
         Public ReadOnly JsonOptions As New JsonSerializerOptions With {.PropertyNameCaseInsensitive = True}
         Public ReadOnly DefaultRequestOptions As New Options With {.ContentType = ContentType.ApplicationJson}
 
-        Public Function GetApiAsync(url As Uri, Optional requestOptions As Options = Nothing) As Task(Of String)
+        Public Function GetApiAsync(url As Uri, Optional requestOptions As Options = Nothing) As Task(Of Response)
             Return GetApiAsync(url.ToString(), requestOptions)
         End Function
 
-        Public Async Function GetApiAsync(url As String, Optional requestOptions As Options = Nothing) As Task(Of String)
+        Public Async Function GetApiAsync(url As String, Optional requestOptions As Options = Nothing) As Task(Of Response)
             If requestOptions Is Nothing Then requestOptions = DefaultRequestOptions
-            Return (Await GetAsync(url, requestOptions).ConfigureAwait(False)).Body
+            Return (Await GetAsync(url, requestOptions).ConfigureAwait(False))
         End Function
 
-        Public Function PostApiAsync(url As Uri, request As Object, Optional requestOptions As Options = Nothing) As Task(Of String)
+        Public Function PostApiAsync(url As Uri, request As Object, Optional requestOptions As Options = Nothing) As Task(Of Response)
             Return PostApiAsync(url.ToString(), request, requestOptions)
         End Function
 
-        Public Async Function PostApiAsync(url As String, request As Object, Optional requestOptions As Options = Nothing) As Task(Of String)
+        Public Async Function PostApiAsync(url As String, request As Object, Optional requestOptions As Options = Nothing) As Task(Of Response)
             If requestOptions Is Nothing Then requestOptions = DefaultRequestOptions
-            Return (Await PostAsync(url, JsonSerializer.Serialize(request), requestOptions).ConfigureAwait(False)).Body
+            Return Await PostAsync(url, JsonSerializer.Serialize(request), requestOptions).ConfigureAwait(False)
         End Function
 
         Public Function UriCombine(baseUrl As String, endpoint As String) As Uri
