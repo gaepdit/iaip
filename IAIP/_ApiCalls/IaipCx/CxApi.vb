@@ -1,4 +1,5 @@
 ﻿Imports System.Configuration
+Imports System.Net
 Imports System.Threading.Tasks
 Imports Iaip.ApiCalls.ApiUtils
 
@@ -18,27 +19,51 @@ Namespace ApiCalls.IaipCx
         ' API public functions
 
         Public Async Function CheckIaipStatusApiAsync() As Task(Of IaipStatusResult)
-            Return IaipStatusResult.ParseStatusResult(Await GetApiAsync(StatusEndpoint).ConfigureAwait(False))
+            Dim response As WebRequest.Response = Await GetApiAsync(StatusEndpoint).ConfigureAwait(False)
+            If response Is Nothing OrElse response.Result.StatusCode <> HttpStatusCode.OK Then
+                Return IaipStatusResult.IaipDisabled
+            End If
+            Return IaipStatusResult.ParseStatusResult(response.Body)
         End Function
 
         Public Async Function ValidateLoginApiAsync(request As LoginCredentials) As Task(Of String)
-            Return ParseAuthAndConfig(Await PostApiAsync(LoginEndpoint, request).ConfigureAwait(False))
+            Dim response As WebRequest.Response = Await PostApiAsync(LoginEndpoint, request).ConfigureAwait(False)
+            If response Is Nothing OrElse response.Result.StatusCode <> HttpStatusCode.OK Then
+                Return Nothing
+            End If
+            Return ParseAuthAndConfig(response.Body)
         End Function
 
         Public Async Function ValidateSessionApiAsync(request As SessionCredentials) As Task(Of String)
-            Return ParseAuthAndConfig((Await PostApiAsync(SessionEndpoint, request).ConfigureAwait(False)))
+            Dim response As WebRequest.Response = Await PostApiAsync(SessionEndpoint, request).ConfigureAwait(False)
+            If response Is Nothing OrElse response.Result.StatusCode <> HttpStatusCode.OK Then
+                Return Nothing
+            End If
+            Return ParseAuthAndConfig(response.Body)
         End Function
 
         Public Async Function RequestUsernameApiAsync(request As UsernameRequest) As Task(Of String)
-            Return Await PostApiAsync(RequestUsernameEndpoint, request).ConfigureAwait(False)
+            Dim response As WebRequest.Response = Await PostApiAsync(RequestUsernameEndpoint, request).ConfigureAwait(False)
+            If response Is Nothing OrElse response.Result.StatusCode <> HttpStatusCode.OK Then
+                Return Nothing
+            End If
+            Return response.Body
         End Function
 
         Public Async Function RequestUserPasswordResetApiAsync(request As PasswordResetRequest) As Task(Of String)
-            Return Await PostApiAsync(RequestUserPasswordResetEndpoint, request).ConfigureAwait(False)
+            Dim response As WebRequest.Response = Await PostApiAsync(RequestUserPasswordResetEndpoint, request).ConfigureAwait(False)
+            If response Is Nothing OrElse response.Result.StatusCode <> HttpStatusCode.OK Then
+                Return Nothing
+            End If
+            Return response.Body
         End Function
 
-        Public Function ResetUserPasswordApiAsync(request As PasswordReset) As Task(Of String)
-            Return PostApiAsync(ResetUserPasswordEndpoint, request)
+        Public Async Function ResetUserPasswordApiAsync(request As PasswordReset) As Task(Of String)
+            Dim response As WebRequest.Response = Await PostApiAsync(ResetUserPasswordEndpoint, request)
+            If response Is Nothing OrElse response.Result.StatusCode <> HttpStatusCode.OK Then
+                Return Nothing
+            End If
+            Return response.Body
         End Function
 
         ' Auth/app config parsing

@@ -22,6 +22,8 @@ Namespace ApiCalls.IaipCx
             Public Shared Function ParseStatusResult(jsonValue As String) As IaipStatusResult
                 Return JsonSerializer.Deserialize(Of IaipStatusResult)(jsonValue, JsonOptions)
             End Function
+
+            Public Shared IaipDisabled As New IaipStatusResult With {.Enabled = False, .MinimumVersion = String.Empty}
         End Class
 
     End Module

@@ -1,5 +1,6 @@
 ﻿Imports System.Collections.Generic
 Imports System.Configuration
+Imports System.Net
 Imports System.Text.Json
 Imports System.Threading.Tasks
 Imports Iaip.ApiCalls.ApiUtils
@@ -21,32 +22,38 @@ Namespace ApiCalls.EmailQueue
         Public Async Function SendEmailsAsync(emails As NewEmailTask()) As Task(Of EmailQueueResponse)
             If String.IsNullOrEmpty(ApiUrl) OrElse String.IsNullOrEmpty(ApiKey) Then Return Nothing
             Dim endpoint As Uri = UriCombine(ApiUrl, SendEndpoint)
-            Dim jsonValue As String
+            Dim response As Response
 
             Try
-                jsonValue = Await PostApiAsync(endpoint, emails, EmailQueueRequestOptions).ConfigureAwait(False)
+                response = Await PostApiAsync(endpoint, emails, EmailQueueRequestOptions).ConfigureAwait(False)
             Catch ex As Exception
-                Return Nothing
+                Return EmailQueueResponse.Failed
             End Try
 
-            If String.IsNullOrEmpty(jsonValue) Then Return Nothing
-            Return JsonSerializer.Deserialize(Of EmailQueueResponse)(jsonValue, JsonOptions)
+            If response Is Nothing OrElse response.Result.StatusCode <> HttpStatusCode.OK OrElse String.IsNullOrEmpty(response.Body) Then
+                Return EmailQueueResponse.Failed
+            End If
+
+            Return EmailQueueResponse.Ok(JsonSerializer.Deserialize(Of EmailQueueResponseBody)(response.Body, JsonOptions))
         End Function
 
-        Public Async Function GetBatchDetails(batchId As String) As Task(Of IEnumerable(Of EmailTaskViewModel))
+        Public Async Function GetBatchDetails(batchId As String) As Task(Of EmailBatchDetails)
             If String.IsNullOrEmpty(ApiUrl) OrElse String.IsNullOrEmpty(ApiKey) Then Return Nothing
             Dim endpoint As Uri = UriCombine(ApiUrl, BatchEndpoint)
             Dim batchRequest As New BatchRequest() With {.BatchId = batchId}
-            Dim jsonValue As String
+            Dim response As Response
 
             Try
-                jsonValue = Await PostApiAsync(endpoint, batchRequest, EmailQueueRequestOptions).ConfigureAwait(False)
+                response = Await PostApiAsync(endpoint, batchRequest, EmailQueueRequestOptions).ConfigureAwait(False)
             Catch ex As Exception
                 Return Nothing
             End Try
 
-            If String.IsNullOrEmpty(jsonValue) Then Return Nothing
-            Return JsonSerializer.Deserialize(Of List(Of EmailTaskViewModel))(jsonValue, JsonOptions)
+            If response Is Nothing OrElse response.Result.StatusCode <> HttpStatusCode.OK OrElse String.IsNullOrEmpty(response.Body) Then
+                Return EmailBatchDetails.Failed
+            End If
+
+            Return EmailBatchDetails.Ok(JsonSerializer.Deserialize(Of List(Of EmailTaskViewModel))(response.Body, JsonOptions))
         End Function
     End Module
 End Namespace
