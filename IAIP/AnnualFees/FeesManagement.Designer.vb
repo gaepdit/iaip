@@ -123,9 +123,9 @@ Partial Class FeesManagement
         Me.InitialMailoutGroupbox = New System.Windows.Forms.GroupBox()
         Me.dtpDateMailoutSent = New System.Windows.Forms.DateTimePicker()
         Me.btnSetMailoutDate = New System.Windows.Forms.Button()
+        Me.lblInitialMailoutDate = New System.Windows.Forms.Label()
         Me.btnGenerateMailoutList = New System.Windows.Forms.Button()
         Me.btnUpdateContactData = New System.Windows.Forms.Button()
-        Me.lblInitialMailoutDate = New System.Windows.Forms.Label()
         Me.FeeManagementTabControl.SuspendLayout()
         Me.TPFeeAdminTools.SuspendLayout()
         Me.TabControl2.SuspendLayout()
@@ -1099,20 +1099,20 @@ Partial Class FeesManagement
         '
         'btnViewEmailList
         '
-        Me.btnViewEmailList.Location = New System.Drawing.Point(6, 61)
+        Me.btnViewEmailList.Location = New System.Drawing.Point(6, 19)
         Me.btnViewEmailList.Name = "btnViewEmailList"
         Me.btnViewEmailList.Size = New System.Drawing.Size(137, 36)
         Me.btnViewEmailList.TabIndex = 0
-        Me.btnViewEmailList.Text = "View Mailout List for Email"
+        Me.btnViewEmailList.Text = "View Email List"
         Me.btnViewEmailList.UseVisualStyleBackColor = True
         '
         'btnViewPhysicalMailList
         '
-        Me.btnViewPhysicalMailList.Location = New System.Drawing.Point(6, 19)
+        Me.btnViewPhysicalMailList.Location = New System.Drawing.Point(6, 61)
         Me.btnViewPhysicalMailList.Name = "btnViewPhysicalMailList"
         Me.btnViewPhysicalMailList.Size = New System.Drawing.Size(137, 36)
         Me.btnViewPhysicalMailList.TabIndex = 0
-        Me.btnViewPhysicalMailList.Text = "View Mailout List for Physical Mail"
+        Me.btnViewPhysicalMailList.Text = "View Physical Mail List"
         Me.btnViewPhysicalMailList.UseVisualStyleBackColor = True
         '
         'EnrollmentGroupbox
@@ -1253,6 +1253,15 @@ Partial Class FeesManagement
         Me.btnSetMailoutDate.Text = "Save Initial Mailout Date" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "For Selected Fee Year"
         Me.btnSetMailoutDate.UseVisualStyleBackColor = True
         '
+        'lblInitialMailoutDate
+        '
+        Me.lblInitialMailoutDate.Location = New System.Drawing.Point(6, 142)
+        Me.lblInitialMailoutDate.Name = "lblInitialMailoutDate"
+        Me.lblInitialMailoutDate.Size = New System.Drawing.Size(137, 32)
+        Me.lblInitialMailoutDate.TabIndex = 464
+        Me.lblInitialMailoutDate.Text = "Initial Mailout Date"
+        Me.lblInitialMailoutDate.TextAlign = System.Drawing.ContentAlignment.TopCenter
+        '
         'btnGenerateMailoutList
         '
         Me.btnGenerateMailoutList.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
@@ -1272,15 +1281,6 @@ Partial Class FeesManagement
         Me.btnUpdateContactData.TabIndex = 1
         Me.btnUpdateContactData.Text = "Update Mailout List With Current Fee Contacts"
         Me.btnUpdateContactData.UseVisualStyleBackColor = True
-        '
-        'lblInitialMailoutDate
-        '
-        Me.lblInitialMailoutDate.Location = New System.Drawing.Point(6, 142)
-        Me.lblInitialMailoutDate.Name = "lblInitialMailoutDate"
-        Me.lblInitialMailoutDate.Size = New System.Drawing.Size(137, 32)
-        Me.lblInitialMailoutDate.TabIndex = 464
-        Me.lblInitialMailoutDate.Text = "Count"
-        Me.lblInitialMailoutDate.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
         'FeesManagement
         '

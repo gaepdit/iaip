@@ -639,60 +639,10 @@ Public Class FeesManagement
     End Sub
 
     Private Sub ViewEnrolledFacilities()
-        Try
-            Dim SQL As String = "select substring(a.strAIRSnumber, 5, 8)       as AIRSNumber,
-                   m.strFacilityname,
-                   case
-                       when m.STROPERATIONALSTATUS is null
-                           or m.STROPERATIONALSTATUS = ''
-                           or m.STROPERATIONALSTATUS = 'U' then 'Unspecified'
-                       when m.STROPERATIONALSTATUS in ('O', '1') then 'Operational'
-                       when m.STROPERATIONALSTATUS = 'P' then 'Planned'
-                       when m.STROPERATIONALSTATUS = 'C' then 'Under Construction'
-                       when m.STROPERATIONALSTATUS = 'T' then 'Temporarily Closed'
-                       when m.STROPERATIONALSTATUS in ('X', '0') then 'Closed/Dismantled'
-                       when m.STROPERATIONALSTATUS = 'I' then 'Seasonal Operation'
-                   end                                    as strOperationalStatus,
-                   m.strClass,
-                   IIF(m.strNSPS = '1', 'NSPS', '')       as strNSPS,
-                   IIF(m.NspsFeeExempt = 1, 'Exempt', '') as NspsFeeExempt,
-                   IIF(m.strPart70 = '1', 'Part 70', '')  as strPart70,
-                   m.datShutdowndate,
-                   m.strFacilityAddress1,
-                   m.STRFACILITYADDRESS2,
-                   m.strFacilityCity,
-                   m.strFacilityZipCode
-            from FS_ADMIN a
-                inner join FS_MAILOUT m
-                on a.strAIRSnumber = m.strAIRSnumber
-                    and a.numFeeYear = m.numFeeYear
-            where a.numFeeYear = @year
-              and a.Active = '1'
-              and strEnrolled = '1'
-            order by AIRSNumber"
-
-            Dim p As New SqlParameter("@year", cboAvailableFeeYears.Text)
-
-            dgvFeeManagementLists.DataSource = DB.GetDataTable(SQL, p)
-
-            dgvFeeManagementLists.Columns("AIRSNumber").HeaderText = "Airs No."
-            dgvFeeManagementLists.Columns("strFacilityName").HeaderText = "Facility Name - Snapshot"
-            dgvFeeManagementLists.Columns("STROPERATIONALSTATUS").HeaderText = "Operational Status - Snapshot"
-            dgvFeeManagementLists.Columns("STRCLASS").HeaderText = "Class - Snapshot"
-            dgvFeeManagementLists.Columns("strNSPS").HeaderText = "NSPS - Snapshot"
-            dgvFeeManagementLists.Columns("NspsFeeExempt").HeaderText = "NSPS Fee Exempt - Snapshot"
-            dgvFeeManagementLists.Columns("STRPART70").HeaderText = "Part 70 - Snapshot"
-            dgvFeeManagementLists.Columns("DATSHUTDOWNDATE").HeaderText = "Shutdown Date - Snapshot"
-            dgvFeeManagementLists.Columns("strFacilityAddress1").HeaderText = "Facility Address"
-            dgvFeeManagementLists.Columns("strFacilityAddress2").HeaderText = "Facility Address 2"
-            dgvFeeManagementLists.Columns("STRFACILITYCITY").HeaderText = "Facility City"
-            dgvFeeManagementLists.Columns("STRFACILITYZIPCODE").HeaderText = "Facility Zip Code"
-
-            FeeManagementListCountLabel.Text = $"Viewing enrolled facilities for the {cboAvailableFeeYears.Text } fee year: " &
-                $"{dgvFeeManagementLists.RowCount} result{If(dgvFeeManagementLists.RowCount = 1, "", "s") }"
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        Dim p As New SqlParameter("@feeYear", cboAvailableFeeYears.Text)
+        dgvFeeManagementLists.DataSource = DB.SPGetDataTable("dbo.GetFeeEnrolledList", p)
+        FeeManagementListCountLabel.Text = $"Viewing enrolled facilities for the {cboAvailableFeeYears.Text } fee year: " &
+            $"{dgvFeeManagementLists.RowCount} result{If(dgvFeeManagementLists.RowCount = 1, "", "s") }"
     End Sub
 
     Private Sub btnViewMailout_Click(sender As Object, e As EventArgs) Handles btnViewMailout.Click
@@ -836,61 +786,8 @@ Public Class FeesManagement
 
     Private Sub btnViewFacilitiesSubjectToFees_Click(sender As Object, e As EventArgs) Handles btnViewFacilitiesSubjectToFees.Click
         Try
-            Dim SQL As String = "select substring(f.strAIRSnumber, 5, 8)                               as AIRSNumber,
-                   strFacilityname,
-                   strFacilityStreet1,
-                   strFacilityCity,
-                   strFacilityZipCode,
-                   case
-                       when h.STROPERATIONALSTATUS is null
-                           or h.STROPERATIONALSTATUS = ''
-                           or h.STROPERATIONALSTATUS = 'U' then 'Unspecified'
-                       when h.STROPERATIONALSTATUS = 'O' then 'Operational'
-                       when h.STROPERATIONALSTATUS = 'P' then 'Planned'
-                       when h.STROPERATIONALSTATUS = 'C' then 'Under Construction'
-                       when h.STROPERATIONALSTATUS = 'T' then 'Temporarily Closed'
-                       when h.STROPERATIONALSTATUS = 'X' then 'Closed/Dismantled'
-                       when h.STROPERATIONALSTATUS = 'I' then 'Seasonal Operation'
-                   end                                                            as strOperationalStatus,
-                   strClass,
-                   IIF(substring(strAIRProgramCodes, 8, 1) = '1', 'NSPS', '')     as strNSPS,
-                   IIF(s.NspsFeeExempt = 1, 'Exempt', '')                         as NspsFeeExempt,
-                   IIF(substring(strAIRProgramCodes, 13, 1) = '1', 'Part 70', '') as strPArt70,
-                   datShutDownDate                                                as datShutdowndate,
-                   IIF(strEnrolled = '1', 'Yes', 'No')                            as strEnrolled,
-                   IIF(strInitialMailout = '1', 'Yes', 'No')                      as strInitialMailout,
-                   IIF(strMailoutSent = '1', 'Yes', 'No')                         as strMailoutSent
-            from FS_ADMIN f
-                inner join APBFACILITYINFORMATION i
-                on f.strAIRSnumber = i.strAIRSnumber
-                inner join APBHEADERDATA h
-                on f.strAIRSNumber = h.strAIRSNumber
-                inner join APBSUPPLAMENTALDATA s
-                on f.STRAIRSNUMBER = s.STRAIRSNUMBER
-            where f.numFeeYear = @year
-              and f.Active = '1'
-            order by AIRSNumber"
-
-            Dim p As New SqlParameter("@year", cboAvailableFeeYears.Text)
-            dgvFeeManagementLists.DataSource = DB.GetDataTable(SQL, p)
-
-            dgvFeeManagementLists.Columns("AIRSNumber").HeaderText = "Airs No."
-            dgvFeeManagementLists.Columns("strFacilityName").HeaderText = "Facility Name - Current Data"
-            dgvFeeManagementLists.Columns("strFacilityStreet1").HeaderText = "Facility Street - Current Data"
-            dgvFeeManagementLists.Columns("STRFACILITYCITY").HeaderText = "Facility City - Current Data"
-            dgvFeeManagementLists.Columns("STRFACILITYZIPCODE").HeaderText = "Facility Zip Code - Current Data"
-
-            dgvFeeManagementLists.Columns("STROPERATIONALSTATUS").HeaderText = "Operational Status - Current Data"
-            dgvFeeManagementLists.Columns("STRCLASS").HeaderText = "Class - Current Data"
-            dgvFeeManagementLists.Columns("strNSPS").HeaderText = "NSPS - Current Data"
-            dgvFeeManagementLists.Columns("NspsFeeExempt").HeaderText = "NSPS Fee Exempt - Current Data"
-            dgvFeeManagementLists.Columns("STRPART70").HeaderText = "Part 70 Source - Current Data"
-            dgvFeeManagementLists.Columns("DATSHUTDOWNDATE").HeaderText = "Shutdown Date - Current Data"
-
-            dgvFeeManagementLists.Columns("strEnrolled").HeaderText = "Enrolled Facility"
-            dgvFeeManagementLists.Columns("strInitialMailout").HeaderText = "In Initial Mailout"
-            dgvFeeManagementLists.Columns("strMailoutSent").HeaderText = "In Mailout"
-
+            Dim p As New SqlParameter("@feeYear", cboAvailableFeeYears.Text)
+            dgvFeeManagementLists.DataSource = DB.SPGetDataTable("dbo.GetFeeUniverse", p)
             FeeManagementListCountLabel.Text = $"Viewing facilities subject to fees for the {cboAvailableFeeYears.Text } fee year: " &
                 $"{dgvFeeManagementLists.RowCount} result{If(dgvFeeManagementLists.RowCount = 1, "", "s") }"
         Catch ex As Exception
@@ -1098,7 +995,7 @@ Public Class FeesManagement
 
     Private Sub btnViewPhysicalMailList_Click(sender As Object, e As EventArgs) Handles btnViewPhysicalMailList.Click
         Dim p As New SqlParameter("@feeYear", cboAvailableFeeYears.Text)
-        dgvFeeManagementLists.DataSource = DB.SPGetDataTable("dbo.GetFeeMailoutMailList", p)
+        dgvFeeManagementLists.DataSource = DB.SPGetDataTable("dbo.GetFeeMailoutPhysicalMailList", p)
         FeeManagementListCountLabel.Text = $"Viewing facilities in the {cboAvailableFeeYears.Text } mailout list requiring physical mail: " &
                 $"{dgvFeeManagementLists.RowCount} result{If(dgvFeeManagementLists.RowCount = 1, "", "s") }"
     End Sub
@@ -1106,7 +1003,7 @@ Public Class FeesManagement
     Private Sub btnViewEmailList_Click(sender As Object, e As EventArgs) Handles btnViewEmailList.Click
         Dim p As New SqlParameter("@feeYear", cboAvailableFeeYears.Text)
         dgvFeeManagementLists.DataSource = DB.SPGetDataTable("dbo.GetFeeMailoutEmailList", p)
-        FeeManagementListCountLabel.Text = $"Viewing facilities in the {cboAvailableFeeYears.Text } mailout list requesting electronic mail: " &
+        FeeManagementListCountLabel.Text = $"Viewing email addresses for facilities in the {cboAvailableFeeYears.Text } mailout list: " &
                 $"{dgvFeeManagementLists.RowCount} result{If(dgvFeeManagementLists.RowCount = 1, "", "s") }"
     End Sub
 
