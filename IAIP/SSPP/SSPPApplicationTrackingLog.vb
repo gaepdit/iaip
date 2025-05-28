@@ -7136,6 +7136,13 @@ Public Class SSPPApplicationTrackingLog
             valid = False
         End If
 
+        valid = valid AndAlso ValidateForm_FeesTab()
+        Return valid
+    End Function
+
+    Private Function ValidateForm_FeesTab() As Boolean
+        Dim valid As Boolean = True
+
         If chbAppFee.Checked AndAlso cmbAppFeeType.SelectedIndex = -1 Then
             MessageBox.Show("An application fee type is not selected.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             valid = False
@@ -13798,6 +13805,12 @@ Public Class SSPPApplicationTrackingLog
     End Sub
 
     Private Sub chbFeeDataFinalized_CheckedChanged(sender As Object, e As EventArgs) Handles chbFeeDataFinalized.CheckedChanged
+        If chbFeeDataFinalized.Checked Then
+            If Not ValidateForm_FeesTab() Then
+                chbFeeDataFinalized.Checked = False
+            End If
+        End If
+
         AdjustFeesUI()
     End Sub
 
