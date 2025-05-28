@@ -7136,11 +7136,11 @@ Public Class SSPPApplicationTrackingLog
             valid = False
         End If
 
-        valid = valid AndAlso ValidateForm_FeesTab()
+        valid = valid AndAlso ValidateFormFeesTab()
         Return valid
     End Function
 
-    Private Function ValidateForm_FeesTab() As Boolean
+    Private Function ValidateFormFeesTab() As Boolean
         Dim valid As Boolean = True
 
         If chbAppFee.Checked AndAlso cmbAppFeeType.SelectedIndex = -1 Then
@@ -13805,10 +13805,8 @@ Public Class SSPPApplicationTrackingLog
     End Sub
 
     Private Sub chbFeeDataFinalized_CheckedChanged(sender As Object, e As EventArgs) Handles chbFeeDataFinalized.CheckedChanged
-        If chbFeeDataFinalized.Checked Then
-            If Not ValidateForm_FeesTab() Then
-                chbFeeDataFinalized.Checked = False
-            End If
+        If chbFeeDataFinalized.Checked AndAlso Not ValidateFormFeesTab() Then
+            chbFeeDataFinalized.Checked = False
         End If
 
         AdjustFeesUI()
