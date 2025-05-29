@@ -24,7 +24,7 @@ Namespace ApiCalls.EmailQueue
         }
 
         Public Async Function SendEmailsAsync(emails As NewEmailTask()) As Task(Of EmailQueueResponse)
-            If String.IsNullOrEmpty(ApiUrl) OrElse String.IsNullOrEmpty(ApiKey) Then Return Nothing
+            If String.IsNullOrEmpty(ApiUrl) OrElse String.IsNullOrEmpty(ClientId) OrElse String.IsNullOrEmpty(ApiKey) Then Return Nothing
             Dim endpoint As Uri = UriCombine(ApiUrl, SendEndpoint)
             Dim response As Response
 
@@ -41,8 +41,8 @@ Namespace ApiCalls.EmailQueue
             Return EmailQueueResponse.Ok(JsonSerializer.Deserialize(Of EmailQueueResponseBody)(response.Body, JsonOptions))
         End Function
 
-        Public Async Function GetBatchDetails(batchId As String) As Task(Of EmailBatchDetails)
-            If String.IsNullOrEmpty(ApiUrl) OrElse String.IsNullOrEmpty(ApiKey) Then Return Nothing
+        Public Async Function GetBatchDetails(batchId As Guid) As Task(Of EmailBatchDetails)
+            If String.IsNullOrEmpty(ApiUrl) OrElse String.IsNullOrEmpty(ClientId) OrElse String.IsNullOrEmpty(ApiKey) Then Return Nothing
             Dim endpoint As Uri = UriCombine(ApiUrl, BatchEndpoint)
             Dim batchRequest As New BatchRequest() With {.BatchId = batchId}
             Dim response As Response
@@ -59,5 +59,10 @@ Namespace ApiCalls.EmailQueue
 
             Return EmailBatchDetails.Ok(JsonSerializer.Deserialize(Of List(Of EmailTaskViewModel))(response.Body, JsonOptions))
         End Function
+
+        Public Class BatchRequest
+            Public Property BatchId As Guid
+        End Class
+
     End Module
 End Namespace

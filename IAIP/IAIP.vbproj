@@ -263,8 +263,6 @@
     <Compile Include="Users\IaipUserSecurity.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="_Code\AnnualFeeNotifications.vb" />
-    <Compile Include="_Code\ApiCalls\EmailQueue\Models\BatchRequest.vb" />
     <Compile Include="_Code\ApiCalls\EmailQueue\EmailQueueApi.vb" />
     <Compile Include="_Code\ApiCalls\EmailQueue\Models\EmailQueueResponse.vb" />
     <Compile Include="_Code\ApiCalls\EmailQueue\Models\EmailTaskResult.vb" />

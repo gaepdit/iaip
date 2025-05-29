@@ -1,6 +1,10 @@
 Imports System.Collections.Generic
+Imports System.Configuration
+Imports System.Linq
 Imports System.Text
+Imports System.Threading.Tasks
 Imports GaEpd.DBUtilities
+Imports Iaip.Apb
 Imports Iaip.ApiCalls.EmailQueue
 Imports Iaip.DAL
 Imports Microsoft.Data.SqlClient
@@ -9,6 +13,7 @@ Public Class FeesManagement
     Private SelectedFeeYearIndex As Integer = -1
     Private EnableAutomatedEmailNotification As Boolean = False
     Private AnnualFeeDueDate As Date = Nothing
+    Private EmailBatchId As Guid? = Nothing
 
     Private Sub PASPFeeManagement_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         LoadFeeRates()
@@ -783,8 +788,14 @@ Public Class FeesManagement
             Not IsDBNull(e.Value) AndAlso
             dgvFeeManagementLists.Columns(e.ColumnIndex).HeaderText = "Airs No." AndAlso
             Apb.ApbFacilityId.IsValidAirsNumberFormat(e.Value.ToString()) Then
+
             e.Value = New Apb.ApbFacilityId(e.Value.ToString).FormattedString
-            Console.WriteLine(e.Value)
+
+        ElseIf e IsNot Nothing AndAlso e.Value IsNot Nothing AndAlso Not IsDBNull(e.Value) AndAlso
+            dgvFeeManagementLists.Columns(e.ColumnIndex).HeaderText = "Sent" AndAlso TypeOf e.Value Is Date Then
+
+            e.CellStyle.Format = "yyyy-MM-dd HH:mm:ss"
+
         End If
     End Sub
 
@@ -800,7 +811,6 @@ Public Class FeesManagement
     End Sub
 
     Private Async Sub btnSetMailoutDate_Click(sender As Object, e As EventArgs) Handles btnSendInitialEmail.Click
-
         Dim userResponse As DialogResult = MessageBox.Show($"Are you sure you want to send the initial e-notification for the {cboAvailableFeeYears.Text } fee year?" &
             vbNewLine & vbNewLine & "(This will send a mass email to all sources in the mailout list for which an email address is available.)",
             "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1)
@@ -815,7 +825,7 @@ Public Class FeesManagement
         End If
 
         Try
-            Dim response As EmailQueueResponse = Await AnnualFeesCode.SendAnnualFeeNotificationAsync(dv, cboAvailableFeeYears.Text, AnnualFeeDueDate)
+            Dim response As EmailQueueResponse = Await SendAnnualFeeNotificationAsync(dv, cboAvailableFeeYears.Text, AnnualFeeDueDate)
 
             If response Is Nothing Then
                 MessageBox.Show("There was a problem sending the initial email notification. Please contact EPD-IT for more information.",
@@ -845,6 +855,7 @@ Public Class FeesManagement
         End Try
 
         LoadFeeYearData()
+        Await LoadEmailBatchDetailsAsync()
     End Sub
 
     Private Sub cboAvailableFeeYears_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboAvailableFeeYears.SelectedIndexChanged
@@ -862,6 +873,8 @@ Public Class FeesManagement
         lblMailoutCount.Text = ""
         lblEnrollmentCount.Text = ""
         lblInitialMailoutDate.Text = ""
+        lblInitialMailoutDate.Visible = False
+        btnViewEmailBatchStatus.Visible = False
 
         Dim buttonsEnabled As Boolean = cboAvailableFeeYears.SelectedIndex = 0
 
@@ -869,7 +882,7 @@ Public Class FeesManagement
         btnFirstEnrollment.Enabled = buttonsEnabled
         btnUnenrollFeeYear.Enabled = buttonsEnabled
         btnUpdateContactData.Enabled = buttonsEnabled
-        btnSendInitialEmail.Enabled = False
+        btnSendInitialEmail.Visible = False
         EnableAutomatedEmailNotification = buttonsEnabled
         btnViewEmailList.Enabled = buttonsEnabled
         btnViewPhysicalMailList.Enabled = buttonsEnabled
@@ -897,8 +910,12 @@ Public Class FeesManagement
             Dim initialMailoutDate As Date? = GetNullable(Of Date?)(row("InitialMailoutDate"))
             If initialMailoutDate IsNot Nothing Then
                 lblInitialMailoutDate.Text = "Initial Mailout Date: " & vbNewLine & initialMailoutDate.Value.ToString("dd-MMM-yyyy")
+                lblInitialMailoutDate.Visible = True
                 EnableAutomatedEmailNotification = False
             End If
+
+            EmailBatchId = GetNullable(Of Guid?)(row("InitialMailoutEmailBatchId"))
+            btnViewEmailBatchStatus.Visible = EmailBatchId IsNot Nothing
 
             Dim month As Integer = Date.Today.Month
 
@@ -1042,11 +1059,73 @@ Public Class FeesManagement
         FeeManagementListCountLabel.Text = $"Viewing email addresses for facilities in the {cboAvailableFeeYears.Text } mailout list: " &
                 $"{dgvFeeManagementLists.RowCount} result{If(dgvFeeManagementLists.RowCount = 1, "", "s") }"
 
-        btnSendInitialEmail.Enabled = EnableAutomatedEmailNotification AndAlso dgvFeeManagementLists.RowCount > 0
+        btnSendInitialEmail.Visible = EnableAutomatedEmailNotification AndAlso dgvFeeManagementLists.RowCount > 0
     End Sub
 
     Private Sub dgvFeeManagementLists_DataSourceChanged(sender As Object, e As EventArgs) Handles dgvFeeManagementLists.DataSourceChanged
-        btnSendInitialEmail.Enabled = False
+        btnSendInitialEmail.Visible = False
+        dgvFeeManagementLists.LinkifyFirstColumn = dgvFeeManagementLists.DataSource IsNot Nothing AndAlso
+            dgvFeeManagementLists.Columns(0).HeaderText = "Airs No."
     End Sub
+
+    Private Async Sub btnViewEmailBatchStatus_Click(sender As Object, e As EventArgs) Handles btnViewEmailBatchStatus.Click
+        Await LoadEmailBatchDetailsAsync()
+    End Sub
+
+    Private Async Function LoadEmailBatchDetailsAsync() As Task
+        Dim response As EmailBatchDetails = Await GetBatchDetails(EmailBatchId)
+
+        If response.Status = "Failed" OrElse response.Emails Is Nothing OrElse Not response.Emails.Any() Then
+            MessageBox.Show("There was a problem retrieving the email batch status. Please contact EPD-IT for more information.",
+                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+        Else
+            dgvFeeManagementLists.DataSource = response.Emails.OrderBy(Function(p) p.Counter).Select(Function(p) New With {
+                p.Status, .Sent = p.AttemptedAt, p.Subject, .Recipients = String.Join(", ", p.Recipients)
+            }).ToList()
+        End If
+    End Function
+
+    Private Async Function SendAnnualFeeNotificationAsync(dv As DataView, feeYear As Integer, deadline As Date) As Task(Of EmailQueueResponse)
+        Dim emails As New List(Of NewEmailTask)
+        Dim gecoUrl As String = ConfigurationManager.AppSettings("GecoUrl")
+        Dim deadlineFormatted As String = deadline.ToString("MMMM d, yyyy")
+
+        For Each rowView As DataRowView In dv
+            Dim recipientsList As List(Of String) = rowView("Emails").ToString().Split(","c).Select(Function(s) s.Trim()).ToList()
+            Dim airsNumber As String = rowView("Airs No.").ToString().Trim()
+            Dim airsNumberFormatted As String = $"{Strings.Left(airsNumber, 3)}-{Strings.Right(airsNumber, 5)}"
+            Dim facilityName As String = rowView("Facility Name (snapshot)").ToString().Trim()
+
+            Dim newEmail As New NewEmailTask() With {
+                .From = "GeorgiaAirProtectionBranch@dnr.ga.gov",
+                .Recipients = recipientsList,
+                .Subject = $"Data Collection for {feeYear} Calendar Year Emission Fees (AIRS #{airsNumberFormatted}: {facilityName})",
+                .Body = EmailBody(feeYear, deadlineFormatted, gecoUrl)
+            }
+
+            emails.Add(newEmail)
+        Next
+
+        Return Await SendEmailsAsync(emails.ToArray()).ConfigureAwait(False)
+    End Function
+
+    Private Function EmailBody(feeYear As Integer, deadline As String, gecoUrl As String) As String
+        Return $"Dear Sir/Madam:
+
+This letter is a notification that you must complete the Georgia Air Emission Fees Reporting form for the {feeYear} calendar year. You must complete and submit the Emission Fees Reporting form, even if no fees are due. For the {feeYear} calendar year, you should report your respective fee amount via an ""online fee form."" This online form will eliminate the need to send paper forms and allow immediate reporting. Additionally, this online form has features to check the data, reducing the need to contact you for additional or corrected information.
+
+You must complete your online Emission Fees Reporting form by {deadline}. You must still complete the online form if your facility did not operate during the calendar year. 
+
+Please refer to the following links for information and instructions on accessing the forms:
+
+    * GECO Registration and Information: {gecoUrl}files/Generating-an-Invoice-on-GECO.pdf
+    * Generating an Invoice on GECO: {gecoUrl}files/GECO-Information-Sheet.pdf
+
+Sincerely,
+Lydia Davis
+Fee Unit Manager
+Financial Unit
+"
+    End Function
 
 End Class
