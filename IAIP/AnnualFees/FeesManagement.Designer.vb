@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class FeesManagement
     Inherits BaseForm
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class FeesManagement
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
@@ -106,12 +106,15 @@ Partial Class FeesManagement
         Me.FeeManagementListCountLabel = New System.Windows.Forms.Label()
         Me.btnOpenFeesLog = New System.Windows.Forms.Button()
         Me.FeeManagementToolPanel = New System.Windows.Forms.Panel()
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.MailoutInfoGroupBox = New System.Windows.Forms.GroupBox()
+        Me.btnSendInitialEmail = New System.Windows.Forms.Button()
+        Me.lblInitialMailoutDate = New System.Windows.Forms.Label()
         Me.btnViewEmailList = New System.Windows.Forms.Button()
         Me.btnViewPhysicalMailList = New System.Windows.Forms.Button()
         Me.EnrollmentGroupbox = New System.Windows.Forms.GroupBox()
         Me.btnUnenrollFeeYear = New System.Windows.Forms.Button()
         Me.btnFirstEnrollment = New System.Windows.Forms.Button()
+        Me.lblFeeDueDate = New System.Windows.Forms.Label()
         Me.lblEnrollmentCount = New System.Windows.Forms.Label()
         Me.lblMailoutCount = New System.Windows.Forms.Label()
         Me.lblFeeYearCount = New System.Windows.Forms.Label()
@@ -121,9 +124,6 @@ Partial Class FeesManagement
         Me.cboAvailableFeeYears = New System.Windows.Forms.ComboBox()
         Me.Label18 = New System.Windows.Forms.Label()
         Me.InitialMailoutGroupbox = New System.Windows.Forms.GroupBox()
-        Me.dtpDateMailoutSent = New System.Windows.Forms.DateTimePicker()
-        Me.btnSetMailoutDate = New System.Windows.Forms.Button()
-        Me.lblInitialMailoutDate = New System.Windows.Forms.Label()
         Me.btnGenerateMailoutList = New System.Windows.Forms.Button()
         Me.btnUpdateContactData = New System.Windows.Forms.Button()
         Me.FeeManagementTabControl.SuspendLayout()
@@ -145,7 +145,7 @@ Partial Class FeesManagement
         Me.FeeManagementSidePanel.SuspendLayout()
         CType(Me.dgvFeeManagementLists, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.FeeManagementToolPanel.SuspendLayout()
-        Me.GroupBox1.SuspendLayout()
+        Me.MailoutInfoGroupBox.SuspendLayout()
         Me.EnrollmentGroupbox.SuspendLayout()
         Me.InitialMailoutGroupbox.SuspendLayout()
         Me.SuspendLayout()
@@ -1069,8 +1069,9 @@ Partial Class FeesManagement
         '
         'FeeManagementToolPanel
         '
-        Me.FeeManagementToolPanel.Controls.Add(Me.GroupBox1)
+        Me.FeeManagementToolPanel.Controls.Add(Me.MailoutInfoGroupBox)
         Me.FeeManagementToolPanel.Controls.Add(Me.EnrollmentGroupbox)
+        Me.FeeManagementToolPanel.Controls.Add(Me.lblFeeDueDate)
         Me.FeeManagementToolPanel.Controls.Add(Me.lblEnrollmentCount)
         Me.FeeManagementToolPanel.Controls.Add(Me.lblMailoutCount)
         Me.FeeManagementToolPanel.Controls.Add(Me.lblFeeYearCount)
@@ -1086,16 +1087,37 @@ Partial Class FeesManagement
         Me.FeeManagementToolPanel.Size = New System.Drawing.Size(203, 627)
         Me.FeeManagementToolPanel.TabIndex = 0
         '
-        'GroupBox1
+        'MailoutInfoGroupBox
         '
-        Me.GroupBox1.Controls.Add(Me.btnViewEmailList)
-        Me.GroupBox1.Controls.Add(Me.btnViewPhysicalMailList)
-        Me.GroupBox1.Location = New System.Drawing.Point(12, 470)
-        Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(151, 110)
-        Me.GroupBox1.TabIndex = 6
-        Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Mailout Communication"
+        Me.MailoutInfoGroupBox.Controls.Add(Me.btnSendInitialEmail)
+        Me.MailoutInfoGroupBox.Controls.Add(Me.lblInitialMailoutDate)
+        Me.MailoutInfoGroupBox.Controls.Add(Me.btnViewEmailList)
+        Me.MailoutInfoGroupBox.Controls.Add(Me.btnViewPhysicalMailList)
+        Me.MailoutInfoGroupBox.Location = New System.Drawing.Point(12, 413)
+        Me.MailoutInfoGroupBox.Name = "MailoutInfoGroupBox"
+        Me.MailoutInfoGroupBox.Size = New System.Drawing.Size(151, 193)
+        Me.MailoutInfoGroupBox.TabIndex = 6
+        Me.MailoutInfoGroupBox.TabStop = False
+        Me.MailoutInfoGroupBox.Text = "Mailout Information"
+        '
+        'btnSendInitialEmail
+        '
+        Me.btnSendInitialEmail.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.btnSendInitialEmail.Location = New System.Drawing.Point(6, 90)
+        Me.btnSendInitialEmail.Name = "btnSendInitialEmail"
+        Me.btnSendInitialEmail.Size = New System.Drawing.Size(137, 36)
+        Me.btnSendInitialEmail.TabIndex = 3
+        Me.btnSendInitialEmail.Text = "Send Initial Email Notification for Fee Year"
+        Me.btnSendInitialEmail.UseVisualStyleBackColor = True
+        '
+        'lblInitialMailoutDate
+        '
+        Me.lblInitialMailoutDate.Location = New System.Drawing.Point(6, 142)
+        Me.lblInitialMailoutDate.Name = "lblInitialMailoutDate"
+        Me.lblInitialMailoutDate.Size = New System.Drawing.Size(139, 32)
+        Me.lblInitialMailoutDate.TabIndex = 464
+        Me.lblInitialMailoutDate.Text = "Initial Mailout Date"
+        Me.lblInitialMailoutDate.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
         'btnViewEmailList
         '
@@ -1110,7 +1132,7 @@ Partial Class FeesManagement
         '
         Me.btnViewPhysicalMailList.Location = New System.Drawing.Point(6, 61)
         Me.btnViewPhysicalMailList.Name = "btnViewPhysicalMailList"
-        Me.btnViewPhysicalMailList.Size = New System.Drawing.Size(137, 36)
+        Me.btnViewPhysicalMailList.Size = New System.Drawing.Size(137, 23)
         Me.btnViewPhysicalMailList.TabIndex = 0
         Me.btnViewPhysicalMailList.Text = "View Physical Mail List"
         Me.btnViewPhysicalMailList.UseVisualStyleBackColor = True
@@ -1119,7 +1141,7 @@ Partial Class FeesManagement
         '
         Me.EnrollmentGroupbox.Controls.Add(Me.btnUnenrollFeeYear)
         Me.EnrollmentGroupbox.Controls.Add(Me.btnFirstEnrollment)
-        Me.EnrollmentGroupbox.Location = New System.Drawing.Point(12, 352)
+        Me.EnrollmentGroupbox.Location = New System.Drawing.Point(12, 269)
         Me.EnrollmentGroupbox.Name = "EnrollmentGroupbox"
         Me.EnrollmentGroupbox.Size = New System.Drawing.Size(151, 99)
         Me.EnrollmentGroupbox.TabIndex = 5
@@ -1145,6 +1167,15 @@ Partial Class FeesManagement
         Me.btnFirstEnrollment.TabIndex = 0
         Me.btnFirstEnrollment.Text = "Enroll All Active Facilities For New Fee Year"
         Me.btnFirstEnrollment.UseVisualStyleBackColor = True
+        '
+        'lblFeeDueDate
+        '
+        Me.lblFeeDueDate.Location = New System.Drawing.Point(15, 371)
+        Me.lblFeeDueDate.Name = "lblFeeDueDate"
+        Me.lblFeeDueDate.Size = New System.Drawing.Size(142, 26)
+        Me.lblFeeDueDate.TabIndex = 464
+        Me.lblFeeDueDate.Text = "Reporting Due Date:" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Tomorrow"
+        Me.lblFeeDueDate.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
         'lblEnrollmentCount
         '
@@ -1222,45 +1253,14 @@ Partial Class FeesManagement
         '
         'InitialMailoutGroupbox
         '
-        Me.InitialMailoutGroupbox.Controls.Add(Me.dtpDateMailoutSent)
-        Me.InitialMailoutGroupbox.Controls.Add(Me.btnSetMailoutDate)
-        Me.InitialMailoutGroupbox.Controls.Add(Me.lblInitialMailoutDate)
         Me.InitialMailoutGroupbox.Controls.Add(Me.btnGenerateMailoutList)
         Me.InitialMailoutGroupbox.Controls.Add(Me.btnUpdateContactData)
         Me.InitialMailoutGroupbox.Location = New System.Drawing.Point(12, 139)
         Me.InitialMailoutGroupbox.Name = "InitialMailoutGroupbox"
-        Me.InitialMailoutGroupbox.Size = New System.Drawing.Size(151, 194)
+        Me.InitialMailoutGroupbox.Size = New System.Drawing.Size(151, 111)
         Me.InitialMailoutGroupbox.TabIndex = 4
         Me.InitialMailoutGroupbox.TabStop = False
         Me.InitialMailoutGroupbox.Text = "Initial Mailout"
-        '
-        'dtpDateMailoutSent
-        '
-        Me.dtpDateMailoutSent.CustomFormat = "dd-MMM-yyyy"
-        Me.dtpDateMailoutSent.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpDateMailoutSent.Location = New System.Drawing.Point(22, 168)
-        Me.dtpDateMailoutSent.Name = "dtpDateMailoutSent"
-        Me.dtpDateMailoutSent.Size = New System.Drawing.Size(105, 20)
-        Me.dtpDateMailoutSent.TabIndex = 2
-        '
-        'btnSetMailoutDate
-        '
-        Me.btnSetMailoutDate.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnSetMailoutDate.Location = New System.Drawing.Point(6, 103)
-        Me.btnSetMailoutDate.Name = "btnSetMailoutDate"
-        Me.btnSetMailoutDate.Size = New System.Drawing.Size(137, 36)
-        Me.btnSetMailoutDate.TabIndex = 3
-        Me.btnSetMailoutDate.Text = "Save Initial Mailout Date" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "For Selected Fee Year"
-        Me.btnSetMailoutDate.UseVisualStyleBackColor = True
-        '
-        'lblInitialMailoutDate
-        '
-        Me.lblInitialMailoutDate.Location = New System.Drawing.Point(6, 142)
-        Me.lblInitialMailoutDate.Name = "lblInitialMailoutDate"
-        Me.lblInitialMailoutDate.Size = New System.Drawing.Size(137, 32)
-        Me.lblInitialMailoutDate.TabIndex = 464
-        Me.lblInitialMailoutDate.Text = "Initial Mailout Date"
-        Me.lblInitialMailoutDate.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
         'btnGenerateMailoutList
         '
@@ -1317,7 +1317,7 @@ Partial Class FeesManagement
         CType(Me.dgvFeeManagementLists, System.ComponentModel.ISupportInitialize).EndInit()
         Me.FeeManagementToolPanel.ResumeLayout(False)
         Me.FeeManagementToolPanel.PerformLayout()
-        Me.GroupBox1.ResumeLayout(False)
+        Me.MailoutInfoGroupBox.ResumeLayout(False)
         Me.EnrollmentGroupbox.ResumeLayout(False)
         Me.InitialMailoutGroupbox.ResumeLayout(False)
         Me.ResumeLayout(False)
@@ -1395,8 +1395,7 @@ Partial Class FeesManagement
     Friend WithEvents btnClearNSPSExemptions As System.Windows.Forms.Button
     Friend WithEvents btnViewFacilitiesSubjectToFees As System.Windows.Forms.Button
     Friend WithEvents btnUpdateContactData As System.Windows.Forms.Button
-    Friend WithEvents dtpDateMailoutSent As System.Windows.Forms.DateTimePicker
-    Friend WithEvents btnSetMailoutDate As System.Windows.Forms.Button
+    Friend WithEvents btnSendInitialEmail As System.Windows.Forms.Button
     Friend WithEvents btnViewEnrolledFacilities As System.Windows.Forms.Button
     Friend WithEvents btnViewMailout As System.Windows.Forms.Button
     Friend WithEvents Label12 As System.Windows.Forms.Label
@@ -1417,7 +1416,7 @@ Partial Class FeesManagement
     Friend WithEvents FeeManagementSidePanel As System.Windows.Forms.Panel
     Friend WithEvents Label5 As Label
     Friend WithEvents txtPart70MaintenanceFee As TextBox
-    Friend WithEvents GroupBox1 As GroupBox
+    Friend WithEvents MailoutInfoGroupBox As GroupBox
     Friend WithEvents btnViewEmailList As Button
     Friend WithEvents btnViewPhysicalMailList As Button
     Friend WithEvents AIRSNumberEntry As AirsNumberEntryForm
@@ -1425,4 +1424,5 @@ Partial Class FeesManagement
     Friend WithEvents lblMailoutCount As Label
     Friend WithEvents lblFeeYearCount As Label
     Friend WithEvents lblInitialMailoutDate As Label
+    Friend WithEvents lblFeeDueDate As Label
 End Class

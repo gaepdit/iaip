@@ -1,12 +1,14 @@
 Imports System.Collections.Generic
 Imports System.Text
 Imports GaEpd.DBUtilities
+Imports Iaip.ApiCalls.EmailQueue
 Imports Iaip.DAL
 Imports Microsoft.Data.SqlClient
 
 Public Class FeesManagement
     Private SelectedFeeYearIndex As Integer = -1
-
+    Private EnableAutomatedEmailNotification As Boolean = False
+    Private AnnualFeeDueDate As Date = Nothing
 
     Private Sub PASPFeeManagement_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         LoadFeeRates()
@@ -676,6 +678,8 @@ Public Class FeesManagement
     Private Sub ViewMailOut()
         Dim p As New SqlParameter("@feeYear", cboAvailableFeeYears.Text)
         dgvFeeManagementLists.DataSource = DB.SPGetDataTable("dbo.GetFeeMailoutList", p)
+        lblMailoutCount.Text = dgvFeeManagementLists.RowCount
+
         FeeManagementListCountLabel.Text = $"Viewing facilities in the mailout list for the {cboAvailableFeeYears.Text } fee year: " &
                 $"{dgvFeeManagementLists.RowCount} result{If(dgvFeeManagementLists.RowCount = 1, "", "s") }"
     End Sub
@@ -795,39 +799,61 @@ Public Class FeesManagement
         End Try
     End Sub
 
-    Private Sub btnSetMailoutDate_Click(sender As Object, e As EventArgs) Handles btnSetMailoutDate.Click
-        If DialogResult.No = MessageBox.Show("Are you sure you want to set the initial mailout date for all sources in the mailout list?",
-                                             "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1) Then
+    Private Async Sub btnSetMailoutDate_Click(sender As Object, e As EventArgs) Handles btnSendInitialEmail.Click
+
+        Dim userResponse As DialogResult = MessageBox.Show($"Are you sure you want to send the initial e-notification for the {cboAvailableFeeYears.Text } fee year?" &
+            vbNewLine & vbNewLine & "(This will send a mass email to all sources in the mailout list for which an email address is available.)",
+            "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1)
+
+        If userResponse = DialogResult.No Then Return
+
+        Dim dv As DataView = TryCast(dgvFeeManagementLists.DataSource, DataView)
+
+        If dv Is Nothing Then
+            MessageBox.Show("There are no sources available in the list.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return
         End If
 
         Try
-            Dim SQL As String = "Update FS_Admin set " &
-            " datMailoutSent = @date, " &
-            " numcurrentstatus = 4, " &
-            " STRINITIALMAILOUT = '1' , " &
-            " strMailOutSent = '1' " &
-            " where numFeeYear = @year " &
-            " and datMailoutSent is null " &
-            " and strEnrolled = '1' " &
-            " and active = '1' "
-            Dim p As SqlParameter() = {
-                New SqlParameter("@date", dtpDateMailoutSent.Value),
-                New SqlParameter("@year", cboAvailableFeeYears.Text)
-            }
-            DB.RunCommand(SQL, p)
+            Dim response As EmailQueueResponse = Await AnnualFeesCode.SendAnnualFeeNotificationAsync(dv, cboAvailableFeeYears.Text, AnnualFeeDueDate)
 
-            MsgBox("Mailout Sent date set.", MsgBoxStyle.Information, Me.Text)
+            If response Is Nothing Then
+                MessageBox.Show("There was a problem sending the initial email notification. Please contact EPD-IT for more information.",
+                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Else
+                If response.Body Is Nothing Then
+                    MessageBox.Show("There was a problem sending the initial email notification. Please contact EPD-IT for more information." &
+                                    vbNewLine & vbNewLine & $"Emailer Status: {response.Status}",
+                                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                ElseIf response.Body.Status = "Empty" Then
+                    MessageBox.Show("No emails were sent.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Else
+                    Dim p As SqlParameter() = {
+                        New SqlParameter("@feeYear", cboAvailableFeeYears.Text),
+                        New SqlParameter("@batchId", response.Body.BatchId)
+                    }
+                    DB.SPRunCommand("dbo.SetInitialFeeNotificationDate", p)
 
+                    MessageBox.Show($"The initial email notification has been processed and {response.Body.Count} emails have been queued.",
+                                    "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                End If
+            End If
         Catch ex As Exception
+            MessageBox.Show("There was an error sending the initial email notification. Please contact EPD-IT for more information.",
+                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
+
+        LoadFeeYearData()
     End Sub
 
     Private Sub cboAvailableFeeYears_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboAvailableFeeYears.SelectedIndexChanged
-        If cboAvailableFeeYears.SelectedIndex < 0 OrElse cboAvailableFeeYears.SelectedIndex = SelectedFeeYearIndex Then
-            Return
+        If cboAvailableFeeYears.SelectedIndex >= 0 AndAlso cboAvailableFeeYears.SelectedIndex <> SelectedFeeYearIndex Then
+            LoadFeeYearData()
         End If
+    End Sub
+
+    Private Sub LoadFeeYearData()
         SelectedFeeYearIndex = cboAvailableFeeYears.SelectedIndex
         FeeManagementListCountLabel.Text = ""
         dgvFeeManagementLists.DataSource = Nothing
@@ -843,8 +869,8 @@ Public Class FeesManagement
         btnFirstEnrollment.Enabled = buttonsEnabled
         btnUnenrollFeeYear.Enabled = buttonsEnabled
         btnUpdateContactData.Enabled = buttonsEnabled
-        btnSetMailoutDate.Enabled = buttonsEnabled
-        dtpDateMailoutSent.Enabled = buttonsEnabled
+        btnSendInitialEmail.Enabled = False
+        EnableAutomatedEmailNotification = buttonsEnabled
         btnViewEmailList.Enabled = buttonsEnabled
         btnViewPhysicalMailList.Enabled = buttonsEnabled
 
@@ -854,6 +880,11 @@ Public Class FeesManagement
         If row IsNot Nothing Then
             lblFeeYearCount.Text = GetNullable(Of Integer)(row("FeeYearCount"))
             lblEnrollmentCount.Text = GetNullable(Of Integer)(row("EnrollmentCount"))
+
+            AnnualFeeDueDate = GetNullableDateTime(row("AnnualFeeDueDate"))
+            If AnnualFeeDueDate <> Nothing Then
+                lblFeeDueDate.Text = "Reporting Due Date:" & vbNewLine & Format(AnnualFeeDueDate, "dd-MMM-yyyy")
+            End If
 
             Dim mailoutCount As Integer = GetNullable(Of Integer)(row("MailoutCount"))
             lblMailoutCount.Text = mailoutCount
@@ -866,9 +897,14 @@ Public Class FeesManagement
             Dim initialMailoutDate As Date? = GetNullable(Of Date?)(row("InitialMailoutDate"))
             If initialMailoutDate IsNot Nothing Then
                 lblInitialMailoutDate.Text = "Initial Mailout Date: " & vbNewLine & initialMailoutDate.Value.ToString("dd-MMM-yyyy")
-                btnSetMailoutDate.Enabled = False
+                EnableAutomatedEmailNotification = False
             End If
 
+            Dim month As Integer = Date.Today.Month
+
+            If month < 5 OrElse month > 7 Then
+                EnableAutomatedEmailNotification = False
+            End If
         End If
     End Sub
 
@@ -1005,6 +1041,12 @@ Public Class FeesManagement
         dgvFeeManagementLists.DataSource = DB.SPGetDataTable("dbo.GetFeeMailoutEmailList", p)
         FeeManagementListCountLabel.Text = $"Viewing email addresses for facilities in the {cboAvailableFeeYears.Text } mailout list: " &
                 $"{dgvFeeManagementLists.RowCount} result{If(dgvFeeManagementLists.RowCount = 1, "", "s") }"
+
+        btnSendInitialEmail.Enabled = EnableAutomatedEmailNotification AndAlso dgvFeeManagementLists.RowCount > 0
+    End Sub
+
+    Private Sub dgvFeeManagementLists_DataSourceChanged(sender As Object, e As EventArgs) Handles dgvFeeManagementLists.DataSourceChanged
+        btnSendInitialEmail.Enabled = False
     End Sub
 
 End Class

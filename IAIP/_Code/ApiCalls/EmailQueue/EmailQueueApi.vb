@@ -9,6 +9,7 @@ Imports Iaip.ApiCalls.WebRequest
 Namespace ApiCalls.EmailQueue
     Friend Module EmailQueueApi
         Private ReadOnly ApiUrl As String = ConfigurationManager.AppSettings("EmailQueueApiUrl")
+        Private ReadOnly ClientId As String = ConfigurationManager.AppSettings("EmailQueueClientId")
         Private ReadOnly ApiKey As String = ConfigurationManager.AppSettings("EmailQueueApiKey")
 
         Private Const SendEndpoint As String = "add"
@@ -16,7 +17,10 @@ Namespace ApiCalls.EmailQueue
 
         Private ReadOnly EmailQueueRequestOptions As New Options With {
             .ContentType = ContentType.ApplicationJson,
-            .Headers = New Net.WebHeaderCollection From {{"X-API-Key", ApiKey}}
+            .Headers = New WebHeaderCollection From {
+                {"X-Client-ID", ClientId},
+                {"X-API-Key", ApiKey}
+            }
         }
 
         Public Async Function SendEmailsAsync(emails As NewEmailTask()) As Task(Of EmailQueueResponse)
