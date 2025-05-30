@@ -39,8 +39,8 @@ Namespace ApiCalls.EmailQueue
             Return EmailQueueResponse.Ok(JsonSerializer.Deserialize(Of EmailQueueResponseBody)(response.Body, JsonOptions))
         End Function
 
-        Public Async Function GetBatchDetails(batchId As Guid) As Task(Of EmailBatchDetails)
-            If String.IsNullOrEmpty(ApiUrl) Then Return Nothing
+        Public Async Function GetBatchDetails(batchId As Guid?) As Task(Of EmailBatchDetails)
+            If String.IsNullOrEmpty(ApiUrl) OrElse Not batchId.HasValue Then Return Nothing
             Dim endpoint As Uri = UriCombine(ApiUrl, BatchEndpoint)
             Dim batchRequest As New BatchRequest() With {.BatchId = batchId}
             Dim response As Response

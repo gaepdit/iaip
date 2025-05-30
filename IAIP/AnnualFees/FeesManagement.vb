@@ -810,7 +810,7 @@ Public Class FeesManagement
         End Try
     End Sub
 
-    Private Async Sub btnSetMailoutDate_Click(sender As Object, e As EventArgs) Handles btnSendInitialEmail.Click
+    Private Async Sub btnSendInitialEmail_Click(sender As Object, e As EventArgs) Handles btnSendInitialEmail.Click
         Dim userResponse As DialogResult = MessageBox.Show($"Are you sure you want to send the initial e-notification for the {cboAvailableFeeYears.Text } fee year?" &
             vbNewLine & vbNewLine & "(This will send a mass email to all sources in the mailout list for which an email address is available.)",
             "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1)
@@ -846,6 +846,8 @@ Public Class FeesManagement
 
                     MessageBox.Show($"The initial email notification has been processed and {response.Body.Count} emails have been queued.",
                                     "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+                    Await LoadEmailBatchDetailsAsync()
                 End If
             End If
         Catch ex As Exception
@@ -855,7 +857,6 @@ Public Class FeesManagement
         End Try
 
         LoadFeeYearData()
-        Await LoadEmailBatchDetailsAsync()
     End Sub
 
     Private Sub cboAvailableFeeYears_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboAvailableFeeYears.SelectedIndexChanged
@@ -1075,7 +1076,7 @@ Public Class FeesManagement
     Private Async Function LoadEmailBatchDetailsAsync() As Task
         Dim response As EmailBatchDetails = Await GetBatchDetails(EmailBatchId)
 
-        If response.Status = "Failed" OrElse response.Emails Is Nothing OrElse Not response.Emails.Any() Then
+        If response Is Nothing OrElse response.Status = "Failed" OrElse response.Emails Is Nothing OrElse Not response.Emails.Any() Then
             MessageBox.Show("There was a problem retrieving the email batch status. Please contact EPD-IT for more information.",
                             "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
         Else
