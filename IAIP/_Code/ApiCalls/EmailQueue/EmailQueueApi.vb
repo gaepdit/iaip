@@ -9,8 +9,6 @@ Imports Iaip.ApiCalls.WebRequest
 Namespace ApiCalls.EmailQueue
     Friend Module EmailQueueApi
         Private ReadOnly ApiUrl As String = ConfigurationManager.AppSettings("EmailQueueApiUrl")
-        Private ReadOnly ClientId As String = ConfigurationManager.AppSettings("EmailQueueClientId")
-        Private ReadOnly ApiKey As String = ConfigurationManager.AppSettings("EmailQueueApiKey")
 
         Private Const SendEndpoint As String = "add"
         Private Const BatchEndpoint As String = "batch"
@@ -18,13 +16,13 @@ Namespace ApiCalls.EmailQueue
         Private ReadOnly EmailQueueRequestOptions As New Options With {
             .ContentType = ContentType.ApplicationJson,
             .Headers = New WebHeaderCollection From {
-                {"X-Client-ID", ClientId},
-                {"X-API-Key", ApiKey}
+                {"X-Client-ID", CurrentAppConfig.EmailQueueClientId},
+                {"X-API-Key", CurrentAppConfig.EmailQueueApiKey}
             }
         }
 
         Public Async Function SendEmailsAsync(emails As NewEmailTask()) As Task(Of EmailQueueResponse)
-            If String.IsNullOrEmpty(ApiUrl) OrElse String.IsNullOrEmpty(ClientId) OrElse String.IsNullOrEmpty(ApiKey) Then Return Nothing
+            If String.IsNullOrEmpty(ApiUrl) Then Return Nothing
             Dim endpoint As Uri = UriCombine(ApiUrl, SendEndpoint)
             Dim response As Response
 
@@ -42,7 +40,7 @@ Namespace ApiCalls.EmailQueue
         End Function
 
         Public Async Function GetBatchDetails(batchId As Guid) As Task(Of EmailBatchDetails)
-            If String.IsNullOrEmpty(ApiUrl) OrElse String.IsNullOrEmpty(ClientId) OrElse String.IsNullOrEmpty(ApiKey) Then Return Nothing
+            If String.IsNullOrEmpty(ApiUrl) Then Return Nothing
             Dim endpoint As Uri = UriCombine(ApiUrl, BatchEndpoint)
             Dim batchRequest As New BatchRequest() With {.BatchId = batchId}
             Dim response As Response

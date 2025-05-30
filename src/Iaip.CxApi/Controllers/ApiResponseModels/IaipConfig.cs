@@ -3,25 +3,17 @@ using System.Text.Json.Serialization;
 
 namespace Iaip.CxApi.Controllers.ApiResponseModels;
 
+[UsedImplicitly(ImplicitUseTargetFlags.Members)]
 public record IaipConfig
 {
-    [UsedImplicitly]
-    public string DatabaseIp { get; init; } = "";
-
-    [UsedImplicitly]
-    public string DatabasePort { get; init; } = "";
-
-    [UsedImplicitly]
-    public string DatabaseUser { get; init; } = "";
-
-    [UsedImplicitly]
-    public string DatabasePassword { get; init; } = "";
-
-    [UsedImplicitly]
-    public string GoogleMapsApiKey { get; init; } = "";
-
-    [UsedImplicitly]
-    public string RaygunApiKey { get; init; } = "";
+    public required string DatabaseIp { get; init; }
+    public required string DatabasePort { get; init; }
+    public required string DatabaseUser { get; init; }
+    public required string DatabasePassword { get; init; }
+    public required string GoogleMapsApiKey { get; init; }
+    public required string RaygunApiKey { get; init; }
+    public required Guid EmailQueueClientId { get; init; }
+    public required string EmailQueueApiKey { get; init; }
 
     [JsonIgnore]
     public string GetConnectionString => new SqlConnectionStringBuilder
