@@ -1108,7 +1108,7 @@ Partial Class FeesManagement
         Me.lblInitialMailoutDate.Name = "lblInitialMailoutDate"
         Me.lblInitialMailoutDate.Size = New System.Drawing.Size(121, 36)
         Me.lblInitialMailoutDate.TabIndex = 464
-        Me.lblInitialMailoutDate.Text = "Initial Mailout Date"
+        Me.lblInitialMailoutDate.Text = "Initial Mailout Date:" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Yesterday"
         Me.lblInitialMailoutDate.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
         'btnSendInitialEmail

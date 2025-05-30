@@ -691,8 +691,8 @@ Public Class FeesManagement
 
     Private Sub btnUpdateContactData_Click(sender As Object, e As EventArgs) Handles btnUpdateContactData.Click
         ' Warn user
-        If DialogResult.No = MessageBox.Show("This will replace mailout contact data with the current " & vbNewLine &
-                                             "fee contact for all sources in the mailout list. " &
+        If DialogResult.No = MessageBox.Show("This will replace mailout contact data with the current" & vbNewLine &
+                                             "fee contact for all sources in the mailout list." &
                                              vbNewLine & vbNewLine &
                                              "Are you sure you want to proceed? ",
                                              "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation,
@@ -909,7 +909,7 @@ Public Class FeesManagement
 
             Dim initialMailoutDate As Date? = GetNullable(Of Date?)(row("InitialMailoutDate"))
             If initialMailoutDate IsNot Nothing Then
-                lblInitialMailoutDate.Text = "Initial Mailout Date: " & vbNewLine & initialMailoutDate.Value.ToString("dd-MMM-yyyy")
+                lblInitialMailoutDate.Text = "Initial Mailout Date:" & vbNewLine & initialMailoutDate.Value.ToString("dd-MMM-yyyy")
                 lblInitialMailoutDate.Visible = True
                 EnableAutomatedEmailNotification = False
             End If
