@@ -106,6 +106,7 @@ Partial Class FeesManagement
         Me.FeeManagementListCountLabel = New System.Windows.Forms.Label()
         Me.btnOpenFeesLog = New System.Windows.Forms.Button()
         Me.FeeManagementToolPanel = New System.Windows.Forms.Panel()
+        Me.btnRefreshFeeYearStats = New System.Windows.Forms.Button()
         Me.MailoutInfoGroupBox = New System.Windows.Forms.GroupBox()
         Me.lblInitialMailoutDate = New System.Windows.Forms.Label()
         Me.btnSendInitialEmail = New System.Windows.Forms.Button()
@@ -1070,6 +1071,7 @@ Partial Class FeesManagement
         '
         'FeeManagementToolPanel
         '
+        Me.FeeManagementToolPanel.Controls.Add(Me.btnRefreshFeeYearStats)
         Me.FeeManagementToolPanel.Controls.Add(Me.MailoutInfoGroupBox)
         Me.FeeManagementToolPanel.Controls.Add(Me.EnrollmentGroupbox)
         Me.FeeManagementToolPanel.Controls.Add(Me.lblFeeDueDate)
@@ -1087,6 +1089,16 @@ Partial Class FeesManagement
         Me.FeeManagementToolPanel.Name = "FeeManagementToolPanel"
         Me.FeeManagementToolPanel.Size = New System.Drawing.Size(203, 627)
         Me.FeeManagementToolPanel.TabIndex = 0
+        '
+        'btnRefreshFeeYearStats
+        '
+        Me.btnRefreshFeeYearStats.Image = Global.Iaip.My.Resources.Resources.RefreshIcon
+        Me.btnRefreshFeeYearStats.Location = New System.Drawing.Point(163, 10)
+        Me.btnRefreshFeeYearStats.Name = "btnRefreshFeeYearStats"
+        Me.btnRefreshFeeYearStats.Size = New System.Drawing.Size(34, 23)
+        Me.btnRefreshFeeYearStats.TabIndex = 2
+        Me.btnRefreshFeeYearStats.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.btnRefreshFeeYearStats.UseVisualStyleBackColor = True
         '
         'MailoutInfoGroupBox
         '
@@ -1437,4 +1449,5 @@ Partial Class FeesManagement
     Friend WithEvents lblInitialMailoutDate As Label
     Friend WithEvents lblFeeDueDate As Label
     Friend WithEvents btnViewEmailBatchStatus As Button
+    Friend WithEvents btnRefreshFeeYearStats As Button
 End Class

@@ -671,6 +671,8 @@ Public Class FeesManagement
                 MsgBox("The mailout list has already been generated.", MsgBoxStyle.Exclamation, Me.Text)
             ElseIf returnValue = -1 Then
                 MsgBox("There was an error generating the mailout list.", MsgBoxStyle.Exclamation, Me.Text)
+            Else
+                btnGenerateMailoutList.Enabled = False
             End If
 
             ViewMailOut()
@@ -825,6 +827,9 @@ Public Class FeesManagement
         End If
 
         Try
+            btnSendInitialEmail.Enabled = False
+            Cursor = Cursors.WaitCursor
+
             Dim response As EmailQueueResponse = Await SendAnnualFeeNotificationAsync(dv, cboAvailableFeeYears.Text, AnnualFeeDueDate)
 
             If response Is Nothing Then
@@ -854,18 +859,22 @@ Public Class FeesManagement
             MessageBox.Show("There was an error sending the initial email notification. Please contact EPD-IT for more information.",
                             "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+        Finally
+            Cursor = Cursors.Default
         End Try
 
         LoadFeeYearData()
     End Sub
 
     Private Sub cboAvailableFeeYears_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboAvailableFeeYears.SelectedIndexChanged
-        If cboAvailableFeeYears.SelectedIndex >= 0 AndAlso cboAvailableFeeYears.SelectedIndex <> SelectedFeeYearIndex Then
+        If cboAvailableFeeYears.SelectedIndex <> SelectedFeeYearIndex Then
             LoadFeeYearData()
         End If
     End Sub
 
     Private Sub LoadFeeYearData()
+        If cboAvailableFeeYears.SelectedIndex < 0 Then Return
+
         SelectedFeeYearIndex = cboAvailableFeeYears.SelectedIndex
         FeeManagementListCountLabel.Text = ""
         dgvFeeManagementLists.DataSource = Nothing
@@ -893,11 +902,15 @@ Public Class FeesManagement
 
         If row IsNot Nothing Then
             lblFeeYearCount.Text = GetNullable(Of Integer)(row("FeeYearCount"))
-            lblEnrollmentCount.Text = GetNullable(Of Integer)(row("EnrollmentCount"))
 
-            AnnualFeeDueDate = GetNullableDateTime(row("AnnualFeeDueDate"))
-            If AnnualFeeDueDate <> Nothing Then
-                lblFeeDueDate.Text = "Reporting Due Date:" & vbNewLine & Format(AnnualFeeDueDate, "dd-MMM-yyyy")
+            Dim enrollmentCount As Integer = GetNullable(Of Integer)(row("EnrollmentCount"))
+            lblEnrollmentCount.Text = enrollmentCount
+            If enrollmentCount > 0 Then
+                btnFirstEnrollment.Enabled = False
+                btnUnenrollFeeYear.Enabled = True
+            Else
+                btnFirstEnrollment.Enabled = True
+                btnUnenrollFeeYear.Enabled = False
             End If
 
             Dim mailoutCount As Integer = GetNullable(Of Integer)(row("MailoutCount"))
@@ -915,11 +928,15 @@ Public Class FeesManagement
                 EnableAutomatedEmailNotification = False
             End If
 
+            AnnualFeeDueDate = GetNullableDateTime(row("AnnualFeeDueDate"))
+            If AnnualFeeDueDate <> Nothing Then
+                lblFeeDueDate.Text = "Reporting Due Date:" & vbNewLine & Format(AnnualFeeDueDate, "dd-MMM-yyyy")
+            End If
+
             EmailBatchId = GetNullable(Of Guid?)(row("InitialMailoutEmailBatchId"))
             btnViewEmailBatchStatus.Visible = EmailBatchId IsNot Nothing
 
             Dim month As Integer = Date.Today.Month
-
             If month < 5 OrElse month > 7 Then
                 EnableAutomatedEmailNotification = False
             End If
@@ -1061,6 +1078,7 @@ Public Class FeesManagement
                 $"{dgvFeeManagementLists.RowCount} result{If(dgvFeeManagementLists.RowCount = 1, "", "s") }"
 
         btnSendInitialEmail.Visible = EnableAutomatedEmailNotification AndAlso dgvFeeManagementLists.RowCount > 0
+        btnSendInitialEmail.Enabled = btnSendInitialEmail.Visible
     End Sub
 
     Private Sub dgvFeeManagementLists_DataSourceChanged(sender As Object, e As EventArgs) Handles dgvFeeManagementLists.DataSourceChanged
@@ -1128,5 +1146,9 @@ Fee Unit Manager
 Financial Unit
 "
     End Function
+
+    Private Sub btnRefreshFeeYearStats_Click(sender As Object, e As EventArgs) Handles btnRefreshFeeYearStats.Click
+        LoadFeeYearData()
+    End Sub
 
 End Class
