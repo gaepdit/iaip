@@ -1,3 +1,4 @@
+Imports Iaip.DAL
 Imports Microsoft.Data.SqlClient
 
 Public Class FeesDeposits
@@ -10,8 +11,8 @@ Public Class FeesDeposits
     Private Sub PASPDepositsAmendments_Load(sender As Object, e As EventArgs) Handles Me.Load
         dtpDepositReportStartDate.Value = Today.AddMonths(-1)
         dtpDepositReportEndDate.Value = Today
-        cbYear.DataSource = DAL.GetAllFeeYears()
-        cbYear2.DataSource = DAL.GetAllFeeYears()
+        cbYear.DataSource = AnnualFees.GetAllFeeYears()
+        cbYear2.DataSource = AnnualFees.GetAllFeeYears()
     End Sub
 
 #End Region
@@ -508,7 +509,7 @@ Public Class FeesDeposits
                     Return
                 End If
 
-                If Not DAL.UpdateFeeAdminStatus(CInt(cbYear2.Text), New Apb.ApbFacilityId(AirsNumberEntry.Text)) Then
+                If Not AnnualFees.UpdateFeeAdminStatus(CInt(cbYear2.Text), New Apb.ApbFacilityId(AirsNumberEntry.Text)) Then
                     MessageBox.Show("There was an error updating the database.", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 End If
 
@@ -596,7 +597,7 @@ Public Class FeesDeposits
                         Return
                     End If
 
-                    If Not DAL.UpdateFeeAdminStatus(CInt(cbYear2.Text), New Apb.ApbFacilityId(AirsNumberEntry.Text)) Then
+                    If Not AnnualFees.UpdateFeeAdminStatus(CInt(cbYear2.Text), New Apb.ApbFacilityId(AirsNumberEntry.Text)) Then
                         MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     End If
 
@@ -662,11 +663,11 @@ Public Class FeesDeposits
                 Return
             End If
 
-            If Not DAL.InvoiceStatusCheck(txtInvoiceForDeposit.Text) Then
+            If Not AnnualFees.InvoiceStatusCheck(txtInvoiceForDeposit.Text) Then
                 MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End If
 
-            If Not DAL.UpdateFeeAdminStatus(cbYear2.Text, AirsNumberEntry.Text) Then
+            If Not AnnualFees.UpdateFeeAdminStatus(cbYear2.Text, AirsNumberEntry.Text) Then
                 MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End If
 

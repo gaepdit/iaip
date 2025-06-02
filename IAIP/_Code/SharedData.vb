@@ -1,5 +1,6 @@
 ﻿Imports System.Collections.Generic
 Imports Iaip.Apb.Facilities
+Imports Iaip.DAL
 
 Public Module SharedData
     Private ReadOnly _initLock As New Object()
@@ -70,7 +71,7 @@ Public Module SharedData
                     dt = DAL.GetIaipAccountRoles()
 
                 Case SharedTable.AllFeeFacilities
-                    dt = DAL.GetAllFeeFacilities()
+                    dt = AnnualFees.GetAllFeeFacilities()
 
                 Case SharedTable.EpdManagers
                     dt = DAL.GetEpdManagersAsDataTable()
@@ -88,7 +89,7 @@ Public Module SharedData
                     dt = DAL.GetFacilityOwnershipTypes()
 
                 Case SharedTable.FeeYears
-                    dt = DAL.GetAllFeeYearsAsDataTable()
+                    dt = AnnualFees.GetAllFeeYearsAsDataTable()
 
             End Select
 
@@ -172,7 +173,7 @@ Public Module SharedData
             Select Case obj
 
                 Case SharedObject.FeeRatesSchedule
-                    myObj = DAL.Finance.LoadFeeRatesSchedule()
+                    myObj = DAL.ApplicationFees.LoadFeeRatesSchedule()
 
             End Select
 
