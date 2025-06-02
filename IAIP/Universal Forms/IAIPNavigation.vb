@@ -29,12 +29,6 @@ Public Class IAIPNavigation
         EnableConnectionEnvironmentOptions()
         DisplayUsername()
 
-#If SqlServer Then
-        Me.Text = "IAIP SQL Server Edition"
-#ElseIf UAT Then
-        Me.Text = "IAIP UAT"
-#End If
-
         AddHandler NetworkChange.NetworkAddressChanged, AddressOf AddressChangedCallback
     End Sub
 
@@ -234,10 +228,6 @@ Public Class IAIPNavigation
                 lblTitle.Text = "IAIP Navigation Screen — UAT"
                 'TestingMenu.Visible = True
         End Select
-
-#If SqlServer Then
-        lblTitle.Text = "IAIP for SQL Server"
-#End If
     End Sub
 
 #End Region
