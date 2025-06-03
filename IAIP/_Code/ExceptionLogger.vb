@@ -14,6 +14,8 @@ Friend Module ExceptionLogger
             Return False
         End If
 
+        If CurrentAppConfig Is Nothing OrElse String.IsNullOrEmpty(CurrentAppConfig.RaygunApiKey) Then Return False
+
         Dim client As New RaygunClient(CurrentAppConfig.RaygunApiKey) With {
             .ApplicationVersion = GetCurrentVersionAsMajorMinorBuild().ToString
         }
