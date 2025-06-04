@@ -843,6 +843,7 @@ Public Class FeesManagement
             Return
         End If
 
+        Dim success As Boolean = False
         Try
             btnSendInitialEmail.Enabled = False
             Cursor = Cursors.WaitCursor
@@ -869,7 +870,7 @@ Public Class FeesManagement
                     MessageBox.Show($"The initial email notification has been processed and {response.Body.Count} emails have been queued.",
                                     "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
-                    Await LoadEmailBatchDetailsAsync()
+                    success = True
                 End If
             End If
         Catch ex As Exception
@@ -881,6 +882,7 @@ Public Class FeesManagement
         End Try
 
         LoadFeeYearData()
+        If success Then Await LoadEmailBatchDetailsAsync()
     End Sub
 
     Private Sub cboAvailableFeeYears_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboAvailableFeeYears.SelectedIndexChanged
