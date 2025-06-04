@@ -1131,14 +1131,26 @@ Public Class FeesManagement
             MessageBox.Show("There was a problem retrieving the email batch status. Please try again.",
                             "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
         Else
-            dgvFeeManagementLists.DataSource = response.Emails.OrderBy(Function(p) p.Counter).Select(Function(p) New With {
-                p.Status, .Sent = p.AttemptedAt, p.Subject, .Recipients = String.Join(", ", p.Recipients)
-            }).ToList()
+            dgvFeeManagementLists.DataSource = response.Emails.OrderBy(Function(p) p.Counter).Select(Function(p) New EmailRecord(p)).ToList()
 
             FeeManagementListCountLabel.Text = $"Viewing status of emails generated for the {cboAvailableFeeYears.Text } initial mailout: " &
                 $"{dgvFeeManagementLists.RowCount} result{If(dgvFeeManagementLists.RowCount = 1, "", "s") }"
         End If
     End Function
+
+    Private Class EmailRecord
+        Public Sub New(email As EmailTaskViewModel)
+            Status = email.Status
+            Sent = If(email.AttemptedAt.HasValue, email.AttemptedAt.Value.ToLocalTime(), CType(Nothing, Date?))
+            Subject = email.Subject
+            Recipients = String.Join(", ", email.Recipients)
+        End Sub
+
+        Public Property Status As String
+        Public Property Sent As Date?
+        Public Property Subject As String
+        Public Property Recipients As String
+    End Class
 
     Private Async Function SendAnnualFeeNotificationAsync(dv As DataView, feeYear As Integer, deadline As Date) As Task(Of EmailQueueResponse)
         Dim emails As New List(Of NewEmailTask)
