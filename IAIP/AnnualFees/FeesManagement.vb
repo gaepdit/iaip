@@ -962,7 +962,12 @@ Public Class FeesManagement
     End Sub
 
     Private Sub dgvFeeManagementLists_CellLinkSelected(sender As Object, e As IaipDataGridViewCellLinkEventArgs) Handles dgvFeeManagementLists.CellLinkSelected
-        AIRSNumberEntry.AirsNumber = e.LinkValue.ToString
+        If e IsNot Nothing AndAlso e.LinkValue IsNot Nothing AndAlso dgvFeeManagementLists.Columns(0).HeaderText = "Airs No." AndAlso
+            ApbFacilityId.IsValidAirsNumberFormat(e.LinkValue.ToString()) Then
+
+            AIRSNumberEntry.AirsNumber = e.LinkValue.ToString
+
+        End If
     End Sub
 
     Private Sub dgvFeeManagementLists_CellLinkActivated(sender As Object, e As IaipDataGridViewCellLinkEventArgs) Handles dgvFeeManagementLists.CellLinkActivated
