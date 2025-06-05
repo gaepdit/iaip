@@ -34,6 +34,8 @@ Friend Module StartupShutdown
         ' Server Environment
         SetServerEnvironment()
 
+        AppDomain.CurrentDomain.SetData("REGEX_DEFAULT_MATCH_TIMEOUT", REGEX_DEFAULT_MATCH_TIMEOUT)
+
         Return True
     End Function
 
