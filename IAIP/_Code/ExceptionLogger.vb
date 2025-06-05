@@ -4,16 +4,17 @@ Imports Mindscape.Raygun4Net
 Imports Mindscape.Raygun4Net.Messages
 
 Friend Module ExceptionLogger
-    Friend Function LogException(
-                                 ex As Exception,
+    Friend Function LogException(ex As Exception,
                                  context As String,
                                  supplementalMessage As String,
                                  unrecoverable As Boolean) As Boolean
 
-        If CurrentServerEnvironment = ServerEnvironment.Development
+        If CurrentServerEnvironment = ServerEnvironment.Development Then
             ' Only log if UAT or Prod
             Return False
         End If
+
+        If CurrentAppConfig Is Nothing OrElse String.IsNullOrEmpty(CurrentAppConfig.RaygunApiKey) Then Return False
 
         Dim client As New RaygunClient(CurrentAppConfig.RaygunApiKey) With {
             .ApplicationVersion = GetCurrentVersionAsMajorMinorBuild().ToString

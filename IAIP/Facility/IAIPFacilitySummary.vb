@@ -52,6 +52,7 @@ Public Class IAIPFacilitySummary
         ComplianceFCE
         ContactsStaff
         ContactsGecoFacility
+        ContactsGecoEmails
         ContactsGecoUsers
         ContactsCaersUsers
         ContactsIaipFacility
@@ -105,6 +106,7 @@ Public Class IAIPFacilitySummary
         AddDataTable(FacilityDataTable.ComplianceFCE)
         AddDataTable(FacilityDataTable.EmissionsFeesSummary)
         AddDataTable(FacilityDataTable.ContactsGecoFacility)
+        AddDataTable(FacilityDataTable.ContactsGecoEmails)
         AddDataTable(FacilityDataTable.ContactsGecoUsers)
         AddDataTable(FacilityDataTable.ContactsCaersUsers)
         AddDataTable(FacilityDataTable.ContactsIaipFacility)
@@ -154,7 +156,8 @@ Public Class IAIPFacilitySummary
         UpdateEpaMenuItem.Enabled = False
 
         FSMainTabControl.SelectedTab = FSInfo
-        ContactsTabControl.SelectedTab = TPContactsGeco
+        ContactsTabControl.SelectedTab = TPContactsFacility
+        GecoContactsTabControl.SelectedTab = TPGecoUsers
         TestingTabControl.SelectedTab = TPTestReport
         ComplianceTabControl.SelectedTab = TPComplianceWork
         PermittingTabControl.SelectedTab = TPAppTrackingLog
@@ -583,23 +586,27 @@ Public Class IAIPFacilitySummary
             Case FacilityDataTable.ComplianceEnforcement
                 SetUpDataGridSource(ComplianceEnforcementGrid, table)
 
-                ' Contacts
+            ' Contacts
             Case FacilityDataTable.ContactsStaff
                 SetUpDataGridSource(ContactsStaffGrid, table)
-
-            Case FacilityDataTable.ContactsGecoFacility
-                SetUpDataGridSource(ContactsGecoFacilityGrid, table)
 
             Case FacilityDataTable.ContactsIaipFacility
                 SetUpDataGridSource(ContactsIaipFacilityGrid, table)
 
+            ' GECO Contacts
             Case FacilityDataTable.ContactsGecoUsers
-                SetUpDataGridSource(ContactsGecoUsersGrid, table)
+                SetUpDataGridSource(GecoUsersGrid, table)
+
+            Case FacilityDataTable.ContactsGecoFacility
+                SetUpDataGridSource(GecoContactsGrid, table)
+
+            Case FacilityDataTable.ContactsGecoEmails
+                SetUpDataGridSource(GecoEmailContactsGrid, table)
 
             Case FacilityDataTable.ContactsCaersUsers
-                SetUpDataGridSource(ContactsCaersUsersGrid, table)
+                SetUpDataGridSource(GecoCaersUsersGrid, table)
 
-                ' Testing
+            ' Testing
             Case FacilityDataTable.TestReports
                 SetUpDataGridSource(TestReportsGrid, table)
 
@@ -609,7 +616,7 @@ Public Class IAIPFacilitySummary
             Case FacilityDataTable.TestMemos
                 SetUpDataGridSource(TestMemosGrid, table)
 
-                ' Permitting
+            ' Permitting
             Case FacilityDataTable.PermitApplications
                 SetUpDataGridSource(PermitApplicationGrid, table)
 
@@ -625,7 +632,7 @@ Public Class IAIPFacilitySummary
             Case FacilityDataTable.PermitApplicationFees
                 SetUpDataGridSource(PermitApplicationInvoicesGrid, table)
 
-                ' Emissions Fees
+            ' Emissions Fees
             Case FacilityDataTable.EmissionsFeesSummary
                 SetUpFeesTab()
                 SetUpDataGridSource(FinancialFeeGrid, table)
@@ -636,7 +643,7 @@ Public Class IAIPFacilitySummary
             Case FacilityDataTable.EmissionsFeesInvoices
                 SetUpDataGridSource(FinancialInvoicesGrid, table)
 
-                ' Emission Inventory
+            ' Emission Inventory
             Case FacilityDataTable.EIPost2009
                 SetUpDataGridSource(EiPost2009Grid, table)
 
@@ -734,8 +741,12 @@ Public Class IAIPFacilitySummary
 
     Private Sub LoadContactsData()
         LoadDataTable(FacilityDataTable.ContactsStaff)
-        LoadDataTable(FacilityDataTable.ContactsGecoFacility)
         LoadDataTable(FacilityDataTable.ContactsIaipFacility)
+    End Sub
+
+    Private Sub LoadGecoContactsData()
+        LoadDataTable(FacilityDataTable.ContactsGecoFacility)
+        LoadDataTable(FacilityDataTable.ContactsGecoEmails)
         LoadDataTable(FacilityDataTable.ContactsGecoUsers)
         LoadDataTable(FacilityDataTable.ContactsCaersUsers)
     End Sub
@@ -1216,6 +1227,24 @@ Public Class IAIPFacilitySummary
     Private Sub SetUpColocatedFacilityUi()
         RemoveColocatedFacilities.Enabled = TableDataExists(FacilityDataTable.ColocatedFacilities)
         ColocatedFacilitiesGrid.SanelyResizeColumns(180)
+    End Sub
+
+    Private Sub ContactsTabControl_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ContactsTabControl.SelectedIndexChanged
+        If AirsNumber Is Nothing OrElse ContactsTabControl.SelectedTab Is Nothing Then Return
+
+        Cursor = Cursors.WaitCursor
+
+        Dim data As New Dictionary(Of String, Object) From {
+            {"Name", Name},
+            {"AIRS #", AirsNumber.FormattedString},
+            {"Tab", ContactsTabControl.SelectedTab.Name}}
+        AddBreadcrumb("Facility Summary: tab changed", data, Me)
+
+        If ContactsTabControl.SelectedTab.Name = TPContactsGeco.Name Then
+            LoadGecoContactsData()
+        End If
+
+        Cursor = Cursors.Default
     End Sub
 
 End Class
