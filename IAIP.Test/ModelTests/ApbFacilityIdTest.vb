@@ -39,6 +39,7 @@ Public Class ApbFacilityIdTest
     <InlineData("01-1")>
     <InlineData("01-10")>
     <InlineData("01-99999")>
+    <InlineData("041300100001")>
     Private Sub AcceptsValidAirsNumbers(input As String)
         Assert.True(IsValidAirsNumberFormat(input))
     End Sub
@@ -48,7 +49,11 @@ Public Class ApbFacilityIdTest
     <InlineData("")>
     <InlineData("111")>
     <InlineData("ABC")>
-    <InlineData("041300100001")>
+    <InlineData("04130010000")>
+    <InlineData("041300200001")>
+    <InlineData("041332300001")>
+    <InlineData("041300000001")>
+    <InlineData("041300100000")>
     <InlineData("04-13-001-00001")>
     <InlineData("0413-001-0001")>
     <InlineData("abc-defgh")>

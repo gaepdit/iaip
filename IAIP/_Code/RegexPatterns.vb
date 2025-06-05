@@ -10,10 +10,11 @@
     ' Valid AIRS number formats are in the form 001-00001 or 00100001 or 1-1.
     ' AIRS numbers consist of a three digit county code and a five-digit facility number.
     ' The county code must be odd and can be in the range of 1 through 321 or 777.
-    ' The facility number can be any positive integer from 1 to 99999.
+    ' The facility number can be any integer from 1 to 99999.
     ' The hyphen is optional. If it is included, then leading zeros are also optional. If excluded, leading zeros are required.
-    ' Test regex here: https://regex101.com/r/2uYyHl/7
-    Friend Const AirsNumberPattern As String = "(?:^(?:777|321|3[0-1][13579]|[0-2][0-9][13579])(?!00000)\d{5})$|^(?:(?:777|321|3[0-1][13579]|[0-2]?[0-9]?[13579])-(?!0{1,5}$)\d{1,5})$"
+    ' (For compatibility, 041300100001 -- without hyphens -- is also accepted. The first four digits must exactly match "0413".
+    ' Test regex here: https://regex101.com/r/2uYyHl/8
+    Friend Const AirsNumberPattern As String = "(?:^(?:0413)?(?:777|321|3[0-1][13579]|[0-2][0-9][13579])(?!00000)\d{5})$|(?:^(?:777|321|3[0-1][13579]|[0-2]?[0-9]?[13579])-(?!0{1,5}$)\d{1,5})$"
 
     ' Valid RMP IDs are in the form 0000-0000-0000 (with the dashes)
     Friend Const RmpIdPattern As String = "^\d{4}-\d{4}-\d{4}$"
