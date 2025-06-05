@@ -152,6 +152,12 @@
             Dim dashIndex As Integer = airsNumber.IndexOf("-"c)
             If dashIndex = -1 Then
                 If airsNumber.Length = 8 Then Return airsNumber
+
+                If airsNumber.Length = 12 AndAlso airsNumber.StartsWith("0413") Then
+                    ' If the first four digits are "0413", discard them
+                    Return airsNumber.Substring(4)
+                End If
+
                 Throw New ArgumentException(String.Format("{0} is not a valid AIRS number.", airsNumber))
             End If
 
