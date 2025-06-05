@@ -218,7 +218,7 @@ Namespace DAL
                 Return AirsNumberValidationResult.Empty
             End If
 
-            If Not Regex.IsMatch(airsInput, AirsNumberPattern) Then
+            If Not IsValidAirsNumberFormat(airsInput) Then
                 Return AirsNumberValidationResult.InvalidFormat
             End If
 
@@ -231,7 +231,7 @@ Namespace DAL
                 Return AirsNumberValidationResult.Empty
             End If
 
-            If Not Regex.IsMatch(airsInput, AirsNumberPattern) Then
+            If Not IsValidAirsNumberFormat(airsInput) Then
                 Return AirsNumberValidationResult.InvalidFormat
             End If
 
