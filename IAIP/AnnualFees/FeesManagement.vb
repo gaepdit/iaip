@@ -15,7 +15,7 @@ Public Class FeesManagement
     Private AnnualFeeDueDate As Date = Nothing
     Private EmailBatchId As Guid? = Nothing
 
-    Private Sub PASPFeeManagement_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FeesManagement_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         LoadFeeRates()
         LoadNSPSExemptions()
         LoadNSPSExemptions2("1")

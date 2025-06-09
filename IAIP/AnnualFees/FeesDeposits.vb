@@ -8,7 +8,7 @@ Public Class FeesDeposits
 
 #Region "Page Load Functions"
 
-    Private Sub PASPDepositsAmendments_Load(sender As Object, e As EventArgs) Handles Me.Load
+    Private Sub FeesDeposits_Load(sender As Object, e As EventArgs) Handles Me.Load
         dtpDepositReportStartDate.Value = Today.AddMonths(-1)
         dtpDepositReportEndDate.Value = Today
         cbYear.DataSource = AnnualFees.GetAllFeeYears()

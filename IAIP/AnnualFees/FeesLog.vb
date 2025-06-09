@@ -2,7 +2,7 @@
 
 Public Class FeesLog
 
-    Private Sub PASPFeesLog_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FeesLog_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         LoadFeeYears()
     End Sub
 

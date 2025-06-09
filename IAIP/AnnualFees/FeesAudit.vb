@@ -16,7 +16,7 @@ Public Class FeesAudit
     Public Property FeeYear As String
     Public Property AirsNumber As Apb.ApbFacilityId
 
-    Private Sub PASPFeeAuditLog_Load(sender As Object, e As EventArgs) Handles Me.Load
+    Private Sub FeesAudit_Load(sender As Object, e As EventArgs) Handles Me.Load
         LoadSelectedNSPSExemptions()
         LoadTransactionTypes()
         LoadPayTypes()

@@ -8,7 +8,7 @@ Imports Microsoft.Data.SqlClient
 
 Public Class FeesStatistics
 
-    Private Sub PASPFeeStatistics_Load(sender As Object, e As EventArgs) Handles Me.Load
+    Private Sub FeesStatistics_Load(sender As Object, e As EventArgs) Handles Me.Load
         Try
             Me.Cursor = Cursors.WaitCursor
             pnlDetails.Dock = DockStyle.None
