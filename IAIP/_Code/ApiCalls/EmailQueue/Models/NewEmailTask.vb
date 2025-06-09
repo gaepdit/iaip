@@ -3,6 +3,7 @@
 Namespace ApiCalls.EmailQueue
     Friend Class NewEmailTask
         Public Property From As String ' StringLength(100)
+        Public Property FromName As String ' StringLength(100)
         Public Property Recipients As List(Of String)
         Public Property CopyRecipients As List(Of String)
         Public Property Subject As String ' StringLength(200)

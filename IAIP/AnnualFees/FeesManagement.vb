@@ -1167,6 +1167,7 @@ Public Class FeesManagement
 
             Dim newEmail As New NewEmailTask() With {
                 .From = "GeorgiaAirProtectionBranch@dnr.ga.gov",
+                .FromName = "Georgia Air Protection Branch",
                 .Recipients = recipientsList,
                 .Subject = $"Data Collection for {feeYear} Calendar Year Emission Fees (AIRS #{airsNumberFormatted}: {facilityName})",
                 .Body = EmailBody(feeYear, deadlineFormatted, gecoUrl)
