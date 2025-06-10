@@ -128,6 +128,7 @@ Partial Class FeesManagement
         Me.InitialMailoutGroupbox = New System.Windows.Forms.GroupBox()
         Me.btnGenerateMailoutList = New System.Windows.Forms.Button()
         Me.btnUpdateContactData = New System.Windows.Forms.Button()
+        Me.btnViewEmailBatchDetails = New System.Windows.Forms.Button()
         Me.FeeManagementTabControl.SuspendLayout()
         Me.TPFeeAdminTools.SuspendLayout()
         Me.TabControl2.SuspendLayout()
@@ -1104,12 +1105,13 @@ Partial Class FeesManagement
         '
         Me.MailoutInfoGroupBox.Controls.Add(Me.lblInitialMailoutDate)
         Me.MailoutInfoGroupBox.Controls.Add(Me.btnSendInitialEmail)
+        Me.MailoutInfoGroupBox.Controls.Add(Me.btnViewEmailBatchDetails)
         Me.MailoutInfoGroupBox.Controls.Add(Me.btnViewEmailBatchStatus)
         Me.MailoutInfoGroupBox.Controls.Add(Me.btnViewEmailList)
         Me.MailoutInfoGroupBox.Controls.Add(Me.btnViewPhysicalMailList)
         Me.MailoutInfoGroupBox.Location = New System.Drawing.Point(12, 413)
         Me.MailoutInfoGroupBox.Name = "MailoutInfoGroupBox"
-        Me.MailoutInfoGroupBox.Size = New System.Drawing.Size(151, 170)
+        Me.MailoutInfoGroupBox.Size = New System.Drawing.Size(151, 194)
         Me.MailoutInfoGroupBox.TabIndex = 6
         Me.MailoutInfoGroupBox.TabStop = False
         Me.MailoutInfoGroupBox.Text = "Mailout Information"
@@ -1305,6 +1307,15 @@ Partial Class FeesManagement
         Me.btnUpdateContactData.Text = "Update Mailout List With Current Fee Contacts"
         Me.btnUpdateContactData.UseVisualStyleBackColor = True
         '
+        'btnViewEmailBatchDetails
+        '
+        Me.btnViewEmailBatchDetails.Location = New System.Drawing.Point(6, 161)
+        Me.btnViewEmailBatchDetails.Name = "btnViewEmailBatchDetails"
+        Me.btnViewEmailBatchDetails.Size = New System.Drawing.Size(139, 23)
+        Me.btnViewEmailBatchDetails.TabIndex = 0
+        Me.btnViewEmailBatchDetails.Text = "View Email Batch Details"
+        Me.btnViewEmailBatchDetails.UseVisualStyleBackColor = True
+        '
         'FeesManagement
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1450,4 +1461,5 @@ Partial Class FeesManagement
     Friend WithEvents lblFeeDueDate As Label
     Friend WithEvents btnViewEmailBatchStatus As Button
     Friend WithEvents btnRefreshFeeYearStats As Button
+    Friend WithEvents btnViewEmailBatchDetails As Button
 End Class

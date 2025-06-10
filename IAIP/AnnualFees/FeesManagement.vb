@@ -882,7 +882,7 @@ Public Class FeesManagement
         End Try
 
         LoadFeeYearData()
-        If success Then Await LoadEmailBatchDetailsAsync()
+        If success Then Await LoadEmailBatchStatusAsync()
     End Sub
 
     Private Sub cboAvailableFeeYears_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboAvailableFeeYears.SelectedIndexChanged
@@ -905,6 +905,7 @@ Public Class FeesManagement
         lblInitialMailoutDate.Text = ""
         lblInitialMailoutDate.Visible = False
         btnViewEmailBatchStatus.Visible = False
+        btnViewEmailBatchDetails.Visible = False
 
         Dim buttonsEnabled As Boolean = cboAvailableFeeYears.SelectedIndex = 0
 
@@ -953,6 +954,7 @@ Public Class FeesManagement
 
             EmailBatchId = GetNullable(Of Guid?)(row("InitialMailoutEmailBatchId"))
             btnViewEmailBatchStatus.Visible = EmailBatchId IsNot Nothing
+            btnViewEmailBatchDetails.Visible = EmailBatchId IsNot Nothing
 
             Dim month As Integer = Date.Today.Month
             If month < 5 OrElse month > 7 Then
@@ -1122,6 +1124,25 @@ Public Class FeesManagement
 
     Private Async Sub btnViewEmailBatchStatus_Click(sender As Object, e As EventArgs) Handles btnViewEmailBatchStatus.Click
         Cursor = Cursors.WaitCursor
+        Await LoadEmailBatchStatusAsync()
+        Cursor = Cursors.Default
+    End Sub
+
+    Private Async Function LoadEmailBatchStatusAsync() As Task
+        Dim response As EmailBatchStatus = Await GetBatchStatus(EmailBatchId)
+
+        If response Is Nothing OrElse response.Status = "Failed" OrElse response.EmailCounts Is Nothing Then
+            MessageBox.Show("There was a problem retrieving the email batch status. Please try again.",
+                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+        Else
+            dgvFeeManagementLists.DataSource = New List(Of EmailBatchCounts) From {{response.EmailCounts}}
+
+            FeeManagementListCountLabel.Text = $"Viewing status of emails generated for the {cboAvailableFeeYears.Text } initial mailout."
+        End If
+    End Function
+
+    Private Async Sub btnViewEmailBatchDetails_Click(sender As Object, e As EventArgs) Handles btnViewEmailBatchDetails.Click
+        Cursor = Cursors.WaitCursor
         Await LoadEmailBatchDetailsAsync()
         Cursor = Cursors.Default
     End Sub
@@ -1130,12 +1151,12 @@ Public Class FeesManagement
         Dim response As EmailBatchDetails = Await GetBatchDetails(EmailBatchId)
 
         If response Is Nothing OrElse response.Status = "Failed" OrElse response.Emails Is Nothing OrElse Not response.Emails.Any() Then
-            MessageBox.Show("There was a problem retrieving the email batch status. Please try again.",
+            MessageBox.Show("There was a problem retrieving the email batch details. Please try again.",
                             "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
         Else
             dgvFeeManagementLists.DataSource = response.Emails.OrderBy(Function(p) p.Counter).Select(Function(p) New EmailRecord(p)).ToList()
 
-            FeeManagementListCountLabel.Text = $"Viewing status of emails generated for the {cboAvailableFeeYears.Text } initial mailout: " &
+            FeeManagementListCountLabel.Text = $"Viewing details of emails generated for the {cboAvailableFeeYears.Text } initial mailout: " &
                 $"{dgvFeeManagementLists.RowCount} result{If(dgvFeeManagementLists.RowCount = 1, "", "s") }"
         End If
     End Function

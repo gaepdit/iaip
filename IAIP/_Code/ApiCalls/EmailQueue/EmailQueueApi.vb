@@ -11,7 +11,8 @@ Namespace ApiCalls.EmailQueue
         Private ReadOnly ApiUrl As String = ConfigurationManager.AppSettings("EmailQueueApiUrl")
 
         Private Const SendEndpoint As String = "add"
-        Private Const BatchEndpoint As String = "batch"
+        Private Const BatchDetailsEndpoint As String = "batch-details"
+        Private Const BatchStatusEndpoint As String = "batch-status"
 
         Private ReadOnly EmailQueueRequestOptions As New Options With {
             .ContentType = ContentType.ApplicationJson,
@@ -39,9 +40,28 @@ Namespace ApiCalls.EmailQueue
             Return EmailQueueResponse.Ok(JsonSerializer.Deserialize(Of EmailQueueResponseBody)(response.Body, JsonOptions))
         End Function
 
+        Public Async Function GetBatchStatus(batchId As Guid?) As Task(Of EmailBatchStatus)
+            If String.IsNullOrEmpty(ApiUrl) OrElse Not batchId.HasValue Then Return Nothing
+            Dim endpoint As Uri = UriCombine(ApiUrl, BatchStatusEndpoint)
+            Dim batchRequest As New BatchRequest() With {.BatchId = batchId}
+            Dim response As Response
+
+            Try
+                response = Await PostApiAsync(endpoint, batchRequest, EmailQueueRequestOptions).ConfigureAwait(False)
+            Catch ex As Exception
+                Return Nothing
+            End Try
+
+            If response Is Nothing OrElse response.Result.StatusCode <> HttpStatusCode.OK OrElse String.IsNullOrEmpty(response.Body) Then
+                Return EmailBatchStatus.Failed
+            End If
+
+            Return EmailBatchStatus.Ok(JsonSerializer.Deserialize(Of EmailBatchCounts)(response.Body, JsonOptions))
+        End Function
+
         Public Async Function GetBatchDetails(batchId As Guid?) As Task(Of EmailBatchDetails)
             If String.IsNullOrEmpty(ApiUrl) OrElse Not batchId.HasValue Then Return Nothing
-            Dim endpoint As Uri = UriCombine(ApiUrl, BatchEndpoint)
+            Dim endpoint As Uri = UriCombine(ApiUrl, BatchDetailsEndpoint)
             Dim batchRequest As New BatchRequest() With {.BatchId = batchId}
             Dim response As Response
 
