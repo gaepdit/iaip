@@ -1,5 +1,5 @@
 ﻿Imports System.Globalization
-Imports IAIP.DAL.Finance.Invoices
+Imports IAIP.DAL.ApplicationFees.Invoices
 Imports Xunit
 
 Public Class InvoiceIdTests

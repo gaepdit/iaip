@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
   <PropertyGroup>
+    <MinimumRequiredVersion>7.4.0.0</MinimumRequiredVersion>
+    <ApplicationVersion>7.4.0.0</ApplicationVersion>
     <ProjectType>Local</ProjectType>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
@@ -53,10 +55,8 @@
     <UpdateUrl>https://iaip.gaepd.org/install/</UpdateUrl>
     <ProductName>Integrated Air Information Platform</ProductName>
     <PublisherName>State of Georgia</PublisherName>
-    <MinimumRequiredVersion>7.3.5.0</MinimumRequiredVersion>
     <WebPage>installer.html</WebPage>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>7.3.6.0</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -161,64 +161,64 @@
     <Compile Include="EIS\EmissionsStatement.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Finance\FinStatistics.Designer.vb">
+    <Compile Include="ApplicationFees\FinStatistics.Designer.vb">
       <DependentUpon>FinStatistics.vb</DependentUpon>
     </Compile>
-    <Compile Include="Finance\FinStatistics.vb">
+    <Compile Include="ApplicationFees\FinStatistics.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Finance\FinFacilityView.Designer.vb">
+    <Compile Include="ApplicationFees\FinFacilityView.Designer.vb">
       <DependentUpon>FinFacilityView.vb</DependentUpon>
     </Compile>
-    <Compile Include="Finance\FinFacilityView.vb">
+    <Compile Include="ApplicationFees\FinFacilityView.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Finance\Fee Rates\FinFeeRateManagement.Designer.vb">
+    <Compile Include="ApplicationFees\Fee Rates\FinFeeRateManagement.Designer.vb">
       <DependentUpon>FinFeeRateManagement.vb</DependentUpon>
     </Compile>
-    <Compile Include="Finance\Fee Rates\FinFeeRateManagement.vb">
+    <Compile Include="ApplicationFees\Fee Rates\FinFeeRateManagement.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Finance\Fee Rates\FinCreateRateItem.Designer.vb">
+    <Compile Include="ApplicationFees\Fee Rates\FinCreateRateItem.Designer.vb">
       <DependentUpon>FinCreateRateItem.vb</DependentUpon>
     </Compile>
-    <Compile Include="Finance\Fee Rates\FinCreateRateItem.vb">
+    <Compile Include="ApplicationFees\Fee Rates\FinCreateRateItem.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Finance\FinRefundView.Designer.vb">
+    <Compile Include="ApplicationFees\FinRefundView.Designer.vb">
       <DependentUpon>FinRefundView.vb</DependentUpon>
     </Compile>
-    <Compile Include="Finance\FinRefundView.vb">
+    <Compile Include="ApplicationFees\FinRefundView.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Finance\FinInvoiceView.Designer.vb">
+    <Compile Include="ApplicationFees\FinInvoiceView.Designer.vb">
       <DependentUpon>FinInvoiceView.vb</DependentUpon>
     </Compile>
-    <Compile Include="Finance\FinInvoiceView.vb">
+    <Compile Include="ApplicationFees\FinInvoiceView.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Finance\FinDepositView.Designer.vb">
+    <Compile Include="ApplicationFees\FinDepositView.Designer.vb">
       <DependentUpon>FinDepositView.vb</DependentUpon>
     </Compile>
-    <Compile Include="Finance\FinDepositView.vb">
+    <Compile Include="ApplicationFees\FinDepositView.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Finance\FinSearchFacilities.Designer.vb">
+    <Compile Include="ApplicationFees\FinSearchFacilities.Designer.vb">
       <DependentUpon>FinSearchFacilities.vb</DependentUpon>
     </Compile>
-    <Compile Include="Finance\FinSearchFacilities.vb">
+    <Compile Include="ApplicationFees\FinSearchFacilities.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Finance\FinSearchInvoices.Designer.vb">
+    <Compile Include="ApplicationFees\FinSearchInvoices.Designer.vb">
       <DependentUpon>FinSearchInvoices.vb</DependentUpon>
     </Compile>
-    <Compile Include="Finance\FinSearchInvoices.vb">
+    <Compile Include="ApplicationFees\FinSearchInvoices.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Finance\FinSearchDeposits.Designer.vb">
+    <Compile Include="ApplicationFees\FinSearchDeposits.Designer.vb">
       <DependentUpon>FinSearchDeposits.vb</DependentUpon>
     </Compile>
-    <Compile Include="Finance\FinSearchDeposits.vb">
+    <Compile Include="ApplicationFees\FinSearchDeposits.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="GECO\GecoTool.Designer.vb">
@@ -263,8 +263,13 @@
     <Compile Include="Users\IaipUserSecurity.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="_Code\Api\WebApiUtils.vb" />
-    <Compile Include="_Code\Api\WebRequestUtils.vb" />
+    <Compile Include="_Code\ApiCalls\EmailQueue\EmailQueueApi.vb" />
+    <Compile Include="_Code\ApiCalls\EmailQueue\Models\EmailQueueResponse.vb" />
+    <Compile Include="_Code\ApiCalls\EmailQueue\Models\EmailTaskResult.vb" />
+    <Compile Include="_Code\ApiCalls\EmailQueue\Models\NewEmailTask.vb" />
+    <Compile Include="_Code\ApiCalls\IaipCx\CxApiRequestModels.vb" />
+    <Compile Include="_Code\ApiCalls\Utils\WebApiUtils.vb" />
+    <Compile Include="_Code\ApiCalls\Utils\WebRequestUtils.vb" />
     <Compile Include="_Code\AppUpdater.vb" />
     <Compile Include="_Code\ColorLabelHelper.vb" />
     <Compile Include="_Code\DataGridViewExtensions.vb" />
@@ -324,8 +329,8 @@
     <Compile Include="_Controls\IaipDataGridView.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="_DAL\CxApi\ApiModels.vb" />
-    <Compile Include="_DAL\CxApi\CxApi.vb" />
+    <Compile Include="_Code\ApiCalls\IaipCx\CxApiResponseModels.vb" />
+    <Compile Include="_Code\ApiCalls\IaipCx\CxApi.vb" />
     <Compile Include="_DAL\DbHelpers.vb" />
     <Compile Include="_DAL\Facilities\FacilityNotes.vb" />
     <Compile Include="_DAL\Facilities\FacilityProgramHistory.vb" />
@@ -335,24 +340,24 @@
     <Compile Include="_DAL\Misc\Rules.vb" />
     <Compile Include="_DAL\Facilities\FacilityLookups.vb" />
     <Compile Include="_DAL\Logging\IaipLogging.vb" />
-    <Compile Include="_DAL\Finance\Refunds.vb" />
-    <Compile Include="_DAL\Finance\FacilityFinances.vb" />
-    <Compile Include="_DAL\Finance\Invoices.vb" />
-    <Compile Include="_DAL\Finance\Deposits.vb" />
+    <Compile Include="_DAL\ApplicationFees\Refunds.vb" />
+    <Compile Include="_DAL\ApplicationFees\FacilityFinances.vb" />
+    <Compile Include="_DAL\ApplicationFees\Invoices.vb" />
+    <Compile Include="_DAL\ApplicationFees\Deposits.vb" />
     <Compile Include="_DAL\SSPP\ApplicationTypes.vb" />
     <Compile Include="_DAL\DbResult.vb" />
     <Compile Include="_DAL\TableValuedParameter.vb" />
-    <Compile Include="_DAL\Finance\FeeRatesSchedule.vb" />
+    <Compile Include="_DAL\ApplicationFees\FeeRatesSchedule.vb" />
     <Compile Include="_Data Models\Facilities\FacilityNote.vb" />
-    <Compile Include="_Data Models\Finance\RefundApplied.vb" />
-    <Compile Include="_Data Models\Finance\FinanceEnums.vb" />
-    <Compile Include="_Data Models\Finance\Deposit.vb" />
-    <Compile Include="_Data Models\Finance\DepositApplied.vb" />
-    <Compile Include="_Data Models\Finance\InvoiceItem.vb" />
-    <Compile Include="_Data Models\Finance\InvoiceType.vb" />
-    <Compile Include="_Data Models\Finance\Invoice.vb" />
-    <Compile Include="_Data Models\Finance\FeeRateItem.vb" />
-    <Compile Include="_Data Models\Finance\Refund.vb" />
+    <Compile Include="_Data Models\ApplicationFees\RefundApplied.vb" />
+    <Compile Include="_Data Models\ApplicationFees\FinanceEnums.vb" />
+    <Compile Include="_Data Models\ApplicationFees\Deposit.vb" />
+    <Compile Include="_Data Models\ApplicationFees\DepositApplied.vb" />
+    <Compile Include="_Data Models\ApplicationFees\InvoiceItem.vb" />
+    <Compile Include="_Data Models\ApplicationFees\InvoiceType.vb" />
+    <Compile Include="_Data Models\ApplicationFees\Invoice.vb" />
+    <Compile Include="_Data Models\ApplicationFees\FeeRateItem.vb" />
+    <Compile Include="_Data Models\ApplicationFees\Refund.vb" />
     <Compile Include="_Data Models\People\Staff.vb" />
     <Compile Include="_Data Models\Users\IaipRoles.vb" />
     <Compile Include="_Code\RegexPatterns.vb" />
@@ -361,34 +366,34 @@
       <DependentUpon>EmissionsStatement.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Finance\FinStatistics.resx">
+    <EmbeddedResource Include="ApplicationFees\FinStatistics.resx">
       <DependentUpon>FinStatistics.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Finance\FinFacilityView.resx">
+    <EmbeddedResource Include="ApplicationFees\FinFacilityView.resx">
       <DependentUpon>FinFacilityView.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Finance\Fee Rates\FinFeeRateManagement.resx">
+    <EmbeddedResource Include="ApplicationFees\Fee Rates\FinFeeRateManagement.resx">
       <DependentUpon>FinFeeRateManagement.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Finance\Fee Rates\FinCreateRateItem.resx">
+    <EmbeddedResource Include="ApplicationFees\Fee Rates\FinCreateRateItem.resx">
       <DependentUpon>FinCreateRateItem.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Finance\FinRefundView.resx">
+    <EmbeddedResource Include="ApplicationFees\FinRefundView.resx">
       <DependentUpon>FinRefundView.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Finance\FinInvoiceView.resx">
+    <EmbeddedResource Include="ApplicationFees\FinInvoiceView.resx">
       <DependentUpon>FinInvoiceView.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Finance\FinDepositView.resx">
+    <EmbeddedResource Include="ApplicationFees\FinDepositView.resx">
       <DependentUpon>FinDepositView.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Finance\FinSearchFacilities.resx">
+    <EmbeddedResource Include="ApplicationFees\FinSearchFacilities.resx">
       <DependentUpon>FinSearchFacilities.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Finance\FinSearchInvoices.resx">
+    <EmbeddedResource Include="ApplicationFees\FinSearchInvoices.resx">
       <DependentUpon>FinSearchInvoices.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Finance\FinSearchDeposits.resx">
+    <EmbeddedResource Include="ApplicationFees\FinSearchDeposits.resx">
       <DependentUpon>FinSearchDeposits.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GECO\GecoTool.resx">
@@ -1049,7 +1054,7 @@
     <Compile Include="_DAL\Misc\IaipAppData.vb" />
     <Compile Include="_DAL\Facilities\FacilityHeaderDataData.vb" />
     <Compile Include="_DAL\Misc\ContactData.vb" />
-    <Compile Include="_DAL\EmissionFees\FeesData.vb" />
+    <Compile Include="_DAL\AnnualFees\FeesData.vb" />
     <Compile Include="_DAL\Misc\QueryGeneratorData.vb" />
     <Compile Include="_DAL\SSPP\ApplicationData.vb">
       <SubType>Code</SubType>
@@ -1120,7 +1125,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="ClosedXML">
-      <Version>0.104.2</Version>
+      <Version>0.105.0</Version>
     </PackageReference>
     <PackageReference Include="Daramee.TaskDialogSharp">
       <Version>1.0.2</Version>
@@ -1145,13 +1150,13 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Mindscape.Raygun4Net">
-      <Version>11.2.1</Version>
+      <Version>11.2.3</Version>
     </PackageReference>
     <PackageReference Include="Sigil">
       <Version>5.0.0</Version>
     </PackageReference>
     <PackageReference Include="SonarAnalyzer.VisualBasic">
-      <Version>10.6.0.109712</Version>
+      <Version>10.10.0.116381</Version>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
@@ -1165,7 +1170,7 @@
       <Version>5.0.0</Version>
     </PackageReference>
     <PackageReference Include="System.Text.Json">
-      <Version>9.0.1</Version>
+      <Version>9.0.5</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

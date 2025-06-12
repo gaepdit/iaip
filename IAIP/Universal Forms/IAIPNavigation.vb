@@ -29,12 +29,6 @@ Public Class IAIPNavigation
         EnableConnectionEnvironmentOptions()
         DisplayUsername()
 
-#If SqlServer Then
-        Me.Text = "IAIP SQL Server Edition"
-#ElseIf UAT Then
-        Me.Text = "IAIP UAT"
-#End If
-
         AddHandler NetworkChange.NetworkAddressChanged, AddressOf AddressChangedCallback
     End Sub
 
@@ -234,10 +228,6 @@ Public Class IAIPNavigation
                 lblTitle.Text = "IAIP Navigation Screen — UAT"
                 'TestingMenu.Visible = True
         End Select
-
-#If SqlServer Then
-        lblTitle.Text = "IAIP for SQL Server"
-#End If
     End Sub
 
 #End Region
@@ -845,7 +835,7 @@ Public Class IAIPNavigation
         SSPP
         SSCP
         AnnualFees
-        Finance
+        ApplicationFees
         DX
         MASP
         EIS
@@ -857,7 +847,7 @@ Public Class IAIPNavigation
         AddNavButtonCategory(NavButtonCategories.SSPP, "Stationary Source Permitting Program")
         AddNavButtonCategory(NavButtonCategories.SSCP, "Stationary Source Compliance Program")
         AddNavButtonCategory(NavButtonCategories.AnnualFees, "Financial Management Unit", "Annual Fees")
-        AddNavButtonCategory(NavButtonCategories.Finance, "Financial Management Unit", "Application Fees")
+        AddNavButtonCategory(NavButtonCategories.ApplicationFees, "Financial Management Unit", "Application Fees")
         AddNavButtonCategory(NavButtonCategories.DX, "Data Exchange", "Data Exchange")
         AddNavButtonCategory(NavButtonCategories.MASP, "Mobile & Area Sources Program", "Events")
         AddNavButtonCategory(NavButtonCategories.EIS, "Emissions and Control Strategies", "EI/ES")
@@ -896,13 +886,13 @@ Public Class IAIPNavigation
         AddNavButtonIfAccountHasFormAccess(12, "Statistics && Reports", NameOf(FeesStatistics), NavButtonCategories.AnnualFees)
         AddNavButtonIfUserCan(UserCan.EditAnnualFeesDeposits, "Deposits", NameOf(FeesDeposits), NavButtonCategories.AnnualFees)
 
-        ' Finance
-        AddNavButtonIfUserHasPermission({123, 124, 125}, "New Deposit", NameOf(FinDepositView), NavButtonCategories.Finance)
-        AddNavButtonIfUserHasPermission({123, 124, 125}, "Search Deposits", NameOf(FinSearchDeposits), NavButtonCategories.Finance)
-        AddNavButton("Search Invoices", NameOf(FinSearchInvoices), NavButtonCategories.Finance)
-        AddNavButton("Search Facilities", NameOf(FinSearchFacilities), NavButtonCategories.Finance)
-        AddNavButtonIfUserHasPermission({124, 28}, "Manage Fee Rates", NameOf(FinFeeRateManagement), NavButtonCategories.Finance)
-        AddNavButton("Statistics && Reports", NameOf(FinStatistics), NavButtonCategories.Finance)
+        ' Application Fees
+        AddNavButtonIfUserHasPermission({123, 124, 125}, "New Deposit", NameOf(FinDepositView), NavButtonCategories.ApplicationFees)
+        AddNavButtonIfUserHasPermission({123, 124, 125}, "Search Deposits", NameOf(FinSearchDeposits), NavButtonCategories.ApplicationFees)
+        AddNavButton("Search Invoices", NameOf(FinSearchInvoices), NavButtonCategories.ApplicationFees)
+        AddNavButton("Search Facilities", NameOf(FinSearchFacilities), NavButtonCategories.ApplicationFees)
+        AddNavButtonIfUserHasPermission({124, 28}, "Manage Fee Rates", NameOf(FinFeeRateManagement), NavButtonCategories.ApplicationFees)
+        AddNavButton("Statistics && Reports", NameOf(FinStatistics), NavButtonCategories.ApplicationFees)
 
         ' MASP
         AddNavButtonIfAccountHasFormAccess(137, "EPD Events", NameOf(EventsManagement), NavButtonCategories.MASP)
