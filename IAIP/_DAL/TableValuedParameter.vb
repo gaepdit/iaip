@@ -1,6 +1,6 @@
 ﻿Imports System.Collections.Generic
-Imports Microsoft.Data.SqlClient
 Imports System.Runtime.CompilerServices
+Imports Microsoft.Data.SqlClient
 
 Namespace DAL
 

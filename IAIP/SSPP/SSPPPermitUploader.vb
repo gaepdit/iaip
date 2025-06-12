@@ -539,7 +539,9 @@ Public Class SSPPPermitUploader
                         ReDim rawData(fs.Length - 1)
                     End If
 
+#Disable Warning CA2022 ' Avoid inexact read with 'Stream.Read'
                     fs.Read(rawData, 0, Convert.ToInt32(fs.Length))
+#Enable Warning CA2022 ' Avoid inexact read with 'Stream.Read'
                     fs.Close()
 
                     If exists Then

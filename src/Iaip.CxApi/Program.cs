@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Mindscape.Raygun4Net.AspNetCore;
 
@@ -30,41 +31,46 @@ else
 builder.Services.AddControllers();
 
 // Configure Swagger/OpenAPI documentation.
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(c =>
+if (builder.Environment.IsDevelopment())
 {
-    c.IgnoreObsoleteActions();
-    c.SwaggerDoc("v1", new OpenApiInfo
+    builder.Services.AddEndpointsApiExplorer();
+    builder.Services.AddSwaggerGen(c =>
     {
-        Version = "v1",
-        Title = "Georgia EPD IAIP Connections API",
-        Contact = new OpenApiContact
+        c.IgnoreObsoleteActions();
+        c.SwaggerDoc("v1", new OpenApiInfo
         {
-            Name = "Georgia EPD-IT Support",
-            Email = builder.Configuration["SupportEmail"],
-        },
+            Version = "v1",
+            Title = "Georgia EPD IAIP Connections API",
+            Contact = new OpenApiContact
+            {
+                Name = "Georgia EPD-IT Support",
+                Email = builder.Configuration["SupportEmail"],
+            },
+        });
     });
-});
+}
 
 // Build app.
 var app = builder.Build();
 
 // Configure API documentation
-app.UseSwagger(c => { c.RouteTemplate = "api-docs/{documentName}/openapi.json"; });
-app.UseSwaggerUI(c =>
+if (builder.Environment.IsDevelopment())
 {
-    c.SwaggerEndpoint("/api-docs/v1/openapi.json", "IAIP Connections API v1");
-    c.RoutePrefix = "";
-    c.DocumentTitle = "Georgia EPD IAIP Connections API";
-});
+    app.UseSwagger(c => { c.RouteTemplate = "api-docs/{documentName}/openapi.json"; });
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/api-docs/v1/openapi.json", "IAIP Connections API v1");
+        c.RoutePrefix = "";
+        c.DocumentTitle = "Georgia EPD IAIP Connections API";
+    });
+}
 
 // Configure the HTTP request pipeline.
 if (!string.IsNullOrEmpty(AppSettings.RaygunSettings.ApiKey)) app.UseRaygun();
-app.UseAuthorization();
 app.MapControllers();
 
 // Add a health check API endpoint.
-app.MapGet("/health", () => Results.Ok());
+app.MapGet("/health", () => Results.Ok("OK"));
 
 // Make it so.
 await app.RunAsync();
