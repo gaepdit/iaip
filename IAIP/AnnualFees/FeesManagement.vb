@@ -1,11 +1,21 @@
 Imports System.Collections.Generic
-Imports Microsoft.Data.SqlClient
+Imports System.Configuration
+Imports System.Linq
 Imports System.Text
+Imports System.Threading.Tasks
 Imports GaEpd.DBUtilities
+Imports Iaip.Apb
+Imports Iaip.ApiCalls.EmailQueue
+Imports Iaip.DAL
+Imports Microsoft.Data.SqlClient
 
 Public Class FeesManagement
+    Private SelectedFeeYearIndex As Integer = -1
+    Private EnableAutomatedEmailNotification As Boolean = False
+    Private AnnualFeeDueDate As Date = Nothing
+    Private EmailBatchId As Guid? = Nothing
 
-    Private Sub PASPFeeManagement_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FeesManagement_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         LoadFeeRates()
         LoadNSPSExemptions()
         LoadNSPSExemptions2("1")
@@ -22,7 +32,7 @@ Public Class FeesManagement
             ind = dgvFeeRates.SelectedRows(0).Index
         End If
 
-        dgvFeeRates.DataSource = DAL.GetFeeRates()
+        dgvFeeRates.DataSource = AnnualFees.GetFeeRates()
         dgvFeeRates.SanelyResizeColumns()
 
         If ind > -1 Then
@@ -117,7 +127,7 @@ Public Class FeesManagement
     End Sub
 
     Private Sub LoadFeeYears()
-        Dim allFeeYears As List(Of Integer) = DAL.GetAllFeeYears()
+        Dim allFeeYears As List(Of Integer) = AnnualFees.GetAllFeeYears()
         cboNSPSExemptionYear.DataSource = allFeeYears
         cboAvailableFeeYears.DataSource = allFeeYears
     End Sub
@@ -196,7 +206,7 @@ Public Class FeesManagement
             Return
         End If
 
-        If DAL.UpdateFeeRates(CInt(txtFeeYear.Text), dtpFeePeriodStart.Value, dtpFeePeriodEnd.Value,
+        If AnnualFees.UpdateFeeRates(CInt(txtFeeYear.Text), dtpFeePeriodStart.Value, dtpFeePeriodEnd.Value,
                               CDec(txtPart70Fee.Text), CDec(txtAnnualSMFee.Text), CDec(txtPerTonRate.Text),
                               CDec(txtAnnualNSPSFee.Text), dtpFeeDueDate.Value, CDec(txtAdminFeePercent.Text),
                               dtpAdminApplicableDate.Value, txtFeeNotes.Text, dtpFirstQrtDue.Value, dtpSecondQrtDue.Value,
@@ -531,6 +541,7 @@ Public Class FeesManagement
 
     Private Sub btnFirstEnrollment_Click(sender As Object, e As EventArgs) Handles btnFirstEnrollment.Click
         Try
+            Cursor = Cursors.WaitCursor
             If cboAvailableFeeYears.Text = "" Then
                 MsgBox("NO FACILITIES ENROLLED." & vbCrLf & "Select a fee year first.", MsgBoxStyle.Exclamation, Me.Text)
                 Return
@@ -590,11 +601,14 @@ Public Class FeesManagement
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+        Finally
+            Cursor = Cursors.Default
         End Try
     End Sub
 
     Private Sub btnUnenrollFeeYear_Click(sender As Object, e As EventArgs) Handles btnUnenrollFeeYear.Click
         Try
+            Cursor = Cursors.WaitCursor
             If cboAvailableFeeYears.Text = "" Then
                 MsgBox("NO FACILITIES ENROLLED." & vbCrLf & "Select a fee year first.", MsgBoxStyle.Exclamation, Me.Text)
                 Return
@@ -632,64 +646,20 @@ Public Class FeesManagement
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+        Finally
+            Cursor = Cursors.Default
         End Try
     End Sub
 
     Private Sub ViewEnrolledFacilities()
-        Try
-            Dim SQL As String = "select substring(a.strAIRSnumber, 5, 8)       as AIRSNumber,
-                   m.strFacilityname,
-                   case
-                       when m.STROPERATIONALSTATUS is null
-                           or m.STROPERATIONALSTATUS = ''
-                           or m.STROPERATIONALSTATUS = 'U' then 'Unspecified'
-                       when m.STROPERATIONALSTATUS in ('O', '1') then 'Operational'
-                       when m.STROPERATIONALSTATUS = 'P' then 'Planned'
-                       when m.STROPERATIONALSTATUS = 'C' then 'Under Construction'
-                       when m.STROPERATIONALSTATUS = 'T' then 'Temporarily Closed'
-                       when m.STROPERATIONALSTATUS in ('X', '0') then 'Closed/Dismantled'
-                       when m.STROPERATIONALSTATUS = 'I' then 'Seasonal Operation'
-                   end                                    as strOperationalStatus,
-                   m.strClass,
-                   IIF(m.strNSPS = '1', 'NSPS', '')       as strNSPS,
-                   IIF(m.NspsFeeExempt = 1, 'Exempt', '') as NspsFeeExempt,
-                   IIF(m.strPart70 = '1', 'Part 70', '')  as strPart70,
-                   m.datShutdowndate,
-                   m.strFacilityAddress1,
-                   m.STRFACILITYADDRESS2,
-                   m.strFacilityCity,
-                   m.strFacilityZipCode
-            from FS_ADMIN a
-                inner join FS_MAILOUT m
-                on a.strAIRSnumber = m.strAIRSnumber
-                    and a.numFeeYear = m.numFeeYear
-            where a.numFeeYear = @year
-              and a.Active = '1'
-              and strEnrolled = '1'
-            order by AIRSNumber"
-
-            Dim p As New SqlParameter("@year", cboAvailableFeeYears.Text)
-
-            dgvFeeManagementLists.DataSource = DB.GetDataTable(SQL, p)
-
-            dgvFeeManagementLists.Columns("AIRSNumber").HeaderText = "Airs No."
-            dgvFeeManagementLists.Columns("strFacilityName").HeaderText = "Facility Name - Snapshot"
-            dgvFeeManagementLists.Columns("STROPERATIONALSTATUS").HeaderText = "Operational Status - Snapshot"
-            dgvFeeManagementLists.Columns("STRCLASS").HeaderText = "Class - Snapshot"
-            dgvFeeManagementLists.Columns("strNSPS").HeaderText = "NSPS - Snapshot"
-            dgvFeeManagementLists.Columns("NspsFeeExempt").HeaderText = "NSPS Fee Exempt - Snapshot"
-            dgvFeeManagementLists.Columns("STRPART70").HeaderText = "Part 70 - Snapshot"
-            dgvFeeManagementLists.Columns("DATSHUTDOWNDATE").HeaderText = "Shutdown Date - Snapshot"
-            dgvFeeManagementLists.Columns("strFacilityAddress1").HeaderText = "Facility Address"
-            dgvFeeManagementLists.Columns("strFacilityAddress2").HeaderText = "Facility Address 2"
-            dgvFeeManagementLists.Columns("STRFACILITYCITY").HeaderText = "Facility City"
-            dgvFeeManagementLists.Columns("STRFACILITYZIPCODE").HeaderText = "Facility Zip Code"
-
-            FeeManagementListCountLabel.Text = $"Viewing enrolled facilities for the {cboAvailableFeeYears.Text } fee year: " &
-                $"{dgvFeeManagementLists.RowCount} result{If(dgvFeeManagementLists.RowCount = 1, "", "s") }"
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        Cursor = Cursors.WaitCursor
+        Dim p As New SqlParameter("@feeYear", cboAvailableFeeYears.Text)
+        dgvFeeManagementLists.DataSource = DB.SPGetDataTable("dbo.GetFeeEnrolledList", p)
+        FeeManagementListCountLabel.Text = $"Viewing enrolled facilities for the {cboAvailableFeeYears.Text } fee year: " &
+            $"{dgvFeeManagementLists.RowCount} result{If(dgvFeeManagementLists.RowCount = 1, "", "s") }"
+        btnFirstEnrollment.Enabled = cboAvailableFeeYears.SelectedIndex = 0 AndAlso dgvFeeManagementLists.RowCount = 0
+        btnUnenrollFeeYear.Enabled = cboAvailableFeeYears.SelectedIndex = 0 AndAlso dgvFeeManagementLists.RowCount > 0
+        Cursor = Cursors.Default
     End Sub
 
     Private Sub btnViewMailout_Click(sender As Object, e As EventArgs) Handles btnViewMailout.Click
@@ -698,6 +668,7 @@ Public Class FeesManagement
 
     Private Sub btnGenerateMailoutList_Click(sender As Object, e As EventArgs) Handles btnGenerateMailoutList.Click
         Try
+            Cursor = Cursors.WaitCursor
 
             If cboAvailableFeeYears.Text = "" OrElse Not IsNumeric(cboAvailableFeeYears.Text) Then
                 MsgBox("Select a valid fee year first.", MsgBoxStyle.Exclamation, Me.Text)
@@ -711,26 +682,34 @@ Public Class FeesManagement
                 MsgBox("The mailout list has already been generated.", MsgBoxStyle.Exclamation, Me.Text)
             ElseIf returnValue = -1 Then
                 MsgBox("There was an error generating the mailout list.", MsgBoxStyle.Exclamation, Me.Text)
+            Else
+                btnGenerateMailoutList.Enabled = False
             End If
 
             ViewMailOut()
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+        Finally
+            Cursor = Cursors.Default
         End Try
     End Sub
 
     Private Sub ViewMailOut()
+        Cursor = Cursors.WaitCursor
         Dim p As New SqlParameter("@feeYear", cboAvailableFeeYears.Text)
         dgvFeeManagementLists.DataSource = DB.SPGetDataTable("dbo.GetFeeMailoutList", p)
+        lblMailoutCount.Text = dgvFeeManagementLists.RowCount
+
         FeeManagementListCountLabel.Text = $"Viewing facilities in the mailout list for the {cboAvailableFeeYears.Text } fee year: " &
                 $"{dgvFeeManagementLists.RowCount} result{If(dgvFeeManagementLists.RowCount = 1, "", "s") }"
+        Cursor = Cursors.Default
     End Sub
 
     Private Sub btnUpdateContactData_Click(sender As Object, e As EventArgs) Handles btnUpdateContactData.Click
         ' Warn user
-        If DialogResult.No = MessageBox.Show("This will replace mailout contact data with the current " & vbNewLine &
-                                             "fee contact for all sources in the mailout list. " &
+        If DialogResult.No = MessageBox.Show("This will replace mailout contact data with the current" & vbNewLine &
+                                             "fee contact for all sources in the mailout list." &
                                              vbNewLine & vbNewLine &
                                              "Are you sure you want to proceed? ",
                                              "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation,
@@ -744,8 +723,6 @@ Public Class FeesManagement
             MessageBox.Show("Invalid year selected")
             Return
         End If
-
-        Cursor = Cursors.WaitCursor
 
         Dim query As String = "update FS_MAILOUT
             set STRFIRSTNAME = dbo.NullIfNaOrEmpty(IIF(m.Id is not null, m.FirstName, c.STRCONTACTFIRSTNAME)),
@@ -780,11 +757,12 @@ Public Class FeesManagement
         Dim rowsaffected As Integer = 0
 
         Try
+            Cursor = Cursors.WaitCursor
             DB.RunCommand(query, p, rowsaffected)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-            Cursor = Nothing
+            Cursor = Cursors.Default
         End Try
 
         MessageBox.Show(rowsaffected.ToString & " facilities updated.")
@@ -826,124 +804,174 @@ Public Class FeesManagement
             Not IsDBNull(e.Value) AndAlso
             dgvFeeManagementLists.Columns(e.ColumnIndex).HeaderText = "Airs No." AndAlso
             Apb.ApbFacilityId.IsValidAirsNumberFormat(e.Value.ToString()) Then
+
             e.Value = New Apb.ApbFacilityId(e.Value.ToString).FormattedString
-            Console.WriteLine(e.Value)
+
+        ElseIf e IsNot Nothing AndAlso e.Value IsNot Nothing AndAlso Not IsDBNull(e.Value) AndAlso
+            dgvFeeManagementLists.Columns(e.ColumnIndex).HeaderText = "Sent" AndAlso TypeOf e.Value Is Date Then
+
+            e.CellStyle.Format = "yyyy-MM-dd HH:mm:ss"
+
         End If
     End Sub
 
     Private Sub btnViewFacilitiesSubjectToFees_Click(sender As Object, e As EventArgs) Handles btnViewFacilitiesSubjectToFees.Click
         Try
-            Dim SQL As String = "select substring(f.strAIRSnumber, 5, 8)                               as AIRSNumber,
-                   strFacilityname,
-                   strFacilityStreet1,
-                   strFacilityCity,
-                   strFacilityZipCode,
-                   case
-                       when h.STROPERATIONALSTATUS is null
-                           or h.STROPERATIONALSTATUS = ''
-                           or h.STROPERATIONALSTATUS = 'U' then 'Unspecified'
-                       when h.STROPERATIONALSTATUS = 'O' then 'Operational'
-                       when h.STROPERATIONALSTATUS = 'P' then 'Planned'
-                       when h.STROPERATIONALSTATUS = 'C' then 'Under Construction'
-                       when h.STROPERATIONALSTATUS = 'T' then 'Temporarily Closed'
-                       when h.STROPERATIONALSTATUS = 'X' then 'Closed/Dismantled'
-                       when h.STROPERATIONALSTATUS = 'I' then 'Seasonal Operation'
-                   end                                                            as strOperationalStatus,
-                   strClass,
-                   IIF(substring(strAIRProgramCodes, 8, 1) = '1', 'NSPS', '')     as strNSPS,
-                   IIF(s.NspsFeeExempt = 1, 'Exempt', '')                         as NspsFeeExempt,
-                   IIF(substring(strAIRProgramCodes, 13, 1) = '1', 'Part 70', '') as strPArt70,
-                   datShutDownDate                                                as datShutdowndate,
-                   IIF(strEnrolled = '1', 'Yes', 'No')                            as strEnrolled,
-                   IIF(strInitialMailout = '1', 'Yes', 'No')                      as strInitialMailout,
-                   IIF(strMailoutSent = '1', 'Yes', 'No')                         as strMailoutSent
-            from FS_ADMIN f
-                inner join APBFACILITYINFORMATION i
-                on f.strAIRSnumber = i.strAIRSnumber
-                inner join APBHEADERDATA h
-                on f.strAIRSNumber = h.strAIRSNumber
-                inner join APBSUPPLAMENTALDATA s
-                on f.STRAIRSNUMBER = s.STRAIRSNUMBER
-            where f.numFeeYear = @year
-              and f.Active = '1'
-            order by AIRSNumber"
-
-            Dim p As New SqlParameter("@year", cboAvailableFeeYears.Text)
-            dgvFeeManagementLists.DataSource = DB.GetDataTable(SQL, p)
-
-            dgvFeeManagementLists.Columns("AIRSNumber").HeaderText = "Airs No."
-            dgvFeeManagementLists.Columns("strFacilityName").HeaderText = "Facility Name - Current Data"
-            dgvFeeManagementLists.Columns("strFacilityStreet1").HeaderText = "Facility Street - Current Data"
-            dgvFeeManagementLists.Columns("STRFACILITYCITY").HeaderText = "Facility City - Current Data"
-            dgvFeeManagementLists.Columns("STRFACILITYZIPCODE").HeaderText = "Facility Zip Code - Current Data"
-
-            dgvFeeManagementLists.Columns("STROPERATIONALSTATUS").HeaderText = "Operational Status - Current Data"
-            dgvFeeManagementLists.Columns("STRCLASS").HeaderText = "Class - Current Data"
-            dgvFeeManagementLists.Columns("strNSPS").HeaderText = "NSPS - Current Data"
-            dgvFeeManagementLists.Columns("NspsFeeExempt").HeaderText = "NSPS Fee Exempt - Current Data"
-            dgvFeeManagementLists.Columns("STRPART70").HeaderText = "Part 70 Source - Current Data"
-            dgvFeeManagementLists.Columns("DATSHUTDOWNDATE").HeaderText = "Shutdown Date - Current Data"
-
-            dgvFeeManagementLists.Columns("strEnrolled").HeaderText = "Enrolled Facility"
-            dgvFeeManagementLists.Columns("strInitialMailout").HeaderText = "In Initial Mailout"
-            dgvFeeManagementLists.Columns("strMailoutSent").HeaderText = "In Mailout"
-
+            Cursor = Cursors.WaitCursor
+            Dim p As New SqlParameter("@feeYear", cboAvailableFeeYears.Text)
+            dgvFeeManagementLists.DataSource = DB.SPGetDataTable("dbo.GetFeeUniverse", p)
             FeeManagementListCountLabel.Text = $"Viewing facilities subject to fees for the {cboAvailableFeeYears.Text } fee year: " &
                 $"{dgvFeeManagementLists.RowCount} result{If(dgvFeeManagementLists.RowCount = 1, "", "s") }"
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+        Finally
+            Cursor = Cursors.Default
         End Try
     End Sub
 
-    Private Sub btnSetMailoutDate_Click(sender As Object, e As EventArgs) Handles btnSetMailoutDate.Click
-        If DialogResult.No = MessageBox.Show("Are you sure you want to set the initial mailout date for all sources in the mailout list?",
-                                             "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1) Then
+    Private Async Sub btnSendInitialEmail_Click(sender As Object, e As EventArgs) Handles btnSendInitialEmail.Click
+        Dim userResponse As DialogResult = MessageBox.Show($"Are you sure you want to send the initial e-notification for the {cboAvailableFeeYears.Text } fee year?" &
+            vbNewLine & vbNewLine & "(This will send a mass email to all sources in the mailout list for which an email address is available.)",
+            "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1)
+
+        If userResponse = DialogResult.No Then Return
+
+        Dim dv As DataView = TryCast(dgvFeeManagementLists.DataSource, DataView)
+
+        If dv Is Nothing Then
+            MessageBox.Show("There are no sources available in the list.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return
         End If
 
+        Dim success As Boolean = False
         Try
-            Dim SQL As String = "Update FS_Admin set " &
-            " datMailoutSent = @date, " &
-            " numcurrentstatus = 4, " &
-            " STRINITIALMAILOUT = '1' , " &
-            " strMailOutSent = '1' " &
-            " where numFeeYear = @year " &
-            " and datMailoutSent is null " &
-            " and strEnrolled = '1' " &
-            " and active = '1' "
-            Dim p As SqlParameter() = {
-                New SqlParameter("@date", dtpDateMailoutSent.Value),
-                New SqlParameter("@year", cboAvailableFeeYears.Text)
-            }
-            DB.RunCommand(SQL, p)
+            btnSendInitialEmail.Enabled = False
+            Cursor = Cursors.WaitCursor
 
-            MsgBox("Mailout Sent date set.", MsgBoxStyle.Information, Me.Text)
+            Dim response As EmailQueueResponse = Await SendAnnualFeeNotificationAsync(dv, cboAvailableFeeYears.Text, AnnualFeeDueDate)
 
+            If response Is Nothing Then
+                MessageBox.Show("There was a problem sending the initial email notification. Please contact EPD-IT for more information.",
+                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Else
+                If response.Body Is Nothing Then
+                    MessageBox.Show("There was a problem sending the initial email notification. Please contact EPD-IT for more information." &
+                                    vbNewLine & vbNewLine & $"Emailer Status: {response.Status}",
+                                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                ElseIf response.Body.Status = "Empty" Then
+                    MessageBox.Show("No emails were sent.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Else
+                    Dim p As SqlParameter() = {
+                        New SqlParameter("@feeYear", cboAvailableFeeYears.Text),
+                        New SqlParameter("@batchId", response.Body.BatchId)
+                    }
+                    DB.SPRunCommand("dbo.SetInitialFeeNotificationDate", p)
+
+                    MessageBox.Show($"The initial email notification has been processed and {response.Body.Count} emails have been queued.",
+                                    "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+                    success = True
+                End If
+            End If
         Catch ex As Exception
+            MessageBox.Show("There was an error sending the initial email notification. Please contact EPD-IT for more information.",
+                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+        Finally
+            Cursor = Cursors.Default
         End Try
+
+        LoadFeeYearData()
+        If success Then Await LoadEmailBatchStatusAsync()
     End Sub
 
     Private Sub cboAvailableFeeYears_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboAvailableFeeYears.SelectedIndexChanged
-        If cboAvailableFeeYears.SelectedIndex > 0 Then
-            btnGenerateMailoutList.Enabled = False
-            btnFirstEnrollment.Enabled = False
-            btnUnenrollFeeYear.Enabled = False
-            btnUpdateContactData.Enabled = False
-            btnSetMailoutDate.Enabled = False
-            dtpDateMailoutSent.Enabled = False
-        Else
-            btnGenerateMailoutList.Enabled = True
-            btnFirstEnrollment.Enabled = True
-            btnUnenrollFeeYear.Enabled = True
-            btnUpdateContactData.Enabled = True
-            btnSetMailoutDate.Enabled = True
-            dtpDateMailoutSent.Enabled = True
+        If cboAvailableFeeYears.SelectedIndex <> SelectedFeeYearIndex Then
+            LoadFeeYearData()
         End If
     End Sub
 
+    Private Sub LoadFeeYearData()
+        If cboAvailableFeeYears.SelectedIndex < 0 Then Return
+
+        Cursor = Cursors.WaitCursor
+        SelectedFeeYearIndex = cboAvailableFeeYears.SelectedIndex
+        FeeManagementListCountLabel.Text = ""
+        dgvFeeManagementLists.DataSource = Nothing
+
+        lblFeeYearCount.Text = ""
+        lblMailoutCount.Text = ""
+        lblEnrollmentCount.Text = ""
+        lblInitialMailoutDate.Text = ""
+        lblInitialMailoutDate.Visible = False
+        btnViewEmailBatchStatus.Visible = False
+        btnViewEmailBatchDetails.Visible = False
+
+        Dim buttonsEnabled As Boolean = cboAvailableFeeYears.SelectedIndex = 0
+
+        btnGenerateMailoutList.Enabled = buttonsEnabled
+        btnFirstEnrollment.Enabled = buttonsEnabled
+        btnUnenrollFeeYear.Enabled = buttonsEnabled
+        btnUpdateContactData.Enabled = buttonsEnabled
+        btnSendInitialEmail.Visible = False
+        EnableAutomatedEmailNotification = buttonsEnabled
+        btnViewEmailList.Enabled = buttonsEnabled
+        btnViewPhysicalMailList.Enabled = buttonsEnabled
+
+        Dim p As New SqlParameter("@FeeYear", cboAvailableFeeYears.Text)
+        Dim row As DataRow = DB.SPGetDataRow("dbo.GetFeeYearStats", p)
+
+        If row IsNot Nothing Then
+            lblFeeYearCount.Text = GetNullable(Of Integer)(row("FeeYearCount"))
+
+            Dim enrollmentCount As Integer = GetNullable(Of Integer)(row("EnrollmentCount"))
+            lblEnrollmentCount.Text = enrollmentCount
+            If enrollmentCount > 0 Then
+                btnFirstEnrollment.Enabled = False
+            Else
+                btnUnenrollFeeYear.Enabled = False
+            End If
+
+            Dim mailoutCount As Integer = GetNullable(Of Integer)(row("MailoutCount"))
+            lblMailoutCount.Text = mailoutCount
+            If mailoutCount > 0 Then
+                btnGenerateMailoutList.Enabled = False
+            Else
+                btnUpdateContactData.Enabled = False
+            End If
+
+            Dim initialMailoutDate As Date? = GetNullable(Of Date?)(row("InitialMailoutDate"))
+            If initialMailoutDate IsNot Nothing Then
+                lblInitialMailoutDate.Text = "Initial Mailout Date:" & vbNewLine & initialMailoutDate.Value.ToString("d-MMM-yyyy")
+                lblInitialMailoutDate.Visible = True
+                EnableAutomatedEmailNotification = False
+            End If
+
+            AnnualFeeDueDate = GetNullableDateTime(row("AnnualFeeDueDate"))
+            If AnnualFeeDueDate <> Nothing Then
+                lblFeeDueDate.Text = "Reporting Due Date:" & vbNewLine & Format(AnnualFeeDueDate, "d-MMM-yyyy")
+            End If
+
+            EmailBatchId = GetNullable(Of Guid?)(row("InitialMailoutEmailBatchId"))
+            btnViewEmailBatchStatus.Visible = EmailBatchId IsNot Nothing
+            btnViewEmailBatchDetails.Visible = EmailBatchId IsNot Nothing
+
+            Dim month As Integer = Date.Today.Month
+            If month < 5 OrElse month > 7 Then
+                EnableAutomatedEmailNotification = False
+            End If
+        End If
+
+        Cursor = Cursors.Default
+    End Sub
+
     Private Sub dgvFeeManagementLists_CellLinkSelected(sender As Object, e As IaipDataGridViewCellLinkEventArgs) Handles dgvFeeManagementLists.CellLinkSelected
-        AIRSNumberEntry.Text = e.LinkValue.ToString
+        If e IsNot Nothing AndAlso e.LinkValue IsNot Nothing AndAlso dgvFeeManagementLists.Columns(0).HeaderText = "Airs No." AndAlso
+            ApbFacilityId.IsValidAirsNumberFormat(e.LinkValue.ToString()) Then
+
+            AIRSNumberEntry.AirsNumber = e.LinkValue.ToString
+
+        End If
     End Sub
 
     Private Sub dgvFeeManagementLists_CellLinkActivated(sender As Object, e As IaipDataGridViewCellLinkEventArgs) Handles dgvFeeManagementLists.CellLinkActivated
@@ -1064,17 +1092,135 @@ Public Class FeesManagement
     End Function
 
     Private Sub btnViewPhysicalMailList_Click(sender As Object, e As EventArgs) Handles btnViewPhysicalMailList.Click
+        Cursor = Cursors.WaitCursor
         Dim p As New SqlParameter("@feeYear", cboAvailableFeeYears.Text)
-        dgvFeeManagementLists.DataSource = DB.SPGetDataTable("dbo.GetFeeMailoutMailList", p)
+        dgvFeeManagementLists.DataSource = DB.SPGetDataTable("dbo.GetFeeMailoutPhysicalMailList", p)
         FeeManagementListCountLabel.Text = $"Viewing facilities in the {cboAvailableFeeYears.Text } mailout list requiring physical mail: " &
                 $"{dgvFeeManagementLists.RowCount} result{If(dgvFeeManagementLists.RowCount = 1, "", "s") }"
+        Cursor = Cursors.Default
     End Sub
 
     Private Sub btnViewEmailList_Click(sender As Object, e As EventArgs) Handles btnViewEmailList.Click
+        Cursor = Cursors.WaitCursor
         Dim p As New SqlParameter("@feeYear", cboAvailableFeeYears.Text)
         dgvFeeManagementLists.DataSource = DB.SPGetDataTable("dbo.GetFeeMailoutEmailList", p)
-        FeeManagementListCountLabel.Text = $"Viewing facilities in the {cboAvailableFeeYears.Text } mailout list requesting electronic mail: " &
+        FeeManagementListCountLabel.Text = $"Viewing email addresses for facilities in the {cboAvailableFeeYears.Text } mailout list: " &
                 $"{dgvFeeManagementLists.RowCount} result{If(dgvFeeManagementLists.RowCount = 1, "", "s") }"
+
+        btnSendInitialEmail.Visible = EnableAutomatedEmailNotification AndAlso dgvFeeManagementLists.RowCount > 0
+        btnSendInitialEmail.Enabled = btnSendInitialEmail.Visible
+        Cursor = Cursors.Default
+    End Sub
+
+    Private Sub dgvFeeManagementLists_DataSourceChanged(sender As Object, e As EventArgs) Handles dgvFeeManagementLists.DataSourceChanged
+        btnSendInitialEmail.Visible = False
+
+        If dgvFeeManagementLists.DataSource IsNot Nothing AndAlso dgvFeeManagementLists.RowCount > 0 Then
+            dgvFeeManagementLists.LinkifyFirstColumn = dgvFeeManagementLists.Columns(0).HeaderText = "Airs No."
+        Else
+            AIRSNumberEntry.Clear()
+        End If
+    End Sub
+
+    Private Async Sub btnViewEmailBatchStatus_Click(sender As Object, e As EventArgs) Handles btnViewEmailBatchStatus.Click
+        Cursor = Cursors.WaitCursor
+        Await LoadEmailBatchStatusAsync()
+        Cursor = Cursors.Default
+    End Sub
+
+    Private Async Function LoadEmailBatchStatusAsync() As Task
+        Dim response As EmailBatchStatus = Await GetBatchStatus(EmailBatchId)
+
+        If response Is Nothing OrElse response.Status = "Failed" OrElse response.EmailCounts Is Nothing Then
+            MessageBox.Show("There was a problem retrieving the email batch status. Please try again.",
+                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+        Else
+            dgvFeeManagementLists.DataSource = New List(Of EmailBatchCounts) From {{response.EmailCounts}}
+
+            FeeManagementListCountLabel.Text = $"Viewing status of emails generated for the {cboAvailableFeeYears.Text } initial mailout."
+        End If
+    End Function
+
+    Private Async Sub btnViewEmailBatchDetails_Click(sender As Object, e As EventArgs) Handles btnViewEmailBatchDetails.Click
+        Cursor = Cursors.WaitCursor
+        Await LoadEmailBatchDetailsAsync()
+        Cursor = Cursors.Default
+    End Sub
+
+    Private Async Function LoadEmailBatchDetailsAsync() As Task
+        Dim response As EmailBatchDetails = Await GetBatchDetails(EmailBatchId)
+
+        If response Is Nothing OrElse response.Status = "Failed" OrElse response.Emails Is Nothing OrElse Not response.Emails.Any() Then
+            MessageBox.Show("There was a problem retrieving the email batch details. Please try again.",
+                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+        Else
+            dgvFeeManagementLists.DataSource = response.Emails.OrderBy(Function(p) p.Counter).Select(Function(p) New EmailRecord(p)).ToList()
+
+            FeeManagementListCountLabel.Text = $"Viewing details of emails generated for the {cboAvailableFeeYears.Text } initial mailout: " &
+                $"{dgvFeeManagementLists.RowCount} result{If(dgvFeeManagementLists.RowCount = 1, "", "s") }"
+        End If
+    End Function
+
+    Private Class EmailRecord
+        Public Sub New(email As EmailTaskViewModel)
+            Status = email.Status
+            Sent = If(email.AttemptedAt.HasValue, email.AttemptedAt.Value.ToLocalTime(), CType(Nothing, Date?))
+            Subject = email.Subject
+            Recipients = String.Join(", ", email.Recipients)
+        End Sub
+
+        Public Property Status As String
+        Public Property Sent As Date?
+        Public Property Subject As String
+        Public Property Recipients As String
+    End Class
+
+    Private Async Function SendAnnualFeeNotificationAsync(dv As DataView, feeYear As Integer, deadline As Date) As Task(Of EmailQueueResponse)
+        Dim emails As New List(Of NewEmailTask)
+        Dim gecoUrl As String = ConfigurationManager.AppSettings("GecoUrl")
+        Dim deadlineFormatted As String = deadline.ToString("MMMM d, yyyy")
+
+        For Each rowView As DataRowView In dv
+            Dim recipientsList As List(Of String) = rowView("Emails").ToString().Split(","c).Select(Function(s) s.Trim()).ToList()
+            Dim airsNumber As String = rowView("Airs No.").ToString().Trim()
+            Dim airsNumberFormatted As String = $"{Strings.Left(airsNumber, 3)}-{Strings.Right(airsNumber, 5)}"
+            Dim facilityName As String = rowView("Facility Name (snapshot)").ToString().Trim()
+
+            Dim newEmail As New NewEmailTask() With {
+                .From = "GeorgiaAirProtectionBranch@dnr.ga.gov",
+                .FromName = "Georgia Air Protection Branch",
+                .Recipients = recipientsList,
+                .Subject = $"Data Collection for {feeYear} Calendar Year Emission Fees (AIRS #{airsNumberFormatted}: {facilityName})",
+                .Body = EmailBody(feeYear, deadlineFormatted, gecoUrl)
+            }
+
+            emails.Add(newEmail)
+        Next
+
+        Return Await SendEmailsAsync(emails.ToArray()).ConfigureAwait(False)
+    End Function
+
+    Private Function EmailBody(feeYear As Integer, deadline As String, gecoUrl As String) As String
+        Return $"Dear Sir/Madam:
+
+This letter is a notification that you must complete the Georgia Air Emission Fees Reporting form for the {feeYear} calendar year. You must complete and submit the Emission Fees Reporting form, even if no fees are due. For the {feeYear} calendar year, you should report your respective fee amount via an ""online fee form."" This online form will eliminate the need to send paper forms and allow immediate reporting. Additionally, this online form has features to check the data, reducing the need to contact you for additional or corrected information.
+
+You must complete your online Emission Fees Reporting form by {deadline}. You must still complete the online form if your facility did not operate during the calendar year. 
+
+Please refer to the following links for information and instructions on accessing the forms:
+
+    * GECO Registration and Information: {gecoUrl}files/Generating-an-Invoice-on-GECO.pdf
+    * Generating an Invoice on GECO: {gecoUrl}files/GECO-Information-Sheet.pdf
+
+Sincerely,
+Lydia Davis
+Fee Unit Manager
+Financial Unit
+"
+    End Function
+
+    Private Sub btnRefreshFeeYearStats_Click(sender As Object, e As EventArgs) Handles btnRefreshFeeYearStats.Click
+        LoadFeeYearData()
     End Sub
 
 End Class

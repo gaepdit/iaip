@@ -1747,6 +1747,16 @@ Public Class EisTool
     End Sub
 
     Private Sub btnEILogAddNewFacility_Click(sender As Object, e As EventArgs) Handles btnEILogAddNewFacility.Click
+        If cboEILogYear.Text = "" OrElse cboEILogYear.Text.Length <> 4 Then
+            MsgBox("Please select a valid year from the EIS Year dropdown.", MsgBoxStyle.Exclamation, Me.Text)
+            Return
+        End If
+
+        If Not mtbEILogAIRSNumber.IsValid Then
+            MsgBox("Please enter a valid AIRS #.", MsgBoxStyle.Exclamation, Me.Text)
+            Return
+        End If
+
         Try
             Dim spname As String = "dbo.PD_EIS_Data"
             Dim params As SqlParameter() = {

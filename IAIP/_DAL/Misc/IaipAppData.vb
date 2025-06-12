@@ -1,4 +1,5 @@
 ﻿Imports System.Threading.Tasks
+Imports Iaip.ApiCalls.IaipCx
 
 Namespace DAL
     Module IaipAppData
@@ -10,6 +11,7 @@ Namespace DAL
             Return GetCurrentVersionAsMajorMinorBuild().CompareTo(minVer) >= 0
         End Function
 
+        ' The indirection in this function prevents some kind of cross-thread exception.
         Public Async Function IsIaipEnabledAsync() As Task(Of Boolean)
             Return Await Task.Run(
             Function()

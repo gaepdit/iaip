@@ -1,12 +1,14 @@
-﻿Public Class FeesLog
+﻿Imports Iaip.DAL
 
-    Private Sub PASPFeesLog_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+Public Class FeesLog
+
+    Private Sub FeesLog_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         LoadFeeYears()
     End Sub
 
     Private Sub LoadFeeYears()
-        clbFeeYear.DataSource = DAL.GetAllFeeYears()
-        cbYear.DataSource = DAL.GetAllFeeYears()
+        clbFeeYear.DataSource = AnnualFees.GetAllFeeYears()
+        cbYear.DataSource = AnnualFees.GetAllFeeYears()
     End Sub
 
     Private Sub RunSearch()

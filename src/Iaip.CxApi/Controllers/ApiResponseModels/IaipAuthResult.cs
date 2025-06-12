@@ -1,4 +1,3 @@
-using Iaip.CxApi.Models;
 using Iaip.CxApi.Settings;
 
 namespace Iaip.CxApi.Controllers.ApiResponseModels;

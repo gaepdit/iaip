@@ -1,13 +1,14 @@
 Imports System.Collections.Generic
-Imports Microsoft.Data.SqlClient
 Imports System.Text
 Imports GaEpd.DBUtilities
 Imports Iaip.Apb
 Imports Iaip.Apb.ApbFacilityId
+Imports Iaip.DAL
+Imports Microsoft.Data.SqlClient
 
 Public Class FeesStatistics
 
-    Private Sub PASPFeeStatistics_Load(sender As Object, e As EventArgs) Handles Me.Load
+    Private Sub FeesStatistics_Load(sender As Object, e As EventArgs) Handles Me.Load
         Try
             Me.Cursor = Cursors.WaitCursor
             pnlDetails.Dock = DockStyle.None
@@ -38,7 +39,7 @@ Public Class FeesStatistics
     End Sub
 
     Private Sub loadDepositAndPayment()
-        Dim allFeeYears As List(Of Integer) = DAL.GetAllFeeYears()
+        Dim allFeeYears As List(Of Integer) = AnnualFees.GetAllFeeYears()
 
         With cboStatYear
             .DataSource = allFeeYears
@@ -61,7 +62,7 @@ Public Class FeesStatistics
         End With
 
         With cboStatPayType
-            .DataSource = DAL.GetFeePaymentTypesAsList().AddRowToList("ALL QUARTERS").AddRowToList("ALL")
+            .DataSource = AnnualFees.GetFeePaymentTypesAsList().AddRowToList("ALL QUARTERS").AddRowToList("ALL")
             .SelectedIndex = 0
         End With
     End Sub
