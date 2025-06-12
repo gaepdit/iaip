@@ -70,7 +70,7 @@ if (!string.IsNullOrEmpty(AppSettings.RaygunSettings.ApiKey)) app.UseRaygun();
 app.MapControllers();
 
 // Add a health check API endpoint.
-app.MapGet("/health", () => Results.Ok());
+app.MapGet("/health", () => Results.Ok("OK"));
 
 // Make it so.
 await app.RunAsync();
