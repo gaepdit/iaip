@@ -45,6 +45,7 @@ Module AppGlobals
     Friend Const APP_ROOT_NAMESPACE As String = "Iaip"
     Friend Const MIN_USERNAME_LENGTH As Integer = 3
     Friend Const MIN_PASSWORD_LENGTH As Integer = 3
+    Friend REGEX_DEFAULT_MATCH_TIMEOUT As TimeSpan = TimeSpan.FromMilliseconds(100)
 
     ' String formats 
 

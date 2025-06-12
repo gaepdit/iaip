@@ -136,7 +136,7 @@
         Public Shared Function IsValidAirsNumberFormat(airsNumber As String) As Boolean
             If airsNumber Is Nothing Then Return False
 
-            Return Text.RegularExpressions.Regex.IsMatch(airsNumber, AirsNumberPattern)
+            Return Text.RegularExpressions.Regex.IsMatch(Trim(airsNumber), AirsNumberPattern)
         End Function
 
         ''' <summary>
@@ -146,15 +146,26 @@
         ''' <returns>A string representation of an AIRS number in the form "00000000".</returns>
         <DebuggerStepThrough()>
         Private Shared Function GetNormalizedAirsNumber(airsNumber As String) As String
-            ' Converts a string representation of an AIRS number to the "00000000" form 
-            ' (eight numerals, no dashes).
+            ' Convert a non-normalized string representation of an AIRS number to the normalized form 
+            airsNumber = Trim(airsNumber)
 
-            ' Remove spaces, dashes, and leading '0413'
-            airsNumber = airsNumber.Replace("-", "").Replace(" ", "")
+            Dim dashIndex As Integer = airsNumber.IndexOf("-"c)
+            If dashIndex = -1 Then
+                If airsNumber.Length = 8 Then Return airsNumber
 
-            If airsNumber.Length = 12 Then airsNumber = airsNumber.Remove(0, 4)
+                If airsNumber.Length = 12 AndAlso airsNumber.StartsWith("0413") Then
+                    ' If the first four digits are "0413", discard them
+                    Return airsNumber.Substring(4)
+                End If
 
-            Return airsNumber
+                Throw New ArgumentException(String.Format("{0} is not a valid AIRS number.", airsNumber))
+            End If
+
+            ' If original string contains a dash, extract the first part and pad to 3 digits
+            Dim countyPart As String = airsNumber.Substring(0, dashIndex).PadLeft(3, "0"c)
+            Dim restPart As String = airsNumber.Substring(dashIndex + 1).Replace("-", "").PadLeft(5, "0"c)
+
+            Return countyPart & restPart
         End Function
 
         Public Shared Function TryCastApbFacilityId(airsNumber As String) As ApbFacilityId
