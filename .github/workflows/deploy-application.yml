@@ -82,6 +82,20 @@ jobs:
           $publishSize = (Get-ChildItem -Path "$env:PublishDir\Application Files" -Recurse | Measure-Object -Property Length -Sum).Sum / 1Mb
           Write-Output ("Published size: {0:N2} MB" -f $publishSize)
 
+      - name: Install Pandoc (only on Prod)
+        if: github.ref_name == 'deploy/PROD'
+        uses: pandoc/actions/setup@v1
+
+      - name: Build the IAIP website using Pandoc (only on Prod)
+        if: github.ref_name == 'deploy/PROD'
+        working-directory: ${{ env.WebsiteRoot }}
+        run: >
+          Get-ChildItem -Path "www" -Recurse -Include "*.md" | ForEach-Object {
+            $file = $_.FullName
+            $output = "$($_.DirectoryName)\$($_.BaseName).html"
+            pandoc.exe -f markdown+startnum -t html5 --email-obfuscation=references --template="includes/template.html5" -H "includes/head.inc" -o $output $file
+          }
+
       - name: Check out the `gh-pages` branch
         uses: actions/checkout@v4
         with:
