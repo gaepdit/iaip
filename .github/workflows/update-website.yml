@@ -26,7 +26,7 @@ jobs:
       - name: Check out the `main` branch
         uses: actions/checkout@v4
         with:
-          ref: website-build
+          ref: ${{ env.MainBranch }}
           path: ${{ env.MainBranch }}
           sparse-checkout: |
             iaip-website
@@ -36,20 +36,12 @@ jobs:
 
       - name: Build the IAIP website using Pandoc
         working-directory: ${{ env.WebsiteRoot }}
-        run: >
+        run: |
           Get-ChildItem -Path "www" -Recurse -Include "*.md" | ForEach-Object {
             $file = $_.FullName
             $output = "$($_.DirectoryName)\$($_.BaseName).html"
             pandoc.exe -f markdown+startnum -t html5 --email-obfuscation=references --template="includes/template.html5" -H "includes/head.inc" -o $output $file
           }
-
-      - name: Verify the generated HTML files
-        working-directory: ${{ env.WebsiteRoot }}
-        run: Get-ChildItem -Path "www" -Recurse -Include "*.html"
-
-      - name: View generated 2024 changelog
-        working-directory: ${{ env.WebsiteRoot }}
-        run: cat .\www\changelog\changelog-2024.html
 
       - name: Check out the `gh-pages` branch
         uses: actions/checkout@v4
@@ -57,18 +49,8 @@ jobs:
           ref: ${{ env.GhPagesBranch }}
           path: ${{ env.GhPagesBranch }}
 
-      - name: View existing 2024 changelog
-        working-directory: ${{ env.GhPagesBranch }}
-        run: cat .\docs\changelog\changelog-2024.html
-
-      - name: Copy website files
-        run: |
-          Get-ChildItem
-          Copy-Item -Path "$env:WwwSource" -Destination "$env:GhPagesDestination" -Exclude "*.md" -Recurse -Force -Verbose
-
-      - name: View updated 2024 changelog
-        working-directory: ${{ env.GhPagesBranch }}
-        run: cat .\docs\changelog\changelog-2024.html
+      - name: Copy the website files
+        run: Copy-Item -Path "$env:WwwSource" -Destination "$env:GhPagesDestination" -Exclude "*.md" -Recurse -Force
 
       - name: Commit new files to the `gh-pages` branch
         working-directory: ${{ env.GhPagesBranch }}

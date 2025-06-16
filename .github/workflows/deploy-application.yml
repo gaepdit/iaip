@@ -89,7 +89,7 @@ jobs:
       - name: Build the IAIP website using Pandoc (only on Prod)
         if: github.ref_name == 'deploy/PROD'
         working-directory: ${{ env.WebsiteRoot }}
-        run: >
+        run: |
           Get-ChildItem -Path "www" -Recurse -Include "*.md" | ForEach-Object {
             $file = $_.FullName
             $output = "$($_.DirectoryName)\$($_.BaseName).html"
@@ -109,18 +109,17 @@ jobs:
           {
             Remove-Item -Path "Application Files" -Recurse
           }
-          if (Test-Path "$env:AssemblyName.application") {
+          if (Test-Path "$env:AssemblyName.application") 
+          {
             Remove-Item -Path "$env:AssemblyName.application"
           }
 
       - name: Copy new installer files
-        run: |
-          Copy-Item -Path "$env:PublishPath\Application Files", "$env:PublishPath\$env:AssemblyName.application" -Destination $env:InstallerPath -Recurse
+        run: Copy-Item -Path "$env:PublishPath\Application Files", "$env:PublishPath\$env:AssemblyName.application" -Destination $env:InstallerPath -Recurse
 
       - name: Copy website files (only on Prod)
         if: github.ref_name == 'deploy/PROD'
-        run: |
-          Copy-Item -Path "$env:WwwSource" -Destination "$env:GhPagesDestination" -Exclude "*.md" -Recurse -Force
+        run: Copy-Item -Path "$env:WwwSource" -Destination "$env:GhPagesDestination" -Exclude "*.md" -Recurse -Force
 
       - name: Commit all new files to the `gh-pages` branch
         working-directory: ${{ env.GhPagesBranch }}
