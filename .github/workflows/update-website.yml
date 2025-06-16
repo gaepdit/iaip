@@ -26,7 +26,7 @@ jobs:
       - name: Check out the `main` branch
         uses: actions/checkout@v4
         with:
-          ref: ${{ env.MainBranch }}
+          ref: website-build
           path: ${{ env.MainBranch }}
           sparse-checkout: |
             iaip-website
