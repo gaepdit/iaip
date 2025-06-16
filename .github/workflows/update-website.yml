@@ -54,7 +54,9 @@ jobs:
           path: ${{ env.GhPagesBranch }}
 
       - name: Copy website files
-        run: Copy-Item -Path "$env:WwwSource" -Destination "$env:GhPagesDestination" -Exclude "*.md" -Recurse -Force
+        run: |
+          Get-ChildItem
+          Copy-Item -Path "$env:WwwSource" -Destination "$env:GhPagesDestination" -Exclude "*.md" -Recurse -Force
 
       - name: Commit new files to the `gh-pages` branch
         working-directory: ${{ env.GhPagesBranch }}
