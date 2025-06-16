@@ -43,6 +43,10 @@ jobs:
             pandoc.exe -f markdown+startnum -t html5 --email-obfuscation=references --template="includes/template.html5" -H "includes/head.inc" -o $output $file
           }
 
+      - name: Verify the generated HTML files
+        working-directory: ${{ env.WebsiteRoot }}
+        run: Get-ChildItem -Path "www" -Recurse -Include "*.html"
+
       - name: Check out the `gh-pages` branch
         uses: actions/checkout@v4
         with:
