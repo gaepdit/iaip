@@ -18,6 +18,7 @@ jobs:
     env:
       MainBranch: main
       GhPagesBranch: gh-pages
+      WebsiteRoot: main\iaip-website
       WwwSource: main\iaip-website\www\*
       GhPagesDestination: gh-pages\docs
 
@@ -30,15 +31,26 @@ jobs:
           sparse-checkout: |
             iaip-website
 
+      - name: Install Pandoc
+        uses: pandoc/actions/setup@v1
+
+      - name: Build the IAIP website using Pandoc
+        working-directory: ${{ env.WebsiteRoot }}
+        run: |
+          Get-ChildItem -Path "www" -Recurse -Include "*.md" | ForEach-Object {
+            $file = $_.FullName
+            $output = "$($_.DirectoryName)\$($_.BaseName).html"
+            pandoc.exe -f markdown+startnum -t html5 --email-obfuscation=references --template="includes/template.html5" -H "includes/head.inc" -o $output $file
+          }
+
       - name: Check out the `gh-pages` branch
         uses: actions/checkout@v4
         with:
           ref: ${{ env.GhPagesBranch }}
           path: ${{ env.GhPagesBranch }}
 
-      - name: Copy website files
-        run: |
-          Copy-Item -Path "$env:WwwSource" -Destination "$env:GhPagesDestination" -Exclude "*.md" -Recurse -Force
+      - name: Copy the website files
+        run: Copy-Item -Path "$env:WwwSource" -Destination "$env:GhPagesDestination" -Exclude "*.md" -Recurse -Force
 
       - name: Commit new files to the `gh-pages` branch
         working-directory: ${{ env.GhPagesBranch }}

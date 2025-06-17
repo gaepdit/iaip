@@ -56,4 +56,6 @@ Bug fixes:
 
 ## Version 7.0.0 <span>(4-Jan-2024)</span>
 
+7️⃣
+
 This update includes significant changes to how the IAIP authenticates users and connects to the database. Nothing should look or work differently for the user, so as always, if you encounter unexpected or erroneous behavior, please contact us at [helpdesk@gaepd.zendesk.com](mailto:helpdesk@gaepd.zendesk.com).
