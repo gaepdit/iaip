@@ -32,6 +32,7 @@ jobs:
       PublishDir: .publish
       PublishPath: main\IAIP\.publish
       GhPagesBranch: gh-pages
+      WebsiteRoot: main\iaip-website
       WwwSource: main\iaip-website\www\*
       GhPagesDestination: gh-pages\docs
       InstallerPath: ${{ github.ref_name == 'deploy/PROD' && 'gh-pages\docs\install' || ( github.ref_name == 'deploy/UAT' && 'gh-pages\docs\uat' || ( github.ref_name == 'deploy/DEV' && 'gh-pages\docs\dev' || 'Error' ) ) }}
