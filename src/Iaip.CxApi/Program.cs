@@ -69,8 +69,9 @@ if (builder.Environment.IsDevelopment())
 if (!string.IsNullOrEmpty(AppSettings.RaygunSettings.ApiKey)) app.UseRaygun();
 app.MapControllers();
 
-// Add a health check API endpoint.
+// Add status API endpoints.
 app.MapGet("/health", () => Results.Ok("OK"));
+app.MapGet("/version", () => Results.Ok(new { version = AppSettings.GetVersion() }));
 
 // Make it so.
 await app.RunAsync();
