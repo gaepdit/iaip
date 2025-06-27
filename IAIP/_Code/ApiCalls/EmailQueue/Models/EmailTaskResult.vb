@@ -17,6 +17,7 @@ Namespace ApiCalls.EmailQueue
     Public Class EmailBatchCounts
         <DisplayName("Total")>
         Public Property Count As Integer
+        <DisplayName("Waiting")>
         Public Property Queued As Integer
         Public Property Sent As Integer
         Public Property Failed As Integer
@@ -38,6 +39,7 @@ Namespace ApiCalls.EmailQueue
     Public Class EmailTaskViewModel
         Public Property Counter As Integer
         Public Property Status As String
+        Public Property FailureReason As String
         Public Property AttemptedAt As Date?
         Public Property Subject As String
         Public Property Recipients As List(Of String)
