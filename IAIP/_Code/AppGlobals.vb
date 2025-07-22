@@ -5,10 +5,14 @@ Imports GaEpd
 ''' Global variables and constants
 ''' </summary>
 Module AppGlobals
-    ' DB connections
 
-    Friend CurrentServerEnvironment As ServerEnvironment = ServerEnvironment.Production
-    Friend DB As DBHelper
+    ' Network environment
+    Friend Property CurrentServerEnvironment As ServerEnvironment = ServerEnvironment.Production
+    Friend Property VpnInterfaceAdapter As String = "None"
+
+    ' DB connections
+    Friend Property DB As DBHelper
+    Friend Property RetryProviderEnabled As Boolean = False
 
     ' App config
 

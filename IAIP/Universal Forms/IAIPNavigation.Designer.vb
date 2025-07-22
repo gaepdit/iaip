@@ -739,9 +739,9 @@ Partial Class IAIPNavigation
         Me.lblNetworkCheckCountdown.AutoSize = True
         Me.lblNetworkCheckCountdown.Location = New System.Drawing.Point(13, 157)
         Me.lblNetworkCheckCountdown.Name = "lblNetworkCheckCountdown"
-        Me.lblNetworkCheckCountdown.Size = New System.Drawing.Size(143, 13)
+        Me.lblNetworkCheckCountdown.Size = New System.Drawing.Size(16, 13)
         Me.lblNetworkCheckCountdown.TabIndex = 2
-        Me.lblNetworkCheckCountdown.Text = "Trying again in 45 seconds..."
+        Me.lblNetworkCheckCountdown.Text = "..."
         '
         'btnRetryConnection
         '
