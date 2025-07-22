@@ -8,7 +8,10 @@ Public Module VpnStatusCheck
                 If adapter.OperationalStatus = OperationalStatus.Up AndAlso
                     (adapter.Description = "Juniper Networks Virtual Adapter" OrElse
                     adapter.Description.StartsWith("PANGP Virtual Ethernet Adapter")) Then
+
+                    VpnInterfaceAdapter = adapter.Description
                     Return True
+
                 End If
             Next
         End If
