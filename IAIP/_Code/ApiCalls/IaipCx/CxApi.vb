@@ -8,8 +8,6 @@ Imports Microsoft.Data.SqlClient
 Namespace ApiCalls.IaipCx
 
     Module CxApi
-        Public Property RetryProviderEnabled As Boolean = True
-
         Private ReadOnly ApiUrl As Uri = UriCombine(ConfigurationManager.AppSettings("CxApiUrl"), $"api/{CurrentServerEnvironment}")
 
         Private ReadOnly StatusEndpoint As Uri = UriCombine(ApiUrl.AbsoluteUri, "status")

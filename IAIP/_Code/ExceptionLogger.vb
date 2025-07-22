@@ -1,6 +1,5 @@
 Imports System.Collections.Generic
 Imports Iaip
-Imports Iaip.ApiCalls.IaipCx
 Imports Mindscape.Raygun4Net
 Imports Mindscape.Raygun4Net.Messages
 
@@ -45,7 +44,7 @@ Friend Module ExceptionLogger
             {"Context", context},
             {"Supplemental message", supplementalMessage},
             {"Initial Network Status", NetworkStatus.GetDescription},
-            {"Is VPN", IsVpnConnected()},
+            {"VPN Interface Adapter", VpnInterfaceAdapter},
             {"Connection Retry Enabled", RetryProviderEnabled}
         }
 
