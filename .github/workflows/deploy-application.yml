@@ -25,24 +25,23 @@ jobs:
     env:
       Configuration: ${{ github.ref_name == 'deploy/PROD' && 'Release' || ( github.ref_name == 'deploy/UAT' && 'UAT' || ( github.ref_name == 'deploy/DEV' && 'Debug' || 'Error' ) ) }}
       AssemblyName: ${{ github.ref_name == 'deploy/PROD' && 'IAIP' || ( github.ref_name == 'deploy/UAT' && 'IaipHorizon' || ( github.ref_name == 'deploy/DEV' && 'IaipDev' || 'Error' ) ) }}
-      MainBranch: main
-      ProjectPath: main\IAIP
+      CodeBranch: code
+      ProjectPath: code\IAIP
       ProjectName: IAIP.vbproj
       ManifestKeyFile: IAIP_Key.pfx
       PublishDir: .publish
-      PublishPath: main\IAIP\.publish
+      PublishPath: code\IAIP\.publish
       GhPagesBranch: gh-pages
-      WebsiteRoot: main\iaip-website
-      WwwSource: main\iaip-website\www\*
+      WebsiteRoot: code\iaip-website
+      WwwSource: code\iaip-website\www\*
       GhPagesDestination: gh-pages\docs
       InstallerPath: ${{ github.ref_name == 'deploy/PROD' && 'gh-pages\docs\install' || ( github.ref_name == 'deploy/UAT' && 'gh-pages\docs\uat' || ( github.ref_name == 'deploy/DEV' && 'gh-pages\docs\dev' || 'Error' ) ) }}
       
     steps:
-      - name: Check out the `main` branch
+      - name: Check out the current (deployment) branch
         uses: actions/checkout@v4
         with:
-          ref: ${{ env.MainBranch }}
-          path: ${{ env.MainBranch }}
+          path: ${{ env.CodeBranch }}
           sparse-checkout: |
             IAIP
             iaip-website
@@ -114,6 +113,10 @@ jobs:
           {
             Remove-Item -Path "$env:AssemblyName.application"
           }
+
+      - name: List installer files
+        working-directory: ${{ env.PublishPath }}
+        run: ls
 
       - name: Copy new installer files
         run: Copy-Item -Path "$env:PublishPath\Application Files", "$env:PublishPath\$env:AssemblyName.application" -Destination $env:InstallerPath -Recurse
