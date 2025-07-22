@@ -1,4 +1,5 @@
 Imports System.Collections.Generic
+Imports System.ComponentModel
 Imports System.Configuration
 Imports System.Linq
 Imports System.Text
@@ -1167,12 +1168,15 @@ Public Class FeesManagement
             Sent = If(email.AttemptedAt.HasValue, email.AttemptedAt.Value.ToLocalTime(), CType(Nothing, Date?))
             Subject = email.Subject
             Recipients = String.Join(", ", email.Recipients)
+            FailureReason = IfEmpty(email.FailureReason, "N/A")
         End Sub
 
         Public Property Status As String
         Public Property Sent As Date?
         Public Property Subject As String
         Public Property Recipients As String
+        <DisplayName("Failure Reason")>
+        Public Property FailureReason As String
     End Class
 
     Private Async Function SendAnnualFeeNotificationAsync(dv As DataView, feeYear As Integer, deadline As Date) As Task(Of EmailQueueResponse)
