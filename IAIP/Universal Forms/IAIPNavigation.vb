@@ -33,25 +33,23 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub AddressChangedCallback(sender As Object, e As EventArgs)
-        CheckNetworkConnection()
+        If networkCheckTimer Is Nothing Then
+            CheckNetworkConnection()
+        Else
+            networkCheckTimerCount = Math.Min(networkCheckTimerCount, 3)
+        End If
     End Sub
 
     Private Sub btnRetryConnection_Click(sender As Object, e As EventArgs) Handles btnRetryConnection.Click
+        lblNetworkCheckCountdown.Text = "Trying now..."
         CheckNetworkConnection()
     End Sub
 
     Public Sub CheckNetworkConnection()
-        If CheckingNetwork OrElse bgrNetworkChecker.IsBusy Then
-            Return
-        End If
+        If CheckingNetwork OrElse bgrNetworkChecker.IsBusy Then Return
 
-        If networkCheckTimer IsNot Nothing Then
-            StopNetworkCheckTimer()
-        End If
+        If networkCheckTimer IsNot Nothing Then StopNetworkCheckTimer()
 
-        lblNetworkCheckCountdown.Text = "Trying again..."
-        btnRetryConnection.Enabled = False
-        pnlConnectionWarning.BackColor = Color.LightGray
         CheckingNetwork = True
 
         If Not bgrNetworkChecker.IsBusy Then
@@ -82,8 +80,6 @@ Public Class IAIPNavigation
             Case Else
                 pnlConnectionStatus.Text = "⛔"
                 pnlConnectionStatus.ToolTipText = "Connection Error"
-                btnRetryConnection.Enabled = True
-                pnlConnectionWarning.BackColor = Color.PapayaWhip
                 AutoValidate = AutoValidate.Disable
                 txtOpenFacilitySummary.AutoValidate = AutoValidate.Disable
                 StartNetworkCheckTimer()
@@ -130,7 +126,7 @@ Public Class IAIPNavigation
     Private ReadOnly networkCheckTimerCountMax As Integer = 45
 
     Private Sub StartNetworkCheckTimer()
-        networkCheckTimerCount = 0
+        networkCheckTimerCount = networkCheckTimerCountMax
         networkCheckTimer = New Timer()
         AddHandler networkCheckTimer.Tick, AddressOf NetworkCheckTimerTickEventHandler
         networkCheckTimer.Interval = 1000
@@ -138,16 +134,17 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub StopNetworkCheckTimer()
-        networkCheckTimerCount = 0
+        networkCheckTimerCount = networkCheckTimerCountMax
         networkCheckTimer.Stop()
         networkCheckTimer.Dispose()
     End Sub
 
     Private Sub NetworkCheckTimerTickEventHandler(sender As Object, e As EventArgs)
-        lblNetworkCheckCountdown.Text = $"Trying again in {networkCheckTimerCountMax - networkCheckTimerCount} seconds..."
-        networkCheckTimerCount += 1
+        networkCheckTimerCount -= 1
+        lblNetworkCheckCountdown.Text = $"Trying again in {networkCheckTimerCount} second{If(networkCheckTimerCount = 1, "", "s")}..."
 
-        If networkCheckTimerCount = networkCheckTimerCountMax Then
+        If networkCheckTimerCount <= 0 Then
+            lblNetworkCheckCountdown.Text = "Trying now..."
             CheckNetworkConnection()
         End If
     End Sub
