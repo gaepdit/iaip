@@ -27,12 +27,12 @@ Friend Module ExceptionLogger
                 .FullName = CurrentUser.FullName,
                 .IsAnonymous = False,
                 .UUID = Environment.MachineName
-                }
+            }
         Else
             client.UserInfo = New RaygunIdentifierMessage("") With {
                 .IsAnonymous = True,
                 .UUID = Environment.MachineName
-                }
+            }
         End If
 
         Dim tags As New List(Of String) From {CurrentServerEnvironment.ToString, context}
@@ -41,11 +41,12 @@ Friend Module ExceptionLogger
         End If
 
         Dim customData As New Dictionary(Of String, Object) From {
-                {"Context", context},
-                {"Supplemental message", supplementalMessage},
-                {"Initial Network Status", NetworkStatus.GetDescription},
-                {"Is VPN", IsVpnConnected()}
-                }
+            {"Context", context},
+            {"Supplemental message", supplementalMessage},
+            {"Initial Network Status", NetworkStatus.GetDescription},
+            {"VPN Interface Adapter", VpnInterfaceAdapter},
+            {"Connection Retry Enabled", RetryProviderEnabled}
+        }
 
         Try
             If unrecoverable Then
