@@ -44,7 +44,8 @@ Namespace DAL
                 New SqlParameter("@DotNetVersion", Get45PlusFromRegistry()),
                 New SqlParameter("@OSVersion", OSFriendlyName()),
                 New SqlParameter("@NetworkStatus", If(isVpn, "On VPN", "In Network")),
-                New SqlParameter("@IaipVersion", GetCurrentVersion().ToString)
+                New SqlParameter("@IaipVersion", GetCurrentVersion().ToString),
+                New SqlParameter("@Comment", If(RetryProviderEnabled, "DB Conn Retry enabled", "DB Conn Retry disabled"))
             }
 
             Try
