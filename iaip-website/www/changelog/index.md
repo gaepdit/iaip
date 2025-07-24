@@ -14,6 +14,10 @@
 [2014](changelog-2014.html) |
 [2013](changelog-2013.html)
 
+## Version 7.5.1 <span>(24-Jul-2025)</span>
+
+* Added a link from the Permit Application Tracking Log to the Facility Summary.
+
 ## Version 7.5.0 <span>(22-Jul-2025)</span>
 
 * The table that shows the status of the fees email notifications has been updated to include more info.
