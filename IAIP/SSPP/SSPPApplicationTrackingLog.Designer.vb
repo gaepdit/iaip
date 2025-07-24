@@ -528,6 +528,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.lklOpenAppOnline = New System.Windows.Forms.LinkLabel()
         Me.txtNewApplicationNumber = New System.Windows.Forms.TextBox()
         Me.btnFetchNewAppNumber = New System.Windows.Forms.Button()
+        Me.btnOpenFacility = New System.Windows.Forms.Button()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.TPSubPartEditor.SuspendLayout()
@@ -616,11 +617,11 @@ Partial Class SSPPApplicationTrackingLog
         Me.btnRefreshAIRSNo.AutoSize = True
         Me.btnRefreshAIRSNo.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.btnRefreshAIRSNo.Image = Global.Iaip.My.Resources.Resources.RefreshIcon
-        Me.btnRefreshAIRSNo.Location = New System.Drawing.Point(177, 30)
+        Me.btnRefreshAIRSNo.Location = New System.Drawing.Point(176, 30)
         Me.btnRefreshAIRSNo.Name = "btnRefreshAIRSNo"
         Me.btnRefreshAIRSNo.Size = New System.Drawing.Size(22, 22)
         Me.btnRefreshAIRSNo.TabIndex = 1
-        Me.ToolTip1.SetToolTip(Me.btnRefreshAIRSNo, "Reload facility information")
+        Me.ToolTip1.SetToolTip(Me.btnRefreshAIRSNo, "Refresh facility information")
         Me.btnRefreshAIRSNo.UseVisualStyleBackColor = True
         Me.btnRefreshAIRSNo.Visible = False
         '
@@ -6140,6 +6141,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.HeaderPanel.Controls.Add(Me.pnlAssignments)
         Me.HeaderPanel.Controls.Add(Me.txtNewApplicationNumber)
         Me.HeaderPanel.Controls.Add(Me.btnFetchNewAppNumber)
+        Me.HeaderPanel.Controls.Add(Me.btnOpenFacility)
         Me.HeaderPanel.Controls.Add(Me.btnRefreshAIRSNo)
         Me.HeaderPanel.Controls.Add(Me.lblAppNumber)
         Me.HeaderPanel.Controls.Add(Me.lblLinkWarning)
@@ -6203,6 +6205,19 @@ Partial Class SSPPApplicationTrackingLog
         Me.ToolTip1.SetToolTip(Me.btnFetchNewAppNumber, "Fetch new application number")
         Me.btnFetchNewAppNumber.UseVisualStyleBackColor = True
         Me.btnFetchNewAppNumber.Visible = False
+        '
+        'btnOpenFacility
+        '
+        Me.btnOpenFacility.AutoSize = True
+        Me.btnOpenFacility.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.btnOpenFacility.Image = Global.Iaip.My.Resources.Resources.Arrow_045
+        Me.btnOpenFacility.Location = New System.Drawing.Point(204, 30)
+        Me.btnOpenFacility.Name = "btnOpenFacility"
+        Me.btnOpenFacility.Size = New System.Drawing.Size(22, 22)
+        Me.btnOpenFacility.TabIndex = 1
+        Me.ToolTip1.SetToolTip(Me.btnOpenFacility, "Open Facility Summary")
+        Me.btnOpenFacility.UseVisualStyleBackColor = True
+        Me.btnOpenFacility.Visible = False
         '
         'Label3
         '
@@ -6857,4 +6872,5 @@ Partial Class SSPPApplicationTrackingLog
     Friend WithEvents pnlFeeDataFinalized As Panel
     Friend WithEvents pnlAssignments As Panel
     Friend WithEvents btnSaveFeesGenerateInvoice As Button
+    Friend WithEvents btnOpenFacility As Button
 End Class

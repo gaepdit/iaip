@@ -13688,14 +13688,6 @@ Public Class SSPPApplicationTrackingLog
         End Try
     End Sub
 
-    Private Sub txtAIRSNumber_Enter(sender As Object, e As EventArgs) Handles txtAIRSNumber.AirsTextEnter
-        AcceptButton = btnRefreshAIRSNo
-    End Sub
-
-    Private Sub txtAIRSNumber_Leave(sender As Object, e As EventArgs) Handles txtAIRSNumber.AirsTextLeave
-        AcceptButton = Nothing
-    End Sub
-
     Private Sub TCApplicationTrackingLog_SelectedIndexChanged(sender As Object, e As EventArgs) Handles TCApplicationTrackingLog.SelectedIndexChanged
         If TCApplicationTrackingLog.SelectedTab Is Nothing Then Return
 
@@ -14186,6 +14178,17 @@ Public Class SSPPApplicationTrackingLog
 
     Private Sub lklOpenAppOnline_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lklOpenAppOnline.LinkClicked
         OpenPermitApplicationUrl(AppNumber)
+    End Sub
+
+    Private Sub btnOpenFacility_Click(sender As Object, e As EventArgs) Handles btnOpenFacility.Click
+        If txtAIRSNumber.AirsNumber IsNot Nothing Then
+            Dim facSummary As IAIPFacilitySummary = OpenFormFacilitySummary(txtAIRSNumber.AirsNumber)
+            facSummary.FSMainTabControl.SelectedTab = facSummary.FSPermitting
+        End If
+    End Sub
+
+    Private Sub txtAIRSNumber_AirsNumberChanged(sender As Object, e As EventArgs) Handles txtAIRSNumber.AirsNumberChanged
+        btnOpenFacility.Visible = txtAIRSNumber.AirsNumber IsNot Nothing
     End Sub
 
 #End Region
