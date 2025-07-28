@@ -1001,7 +1001,7 @@ Public Class IAIPNavigation
 
         If notifications Is Nothing OrElse notifications.Count <= 0 Then Return
 
-        pnlNotification.Visible = True
+        pnlNotificationContainer.Visible = True
 
         Dim first As Boolean = True
         lblNotification.Text = ""
@@ -1016,7 +1016,11 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub DismissMessageButton_Click(sender As Object, e As EventArgs) Handles DismissMessageButton.Click
-        pnlNotification.Visible = False
+        pnlNotificationContainer.Visible = False
+    End Sub
+
+    Private Sub pnlNotifications_ClientSizeChanged(sender As Object, e As EventArgs) Handles pnlNotifications.ClientSizeChanged
+        lblNotification.MaximumSize = New Size(CType(sender, Control).ClientSize.Width, 20000)
     End Sub
 
 #End Region
