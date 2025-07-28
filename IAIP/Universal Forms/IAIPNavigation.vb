@@ -3,6 +3,7 @@ Imports System.ComponentModel
 Imports System.Net.NetworkInformation
 Imports Iaip.DAL.NavigationScreenData
 Imports Iaip.UrlHelpers
+Imports Iaip.ApiCalls.Notifications
 
 Public Class IAIPNavigation
 
@@ -28,6 +29,7 @@ Public Class IAIPNavigation
         LoadStatusBar()
         EnableConnectionEnvironmentOptions()
         DisplayUsername()
+        LoadOrgNotifications()
 
         AddHandler NetworkChange.NetworkAddressChanged, AddressOf AddressChangedCallback
     End Sub
@@ -965,6 +967,62 @@ Public Class IAIPNavigation
 
     Private Sub mmiOnlineHelp_Click(sender As Object, e As EventArgs) Handles mmiOnlineHelp.Click
         OpenDocumentationUrl(Me)
+    End Sub
+
+#End Region
+
+#Region " Org Notifications "
+    Private Property CheckingOrgNotifications As Boolean
+
+    Public Sub LoadOrgNotifications()
+        If CheckingOrgNotifications OrElse bgrOrgNotifications.IsBusy Then Return
+
+        CheckingOrgNotifications = True
+
+        If Not bgrOrgNotifications.IsBusy Then
+            Try
+                bgrOrgNotifications.RunWorkerAsync()
+            Catch ex As InvalidOperationException
+                If ex.Message.Contains("This BackgroundWorker is currently busy and cannot run multiple tasks concurrently.") Then
+                    Return
+                End If
+            End Try
+        End If
+    End Sub
+
+    Private Sub bgrOrgNotifications_DoWork(sender As Object, e As DoWorkEventArgs) Handles bgrOrgNotifications.DoWork
+        e.Result = CheckNotificationApiAsync().Result
+    End Sub
+
+    Private Sub bgrOrgNotifications_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles bgrOrgNotifications.RunWorkerCompleted
+        Dim notifications As List(Of OrgNotificationModel) = e.Result
+
+        If notifications IsNot Nothing AndAlso notifications.Count > 0 Then
+            If notifications.Count = 1 Then
+                lblNotification.Text = notifications(0).Message
+            Else
+                Dim first As Boolean = True
+                lblNotification.Text = ""
+
+                For Each notification As OrgNotificationModel In notifications
+                    If notification.Message IsNot Nothing AndAlso notification.Message.Trim().Length > 0 Then
+                        If Not first Then lblNotification.Text &= Environment.NewLine
+                        lblNotification.Text &= notification.Message
+                        first = False
+                    End If
+                Next
+            End If
+
+            pnlNotification.Visible = True
+        Else
+            pnlNotification.Visible = False
+        End If
+
+        CheckingOrgNotifications = False
+    End Sub
+
+    Private Sub DismissMessageButton_Click(sender As Object, e As EventArgs) Handles DismissMessageButton.Click
+        pnlNotification.Visible = False
     End Sub
 
 #End Region

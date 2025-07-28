@@ -268,6 +268,7 @@
     <Compile Include="_ApiCalls\EmailQueue\Models\EmailTaskResult.vb" />
     <Compile Include="_ApiCalls\EmailQueue\Models\NewEmailTask.vb" />
     <Compile Include="_ApiCalls\IaipCx\CxApiRequestModels.vb" />
+    <Compile Include="_ApiCalls\Notifications\NotificationsApi.vb" />
     <Compile Include="_ApiCalls\Utils\WebApiUtils.vb" />
     <Compile Include="_ApiCalls\Utils\WebRequestUtils.vb" />
     <Compile Include="_Code\AppUpdater.vb" />

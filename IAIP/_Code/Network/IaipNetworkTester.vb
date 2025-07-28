@@ -29,7 +29,6 @@ Public Module IaipNetworkTester
             End Select
 
         End Try
-
     End Function
 
 End Module
