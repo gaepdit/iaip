@@ -12,13 +12,7 @@ Namespace ApiCalls.Notifications
 
         Private ReadOnly ApiUrl As New Uri(ConfigurationManager.AppSettings("NotificationsApiUrl"))
         Private ReadOnly StatusEndpoint As Uri = UriCombine(ApiUrl.AbsoluteUri, "current")
-
-        Private ReadOnly RequestOptions As New Options With {
-            .ContentType = ContentType.ApplicationJson,
-            .Headers = New WebHeaderCollection From {
-                {"X-API-Key", CurrentAppConfig.NotificationsApiKey}
-            }
-        }
+        Private ReadOnly RequestOptions As New Options With {.ContentType = ContentType.ApplicationJson}
 
         Public Async Function CheckNotificationApiAsync() As Task(Of List(Of OrgNotificationModel))
             Dim response As Response = Await GetApiAsync(StatusEndpoint, RequestOptions).ConfigureAwait(False)

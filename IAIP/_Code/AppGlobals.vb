@@ -27,7 +27,6 @@ Module AppGlobals
         Public Property RaygunApiKey As String
         Public Property EmailQueueClientId As String
         Public Property EmailQueueApiKey As String
-        Public Property NotificationsApiKey As String
     End Class
 
     ' User info

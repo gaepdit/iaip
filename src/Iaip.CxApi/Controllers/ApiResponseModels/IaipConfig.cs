@@ -14,7 +14,6 @@ public record IaipConfig
     public required string RaygunApiKey { get; init; }
     public required Guid EmailQueueClientId { get; init; }
     public required string EmailQueueApiKey { get; init; }
-    public required string NotificationsApiKey { get; init; }
 
     [JsonIgnore]
     public string GetConnectionString => new SqlConnectionStringBuilder
