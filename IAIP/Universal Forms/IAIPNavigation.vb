@@ -995,30 +995,24 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub bgrOrgNotifications_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles bgrOrgNotifications.RunWorkerCompleted
+        CheckingOrgNotifications = False
+
         Dim notifications As List(Of OrgNotificationModel) = e.Result
 
-        If notifications IsNot Nothing AndAlso notifications.Count > 0 Then
-            If notifications.Count = 1 Then
-                lblNotification.Text = notifications(0).Message
-            Else
-                Dim first As Boolean = True
-                lblNotification.Text = ""
+        If notifications Is Nothing OrElse notifications.Count <= 0 Then Return
 
-                For Each notification As OrgNotificationModel In notifications
-                    If notification.Message IsNot Nothing AndAlso notification.Message.Trim().Length > 0 Then
-                        If Not first Then lblNotification.Text &= Environment.NewLine
-                        lblNotification.Text &= notification.Message
-                        first = False
-                    End If
-                Next
+        pnlNotification.Visible = True
+
+        Dim first As Boolean = True
+        lblNotification.Text = ""
+
+        For Each notification As OrgNotificationModel In notifications
+            If notification.Message IsNot Nothing AndAlso notification.Message.Trim().Length > 0 Then
+                If Not first Then lblNotification.Text &= Environment.NewLine & Environment.NewLine
+                lblNotification.Text &= notification.Message
+                first = False
             End If
-
-            pnlNotification.Visible = True
-        Else
-            pnlNotification.Visible = False
-        End If
-
-        CheckingOrgNotifications = False
+        Next
     End Sub
 
     Private Sub DismissMessageButton_Click(sender As Object, e As EventArgs) Handles DismissMessageButton.Click
