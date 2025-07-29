@@ -22,6 +22,7 @@ Partial Class IAIPNavigation
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.MainMenu1 = New System.Windows.Forms.MenuStrip()
         Me.mmiFile = New System.Windows.Forms.ToolStripMenuItem()
@@ -90,6 +91,16 @@ Partial Class IAIPNavigation
         Me.lblWarningHeader = New System.Windows.Forms.Label()
         Me.lblConnectionWarning = New System.Windows.Forms.Label()
         Me.bgrNetworkChecker = New System.ComponentModel.BackgroundWorker()
+        Me.pnlNotificationContainer = New System.Windows.Forms.Panel()
+        Me.pnlSpacing = New System.Windows.Forms.Panel()
+        Me.pnlNotifications = New System.Windows.Forms.Panel()
+        Me.lblNotification = New System.Windows.Forms.Label()
+        Me.pnlNoticeLabelPanel = New System.Windows.Forms.Panel()
+        Me.lblNoticeLabel = New System.Windows.Forms.Label()
+        Me.pnlCloseButtonPanel = New System.Windows.Forms.Panel()
+        Me.DismissMessageButton = New System.Windows.Forms.Button()
+        Me.bgrOrgNotifications = New System.ComponentModel.BackgroundWorker()
+        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.MainMenu1.SuspendLayout()
         Me.grpQuickAccess.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -98,6 +109,11 @@ Partial Class IAIPNavigation
         Me.NavWorkListScopePanel.SuspendLayout()
         CType(Me.dgvWorkViewer, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pnlConnectionWarning.SuspendLayout()
+        Me.pnlNotificationContainer.SuspendLayout()
+        Me.pnlSpacing.SuspendLayout()
+        Me.pnlNotifications.SuspendLayout()
+        Me.pnlNoticeLabelPanel.SuspendLayout()
+        Me.pnlCloseButtonPanel.SuspendLayout()
         Me.SuspendLayout()
         '
         'MainMenu1
@@ -253,7 +269,7 @@ Partial Class IAIPNavigation
         Me.lblTitle.Location = New System.Drawing.Point(118, 24)
         Me.lblTitle.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblTitle.Name = "lblTitle"
-        Me.lblTitle.Size = New System.Drawing.Size(686, 33)
+        Me.lblTitle.Size = New System.Drawing.Size(686, 35)
         Me.lblTitle.TabIndex = 5
         Me.lblTitle.Text = "Integrated Air Information Platform"
         Me.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -265,7 +281,7 @@ Partial Class IAIPNavigation
         Me.flpNavButtons.Location = New System.Drawing.Point(0, 24)
         Me.flpNavButtons.Name = "flpNavButtons"
         Me.flpNavButtons.Padding = New System.Windows.Forms.Padding(3, 0, 3, 3)
-        Me.flpNavButtons.Size = New System.Drawing.Size(118, 374)
+        Me.flpNavButtons.Size = New System.Drawing.Size(118, 397)
         Me.flpNavButtons.TabIndex = 0
         '
         'grpQuickAccess
@@ -289,7 +305,7 @@ Partial Class IAIPNavigation
         Me.grpQuickAccess.Controls.Add(Me.lblOpenTestReport)
         Me.grpQuickAccess.Controls.Add(Me.txtOpenTestReport)
         Me.grpQuickAccess.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.grpQuickAccess.Location = New System.Drawing.Point(118, 257)
+        Me.grpQuickAccess.Location = New System.Drawing.Point(118, 280)
         Me.grpQuickAccess.Name = "grpQuickAccess"
         Me.grpQuickAccess.Size = New System.Drawing.Size(686, 117)
         Me.grpQuickAccess.TabIndex = 2
@@ -521,7 +537,7 @@ Partial Class IAIPNavigation
         'StatusStrip1
         '
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.pnlName, Me.pnlProgram, Me.pnlDate, Me.pnlDbEnv, Me.pnlConnectionStatus})
-        Me.StatusStrip1.Location = New System.Drawing.Point(118, 374)
+        Me.StatusStrip1.Location = New System.Drawing.Point(118, 397)
         Me.StatusStrip1.Name = "StatusStrip1"
         Me.StatusStrip1.Padding = New System.Windows.Forms.Padding(1, 0, 10, 0)
         Me.StatusStrip1.ShowItemToolTips = True
@@ -652,7 +668,7 @@ Partial Class IAIPNavigation
         Me.pnlCurrentList.Controls.Add(Me.lblResultsCount)
         Me.pnlCurrentList.Controls.Add(Me.NavWorkListChangerPanel)
         Me.pnlCurrentList.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.pnlCurrentList.Location = New System.Drawing.Point(118, 203)
+        Me.pnlCurrentList.Location = New System.Drawing.Point(118, 226)
         Me.pnlCurrentList.Name = "pnlCurrentList"
         Me.pnlCurrentList.Size = New System.Drawing.Size(686, 54)
         Me.pnlCurrentList.TabIndex = 1
@@ -712,23 +728,23 @@ Partial Class IAIPNavigation
         Me.dgvWorkViewer.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvWorkViewer.GridColor = System.Drawing.SystemColors.ControlLight
         Me.dgvWorkViewer.LinkifyColumnByName = Nothing
-        Me.dgvWorkViewer.Location = New System.Drawing.Point(118, 57)
+        Me.dgvWorkViewer.Location = New System.Drawing.Point(118, 131)
         Me.dgvWorkViewer.Name = "dgvWorkViewer"
         Me.dgvWorkViewer.ResultsCountLabel = Me.lblResultsCount
         Me.dgvWorkViewer.ResultsCountLabelFormat = "{0} found"
-        Me.dgvWorkViewer.Size = New System.Drawing.Size(686, 146)
+        Me.dgvWorkViewer.Size = New System.Drawing.Size(686, 95)
         Me.dgvWorkViewer.StandardTab = True
         Me.dgvWorkViewer.TabIndex = 4
         '
         'pnlConnectionWarning
         '
-        Me.pnlConnectionWarning.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.pnlConnectionWarning.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.pnlConnectionWarning.BackColor = System.Drawing.Color.PapayaWhip
         Me.pnlConnectionWarning.Controls.Add(Me.lblNetworkCheckCountdown)
         Me.pnlConnectionWarning.Controls.Add(Me.btnRetryConnection)
         Me.pnlConnectionWarning.Controls.Add(Me.lblWarningHeader)
         Me.pnlConnectionWarning.Controls.Add(Me.lblConnectionWarning)
-        Me.pnlConnectionWarning.Location = New System.Drawing.Point(445, 17)
+        Me.pnlConnectionWarning.Location = New System.Drawing.Point(451, 203)
         Me.pnlConnectionWarning.Name = "pnlConnectionWarning"
         Me.pnlConnectionWarning.Size = New System.Drawing.Size(347, 188)
         Me.pnlConnectionWarning.TabIndex = 265
@@ -780,22 +796,109 @@ Partial Class IAIPNavigation
         'bgrNetworkChecker
         '
         '
+        'pnlNotificationContainer
+        '
+        Me.pnlNotificationContainer.BackColor = System.Drawing.Color.PapayaWhip
+        Me.pnlNotificationContainer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.pnlNotificationContainer.Controls.Add(Me.pnlSpacing)
+        Me.pnlNotificationContainer.Controls.Add(Me.pnlNoticeLabelPanel)
+        Me.pnlNotificationContainer.Controls.Add(Me.pnlCloseButtonPanel)
+        Me.pnlNotificationContainer.Dock = System.Windows.Forms.DockStyle.Top
+        Me.pnlNotificationContainer.Location = New System.Drawing.Point(118, 59)
+        Me.pnlNotificationContainer.Name = "pnlNotificationContainer"
+        Me.pnlNotificationContainer.Size = New System.Drawing.Size(686, 72)
+        Me.pnlNotificationContainer.TabIndex = 266
+        Me.pnlNotificationContainer.Visible = False
+        '
+        'pnlSpacing
+        '
+        Me.pnlSpacing.Controls.Add(Me.pnlNotifications)
+        Me.pnlSpacing.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.pnlSpacing.Location = New System.Drawing.Point(74, 0)
+        Me.pnlSpacing.Name = "pnlSpacing"
+        Me.pnlSpacing.Padding = New System.Windows.Forms.Padding(0, 6, 0, 6)
+        Me.pnlSpacing.Size = New System.Drawing.Size(575, 70)
+        Me.pnlSpacing.TabIndex = 3
+        '
+        'pnlNotifications
+        '
+        Me.pnlNotifications.AutoScroll = True
+        Me.pnlNotifications.AutoSize = True
+        Me.pnlNotifications.Controls.Add(Me.lblNotification)
+        Me.pnlNotifications.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.pnlNotifications.Location = New System.Drawing.Point(0, 6)
+        Me.pnlNotifications.Name = "pnlNotifications"
+        Me.pnlNotifications.Size = New System.Drawing.Size(575, 58)
+        Me.pnlNotifications.TabIndex = 4
+        '
+        'lblNotification
+        '
+        Me.lblNotification.AutoSize = True
+        Me.lblNotification.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblNotification.Location = New System.Drawing.Point(0, 0)
+        Me.lblNotification.Name = "lblNotification"
+        Me.lblNotification.Size = New System.Drawing.Size(90, 45)
+        Me.lblNotification.TabIndex = 2
+        Me.lblNotification.Text = "Notification text" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Line 2" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Line 3"
+        '
+        'pnlNoticeLabelPanel
+        '
+        Me.pnlNoticeLabelPanel.Controls.Add(Me.lblNoticeLabel)
+        Me.pnlNoticeLabelPanel.Dock = System.Windows.Forms.DockStyle.Left
+        Me.pnlNoticeLabelPanel.Location = New System.Drawing.Point(0, 0)
+        Me.pnlNoticeLabelPanel.Name = "pnlNoticeLabelPanel"
+        Me.pnlNoticeLabelPanel.Size = New System.Drawing.Size(74, 70)
+        Me.pnlNoticeLabelPanel.TabIndex = 6
+        '
+        'lblNoticeLabel
+        '
+        Me.lblNoticeLabel.AutoSize = True
+        Me.lblNoticeLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblNoticeLabel.Location = New System.Drawing.Point(5, 5)
+        Me.lblNoticeLabel.Name = "lblNoticeLabel"
+        Me.lblNoticeLabel.Size = New System.Drawing.Size(62, 17)
+        Me.lblNoticeLabel.TabIndex = 1
+        Me.lblNoticeLabel.Text = "Notices"
+        '
+        'pnlCloseButtonPanel
+        '
+        Me.pnlCloseButtonPanel.Controls.Add(Me.DismissMessageButton)
+        Me.pnlCloseButtonPanel.Dock = System.Windows.Forms.DockStyle.Right
+        Me.pnlCloseButtonPanel.Location = New System.Drawing.Point(649, 0)
+        Me.pnlCloseButtonPanel.Name = "pnlCloseButtonPanel"
+        Me.pnlCloseButtonPanel.Size = New System.Drawing.Size(35, 70)
+        Me.pnlCloseButtonPanel.TabIndex = 5
+        '
+        'DismissMessageButton
+        '
+        Me.DismissMessageButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.DismissMessageButton.Location = New System.Drawing.Point(6, 5)
+        Me.DismissMessageButton.Name = "DismissMessageButton"
+        Me.DismissMessageButton.Size = New System.Drawing.Size(24, 23)
+        Me.DismissMessageButton.TabIndex = 3
+        Me.DismissMessageButton.Text = "❌"
+        Me.ToolTip1.SetToolTip(Me.DismissMessageButton, "Dismiss notification")
+        '
+        'bgrOrgNotifications
+        '
+        '
         'IAIPNavigation
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(804, 398)
+        Me.ClientSize = New System.Drawing.Size(804, 421)
         Me.Controls.Add(Me.pnlConnectionWarning)
         Me.Controls.Add(Me.dgvWorkViewer)
         Me.Controls.Add(Me.pnlCurrentList)
         Me.Controls.Add(Me.grpQuickAccess)
         Me.Controls.Add(Me.StatusStrip1)
+        Me.Controls.Add(Me.pnlNotificationContainer)
         Me.Controls.Add(Me.lblTitle)
         Me.Controls.Add(Me.flpNavButtons)
         Me.Controls.Add(Me.lblMessageLabel)
         Me.Controls.Add(Me.MainMenu1)
         Me.Margin = New System.Windows.Forms.Padding(2)
-        Me.MinimumSize = New System.Drawing.Size(762, 330)
+        Me.MinimumSize = New System.Drawing.Size(762, 460)
         Me.Name = "IAIPNavigation"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
         Me.Text = "IAIP Navigation Screen"
@@ -813,6 +916,14 @@ Partial Class IAIPNavigation
         CType(Me.dgvWorkViewer, System.ComponentModel.ISupportInitialize).EndInit()
         Me.pnlConnectionWarning.ResumeLayout(False)
         Me.pnlConnectionWarning.PerformLayout()
+        Me.pnlNotificationContainer.ResumeLayout(False)
+        Me.pnlSpacing.ResumeLayout(False)
+        Me.pnlSpacing.PerformLayout()
+        Me.pnlNotifications.ResumeLayout(False)
+        Me.pnlNotifications.PerformLayout()
+        Me.pnlNoticeLabelPanel.ResumeLayout(False)
+        Me.pnlNoticeLabelPanel.PerformLayout()
+        Me.pnlCloseButtonPanel.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -884,4 +995,14 @@ Partial Class IAIPNavigation
     Friend WithEvents lblNetworkCheckCountdown As Label
     Friend WithEvents ToolStripSeparator1 As ToolStripSeparator
     Friend WithEvents ToolStripSeparator2 As ToolStripSeparator
+    Friend WithEvents pnlNotificationContainer As Panel
+    Friend WithEvents lblNotification As Label
+    Friend WithEvents lblNoticeLabel As Label
+    Friend WithEvents bgrOrgNotifications As System.ComponentModel.BackgroundWorker
+    Friend WithEvents DismissMessageButton As Button
+    Friend WithEvents ToolTip1 As ToolTip
+    Friend WithEvents pnlNotifications As Panel
+    Friend WithEvents pnlCloseButtonPanel As Panel
+    Friend WithEvents pnlNoticeLabelPanel As Panel
+    Friend WithEvents pnlSpacing As Panel
 End Class

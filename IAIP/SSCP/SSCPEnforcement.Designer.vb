@@ -549,12 +549,11 @@ Partial Class SscpEnforcement
         '
         'DismissMessageButton
         '
-        Me.DismissMessageButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.DismissMessageButton.Location = New System.Drawing.Point(23, 7)
         Me.DismissMessageButton.Name = "DismissMessageButton"
         Me.DismissMessageButton.Size = New System.Drawing.Size(24, 23)
         Me.DismissMessageButton.TabIndex = 1
-        Me.DismissMessageButton.Text = "X"
+        Me.DismissMessageButton.Text = "❌"
         Me.ToolTip.SetToolTip(Me.DismissMessageButton, "Dismiss message.")
         Me.DismissMessageButton.UseVisualStyleBackColor = True
         Me.DismissMessageButton.Visible = False
@@ -2269,12 +2268,12 @@ Partial Class SscpEnforcement
         Me.AfsCoExecutedActionNumber.TabIndex = 8
         Me.AfsCoExecutedActionNumber.Text = "N/A"
         '
-        'AfsCoProposedActionNumber
+        'EpaProposedCoId
         '
         Me.EpaProposedCoId.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.EpaProposedCoId.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.EpaProposedCoId.Location = New System.Drawing.Point(174, 196)
-        Me.EpaProposedCoId.Name = "AfsCoProposedActionNumber"
+        Me.EpaProposedCoId.Name = "EpaProposedCoId"
         Me.EpaProposedCoId.ReadOnly = True
         Me.EpaProposedCoId.Size = New System.Drawing.Size(157, 13)
         Me.EpaProposedCoId.TabIndex = 7
