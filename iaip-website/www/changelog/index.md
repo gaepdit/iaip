@@ -14,6 +14,10 @@
 [2014](changelog-2014.html) |
 [2013](changelog-2013.html)
 
+## Version 7.5.2 <span>(29-Jul-2025)</span>
+
+* Org notifications are now displayed on the main navigation screen.
+
 ## Version 7.5.1 <span>(24-Jul-2025)</span>
 
 * Added a link from the Permit Application Tracking Log to the Facility Summary.
