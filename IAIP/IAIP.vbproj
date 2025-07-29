@@ -263,13 +263,14 @@
     <Compile Include="Users\IaipUserSecurity.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="_Code\ApiCalls\EmailQueue\EmailQueueApi.vb" />
-    <Compile Include="_Code\ApiCalls\EmailQueue\Models\EmailQueueResponse.vb" />
-    <Compile Include="_Code\ApiCalls\EmailQueue\Models\EmailTaskResult.vb" />
-    <Compile Include="_Code\ApiCalls\EmailQueue\Models\NewEmailTask.vb" />
-    <Compile Include="_Code\ApiCalls\IaipCx\CxApiRequestModels.vb" />
-    <Compile Include="_Code\ApiCalls\Utils\WebApiUtils.vb" />
-    <Compile Include="_Code\ApiCalls\Utils\WebRequestUtils.vb" />
+    <Compile Include="_ApiCalls\EmailQueue\EmailQueueApi.vb" />
+    <Compile Include="_ApiCalls\EmailQueue\Models\EmailQueueResponse.vb" />
+    <Compile Include="_ApiCalls\EmailQueue\Models\EmailTaskResult.vb" />
+    <Compile Include="_ApiCalls\EmailQueue\Models\NewEmailTask.vb" />
+    <Compile Include="_ApiCalls\IaipCx\CxApiRequestModels.vb" />
+    <Compile Include="_ApiCalls\Notifications\NotificationsApi.vb" />
+    <Compile Include="_ApiCalls\Utils\WebApiUtils.vb" />
+    <Compile Include="_ApiCalls\Utils\WebRequestUtils.vb" />
     <Compile Include="_Code\AppUpdater.vb" />
     <Compile Include="_Code\ColorLabelHelper.vb" />
     <Compile Include="_Code\DataGridViewExtensions.vb" />
@@ -329,8 +330,8 @@
     <Compile Include="_Controls\IaipDataGridView.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="_Code\ApiCalls\IaipCx\CxApiResponseModels.vb" />
-    <Compile Include="_Code\ApiCalls\IaipCx\CxApi.vb" />
+    <Compile Include="_ApiCalls\IaipCx\CxApiResponseModels.vb" />
+    <Compile Include="_ApiCalls\IaipCx\CxApi.vb" />
     <Compile Include="_DAL\DbHelpers.vb" />
     <Compile Include="_DAL\Facilities\FacilityNotes.vb" />
     <Compile Include="_DAL\Facilities\FacilityProgramHistory.vb" />
