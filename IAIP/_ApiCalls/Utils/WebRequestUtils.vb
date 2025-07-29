@@ -302,7 +302,7 @@ Namespace ApiCalls.WebRequest
                 If srcProp.CanRead Then
                     Dim destProp As Reflection.PropertyInfo = destProps.First(Function(x) x.Name = srcProp.Name)
                     If destProp IsNot Nothing AndAlso destProp.CanWrite Then
-                        Dim value As Object = srcProp.GetValue(src, If(srcProp.GetIndexParameters.Count = 1, New Object() {Nothing}, Nothing))
+                        Dim value As Object = srcProp.GetValue(src, If(srcProp.GetIndexParameters.Length = 1, New Object() {Nothing}, Nothing))
                         destProp.SetValue(dest, value)
                     End If
                 End If
