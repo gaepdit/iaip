@@ -1201,7 +1201,7 @@ Public Class FeesManagement
             emails.Add(newEmail)
         Next
 
-        Return Await SendEmailsAsync(emails.ToArray()).ConfigureAwait(False)
+        Return Await SendEmailsAsync(emails.ToArray()).ConfigureAwait(True)
     End Function
 
     Private Function EmailBody(feeYear As Integer, deadline As String, gecoUrl As String) As String
