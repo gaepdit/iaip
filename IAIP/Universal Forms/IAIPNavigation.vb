@@ -29,7 +29,6 @@ Public Class IAIPNavigation
         LoadStatusBar()
         EnableConnectionEnvironmentOptions()
         DisplayUsername()
-        LoadOrgNotifications()
 
         AddHandler NetworkChange.NetworkAddressChanged, AddressOf AddressChangedCallback
     End Sub
@@ -158,6 +157,9 @@ Public Class IAIPNavigation
     Private Sub IAIPNavigation_Shown(sender As Object, e As EventArgs) Handles Me.Shown
         ' Start the bgrUserPermissions background worker
         BuildAccountPermissions()
+
+        ' Start the org notifications check background worker
+        LoadOrgNotifications()
 
         ' Start loading the Nav Work List background worker
         LoadWorkViewerData()
