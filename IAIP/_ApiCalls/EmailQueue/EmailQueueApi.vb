@@ -59,8 +59,8 @@ Namespace ApiCalls.EmailQueue
             Return InternalSendAsync(request, SendForBatchEndpoint)
         End Function
 
-        Public Function SendEmailAsync(batchId As Guid, Email As NewEmailTask) As Task(Of EmailQueueApiResponse)
-            Return SendEmailAsync(batchId, {Email})
+        Public Function SendEmailAsync(batchId As Guid, email As NewEmailTask) As Task(Of EmailQueueApiResponse)
+            Return SendEmailAsync(batchId, {email})
         End Function
 
         Public Async Function GetBatchStatus(batchId As Guid?) As Task(Of EmailBatchStatus)
