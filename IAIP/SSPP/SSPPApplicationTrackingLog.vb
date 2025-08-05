@@ -3425,7 +3425,7 @@ Public Class SSPPApplicationTrackingLog
                    strPNPosted,
                    FacilityOwnershipTypeCode,
                    NspsFeeExempt,
-                   t.EmailBatchId
+                   t.ContactEmailBatchId
             from SSPPApplicationMaster m
                 left join SSPPApplicationTracking t
                 on m.strApplicationNumber = t.strApplicationNumber
@@ -3443,8 +3443,8 @@ Public Class SSPPApplicationTrackingLog
                     AirsId = Nothing
                 End If
 
-                EmailBatchId = GetNullable(Of Guid?)(dr.Item("EmailBatchId"))
-                If EmailBatchId IsNot Nothing Then LoadEmailBatchDetails()
+                ContactEmailBatchId = GetNullable(Of Guid?)(dr.Item(NameOf(ContactEmailBatchId)))
+                If ContactEmailBatchId IsNot Nothing Then LoadEmailBatchDetails()
 
                 If IsDBNull(dr.Item("strStaffResponsible")) Then
                     cboEngineer.SelectedIndex = 0
@@ -9971,17 +9971,17 @@ Public Class SSPPApplicationTrackingLog
 
 #Region " Email batch "
 
-    Private Property EmailBatchId As Guid? = Nothing
+    Private Property ContactEmailBatchId As Guid? = Nothing
     Private Property EmailBatchDetails As EmailBatchDetails
 
     Private Async Sub LoadEmailBatchDetails()
         Dim emailFetchError As Boolean = False
 
-        If EmailBatchId IsNot Nothing Then
+        If ContactEmailBatchId IsNot Nothing Then
             Cursor = Cursors.WaitCursor
             btnEmailAcknowledgmentLetter.Enabled = False
 
-            Dim response As EmailBatchDetails = Await GetBatchDetails(EmailBatchId)
+            Dim response As EmailBatchDetails = Await GetBatchDetails(ContactEmailBatchId)
 
             If response Is Nothing OrElse response.Status = "Failed" OrElse response.Emails Is Nothing Then
                 EmailBatchDetails = Nothing
@@ -10029,13 +10029,13 @@ Public Class SSPPApplicationTrackingLog
             Return
         End If
 
-        If EmailBatchId Is Nothing Then
-            EmailBatchId = Guid.NewGuid
-            Const SQL As String = "update SSPPAPPLICATIONTRACKING set EmailBatchId = @EmailBatchId where STRAPPLICATIONNUMBER = @AppNumber"
+        If ContactEmailBatchId Is Nothing Then
+            ContactEmailBatchId = Guid.NewGuid
+            Const SQL As String = "update SSPPAPPLICATIONTRACKING set ContactEmailBatchId = @ContactEmailBatchId where STRAPPLICATIONNUMBER = @AppNumber"
 
             Dim p As SqlParameter() = {
                 New SqlParameter("@AppNumber", AppNumber),
-                New SqlParameter("@EmailBatchId", EmailBatchId)
+                New SqlParameter("@ContactEmailBatchId", ContactEmailBatchId)
             }
             DB.RunCommand(SQL, p)
         End If
@@ -10080,7 +10080,7 @@ If you have any questions or concerns regarding your application, please contact
             .Body = emailBody
         }
 
-        Dim emailResult As EmailQueueApiResponse = Await SendEmailAsync(EmailBatchId, generatedEmail)
+        Dim emailResult As EmailQueueApiResponse = Await SendEmailAsync(ContactEmailBatchId, generatedEmail)
 
         If emailResult Is Nothing Then
             MessageBox.Show("There was a problem sending the initial email notification. Please contact EPD-IT for more information.",
