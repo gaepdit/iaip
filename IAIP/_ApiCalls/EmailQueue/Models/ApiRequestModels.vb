@@ -1,6 +1,7 @@
 ﻿Imports System.Collections.Generic
 
 Namespace ApiCalls.EmailQueue
+
     Friend Class NewEmailTask
         Public Property From As String ' StringLength(100)
         Public Property FromName As String ' StringLength(100)
@@ -10,4 +11,10 @@ Namespace ApiCalls.EmailQueue
         Public Property Body As String ' StringLength(20000)
         Public Property IsHtml As Boolean
     End Class
+
+    Friend Class EmailsForBatchRequest
+        Public Property BatchId As Guid
+        Public Property Emails As NewEmailTask()
+    End Class
+
 End Namespace

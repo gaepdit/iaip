@@ -227,6 +227,12 @@
     <Compile Include="GECO\GecoTool.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="SSPP\Sub Forms\AcknowledgmentEmailDialog.Designer.vb">
+      <DependentUpon>AcknowledgmentEmailDialog.vb</DependentUpon>
+    </Compile>
+    <Compile Include="SSPP\Sub Forms\AcknowledgmentEmailDialog.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Universal Forms\IaipUpdater.Designer.vb">
       <DependentUpon>IaipUpdater.vb</DependentUpon>
     </Compile>
@@ -264,9 +270,9 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="_ApiCalls\EmailQueue\EmailQueueApi.vb" />
-    <Compile Include="_ApiCalls\EmailQueue\Models\EmailQueueResponse.vb" />
-    <Compile Include="_ApiCalls\EmailQueue\Models\EmailTaskResult.vb" />
-    <Compile Include="_ApiCalls\EmailQueue\Models\NewEmailTask.vb" />
+    <Compile Include="_ApiCalls\EmailQueue\Models\ApiResponseModels.vb" />
+    <Compile Include="_ApiCalls\EmailQueue\Models\EmailDataModels.vb" />
+    <Compile Include="_ApiCalls\EmailQueue\Models\ApiRequestModels.vb" />
     <Compile Include="_ApiCalls\IaipCx\CxApiRequestModels.vb" />
     <Compile Include="_ApiCalls\Notifications\NotificationsApi.vb" />
     <Compile Include="_ApiCalls\Utils\WebApiUtils.vb" />
@@ -399,6 +405,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GECO\GecoTool.resx">
       <DependentUpon>GecoTool.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SSPP\Sub Forms\AcknowledgmentEmailDialog.resx">
+      <DependentUpon>AcknowledgmentEmailDialog.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Universal Forms\IaipUpdater.resx">
       <DependentUpon>IaipUpdater.vb</DependentUpon>

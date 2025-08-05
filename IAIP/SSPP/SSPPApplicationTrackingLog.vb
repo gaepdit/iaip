@@ -1,19 +1,20 @@
 Imports System.Collections.Generic
-Imports Microsoft.Data.SqlClient
 Imports System.Linq
 Imports System.Text
-Imports GaEpd
+Imports GaEpd.DBUtilities
 Imports Iaip.Apb
+Imports Iaip.Apb.ApplicationFees
 Imports Iaip.Apb.Facilities.Facility
 Imports Iaip.Apb.Facilities.FacilityEnums
 Imports Iaip.Apb.Facilities.FacilityHeaderData
-Imports Iaip.Apb.ApplicationFees
 Imports Iaip.Apb.Sspp
 Imports Iaip.Apb.Sspp.Permit
-Imports Iaip.DAL.FacilityHeaderDataData
+Imports Iaip.ApiCalls.EmailQueue
 Imports Iaip.DAL.ApplicationFees
+Imports Iaip.DAL.FacilityHeaderDataData
 Imports Iaip.DAL.Sspp
 Imports Iaip.UrlHelpers
+Imports Microsoft.Data.SqlClient
 
 Public Class SSPPApplicationTrackingLog
 
@@ -34,7 +35,6 @@ Public Class SSPPApplicationTrackingLog
 
     Private Property LastModificationDateAsLoaded As DateTimeOffset = Nothing
     Private Property FacilityApplicationHistoryLoaded As Boolean
-
     Private MasterApp As String
     Private FormStatus As String
     Private UpdatingValues As Boolean
@@ -165,6 +165,7 @@ Public Class SSPPApplicationTrackingLog
 
         chbClosedOut.Visible = False
         btnEmailAcknowledgmentLetter.Visible = False
+        btnRefreshEmailsSent.Visible = False
     End Sub
 
     Private Sub LoadDefaultDates()
@@ -2720,28 +2721,28 @@ Public Class SSPPApplicationTrackingLog
             Dim dr As DataRow = DB.GetDataRow(query, parameter)
 
             If dr IsNot Nothing Then
-                Facilityname = If(DBUtilities.GetNullableString(dr.Item("strFacilityname")), "N/A")
-                FacilityStreet = If(DBUtilities.GetNullableString(dr.Item("strFacilityStreet1")), "N/A")
-                FacilityCity = If(DBUtilities.GetNullableString(dr.Item("strFacilityCity")), "N/A")
-                FacilityZipCode = If(DBUtilities.GetNullableString(dr.Item("strFacilityZipCode")), "N/A")
-                OperationalStatus = If(DBUtilities.GetNullableString(dr.Item("strOperationalStatus")), "N/A")
+                Facilityname = If(GetNullableString(dr.Item("strFacilityname")), "N/A")
+                FacilityStreet = If(GetNullableString(dr.Item("strFacilityStreet1")), "N/A")
+                FacilityCity = If(GetNullableString(dr.Item("strFacilityCity")), "N/A")
+                FacilityZipCode = If(GetNullableString(dr.Item("strFacilityZipCode")), "N/A")
+                OperationalStatus = If(GetNullableString(dr.Item("strOperationalStatus")), "N/A")
                 OperationalStatusLine = "Operating Status - " & OperationalStatus
-                Classification = If(DBUtilities.GetNullableString(dr.Item("strClass")), "N/A")
+                Classification = If(GetNullableString(dr.Item("strClass")), "N/A")
                 ClassificationLine = "Classification - " & Classification
-                AirProgramCodes = If(DBUtilities.GetNullableString(dr.Item("strAirProgramCodes")), "000000000000000")
-                SIC = If(DBUtilities.GetNullableString(dr.Item("strSICCode")), "N/A")
+                AirProgramCodes = If(GetNullableString(dr.Item("strAirProgramCodes")), "000000000000000")
+                SIC = If(GetNullableString(dr.Item("strSICCode")), "N/A")
                 SICLine = "SIC Code - " & SIC
-                NAICS = If(DBUtilities.GetNullableString(dr.Item("strNAICSCode")), "N/A")
+                NAICS = If(GetNullableString(dr.Item("strNAICSCode")), "N/A")
                 NAICSLine = "NAICS Code - " & NAICS
-                OwnershipTypeCode = DBUtilities.GetNullableString(dr.Item("FacilityOwnershipTypeCode"))
+                OwnershipTypeCode = GetNullableString(dr.Item("FacilityOwnershipTypeCode"))
                 NspsFeeExempt = dr.Item("NspsFeeExempt")
-                CountyName = If(DBUtilities.GetNullableString(dr.Item("strCountyName")), "N/A")
-                District = If(DBUtilities.GetNullableString(dr.Item("strDistrictName")), "N/A")
-                Attainment = If(DBUtilities.GetNullableString(dr.Item("strAttainmentstatus")), "00000")
-                StateProgramCodes = If(DBUtilities.GetNullableString(dr.Item("strStateProgramCodes")), "00000")
-                PlantDesc = If(DBUtilities.GetNullableString(dr.Item("strPlantDescription")), "N/A")
+                CountyName = If(GetNullableString(dr.Item("strCountyName")), "N/A")
+                District = If(GetNullableString(dr.Item("strDistrictName")), "N/A")
+                Attainment = If(GetNullableString(dr.Item("strAttainmentstatus")), "00000")
+                StateProgramCodes = If(GetNullableString(dr.Item("strStateProgramCodes")), "00000")
+                PlantDesc = If(GetNullableString(dr.Item("strPlantDescription")), "N/A")
                 PlantLine = "Plant Description - " & PlantDesc
-                DistResponsible = If(DBUtilities.GetNullableString(dr.Item("strDistrictResponsible")), "False")
+                DistResponsible = If(GetNullableString(dr.Item("strDistrictResponsible")), "False")
             End If
 
             If CInt(Mid(AirProgramCodes, 1, 1)) = 1 Then
@@ -3423,7 +3424,8 @@ Public Class SSPPApplicationTrackingLog
                    strPAPosted,
                    strPNPosted,
                    FacilityOwnershipTypeCode,
-                   NspsFeeExempt
+                   NspsFeeExempt,
+                   t.EmailBatchId
             from SSPPApplicationMaster m
                 left join SSPPApplicationTracking t
                 on m.strApplicationNumber = t.strApplicationNumber
@@ -3440,6 +3442,9 @@ Public Class SSPPApplicationTrackingLog
                 Else
                     AirsId = Nothing
                 End If
+
+                EmailBatchId = GetNullable(Of Guid?)(dr.Item("EmailBatchId"))
+                If EmailBatchId IsNot Nothing Then LoadEmailBatchDetails()
 
                 If IsDBNull(dr.Item("strStaffResponsible")) Then
                     cboEngineer.SelectedIndex = 0
@@ -3676,7 +3681,7 @@ Public Class SSPPApplicationTrackingLog
                     txtNAICSCode.Text = dr.Item("strNAICSCode")
                 End If
 
-                chbFederallyOwned.Checked = DBUtilities.GetNullableString(dr.Item("FacilityOwnershipTypeCode")) = FederallyOwnedTypeCode
+                chbFederallyOwned.Checked = GetNullableString(dr.Item("FacilityOwnershipTypeCode")) = FederallyOwnedTypeCode
 
                 chbNspsFeeExempt.Checked = dr.Item("NspsFeeExempt")
 
@@ -4216,7 +4221,7 @@ Public Class SSPPApplicationTrackingLog
                     NAICSLine = "NAICS Code - " & NAICS
                 End If
 
-                OwnershipTypeCode = DBUtilities.GetNullableString(dr.Item("FacilityOwnershipTypeCode"))
+                OwnershipTypeCode = GetNullableString(dr.Item("FacilityOwnershipTypeCode"))
 
                 NspsFeeExempt = dr.Item("NspsFeeExempt")
 
@@ -6361,7 +6366,7 @@ Public Class SSPPApplicationTrackingLog
                     StateProgramCodes = dr.Item("strStateProgramCodes")
                 End If
 
-                OwnershipTypeCode = DBUtilities.GetNullableString(dr.Item("FacilityOwnershipTypeCode"))
+                OwnershipTypeCode = GetNullableString(dr.Item("FacilityOwnershipTypeCode"))
 
                 NspsFeeExempt = dr.Item("NspsFeeExempt")
 
@@ -7105,6 +7110,7 @@ Public Class SSPPApplicationTrackingLog
 
             chbClosedOut.Visible = True
             btnEmailAcknowledgmentLetter.Visible = True
+            btnRefreshEmailsSent.Visible = True
 
             Return True
         Else
@@ -9963,64 +9969,144 @@ Public Class SSPPApplicationTrackingLog
         End Try
     End Sub
 
-    Private Sub btnEmailAcknowledgmentLetter_Click(sender As Object, e As EventArgs) Handles btnEmailAcknowledgmentLetter.Click
-        Try
-            Dim Subject As String = ""
-            Dim Body As String = ""
-            Dim StaffPhone As String = ""
-            Dim StaffEmail As String = ""
+#Region " Email batch "
 
-            If Not txtContactEmailAddress.Text.IsValidEmailAddress Then
-                MessageBox.Show("The contact email address is not valid. Please enter a valid email and try again.", "Email not sent", MessageBoxButtons.OK)
+    Private Property EmailBatchId As Guid? = Nothing
+    Private Property EmailBatchDetails As EmailBatchDetails
+
+    Private Async Sub LoadEmailBatchDetails()
+        Dim emailFetchError As Boolean = False
+
+        If EmailBatchId IsNot Nothing Then
+            Cursor = Cursors.WaitCursor
+            btnEmailAcknowledgmentLetter.Enabled = False
+
+            Dim response As EmailBatchDetails = Await GetBatchDetails(EmailBatchId)
+
+            If response Is Nothing OrElse response.Status = "Failed" OrElse response.Emails Is Nothing Then
+                EmailBatchDetails = Nothing
+                emailFetchError = True
+                lblNoEmailsSent.Text = "Error fetching email details"
+            Else
+                EmailBatchDetails = response
+                lblNoEmailsSent.Text = "None"
+            End If
+        End If
+
+        If EmailBatchDetails Is Nothing OrElse Not EmailBatchDetails.Emails.Any Then
+            dgvEmailsSent.Visible = False
+            lblNoEmailsSent.Visible = True
+
+            txtContactEmailAddress.Focus()
+        Else
+            dgvEmailsSent.Visible = True
+            lblNoEmailsSent.Visible = False
+
+            dgvEmailsSent.DataSource = EmailBatchDetails.Emails _
+                .OrderByDescending(Function(p) p.Counter) _
+                .Select(Function(p) New EmailTaskViewModel(p)).ToList()
+            dgvEmailsSent.Columns.Item("Subject").Visible = False
+
+            dgvEmailsSent.Focus()
+        End If
+
+        btnRefreshEmailsSent.Enabled = True
+        btnEmailAcknowledgmentLetter.Enabled = Not emailFetchError
+        Cursor = Nothing
+    End Sub
+
+    Private Sub btnRefreshEmailsSent_Click(sender As Object, e As EventArgs) Handles btnRefreshEmailsSent.Click
+        btnRefreshEmailsSent.Enabled = False
+        LoadEmailBatchDetails()
+    End Sub
+
+    Private Async Sub btnEmailAcknowledgmentLetter_Click(sender As Object, e As EventArgs) Handles btnEmailAcknowledgmentLetter.Click
+        Cursor = Cursors.AppStarting
+
+        If Not txtContactEmailAddress.Text.IsValidEmailAddress Then
+            MessageBox.Show("The contact email address is not valid. Please enter a valid email and try again.", "Email not sent", MessageBoxButtons.OK)
+            Cursor = Nothing
+            Return
+        End If
+
+        If EmailBatchId Is Nothing Then
+            EmailBatchId = Guid.NewGuid
+            Const SQL As String = "update SSPPAPPLICATIONTRACKING set EmailBatchId = @EmailBatchId where STRAPPLICATIONNUMBER = @AppNumber"
+
+            Dim p As SqlParameter() = {
+                New SqlParameter("@AppNumber", AppNumber),
+                New SqlParameter("@EmailBatchId", EmailBatchId)
+            }
+            DB.RunCommand(SQL, p)
+        End If
+
+        Dim staffPhone As String = FormatDigitsAsPhoneNumber(CurrentUser.PhoneNumber, True)
+        Dim staffEmail As String = CurrentUser.EmailAddress
+
+        Dim subject As String = "GA Air Application No. " & AppNumber.ToString & ", dated: " & DTPDateSent.Text
+ 
+        Dim emailBody As String = $"This is to acknowledge the receipt of your GA Air Quality Permit application for {txtFacilityName.Text} (Airs No. {AirsId?.FormattedString}) in {cboFacilityCity.Text}, GA. After our initial review of the information and technical data in this application, we will notify you if more information is needed to complete the application so that we can finish our review. 
+  
+Other environmental permits may be required. For Industrial Stormwater permits, contact the Watershed Protection Branch at (404) 463-1511; for Solid Waste permits, contact the Land Protection Branch at (404) 362-2537. For more info, https://epd.georgia.gov 
+  
+GEOS, the new web-based permit application system is now operational at: https://geos.epd.georgia.gov/GA/GEOS/Public/EnSuite/Shared/Pages/Main/Login.aspx 
+  
+To track the status of the air quality permit application, log on to Georgia Environmental Protection Division's Georgia Environmental Connections Online (GECO) at the web address https://geco.gaepd.org/ (registration required) and follow the online instructions. 
+  
+If your company qualifies as a small business (generally those with fewer than 100 employees), you may contact our Small Business Environmental Assistance Program for free and confidential permitting assistance. Call (404) 363-7000 and select option 7. 
+  
+If you have any questions or concerns regarding your application, please contact me at {staffPhone} or via e-mail at {staffEmail}. Any written correspondence should reference the above application number that has been assigned to this application and the facility's AIRS number." 
+
+        Using emailDialog As New AcknowledgmentEmailDialog
+            emailDialog.BodyText.Text = emailBody
+            emailDialog.SubjectLabel.Text = subject
+            emailDialog.RecipientLabel.Text = txtContactEmailAddress.Text
+
+            If emailDialog.ShowDialog() = DialogResult.Cancel Then
+                txtContactEmailAddress.Focus()
+                Cursor = Nothing
                 Return
             End If
 
-            Me.Cursor = Cursors.AppStarting
+            Cursor = Cursors.WaitCursor
+            emailBody = emailDialog.BodyText.Text
+        End Using
 
-            Dim query As String = "select " &
-                "strEmailAddress, strPhone " &
-                "from EPDUserProfiles " &
-                "where numUserID = @UserGCode "
+        Dim generatedEmail As New NewEmailTask() With {
+            .From = ApbContactEmail,
+            .FromName = ApbOrgName,
+            .Recipients = New List(Of String) From {txtContactEmailAddress.Text},
+            .Subject = subject,
+            .Body = emailBody
+        }
 
-            Dim parameter As New SqlParameter("@UserGCode", CurrentUser.UserID)
+        Dim emailResult As EmailQueueApiResponse = Await SendEmailAsync(EmailBatchId, generatedEmail)
 
-            Dim dr As DataRow = DB.GetDataRow(query, parameter)
+        If emailResult Is Nothing Then
+            MessageBox.Show("There was a problem sending the initial email notification. Please contact EPD-IT for more information.",
+                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Cursor = Nothing
+            Return
+        End If
 
-            If dr IsNot Nothing Then
-                StaffPhone = FormatDigitsAsPhoneNumber(DBUtilities.GetNullable(Of String)(dr.Item("strPhone")), True)
-                StaffEmail = DBUtilities.GetNullable(Of String)(dr.Item("strEmailAddress"))
-            End If
+        If emailResult.Body Is Nothing Then
+            MessageBox.Show("There was a problem sending the initial email notification. Please contact EPD-IT for more information." &
+                                vbNewLine & vbNewLine & $"Emailer Status: {emailResult.Status}",
+                                "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Cursor = Nothing
+            Return
+        End If
 
-            Subject = "GA Air Application No. " & AppNumber.ToString & ", dated: " & DTPDateSent.Text
+        If emailResult.Body.Status = "Empty" Then
+            MessageBox.Show("No email was sent. Please check your data and try again.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Cursor = Nothing
+            Return
+        End If
 
-            Body = $"This is to acknowledge the receipt of your GA Air Quality Permit application for {txtFacilityName.Text} (Airs No. {AirsId?.FormattedString}) in {cboFacilityCity.Text}, GA. After our initial review of the information and technical data in this application, we will notify you if more information is needed to complete the application so that we can finish our review. 
-
-Other environmental permits may be required. For Industrial Stormwater permits, contact the Watershed Protection Branch at (404) 463-1511; for Solid Waste permits, contact the Land Protection Branch at (404) 362-2537. For more info, https://epd.georgia.gov
-
-GEOS, the new web-based permit application system is now operational at: https://geos.epd.georgia.gov/GA/GEOS/Public/EnSuite/Shared/Pages/Main/Login.aspx
-
-To track the status of the air quality permit application, log on to Georgia Environmental Protection Division's Georgia Environmental Connections Online (GECO) at the web address https://geco.gaepd.org/ (registration required) and follow the online instructions.
-
-If your company qualifies as a small business (generally those with fewer than 100 employees), you may contact our Small Business Environmental Assistance Program for free and confidential permitting assistance. Call (404) 363-7000 and select option 7.
-
-If you have any questions or concerns regarding your application, please contact me at {StaffPhone} or via e-mail at {StaffEmail}. Any written correspondence should reference the above application number that has been assigned to this application and the facility's AIRS number."
-
-            Select Case CreateEmail(Subject, Body, {txtContactEmailAddress.Text})
-
-                Case CreateEmailResult.Failure, CreateEmailResult.FunctionError
-                    MessageBox.Show("There was an error sending the message. Please try again.", "Error", MessageBoxButtons.OK)
-
-                Case CreateEmailResult.InvalidEmail
-                    MessageBox.Show("The email address is not valid.", "Application Tracking Log", MessageBoxButtons.OK)
-
-            End Select
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-            Me.Cursor = Nothing
-        End Try
+        LoadEmailBatchDetails()
     End Sub
+
+#End Region
 
 #Region "SIP Subpart"
 
