@@ -3332,11 +3332,7 @@ Public Class SSPPApplicationTrackingLog
                 Else
                     mtbContactFaxNumber.Text = dr.Item("strContactFaxNumber")
                 End If
-                If IsDBNull(dr.Item("strContactEmail")) Then
-                    txtContactEmailAddress.Clear()
-                Else
-                    txtContactEmailAddress.Text = dr.Item("strContactEmail")
-                End If
+                txtContactEmailAddress.Text = GetNullableString(dr.Item("strContactEmail")).Trim()
                 If IsDBNull(dr.Item("strContactAddress1")) Then
                     txtContactStreetAddress.Clear()
                 Else
@@ -5561,7 +5557,7 @@ Public Class SSPPApplicationTrackingLog
             Dim ContactCompany As String = " "
             Dim ContactPhone As String = "0000000000"
             Dim ContactFax As String = "0000000000"
-            Dim ContactEmail As String = " "
+            Dim ContactEmail As String = ""
             Dim ContactAddress As String = " "
             Dim ContactCity As String = " "
             Dim ContactState As String = " "
@@ -5594,8 +5590,9 @@ Public Class SSPPApplicationTrackingLog
             If mtbContactFaxNumber.Text <> "" Then
                 ContactFax = mtbContactFaxNumber.Text
             End If
-            If txtContactEmailAddress.Text <> "" Then
-                ContactEmail = txtContactEmailAddress.Text
+            If txtContactEmailAddress.Text.Trim() <> "" Then
+                txtContactEmailAddress.Text = txtContactEmailAddress.Text.Trim()
+                ContactEmail = txtContactEmailAddress.Text.Trim()
             End If
             If txtContactStreetAddress.Text <> "" Then
                 ContactAddress = txtContactStreetAddress.Text
@@ -9931,11 +9928,7 @@ Public Class SSPPApplicationTrackingLog
                 Else
                     mtbContactFaxNumber.Text = dr.Item("strContactFaxNumber")
                 End If
-                If IsDBNull(dr.Item("strContactEmail")) Then
-                    txtContactEmailAddress.Clear()
-                Else
-                    txtContactEmailAddress.Text = dr.Item("strContactEmail")
-                End If
+                txtContactEmailAddress.Text = GetNullableString(dr.Item("strContactEmail"))
                 If IsDBNull(dr.Item("strContactAddress1")) Then
                     txtContactStreetAddress.Clear()
                 Else
@@ -10022,6 +10015,8 @@ Public Class SSPPApplicationTrackingLog
 
     Private Async Sub btnEmailAcknowledgmentLetter_Click(sender As Object, e As EventArgs) Handles btnEmailAcknowledgmentLetter.Click
         Cursor = Cursors.AppStarting
+
+        txtContactEmailAddress.Text = txtContactEmailAddress.Text.Trim()
 
         If Not txtContactEmailAddress.Text.IsValidEmailAddress Then
             MessageBox.Show("The contact email address is not valid. Please enter a valid email and try again.", "Email not sent", MessageBoxButtons.OK)
