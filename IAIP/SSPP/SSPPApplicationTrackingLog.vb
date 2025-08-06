@@ -9996,7 +9996,7 @@ Public Class SSPPApplicationTrackingLog
             lblNoEmailsSent.Visible = False
 
             dgvEmailsSent.DataSource = EmailBatchDetails.Emails _
-                .OrderByDescending(Function(p) p.AttemptedAt) _
+                .OrderByDescending(Function(p) p.Counter) _
                 .Select(Function(p) New EmailTaskViewModel(p)).ToList()
             dgvEmailsSent.Columns.Item("Subject").Visible = False
 
