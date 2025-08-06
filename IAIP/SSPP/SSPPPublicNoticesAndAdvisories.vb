@@ -506,7 +506,7 @@ Public Class SSPPPublicNoticesAndAdvisories
         Dim newDocument As New Document With {
             .FileName = newFileName,
             .ReviewingManager = CurrentUser.UserID,
-            .DateReviewed = Today,
+            .DateReviewed = Now,
             .PublishingStaff = CurrentUser.UserID,
             .DatePublished = Today,
             .CommentsDate = If(dtpExpirationDate.Checked, dtpExpirationDate.Value, Today)
