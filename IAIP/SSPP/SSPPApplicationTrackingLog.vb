@@ -10068,9 +10068,10 @@ If you have any questions or concerns regarding your application, please contact
         End Using
 
         Dim generatedEmail As New NewEmailTask() With {
-            .From = ApbContactEmail,
-            .FromName = ApbOrgName,
-            .Recipients = New List(Of String) From {txtContactEmailAddress.Text},
+            .From = CurrentUser.EmailAddress,
+            .FromName = CurrentUser.FullName,
+            .Recipients = {txtContactEmailAddress.Text},
+            .CopyRecipients = {CurrentUser.EmailAddress},
             .Subject = subject,
             .Body = emailBody
         }
