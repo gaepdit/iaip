@@ -227,16 +227,16 @@
     <Compile Include="GECO\GecoTool.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SSPP\Sub Forms\AcknowledgmentEmailDialog.Designer.vb">
-      <DependentUpon>AcknowledgmentEmailDialog.vb</DependentUpon>
+    <Compile Include="Universal Forms\Dialogs\EmailEditDialog.Designer.vb">
+      <DependentUpon>EmailEditDialog.vb</DependentUpon>
     </Compile>
-    <Compile Include="SSPP\Sub Forms\AcknowledgmentEmailDialog.vb">
+    <Compile Include="Universal Forms\Dialogs\EmailEditDialog.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Universal Forms\IaipUpdater.Designer.vb">
+    <Compile Include="Universal Forms\Dialogs\IaipUpdater.Designer.vb">
       <DependentUpon>IaipUpdater.vb</DependentUpon>
     </Compile>
-    <Compile Include="Universal Forms\IaipUpdater.vb">
+    <Compile Include="Universal Forms\Dialogs\IaipUpdater.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Users\IaipResetPassword.Designer.vb">
@@ -406,10 +406,10 @@
     <EmbeddedResource Include="GECO\GecoTool.resx">
       <DependentUpon>GecoTool.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SSPP\Sub Forms\AcknowledgmentEmailDialog.resx">
-      <DependentUpon>AcknowledgmentEmailDialog.vb</DependentUpon>
+    <EmbeddedResource Include="Universal Forms\Dialogs\EmailEditDialog.resx">
+      <DependentUpon>EmailEditDialog.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Universal Forms\IaipUpdater.resx">
+    <EmbeddedResource Include="Universal Forms\Dialogs\IaipUpdater.resx">
       <DependentUpon>IaipUpdater.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Users\IaipResetPassword.resx">
@@ -492,7 +492,7 @@
     <Compile Include="Universal Forms\BaseForm.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Universal Forms\ExceptionDialog.Designer.vb">
+    <Compile Include="Universal Forms\Dialogs\ExceptionDialog.Designer.vb">
       <DependentUpon>ExceptionDialog.vb</DependentUpon>
     </Compile>
     <Compile Include="Users\IaipChangePassword.Designer.vb">
@@ -847,7 +847,7 @@
     <EmbeddedResource Include="SSPP\Sub Forms\SsppPermitRevocationDialog.resx">
       <DependentUpon>SsppPermitRevocationDialog.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Universal Forms\ExceptionDialog.resx">
+    <EmbeddedResource Include="Universal Forms\Dialogs\ExceptionDialog.resx">
       <DependentUpon>ExceptionDialog.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Universal Forms\IaipAbout.resx">
@@ -1045,7 +1045,7 @@
     <Compile Include="SSPP\Sub Forms\SsppPermitRevocationDialog.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Universal Forms\ExceptionDialog.vb">
+    <Compile Include="Universal Forms\Dialogs\ExceptionDialog.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="_Code\BooleanFormatProvider.vb" />

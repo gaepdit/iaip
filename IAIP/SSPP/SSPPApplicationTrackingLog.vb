@@ -10057,7 +10057,7 @@ If your company qualifies as a small business (generally those with fewer than 1
   
 If you have any questions or concerns regarding your application, please contact me at {staffPhone} or via e-mail at {staffEmail}. Any written correspondence should reference the above application number that has been assigned to this application and the facility's AIRS number." 
 
-        Using emailDialog As New AcknowledgmentEmailDialog
+        Using emailDialog As New EmailEditDialog
             emailDialog.BodyText.Text = emailBody
             emailDialog.SubjectLabel.Text = subject
             emailDialog.RecipientLabel.Text = txtContactEmailAddress.Text

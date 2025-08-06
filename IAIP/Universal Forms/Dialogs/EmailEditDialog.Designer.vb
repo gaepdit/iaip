@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
-Partial Class AcknowledgmentEmailDialog
+Partial Class EmailEditDialog
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -38,7 +38,7 @@ Partial Class AcknowledgmentEmailDialog
         '
         Me.btnOk.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnOk.DialogResult = System.Windows.Forms.DialogResult.OK
-        Me.btnOk.Location = New System.Drawing.Point(397, 464)
+        Me.btnOk.Location = New System.Drawing.Point(397, 487)
         Me.btnOk.Name = "btnOk"
         Me.btnOk.Size = New System.Drawing.Size(67, 23)
         Me.btnOk.TabIndex = 1
@@ -58,7 +58,7 @@ Partial Class AcknowledgmentEmailDialog
         '
         Me.btnCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.btnCancel.Location = New System.Drawing.Point(470, 464)
+        Me.btnCancel.Location = New System.Drawing.Point(470, 487)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(67, 23)
         Me.btnCancel.TabIndex = 2
@@ -83,7 +83,7 @@ Partial Class AcknowledgmentEmailDialog
         Me.BodyText.Multiline = True
         Me.BodyText.Name = "BodyText"
         Me.BodyText.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.BodyText.Size = New System.Drawing.Size(525, 355)
+        Me.BodyText.Size = New System.Drawing.Size(525, 365)
         Me.BodyText.TabIndex = 0
         '
         'SubjectLabel
@@ -109,9 +109,11 @@ Partial Class AcknowledgmentEmailDialog
         '
         Me.WarningLabel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.WarningLabel.AutoSize = True
-        Me.WarningLabel.Location = New System.Drawing.Point(171, 469)
+        Me.WarningLabel.BackColor = System.Drawing.Color.LemonChiffon
+        Me.WarningLabel.Location = New System.Drawing.Point(168, 489)
         Me.WarningLabel.Name = "WarningLabel"
-        Me.WarningLabel.Size = New System.Drawing.Size(220, 13)
+        Me.WarningLabel.Padding = New System.Windows.Forms.Padding(3)
+        Me.WarningLabel.Size = New System.Drawing.Size(226, 19)
         Me.WarningLabel.TabIndex = 1
         Me.WarningLabel.Text = "Clicking ""OK"" will immediately send the email."
         '
@@ -135,14 +137,13 @@ Partial Class AcknowledgmentEmailDialog
         Me.Label2.TabIndex = 2
         Me.Label2.Text = "Subject:"
         '
-        'AcknowledgmentEmailDialog
+        'EmailEditDialog
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.CancelButton = Me.btnCancel
         Me.ClientSize = New System.Drawing.Size(549, 522)
-        Me.ControlBox = False
         Me.Controls.Add(Me.BodyText)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.RecipientLabel)
@@ -157,10 +158,10 @@ Partial Class AcknowledgmentEmailDialog
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.MinimumSize = New System.Drawing.Size(565, 538)
-        Me.Name = "AcknowledgmentEmailDialog"
+        Me.Name = "EmailEditDialog"
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
-        Me.Text = "Edit Permit Acknowledgment Email"
+        Me.Text = "Edit Email"
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
