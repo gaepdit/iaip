@@ -9995,7 +9995,7 @@ Public Class SSPPApplicationTrackingLog
 
             Body = $"This is to acknowledge the receipt of your GA Air Quality Permit application for {txtFacilityName.Text} (Airs No. {AirsId?.FormattedString}) in {cboFacilityCity.Text}, GA. After our initial review of the information and technical data in this application, we will notify you if more information is needed to complete the application so that we can finish our review. 
 
-Other environmental permits may be required. For Industrial Stormwater permits, contact the Watershed Protection Branch at (404) 675-1605; for Solid Waste permits, contact the Land Protection Branch at (404) 362-2537. For more info, https://epd.georgia.gov
+Other environmental permits may be required. For Industrial Stormwater permits, contact the Watershed Protection Branch at (404) 463-1511; for Solid Waste permits, contact the Land Protection Branch at (404) 362-2537. For more info, https://epd.georgia.gov
 
 GEOS, the new web-based permit application system is now operational at: https://geos.epd.georgia.gov/GA/GEOS/Public/EnSuite/Shared/Pages/Main/Login.aspx
 
