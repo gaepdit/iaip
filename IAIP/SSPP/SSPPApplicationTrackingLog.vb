@@ -10010,9 +10010,9 @@ Public Class SSPPApplicationTrackingLog
                 "Protection Division's Georgia Environmental Connections Online (GECO) at the web address " &
                 "https://geco.gaepd.org/ (registration required) and follow the online instructions." &
                 vbNewLine & vbNewLine &
-                "If your company qualifies as a small business (generally those with fewer than 100 " &
-                "employees), you may contact our Small Business Environmental Assistance Program at " &
-                "(404) 362-4842 for free and confidential permitting assistance." &
+                "If your company qualifies as a small business (generally those with fewer than 100 employees), " &
+                "you may contact our Small Business Environmental Assistance Program for free and confidential " &
+                "permitting assistance. Call (404) 363-7000 and select option 7." &
                 vbNewLine & vbNewLine &
                 "If you have any questions or concerns regarding your application, please contact me at " &
                 StaffPhone & " or via e-mail at " & StaffEmail & ". Any written correspondence " &
