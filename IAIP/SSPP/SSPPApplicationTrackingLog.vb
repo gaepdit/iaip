@@ -9993,31 +9993,17 @@ Public Class SSPPApplicationTrackingLog
 
             Subject = "GA Air Application No. " & AppNumber.ToString & ", dated: " & DTPDateSent.Text
 
-            Body = "This is to acknowledge the receipt of your GA Air Quality Permit application for " &
-                txtFacilityName.Text & " (Airs No. " & AirsId?.FormattedString & ") in " & cboFacilityCity.Text &
-                ", GA. After our initial review of the information and technical data in this application, " &
-                "we will notify you if more information is needed to complete " &
-                "the application so that we can finish our review. " &
-                vbNewLine & vbNewLine &
-                "Other environmental permits may be required. For Industrial Stormwater permits, contact " &
-                "the Watershed Protection Branch at (404) 675-1605; for Solid Waste permits, contact the " &
-                "Land Protection Branch at (404) 362-2537. For more info, https://epd.georgia.gov" &
-                vbNewLine & vbNewLine &
-                "GEOS, the new web-based permit application system is now operational at: " &
-                "https://geos.epd.georgia.gov/GA/GEOS/Public/EnSuite/Shared/Pages/Main/Login.aspx " &
-                vbNewLine & vbNewLine &
-                "To track the status of the air quality permit application, log on to Georgia Environmental " &
-                "Protection Division's Georgia Environmental Connections Online (GECO) at the web address " &
-                "https://geco.gaepd.org/ (registration required) and follow the online instructions." &
-                vbNewLine & vbNewLine &
-                "If your company qualifies as a small business (generally those with fewer than 100 " &
-                "employees), you may contact our Small Business Environmental Assistance Program at " &
-                "(404) 362-4842 for free and confidential permitting assistance." &
-                vbNewLine & vbNewLine &
-                "If you have any questions or concerns regarding your application, please contact me at " &
-                StaffPhone & " or via e-mail at " & StaffEmail & ". Any written correspondence " &
-                "should reference the above application number that has been assigned to this application " &
-                "and the facility's AIRS number."
+            Body = $"This is to acknowledge the receipt of your GA Air Quality Permit application for {txtFacilityName.Text} (Airs No. {AirsId?.FormattedString}) in {cboFacilityCity.Text}, GA. After our initial review of the information and technical data in this application, we will notify you if more information is needed to complete the application so that we can finish our review. 
+
+Other environmental permits may be required. For Industrial Stormwater permits, contact the Watershed Protection Branch at (404) 463-1511; for Solid Waste permits, contact the Land Protection Branch at (404) 362-2537. For more info, https://epd.georgia.gov
+
+GEOS, the new web-based permit application system is now operational at: https://geos.epd.georgia.gov/GA/GEOS/Public/EnSuite/Shared/Pages/Main/Login.aspx
+
+To track the status of the air quality permit application, log on to Georgia Environmental Protection Division's Georgia Environmental Connections Online (GECO) at the web address https://geco.gaepd.org/ (registration required) and follow the online instructions.
+
+If your company qualifies as a small business (generally those with fewer than 100 employees), you may contact our Small Business Environmental Assistance Program for free and confidential permitting assistance. Call (404) 363-7000 and select option 7.
+
+If you have any questions or concerns regarding your application, please contact me at {StaffPhone} or via e-mail at {StaffEmail}. Any written correspondence should reference the above application number that has been assigned to this application and the facility's AIRS number."
 
             Select Case CreateEmail(Subject, Body, {txtContactEmailAddress.Text})
 
