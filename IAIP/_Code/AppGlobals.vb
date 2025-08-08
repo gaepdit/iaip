@@ -68,6 +68,11 @@ Module AppGlobals
         End Get
     End Property
 
+    ' APB constants
+
+    Friend Const ApbContactEmail As String = "GeorgiaAirProtectionBranch@dnr.ga.gov"
+    Friend Const ApbOrgName As String = "Georgia Air Protection Branch"
+
     ' Geographic constants 
 
     Friend Const GA_STATE_CODE As String = "GA"

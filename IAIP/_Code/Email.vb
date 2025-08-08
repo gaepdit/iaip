@@ -4,8 +4,6 @@ Imports Iaip.UrlHelpers
 
 Public Module Email
 
-    Public Const ApbContactEmail As String = "GeorgiaAirProtectionBranch@dnr.ga.gov"
-
     Public Enum CreateEmailResult
         Success
         Failure

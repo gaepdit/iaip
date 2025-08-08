@@ -7,10 +7,12 @@ Imports Iaip.ApiCalls.ApiUtils
 Imports Iaip.ApiCalls.WebRequest
 
 Namespace ApiCalls.EmailQueue
+
     Friend Module EmailQueueApi
         Private ReadOnly ApiUrl As String = ConfigurationManager.AppSettings("EmailQueueApiUrl")
 
         Private Const SendEndpoint As String = "add"
+        Private Const SendForBatchEndpoint As String = "add-to-batch"
         Private Const BatchDetailsEndpoint As String = "batch-details"
         Private Const BatchStatusEndpoint As String = "batch-status"
 
@@ -22,22 +24,43 @@ Namespace ApiCalls.EmailQueue
             }
         }
 
-        Public Async Function SendEmailsAsync(emails As NewEmailTask()) As Task(Of EmailQueueResponse)
+        Private Async Function InternalSendAsync(body As Object, endpoint As String) As Task(Of EmailQueueApiResponse)
             If String.IsNullOrEmpty(ApiUrl) Then Return Nothing
-            Dim endpoint As Uri = UriCombine(ApiUrl, SendEndpoint)
+            Dim endpointUri As Uri = UriCombine(ApiUrl, endpoint)
             Dim response As Response
 
             Try
-                response = Await PostApiAsync(endpoint, emails, EmailQueueRequestOptions).ConfigureAwait(False)
+                response = Await PostApiAsync(endpointUri, body, EmailQueueRequestOptions).ConfigureAwait(False)
             Catch ex As Exception
-                Return EmailQueueResponse.Failed
+                Return EmailQueueApiResponse.Failed
             End Try
 
             If response Is Nothing OrElse response.Result.StatusCode <> HttpStatusCode.OK OrElse String.IsNullOrEmpty(response.Body) Then
-                Return EmailQueueResponse.Failed
+                Return EmailQueueApiResponse.Failed
             End If
 
-            Return EmailQueueResponse.Ok(JsonSerializer.Deserialize(Of EmailQueueResponseBody)(response.Body, JsonOptions))
+            Return EmailQueueApiResponse.Ok(JsonSerializer.Deserialize(Of EmailQueueResponseBody)(response.Body, JsonOptions))
+        End Function
+
+        Public Function SendEmailAsync(emails As NewEmailTask()) As Task(Of EmailQueueApiResponse)
+            Return InternalSendAsync(emails, SendEndpoint)
+        End Function
+
+        Public Function SendEmailAsync(email As NewEmailTask) As Task(Of EmailQueueApiResponse)
+            Return SendEmailAsync({email})
+        End Function
+
+        Public Function SendEmailAsync(batchId As Guid, emails As NewEmailTask()) As Task(Of EmailQueueApiResponse)
+            Dim request As New EmailsForBatchRequest() With {
+                .BatchId = batchId,
+                .Emails = emails
+            }
+
+            Return InternalSendAsync(request, SendForBatchEndpoint)
+        End Function
+
+        Public Function SendEmailAsync(batchId As Guid, email As NewEmailTask) As Task(Of EmailQueueApiResponse)
+            Return SendEmailAsync(batchId, {email})
         End Function
 
         Public Async Function GetBatchStatus(batchId As Guid?) As Task(Of EmailBatchStatus)
@@ -75,7 +98,7 @@ Namespace ApiCalls.EmailQueue
                 Return EmailBatchDetails.Failed
             End If
 
-            Return EmailBatchDetails.Ok(JsonSerializer.Deserialize(Of List(Of EmailTaskViewModel))(response.Body, JsonOptions))
+            Return EmailBatchDetails.Ok(JsonSerializer.Deserialize(Of List(Of EmailTask))(response.Body, JsonOptions))
         End Function
 
         Public Class BatchRequest

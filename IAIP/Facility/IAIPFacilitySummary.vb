@@ -330,9 +330,7 @@ Public Class IAIPFacilitySummary
         EpaDateDisplay.Text = "..."
         DataUpdateDateDisplay.Text = "..."
 
-        bgw = New BackgroundWorker With {
-            .WorkerSupportsCancellation = True
-        }
+        bgw = New BackgroundWorker With {.WorkerSupportsCancellation = True}
         AddHandler bgw.DoWork, AddressOf DataDatesBackgroundWorker_DoWork
         AddHandler bgw.RunWorkerCompleted, AddressOf DataDatesBackgroundWorker_RunWorkerCompleted
         bgw.RunWorkerAsync()
