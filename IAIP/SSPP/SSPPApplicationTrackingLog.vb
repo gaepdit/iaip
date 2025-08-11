@@ -3421,7 +3421,8 @@ Public Class SSPPApplicationTrackingLog
                    strPNPosted,
                    FacilityOwnershipTypeCode,
                    NspsFeeExempt,
-                   t.ContactEmailBatchId
+                   t.ContactEmailBatchId,
+                   t.FeeNotificationEmailBatchId
             from SSPPApplicationMaster m
                 left join SSPPApplicationTracking t
                 on m.strApplicationNumber = t.strApplicationNumber
@@ -3441,6 +3442,9 @@ Public Class SSPPApplicationTrackingLog
 
                 ContactEmailBatchId = GetNullable(Of Guid?)(dr.Item(NameOf(ContactEmailBatchId)))
                 If ContactEmailBatchId IsNot Nothing Then LoadContactEmailBatchDetails()
+
+                FeeNotificationEmailBatchId = GetNullable(Of Guid?)(dr.Item(NameOf(FeeNotificationEmailBatchId)))
+                If FeeNotificationEmailBatchId IsNot Nothing Then LoadFeeEmailBatchDetails()
 
                 If IsDBNull(dr.Item("strStaffResponsible")) Then
                     cboEngineer.SelectedIndex = 0
@@ -14201,7 +14205,7 @@ Public Class SSPPApplicationTrackingLog
     Private Property FeeNotificationEmailBatchId As Guid? = Nothing
     Private Property FeeNotificationEmailBatchDetails As EmailBatchDetails
 
-    Private Async Sub LoadFeeNotificationEmailBatchDetails()
+    Private Async Sub LoadFeeEmailBatchDetails()
         Dim emailFetchError As Boolean = False
 
         If FeeNotificationEmailBatchId IsNot Nothing Then
@@ -14212,29 +14216,29 @@ Public Class SSPPApplicationTrackingLog
             If response Is Nothing OrElse response.Status = "Failed" OrElse response.Emails Is Nothing Then
                 FeeNotificationEmailBatchDetails = Nothing
                 emailFetchError = True
-                'lblNoEmailsSent.Text = "Error fetching email details"
+                lblNoFeeEmailsSent.Text = "Error fetching email details"
             Else
                 FeeNotificationEmailBatchDetails = response
-                'lblNoEmailsSent.Text = "None"
+                lblNoFeeEmailsSent.Text = "None"
             End If
         End If
 
         If FeeNotificationEmailBatchDetails Is Nothing OrElse Not FeeNotificationEmailBatchDetails.Emails.Any Then
-            'dgvEmailsSent.Visible = False
-            'lblNoEmailsSent.Visible = True
+            dgvFeeEmailsSent.Visible = False
+            lblNoFeeEmailsSent.Visible = True
         Else
-            'dgvEmailsSent.Visible = True
-            'lblNoEmailsSent.Visible = False
+            dgvFeeEmailsSent.Visible = True
+            lblNoFeeEmailsSent.Visible = False
 
-            'dgvEmailsSent.DataSource = ContactEmailBatchDetails.Emails _
-            '    .OrderByDescending(Function(p) p.Counter) _
-            '    .Select(Function(p) New EmailTaskViewModel(p)).ToList()
-            'dgvEmailsSent.Columns.Item("Subject").Visible = False
+            dgvFeeEmailsSent.DataSource = FeeNotificationEmailBatchDetails.Emails _
+                .OrderByDescending(Function(p) p.Counter) _
+                .Select(Function(p) New EmailTaskViewModel(p)).ToList()
+            dgvFeeEmailsSent.Columns.Item("Subject").Visible = False
 
-            'dgvEmailsSent.Focus()
+            dgvFeeEmailsSent.Focus()
         End If
 
-        'btnRefreshEmailsSent.Enabled = True
+        btnRefreshFeeEmailsSent.Enabled = True
         btnGenerateFeeNotification.Enabled = Not emailFetchError
     End Sub
 
@@ -14308,8 +14312,17 @@ Public Class SSPPApplicationTrackingLog
 
         Cursor = Cursors.WaitCursor
 
-        Await SendFormEmailAsync(body.ToString, subject, FeeNotificationEmailBatchId)
+        If Await SendFormEmailAsync(body.ToString, subject, FeeNotificationEmailBatchId) Then
+            LoadFeeEmailBatchDetails()
+        End If
 
+        Cursor = Nothing
+    End Sub
+
+    Private Sub btnRefreshFeeEmailsSent_Click(sender As Object, e As EventArgs) Handles btnRefreshFeeEmailsSent.Click
+        Cursor = Cursors.WaitCursor
+        btnRefreshFeeEmailsSent.Enabled = False
+        LoadFeeEmailBatchDetails()
         Cursor = Nothing
     End Sub
 
