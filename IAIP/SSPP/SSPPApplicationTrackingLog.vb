@@ -10043,22 +10043,38 @@ Public Class SSPPApplicationTrackingLog
         Dim staffEmail As String = CurrentUser.EmailAddress
 
         Dim subject As String = "GA Air Application No. " & AppNumber.ToString & ", dated: " & DTPDateSent.Text
- 
-        Dim emailBody As String = $"This is to acknowledge the receipt of your GA Air Quality Permit application for {txtFacilityName.Text} (Airs No. {AirsId?.FormattedString}) in {cboFacilityCity.Text}, GA. After our initial review of the information and technical data in this application, we will notify you if more information is needed to complete the application so that we can finish our review. 
-  
-Other environmental permits may be required. For Industrial Stormwater permits, contact the Watershed Protection Branch at (404) 463-1511; for Solid Waste permits, contact the Land Protection Branch at (404) 362-2537. For more info, https://epd.georgia.gov 
-  
-GEOS, the new web-based permit application system is now operational at: https://geos.epd.georgia.gov/GA/GEOS/Public/EnSuite/Shared/Pages/Main/Login.aspx 
-  
-To track the status of the air quality permit application, log on to Georgia Environmental Protection Division's Georgia Environmental Connections Online (GECO) at the web address https://geco.gaepd.org/ (registration required) and follow the online instructions. 
-  
-If your company qualifies as a small business (generally those with fewer than 100 employees), you may contact our Small Business Environmental Assistance Program for free and confidential permitting assistance. Call (404) 363-7000 and select option 7. 
-  
-If you have any questions or concerns regarding your application, please contact me at {staffPhone} or via e-mail at {staffEmail}. Any written correspondence should reference the above application number that has been assigned to this application and the facility's AIRS number."
+
+        Dim body As New StringBuilder()
+        body.Append("This is to acknowledge the receipt of your GA Air Quality Permit application for ")
+        body.Append($"{txtFacilityName.Text} (Airs No. {AirsId?.FormattedString}) in {cboFacilityCity.Text}, GA. ")
+        body.Append("After our initial review of the information and technical data in this application, we will notify ")
+        body.Append("you if more information is needed to complete the application so that we can finish our review.")
+        body.AppendLine().AppendLine()
+        body.Append("Other environmental permits may be required. For Industrial Stormwater permits, contact the ")
+        body.Append("Watershed Protection Branch at (404) 463-1511; for Solid Waste permits, contact the Land Protection ")
+        body.Append("Branch at (404) 362-2537. For more info, https://epd.georgia.gov")
+        body.AppendLine().AppendLine()
+        body.Append("GEOS, the new web-based permit application system is now operational at: ")
+        body.Append("https://geos.epd.georgia.gov/GA/GEOS/Public/EnSuite/Shared/Pages/Main/Login.aspx")
+        body.AppendLine().AppendLine()
+        body.Append("To track the status of the air quality permit application, log on to Georgia Environmental ")
+        body.Append("Protection Division's Georgia Environmental Connections Online (GECO) at the web address ")
+        body.Append("https://geco.gaepd.org/ (registration required) and follow the online instructions.")
+        body.AppendLine().AppendLine()
+        body.Append("If your company qualifies as a small business (generally those with fewer than 100 employees), you ")
+        body.Append("may contact our Small Business Environmental Assistance Program for free and confidential permitting ")
+        body.Append("assistance. Call (404) 363-7000 and select option 7.")
+        body.AppendLine().AppendLine()
+        body.Append($"If you have any questions or concerns regarding your application, please contact me at {staffPhone} ")
+        body.Append($"or via e-mail at {staffEmail}. Any written correspondence should reference the above application ")
+        body.Append("number that has been assigned to this application and the facility's AIRS number.")
+        body.AppendLine().AppendLine()
+        body.AppendLine("Sincerely,")
+        body.AppendLine(CurrentUser.FullName)
 
         Cursor = Cursors.WaitCursor
 
-        If Await SendFormEmailAsync(emailBody, subject, ContactEmailBatchId) Then
+        If Await SendFormEmailAsync(body.ToString, subject, ContactEmailBatchId) Then
             LoadContactEmailBatchDetails()
         End If
 
