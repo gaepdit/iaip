@@ -165,7 +165,7 @@ Public Class SSPPApplicationTrackingLog
 
         chbClosedOut.Visible = False
         btnEmailAcknowledgmentLetter.Visible = False
-        btnRefreshEmailsSent.Visible = False
+        btnRefreshContactEmailsSent.Visible = False
     End Sub
 
     Private Sub LoadDefaultDates()
@@ -3440,7 +3440,7 @@ Public Class SSPPApplicationTrackingLog
                 End If
 
                 ContactEmailBatchId = GetNullable(Of Guid?)(dr.Item(NameOf(ContactEmailBatchId)))
-                If ContactEmailBatchId IsNot Nothing Then LoadEmailBatchDetails()
+                If ContactEmailBatchId IsNot Nothing Then LoadContactEmailBatchDetails()
 
                 If IsDBNull(dr.Item("strStaffResponsible")) Then
                     cboEngineer.SelectedIndex = 0
@@ -7107,7 +7107,7 @@ Public Class SSPPApplicationTrackingLog
 
             chbClosedOut.Visible = True
             btnEmailAcknowledgmentLetter.Visible = True
-            btnRefreshEmailsSent.Visible = True
+            btnRefreshContactEmailsSent.Visible = True
 
             Return True
         Else
@@ -7568,6 +7568,8 @@ Public Class SSPPApplicationTrackingLog
 
     Public Sub LoadApplication()
         Try
+            Cursor = Cursors.WaitCursor
+
             lblAppNumber.Text = "Application #" & AppNumber.ToString
             Me.Text = AppNumber.ToString & " - " & Me.Text
 
@@ -7591,6 +7593,8 @@ Public Class SSPPApplicationTrackingLog
             SetUpPublicAppViewLink()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+        Finally
+            Cursor = Nothing
         End Try
     End Sub
 
@@ -9965,52 +9969,52 @@ Public Class SSPPApplicationTrackingLog
 #Region " Email batch "
 
     Private Property ContactEmailBatchId As Guid? = Nothing
-    Private Property EmailBatchDetails As EmailBatchDetails
+    Private Property ContactEmailBatchDetails As EmailBatchDetails
 
-    Private Async Sub LoadEmailBatchDetails()
+    Private Async Sub LoadContactEmailBatchDetails()
         Dim emailFetchError As Boolean = False
 
         If ContactEmailBatchId IsNot Nothing Then
-            Cursor = Cursors.WaitCursor
             btnEmailAcknowledgmentLetter.Enabled = False
 
             Dim response As EmailBatchDetails = Await GetBatchDetails(ContactEmailBatchId)
 
             If response Is Nothing OrElse response.Status = "Failed" OrElse response.Emails Is Nothing Then
-                EmailBatchDetails = Nothing
+                ContactEmailBatchDetails = Nothing
                 emailFetchError = True
-                lblNoEmailsSent.Text = "Error fetching email details"
+                lblNoContactEmailsSent.Text = "Error fetching email details"
             Else
-                EmailBatchDetails = response
-                lblNoEmailsSent.Text = "None"
+                ContactEmailBatchDetails = response
+                lblNoContactEmailsSent.Text = "None"
             End If
         End If
 
-        If EmailBatchDetails Is Nothing OrElse Not EmailBatchDetails.Emails.Any Then
-            dgvEmailsSent.Visible = False
-            lblNoEmailsSent.Visible = True
+        If ContactEmailBatchDetails Is Nothing OrElse Not ContactEmailBatchDetails.Emails.Any Then
+            dgvContactEmailsSent.Visible = False
+            lblNoContactEmailsSent.Visible = True
 
             txtContactEmailAddress.Focus()
         Else
-            dgvEmailsSent.Visible = True
-            lblNoEmailsSent.Visible = False
+            dgvContactEmailsSent.Visible = True
+            lblNoContactEmailsSent.Visible = False
 
-            dgvEmailsSent.DataSource = EmailBatchDetails.Emails _
+            dgvContactEmailsSent.DataSource = ContactEmailBatchDetails.Emails _
                 .OrderByDescending(Function(p) p.Counter) _
                 .Select(Function(p) New EmailTaskViewModel(p)).ToList()
-            dgvEmailsSent.Columns.Item("Subject").Visible = False
+            dgvContactEmailsSent.Columns.Item("Subject").Visible = False
 
-            dgvEmailsSent.Focus()
+            dgvContactEmailsSent.Focus()
         End If
 
-        btnRefreshEmailsSent.Enabled = True
+        btnRefreshContactEmailsSent.Enabled = True
         btnEmailAcknowledgmentLetter.Enabled = Not emailFetchError
-        Cursor = Nothing
     End Sub
 
-    Private Sub btnRefreshEmailsSent_Click(sender As Object, e As EventArgs) Handles btnRefreshEmailsSent.Click
-        btnRefreshEmailsSent.Enabled = False
-        LoadEmailBatchDetails()
+    Private Sub btnRefreshContactEmailsSent_Click(sender As Object, e As EventArgs) Handles btnRefreshContactEmailsSent.Click
+        Cursor = Cursors.WaitCursor
+        btnRefreshContactEmailsSent.Enabled = False
+        LoadContactEmailBatchDetails()
+        Cursor = Nothing
     End Sub
 
     Private Async Sub btnEmailAcknowledgmentLetter_Click(sender As Object, e As EventArgs) Handles btnEmailAcknowledgmentLetter.Click
@@ -10050,20 +10054,30 @@ To track the status of the air quality permit application, log on to Georgia Env
   
 If your company qualifies as a small business (generally those with fewer than 100 employees), you may contact our Small Business Environmental Assistance Program for free and confidential permitting assistance. Call (404) 363-7000 and select option 7. 
   
-If you have any questions or concerns regarding your application, please contact me at {staffPhone} or via e-mail at {staffEmail}. Any written correspondence should reference the above application number that has been assigned to this application and the facility's AIRS number." 
+If you have any questions or concerns regarding your application, please contact me at {staffPhone} or via e-mail at {staffEmail}. Any written correspondence should reference the above application number that has been assigned to this application and the facility's AIRS number."
 
+        Cursor = Cursors.WaitCursor
+
+        If Await SendFormEmailAsync(emailBody, subject, ContactEmailBatchId) Then
+            LoadContactEmailBatchDetails()
+        End If
+
+        Cursor = Nothing
+    End Sub
+
+#End Region
+
+#Region " Email functions "
+    Private Async Function SendFormEmailAsync(emailBody As String, subject As String, batchId As Guid) As Threading.Tasks.Task(Of Boolean)
         Using emailDialog As New EmailEditDialog
             emailDialog.BodyText.Text = emailBody
             emailDialog.SubjectLabel.Text = subject
             emailDialog.RecipientLabel.Text = txtContactEmailAddress.Text
 
             If emailDialog.ShowDialog() = DialogResult.Cancel Then
-                txtContactEmailAddress.Focus()
-                Cursor = Nothing
-                Return
+                Return False
             End If
 
-            Cursor = Cursors.WaitCursor
             emailBody = emailDialog.BodyText.Text
         End Using
 
@@ -10076,31 +10090,28 @@ If you have any questions or concerns regarding your application, please contact
             .Body = emailBody
         }
 
-        Dim emailResult As EmailQueueApiResponse = Await SendEmailAsync(ContactEmailBatchId, generatedEmail)
+        Dim emailResult As EmailQueueApiResponse = Await SendEmailAsync(batchId, generatedEmail)
 
         If emailResult Is Nothing Then
-            MessageBox.Show("There was a problem sending the initial email notification. Please contact EPD-IT for more information.",
+            MessageBox.Show("There was a problem sending the email. Please contact EPD-IT for more information.",
                             "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            Cursor = Nothing
-            Return
+            Return False
         End If
 
         If emailResult.Body Is Nothing Then
-            MessageBox.Show("There was a problem sending the initial email notification. Please contact EPD-IT for more information." &
+            MessageBox.Show("There was a problem sending the email. Please contact EPD-IT for more information." &
                                 vbNewLine & vbNewLine & $"Emailer Status: {emailResult.Status}",
                                 "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            Cursor = Nothing
-            Return
+            Return False
         End If
 
         If emailResult.Body.Status = "Empty" Then
             MessageBox.Show("No email was sent. Please check your data and try again.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            Cursor = Nothing
-            Return
+            Return False
         End If
 
-        LoadEmailBatchDetails()
-    End Sub
+        Return True
+    End Function
 
 #End Region
 
