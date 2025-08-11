@@ -1,6 +1,9 @@
+Imports System.Collections.Generic
+Imports System.ComponentModel
 Imports System.Deployment.Application
 Imports System.Threading
 Imports System.Threading.Tasks
+Imports Iaip.ApiCalls.Notifications
 Imports Iaip.UrlHelpers
 
 Public Class IAIPLogIn
@@ -72,27 +75,30 @@ Public Class IAIPLogIn
     Private Sub SetUpLoginUi(sessionLogin As Boolean)
         If sessionLogin Then
             StartUsingTheIaip()
-        End If
+        Else
+            ' Start the org notifications check background worker
+            LoadOrgNotifications()
 
-        Select Case NetworkStatus
-            Case IaipNetworkStatus.NoInternet
-                DisableLogin("It appears you are not connected to the Internet. " &
+            Select Case NetworkStatus
+                Case IaipNetworkStatus.NoInternet
+                    DisableLogin("It appears you are not connected to the Internet. " &
                              "Please check your connection and try again.")
-            Case IaipNetworkStatus.NoVpn
-                DisableLogin("It appears you are not connected to the VPN. " &
+                Case IaipNetworkStatus.NoVpn
+                    DisableLogin("It appears you are not connected to the VPN. " &
                              "If you are working remotely, you must " &
                              "connect to the VPN before using the IAIP.")
-            Case IaipNetworkStatus.NoDb
-                DisableLogin("Unable to connect to the database. " &
+                Case IaipNetworkStatus.NoDb
+                    DisableLogin("Unable to connect to the database. " &
                              "Please wait a few minutes and try again. " &
                              "If still unable to connect, please contact EPD-IT for support.")
-            Case IaipNetworkStatus.AppDisabled
-                DisableLogin("The IAIP is temporarily down for maintenance. " &
+                Case IaipNetworkStatus.AppDisabled
+                    DisableLogin("The IAIP is temporarily down for maintenance. " &
                              "Please wait a few minutes and try again or " &
                              "contact EPD-IT for more information.")
-            Case Else
-                EnableLogin()
-        End Select
+                Case Else
+                    EnableLogin()
+            End Select
+        End If
     End Sub
 
     Private Shared Async Function CheckUserSavedSessionAsync() As Task(Of Boolean)
@@ -390,7 +396,7 @@ Public Class IAIPLogIn
 
 #If DEBUG Then
         ' Switch to DEV environment
-        BackColor = Color.PapayaWhip
+        BackColor = Color.Cornsilk
         Text = APP_FRIENDLY_NAME & " — DEV"
         btnLoginButton.Text = "Log in to DEV"
         LogoBox.Image = My.Resources.DevLogo
@@ -496,6 +502,61 @@ Public Class IAIPLogIn
 
     Private Sub mmiForceEnableLogin_Click(sender As Object, e As EventArgs) Handles mmiForceEnableLogin.Click
         EnableLogin()
+    End Sub
+
+#End Region
+
+#Region " Org Notifications "
+    Private Property CheckingOrgNotifications As Boolean
+
+    Public Sub LoadOrgNotifications()
+        If CheckingOrgNotifications OrElse bgrOrgNotifications.IsBusy Then Return
+
+        CheckingOrgNotifications = True
+
+        If Not bgrOrgNotifications.IsBusy Then
+            Try
+                bgrOrgNotifications.RunWorkerAsync()
+            Catch ex As InvalidOperationException
+                If ex.Message.Contains("This BackgroundWorker is currently busy and cannot run multiple tasks concurrently.") Then
+                    Return
+                End If
+            End Try
+        End If
+    End Sub
+
+    Private Sub bgrOrgNotifications_DoWork(sender As Object, e As DoWorkEventArgs) Handles bgrOrgNotifications.DoWork
+        e.Result = CheckNotificationApiAsync().Result
+    End Sub
+
+    Private Sub bgrOrgNotifications_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles bgrOrgNotifications.RunWorkerCompleted
+        CheckingOrgNotifications = False
+
+        Dim notifications As List(Of OrgNotificationModel) = e.Result
+
+        If notifications Is Nothing OrElse notifications.Count <= 0 Then
+            pnlNotificationContainer.Visible = False
+            Size = New Size(Width, 486)
+        Else
+            Size = New Size(Width, 558)
+            pnlNotificationContainer.Visible = True
+
+            Dim first As Boolean = True
+            lblNotification.Text = ""
+
+            For Each notification As OrgNotificationModel In notifications
+                If notification.Message IsNot Nothing AndAlso notification.Message.Trim().Length > 0 Then
+                    If Not first Then lblNotification.Text &= Environment.NewLine & Environment.NewLine
+                    lblNotification.Text &= notification.Message
+                    first = False
+                End If
+            Next
+            lblNotification.MaximumSize = New Size(pnlNotifications.ClientSize.Width, 20000)
+        End If
+    End Sub
+
+    Private Sub ReloadNotificationsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ReloadNotificationsToolStripMenuItem.Click
+        LoadOrgNotifications()
     End Sub
 
 #End Region

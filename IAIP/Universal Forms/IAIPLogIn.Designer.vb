@@ -34,6 +34,7 @@ Partial Class IAIPLogIn
         Me.mmiThrowHandledError = New System.Windows.Forms.ToolStripMenuItem()
         Me.mmiThrowUnhandledError = New System.Windows.Forms.ToolStripMenuItem()
         Me.mmiForceEnableLogin = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ReloadNotificationsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.btnLoginButton = New System.Windows.Forms.Button()
         Me.LogoBox = New System.Windows.Forms.PictureBox()
         Me.lblCurrentVersionMessage = New System.Windows.Forms.Label()
@@ -51,10 +52,21 @@ Partial Class IAIPLogIn
         Me.chkRemember = New System.Windows.Forms.CheckBox()
         Me.lblIAIP = New System.Windows.Forms.Label()
         Me.lnkChangelog = New System.Windows.Forms.LinkLabel()
-        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.pnlMain = New System.Windows.Forms.Panel()
+        Me.pnlNotificationContainer = New System.Windows.Forms.Panel()
+        Me.pnlSpacing = New System.Windows.Forms.Panel()
+        Me.pnlNotifications = New System.Windows.Forms.Panel()
+        Me.lblNotification = New System.Windows.Forms.Label()
+        Me.pnlNoticeLabelPanel = New System.Windows.Forms.Panel()
+        Me.lblNoticeLabel = New System.Windows.Forms.Label()
+        Me.bgrOrgNotifications = New System.ComponentModel.BackgroundWorker()
         Me.MainMenu1.SuspendLayout()
         CType(Me.LogoBox, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.Panel1.SuspendLayout()
+        Me.pnlMain.SuspendLayout()
+        Me.pnlNotificationContainer.SuspendLayout()
+        Me.pnlSpacing.SuspendLayout()
+        Me.pnlNotifications.SuspendLayout()
+        Me.pnlNoticeLabelPanel.SuspendLayout()
         Me.SuspendLayout()
         '
         'MainMenu1
@@ -138,7 +150,7 @@ Partial Class IAIPLogIn
         '
         'mmiTestingMenu
         '
-        Me.mmiTestingMenu.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiThrowHandledError, Me.mmiThrowUnhandledError, Me.mmiForceEnableLogin})
+        Me.mmiTestingMenu.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiThrowHandledError, Me.mmiThrowUnhandledError, Me.mmiForceEnableLogin, Me.ReloadNotificationsToolStripMenuItem})
         Me.mmiTestingMenu.MergeIndex = 3
         Me.mmiTestingMenu.Name = "mmiTestingMenu"
         Me.mmiTestingMenu.Size = New System.Drawing.Size(39, 20)
@@ -150,14 +162,14 @@ Partial Class IAIPLogIn
         Me.mmiThrowHandledError.MergeIndex = 0
         Me.mmiThrowHandledError.Name = "mmiThrowHandledError"
         Me.mmiThrowHandledError.Size = New System.Drawing.Size(188, 22)
-        Me.mmiThrowHandledError.Text = "Handled Exception"
+        Me.mmiThrowHandledError.Text = "&Handled Exception"
         '
         'mmiThrowUnhandledError
         '
         Me.mmiThrowUnhandledError.MergeIndex = 1
         Me.mmiThrowUnhandledError.Name = "mmiThrowUnhandledError"
         Me.mmiThrowUnhandledError.Size = New System.Drawing.Size(188, 22)
-        Me.mmiThrowUnhandledError.Text = "Unhandled Exception"
+        Me.mmiThrowUnhandledError.Text = "&Unhandled Exception"
         '
         'mmiForceEnableLogin
         '
@@ -165,6 +177,12 @@ Partial Class IAIPLogIn
         Me.mmiForceEnableLogin.Name = "mmiForceEnableLogin"
         Me.mmiForceEnableLogin.Size = New System.Drawing.Size(188, 22)
         Me.mmiForceEnableLogin.Text = "&Enable the login form"
+        '
+        'ReloadNotificationsToolStripMenuItem
+        '
+        Me.ReloadNotificationsToolStripMenuItem.Name = "ReloadNotificationsToolStripMenuItem"
+        Me.ReloadNotificationsToolStripMenuItem.Size = New System.Drawing.Size(188, 22)
+        Me.ReloadNotificationsToolStripMenuItem.Text = "&Reload notifications"
         '
         'btnLoginButton
         '
@@ -363,38 +381,105 @@ Partial Class IAIPLogIn
         Me.lnkChangelog.TextAlign = System.Drawing.ContentAlignment.TopCenter
         Me.lnkChangelog.Visible = False
         '
-        'Panel1
+        'pnlMain
         '
-        Me.Panel1.Controls.Add(Me.lblTitle)
-        Me.Panel1.Controls.Add(Me.btnLoginButton)
-        Me.Panel1.Controls.Add(Me.lnkChangelog)
-        Me.Panel1.Controls.Add(Me.lblGeneralMessage)
-        Me.Panel1.Controls.Add(Me.chkRemember)
-        Me.Panel1.Controls.Add(Me.lblSubTitle)
-        Me.Panel1.Controls.Add(Me.RetryButton)
-        Me.Panel1.Controls.Add(Me.lblIAIP)
-        Me.Panel1.Controls.Add(Me.ForgotPasswordLink)
-        Me.Panel1.Controls.Add(Me.txtUserID)
-        Me.Panel1.Controls.Add(Me.ForgotUsernameLink)
-        Me.Panel1.Controls.Add(Me.txtUserPassword)
-        Me.Panel1.Controls.Add(Me.LogoBox)
-        Me.Panel1.Controls.Add(Me.lblUserID)
-        Me.Panel1.Controls.Add(Me.lblCurrentVersionMessage)
-        Me.Panel1.Controls.Add(Me.lblPassword)
-        Me.Panel1.Controls.Add(Me.lblLicenseLabel)
-        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel1.Location = New System.Drawing.Point(0, 24)
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(756, 423)
-        Me.Panel1.TabIndex = 0
+        Me.pnlMain.Controls.Add(Me.lblTitle)
+        Me.pnlMain.Controls.Add(Me.btnLoginButton)
+        Me.pnlMain.Controls.Add(Me.lnkChangelog)
+        Me.pnlMain.Controls.Add(Me.lblGeneralMessage)
+        Me.pnlMain.Controls.Add(Me.chkRemember)
+        Me.pnlMain.Controls.Add(Me.lblSubTitle)
+        Me.pnlMain.Controls.Add(Me.RetryButton)
+        Me.pnlMain.Controls.Add(Me.lblIAIP)
+        Me.pnlMain.Controls.Add(Me.ForgotPasswordLink)
+        Me.pnlMain.Controls.Add(Me.txtUserID)
+        Me.pnlMain.Controls.Add(Me.ForgotUsernameLink)
+        Me.pnlMain.Controls.Add(Me.txtUserPassword)
+        Me.pnlMain.Controls.Add(Me.LogoBox)
+        Me.pnlMain.Controls.Add(Me.lblUserID)
+        Me.pnlMain.Controls.Add(Me.lblCurrentVersionMessage)
+        Me.pnlMain.Controls.Add(Me.lblPassword)
+        Me.pnlMain.Controls.Add(Me.lblLicenseLabel)
+        Me.pnlMain.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.pnlMain.Location = New System.Drawing.Point(0, 96)
+        Me.pnlMain.Name = "pnlMain"
+        Me.pnlMain.Size = New System.Drawing.Size(756, 423)
+        Me.pnlMain.TabIndex = 0
+        '
+        'pnlNotificationContainer
+        '
+        Me.pnlNotificationContainer.BackColor = System.Drawing.Color.PapayaWhip
+        Me.pnlNotificationContainer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.pnlNotificationContainer.Controls.Add(Me.pnlSpacing)
+        Me.pnlNotificationContainer.Controls.Add(Me.pnlNoticeLabelPanel)
+        Me.pnlNotificationContainer.Dock = System.Windows.Forms.DockStyle.Top
+        Me.pnlNotificationContainer.Location = New System.Drawing.Point(0, 24)
+        Me.pnlNotificationContainer.Name = "pnlNotificationContainer"
+        Me.pnlNotificationContainer.Size = New System.Drawing.Size(756, 72)
+        Me.pnlNotificationContainer.TabIndex = 39
+        Me.pnlNotificationContainer.Visible = False
+        '
+        'pnlSpacing
+        '
+        Me.pnlSpacing.Controls.Add(Me.pnlNotifications)
+        Me.pnlSpacing.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.pnlSpacing.Location = New System.Drawing.Point(74, 0)
+        Me.pnlSpacing.Name = "pnlSpacing"
+        Me.pnlSpacing.Padding = New System.Windows.Forms.Padding(0, 6, 0, 6)
+        Me.pnlSpacing.Size = New System.Drawing.Size(680, 70)
+        Me.pnlSpacing.TabIndex = 4
+        '
+        'pnlNotifications
+        '
+        Me.pnlNotifications.AutoScroll = True
+        Me.pnlNotifications.AutoSize = True
+        Me.pnlNotifications.Controls.Add(Me.lblNotification)
+        Me.pnlNotifications.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.pnlNotifications.Location = New System.Drawing.Point(0, 6)
+        Me.pnlNotifications.Name = "pnlNotifications"
+        Me.pnlNotifications.Size = New System.Drawing.Size(680, 58)
+        Me.pnlNotifications.TabIndex = 4
+        '
+        'lblNotification
+        '
+        Me.lblNotification.AutoSize = True
+        Me.lblNotification.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblNotification.Location = New System.Drawing.Point(0, 0)
+        Me.lblNotification.Name = "lblNotification"
+        Me.lblNotification.Size = New System.Drawing.Size(90, 45)
+        Me.lblNotification.TabIndex = 2
+        Me.lblNotification.Text = "Notification text" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Line 2" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Line 3"
+        '
+        'pnlNoticeLabelPanel
+        '
+        Me.pnlNoticeLabelPanel.Controls.Add(Me.lblNoticeLabel)
+        Me.pnlNoticeLabelPanel.Dock = System.Windows.Forms.DockStyle.Left
+        Me.pnlNoticeLabelPanel.Location = New System.Drawing.Point(0, 0)
+        Me.pnlNoticeLabelPanel.Name = "pnlNoticeLabelPanel"
+        Me.pnlNoticeLabelPanel.Size = New System.Drawing.Size(74, 70)
+        Me.pnlNoticeLabelPanel.TabIndex = 7
+        '
+        'lblNoticeLabel
+        '
+        Me.lblNoticeLabel.AutoSize = True
+        Me.lblNoticeLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblNoticeLabel.Location = New System.Drawing.Point(5, 5)
+        Me.lblNoticeLabel.Name = "lblNoticeLabel"
+        Me.lblNoticeLabel.Size = New System.Drawing.Size(62, 17)
+        Me.lblNoticeLabel.TabIndex = 1
+        Me.lblNoticeLabel.Text = "Notices"
+        '
+        'bgrOrgNotifications
+        '
         '
         'IAIPLogIn
         '
         Me.AcceptButton = Me.btnLoginButton
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(756, 447)
-        Me.Controls.Add(Me.Panel1)
+        Me.ClientSize = New System.Drawing.Size(756, 519)
+        Me.Controls.Add(Me.pnlMain)
+        Me.Controls.Add(Me.pnlNotificationContainer)
         Me.Controls.Add(Me.MainMenu1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.HelpButton = True
@@ -408,8 +493,15 @@ Partial Class IAIPLogIn
         Me.MainMenu1.ResumeLayout(False)
         Me.MainMenu1.PerformLayout()
         CType(Me.LogoBox, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.Panel1.ResumeLayout(False)
-        Me.Panel1.PerformLayout()
+        Me.pnlMain.ResumeLayout(False)
+        Me.pnlMain.PerformLayout()
+        Me.pnlNotificationContainer.ResumeLayout(False)
+        Me.pnlSpacing.ResumeLayout(False)
+        Me.pnlSpacing.PerformLayout()
+        Me.pnlNotifications.ResumeLayout(False)
+        Me.pnlNotifications.PerformLayout()
+        Me.pnlNoticeLabelPanel.ResumeLayout(False)
+        Me.pnlNoticeLabelPanel.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -445,6 +537,14 @@ Partial Class IAIPLogIn
     Friend WithEvents lblIAIP As Label
     Friend WithEvents lnkChangelog As LinkLabel
     Friend WithEvents ToolStripSeparator3 As ToolStripSeparator
-    Friend WithEvents Panel1 As Panel
+    Friend WithEvents pnlMain As Panel
     Friend WithEvents mmiForceEnableLogin As ToolStripMenuItem
+    Friend WithEvents pnlNotificationContainer As Panel
+    Friend WithEvents pnlSpacing As Panel
+    Friend WithEvents pnlNotifications As Panel
+    Friend WithEvents lblNotification As Label
+    Friend WithEvents pnlNoticeLabelPanel As Panel
+    Friend WithEvents lblNoticeLabel As Label
+    Friend WithEvents bgrOrgNotifications As System.ComponentModel.BackgroundWorker
+    Friend WithEvents ReloadNotificationsToolStripMenuItem As ToolStripMenuItem
 End Class
