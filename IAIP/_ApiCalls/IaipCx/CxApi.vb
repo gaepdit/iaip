@@ -75,38 +75,19 @@ Namespace ApiCalls.IaipCx
             If parsedResult.Success Then
                 CurrentAppConfig = parsedResult.IaipConfig
 
-                Dim connectionRetryProvider As SqlRetryLogicBaseProvider = Nothing
+                Dim options As New SqlRetryLogicOption() With {
+                    .NumberOfTries = 5,
+                    .DeltaTime = TimeSpan.FromSeconds(10),
+                    .MaxTimeInterval = TimeSpan.FromSeconds(15)
+                }
 
-                MaybeEnableRetryProvider()
-                If RetryProviderEnabled Then
-                    Dim options As New SqlRetryLogicOption() With {
-                        .NumberOfTries = 5,
-                        .DeltaTime = TimeSpan.FromSeconds(10),
-                        .MaxTimeInterval = TimeSpan.FromSeconds(15)
-                    }
-                    connectionRetryProvider = SqlConfigurableRetryFactory.CreateFixedRetryProvider(options)
-                End If
+                Dim connectionRetryProvider As SqlRetryLogicBaseProvider = SqlConfigurableRetryFactory.CreateFixedRetryProvider(options)
 
                 DB = New GaEpd.DBHelper(CurrentConnectionString, connectionRetryProvider)
             End If
 
             Return parsedResult.Message
         End Function
-
-        Private Sub MaybeEnableRetryProvider()
-            Dim fullImplementationDate As Date = New Date(2025, 8, 8)
-
-            If Date.Today >= fullImplementationDate Then
-                RetryProviderEnabled = True
-                Return
-            End If
-
-            Dim daysRemaining As Integer = (fullImplementationDate - Date.Today).Days + 1
-            Dim chancePercent As Integer = CInt(Math.Floor(100 / daysRemaining))
-            Dim roll As Integer = New Random().Next(1, 101) ' 1 to 100 inclusive
-
-            RetryProviderEnabled = roll <= chancePercent
-        End Sub
 
     End Module
 End Namespace

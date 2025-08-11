@@ -14,6 +14,10 @@
 [2014](changelog-2014.html) |
 [2013](changelog-2013.html)
 
+## Version 7.5.3 <span>(11-Aug-2025)</span>
+
+* Fixed the WPB and SBEAP contact info in the permit application acknowlegment email.
+
 ## Version 7.5.2 <span>(29-Jul-2025)</span>
 
 * Org notifications are now displayed on the main navigation screen.

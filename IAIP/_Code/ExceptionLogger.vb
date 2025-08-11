@@ -44,8 +44,7 @@ Friend Module ExceptionLogger
             {"Context", context},
             {"Supplemental message", supplementalMessage},
             {"Initial Network Status", NetworkStatus.GetDescription},
-            {"VPN Interface Adapter", VpnInterfaceAdapter},
-            {"Connection Retry Enabled", RetryProviderEnabled}
+            {"VPN Interface Adapter", VpnInterfaceAdapter}
         }
 
         Try

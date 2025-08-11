@@ -12,7 +12,6 @@ Module AppGlobals
 
     ' DB connections
     Friend Property DB As DBHelper
-    Friend Property RetryProviderEnabled As Boolean = False
 
     ' App config
 
