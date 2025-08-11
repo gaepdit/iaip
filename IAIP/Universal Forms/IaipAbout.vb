@@ -22,7 +22,6 @@ Public Class IaipAbout
     Private Sub DisplayDevInfo()
         DevInfoPanel.Visible = True
         lblExternalIPAddress.Text = $"External IP Address: {ExternalIPAddress}"
-        lblDbRetryEnabled.Text = $"Database Retry Enabled: {If(RetryProviderEnabled, "Yes", "No")}"
         lblCurrentServerEnvironment.Text = $"Current Server Environment: {CurrentServerEnvironment}"
         lblCurrentUser.Text = $"Current User: {If(CurrentUser IsNot Nothing, CurrentUser.Username, "None")}"
         lblNetworkStatus.Text = $"Initial Network Status: {NetworkStatus}"
