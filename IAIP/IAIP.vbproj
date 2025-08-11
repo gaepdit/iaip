@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
   <PropertyGroup>
-    <MinimumRequiredVersion>7.5.2.0</MinimumRequiredVersion>
-    <ApplicationVersion>7.5.2.0</ApplicationVersion>
+    <ApplicationVersion>7.5.3.0</ApplicationVersion>
+    <MinimumRequiredVersion>7.5.3.0</MinimumRequiredVersion>
     <ProjectType>Local</ProjectType>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
@@ -1133,7 +1133,7 @@
       <Version>1.0.2</Version>
     </PackageReference>
     <PackageReference Include="GaEpd.DbHelper">
-      <Version>6.0.0-beta.1</Version>
+      <Version>6.0.0</Version>
     </PackageReference>
     <PackageReference Include="ExcelNumberFormat">
       <Version>1.1.0</Version>
@@ -1172,7 +1172,7 @@
       <Version>5.0.0</Version>
     </PackageReference>
     <PackageReference Include="System.Text.Json">
-      <Version>9.0.7</Version>
+      <Version>9.0.8</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
