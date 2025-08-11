@@ -3317,9 +3317,9 @@ Partial Class SSPPApplicationTrackingLog
         Me.btnEmailAcknowledgmentLetter.Enabled = False
         Me.btnEmailAcknowledgmentLetter.Location = New System.Drawing.Point(382, 205)
         Me.btnEmailAcknowledgmentLetter.Name = "btnEmailAcknowledgmentLetter"
-        Me.btnEmailAcknowledgmentLetter.Size = New System.Drawing.Size(176, 23)
+        Me.btnEmailAcknowledgmentLetter.Size = New System.Drawing.Size(174, 23)
         Me.btnEmailAcknowledgmentLetter.TabIndex = 14
-        Me.btnEmailAcknowledgmentLetter.Text = "Generate Acknowledgment Letter"
+        Me.btnEmailAcknowledgmentLetter.Text = "Generate Acknowledgment Email"
         Me.btnEmailAcknowledgmentLetter.UseVisualStyleBackColor = True
         '
         'btnGetCurrentPermittingContact
