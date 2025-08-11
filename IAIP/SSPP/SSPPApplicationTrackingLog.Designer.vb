@@ -521,8 +521,8 @@ Partial Class SSPPApplicationTrackingLog
         Me.cmbExpFeeType = New System.Windows.Forms.ComboBox()
         Me.cmbAppFeeType = New System.Windows.Forms.ComboBox()
         Me.pnlFeeDataFinalized = New System.Windows.Forms.Panel()
+        Me.btnGenerateFeeNotification = New System.Windows.Forms.Button()
         Me.lblFeeDataFinalized = New System.Windows.Forms.Label()
-        Me.lklGenerateEmail = New System.Windows.Forms.LinkLabel()
         Me.dtpFacilityFeeNotified = New System.Windows.Forms.DateTimePicker()
         Me.lblFacilityFeeNotified = New System.Windows.Forms.Label()
         Me.dtpFeeDataFinalized = New System.Windows.Forms.DateTimePicker()
@@ -6115,36 +6115,35 @@ Partial Class SSPPApplicationTrackingLog
         '
         'pnlFeeDataFinalized
         '
+        Me.pnlFeeDataFinalized.Controls.Add(Me.btnGenerateFeeNotification)
         Me.pnlFeeDataFinalized.Controls.Add(Me.lblFeeDataFinalized)
-        Me.pnlFeeDataFinalized.Controls.Add(Me.lklGenerateEmail)
         Me.pnlFeeDataFinalized.Controls.Add(Me.dtpFacilityFeeNotified)
         Me.pnlFeeDataFinalized.Controls.Add(Me.lblFacilityFeeNotified)
         Me.pnlFeeDataFinalized.Controls.Add(Me.dtpFeeDataFinalized)
-        Me.pnlFeeDataFinalized.Location = New System.Drawing.Point(11, 231)
+        Me.pnlFeeDataFinalized.Location = New System.Drawing.Point(3, 231)
         Me.pnlFeeDataFinalized.Name = "pnlFeeDataFinalized"
-        Me.pnlFeeDataFinalized.Size = New System.Drawing.Size(280, 76)
+        Me.pnlFeeDataFinalized.Size = New System.Drawing.Size(288, 83)
         Me.pnlFeeDataFinalized.TabIndex = 3
         Me.pnlFeeDataFinalized.Visible = False
+        '
+        'btnGenerateFeeNotification
+        '
+        Me.btnGenerateFeeNotification.AutoSize = True
+        Me.btnGenerateFeeNotification.Location = New System.Drawing.Point(0, 54)
+        Me.btnGenerateFeeNotification.Name = "btnGenerateFeeNotification"
+        Me.btnGenerateFeeNotification.Size = New System.Drawing.Size(145, 23)
+        Me.btnGenerateFeeNotification.TabIndex = 15
+        Me.btnGenerateFeeNotification.Text = "Generate Notification Email"
+        Me.btnGenerateFeeNotification.UseVisualStyleBackColor = True
         '
         'lblFeeDataFinalized
         '
         Me.lblFeeDataFinalized.AutoSize = True
-        Me.lblFeeDataFinalized.Location = New System.Drawing.Point(-3, 4)
+        Me.lblFeeDataFinalized.Location = New System.Drawing.Point(5, 4)
         Me.lblFeeDataFinalized.Name = "lblFeeDataFinalized"
         Me.lblFeeDataFinalized.Size = New System.Drawing.Size(95, 13)
         Me.lblFeeDataFinalized.TabIndex = 9
         Me.lblFeeDataFinalized.Text = "Fee Data Finalized"
-        '
-        'lklGenerateEmail
-        '
-        Me.lklGenerateEmail.AutoSize = True
-        Me.lklGenerateEmail.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lklGenerateEmail.Location = New System.Drawing.Point(-3, 25)
-        Me.lklGenerateEmail.Name = "lklGenerateEmail"
-        Me.lklGenerateEmail.Size = New System.Drawing.Size(78, 13)
-        Me.lklGenerateEmail.TabIndex = 12
-        Me.lklGenerateEmail.TabStop = True
-        Me.lklGenerateEmail.Text = "Generate email"
         '
         'dtpFacilityFeeNotified
         '
@@ -6152,7 +6151,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.dtpFacilityFeeNotified.CustomFormat = "dd-MMM-yyyy"
         Me.dtpFacilityFeeNotified.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.dtpFacilityFeeNotified.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpFacilityFeeNotified.Location = New System.Drawing.Point(164, 44)
+        Me.dtpFacilityFeeNotified.Location = New System.Drawing.Point(164, 27)
         Me.dtpFacilityFeeNotified.Name = "dtpFacilityFeeNotified"
         Me.dtpFacilityFeeNotified.ShowCheckBox = True
         Me.dtpFacilityFeeNotified.Size = New System.Drawing.Size(116, 21)
@@ -6161,7 +6160,7 @@ Partial Class SSPPApplicationTrackingLog
         'lblFacilityFeeNotified
         '
         Me.lblFacilityFeeNotified.AutoSize = True
-        Me.lblFacilityFeeNotified.Location = New System.Drawing.Point(-3, 48)
+        Me.lblFacilityFeeNotified.Location = New System.Drawing.Point(5, 31)
         Me.lblFacilityFeeNotified.Name = "lblFacilityFeeNotified"
         Me.lblFacilityFeeNotified.Size = New System.Drawing.Size(78, 13)
         Me.lblFacilityFeeNotified.TabIndex = 9
@@ -6895,7 +6894,6 @@ Partial Class SSPPApplicationTrackingLog
     Friend WithEvents TPFees As TabPage
     Friend WithEvents dtpFacilityFeeNotified As DateTimePicker
     Friend WithEvents lblFeeDataFinalized As Label
-    Friend WithEvents lklGenerateEmail As LinkLabel
     Friend WithEvents chbAppFee As CheckBox
     Friend WithEvents chbExpFee As CheckBox
     Friend WithEvents txtExpFeeOverrideReason As TextBox
@@ -6938,4 +6936,5 @@ Partial Class SSPPApplicationTrackingLog
     Friend WithEvents lblEmailsSent As Label
     Friend WithEvents lblNoContactEmailsSent As Label
     Friend WithEvents btnRefreshContactEmailsSent As Button
+    Friend WithEvents btnGenerateFeeNotification As Button
 End Class
