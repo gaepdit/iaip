@@ -264,9 +264,6 @@ Partial Class SSPPApplicationTrackingLog
         Me.txtOtherPermitDoc = New System.Windows.Forms.TextBox()
         Me.chbOtherPermit = New System.Windows.Forms.CheckBox()
         Me.TPContactInformation = New System.Windows.Forms.TabPage()
-        Me.btnRefreshContactEmailsSent = New System.Windows.Forms.Button()
-        Me.lblNoContactEmailsSent = New System.Windows.Forms.Label()
-        Me.dgvContactEmailsSent = New Iaip.IaipDataGridView()
         Me.txtContactPhoneNumber = New System.Windows.Forms.TextBox()
         Me.btnEmailAcknowledgmentLetter = New System.Windows.Forms.Button()
         Me.btnGetCurrentPermittingContact = New System.Windows.Forms.Button()
@@ -283,7 +280,6 @@ Partial Class SSPPApplicationTrackingLog
         Me.txtContactSocialTitle = New System.Windows.Forms.TextBox()
         Me.txtContactLastName = New System.Windows.Forms.TextBox()
         Me.txtContactFirstName = New System.Windows.Forms.TextBox()
-        Me.lblEmailsSent = New System.Windows.Forms.Label()
         Me.Label46 = New System.Windows.Forms.Label()
         Me.Label45 = New System.Windows.Forms.Label()
         Me.Label40 = New System.Windows.Forms.Label()
@@ -526,6 +522,11 @@ Partial Class SSPPApplicationTrackingLog
         Me.dtpFacilityFeeNotified = New System.Windows.Forms.DateTimePicker()
         Me.lblFacilityFeeNotified = New System.Windows.Forms.Label()
         Me.dtpFeeDataFinalized = New System.Windows.Forms.DateTimePicker()
+        Me.TPEmails = New System.Windows.Forms.TabPage()
+        Me.btnRefreshEmailsSent = New System.Windows.Forms.Button()
+        Me.lblNoEmailsSentLabel = New System.Windows.Forms.Label()
+        Me.dgvEmailsSent = New Iaip.IaipDataGridView()
+        Me.lblEmailsSent = New System.Windows.Forms.Label()
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
         Me.SaveButton = New System.Windows.Forms.ToolStripButton()
         Me.HeaderPanel = New System.Windows.Forms.Panel()
@@ -536,6 +537,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.btnOpenFacility = New System.Windows.Forms.Button()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
+        Me.lklRecipientLink = New System.Windows.Forms.LinkLabel()
         Me.TPSubPartEditor.SuspendLayout()
         Me.TCSupParts.SuspendLayout()
         Me.TPSIP.SuspendLayout()
@@ -580,7 +582,6 @@ Partial Class SSPPApplicationTrackingLog
         Me.Panel7.SuspendLayout()
         Me.PanelOther.SuspendLayout()
         Me.TPContactInformation.SuspendLayout()
-        CType(Me.dgvContactEmailsSent, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TPWebPublisher.SuspendLayout()
         Me.TPInformationRequests.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
@@ -613,6 +614,8 @@ Partial Class SSPPApplicationTrackingLog
         Me.Panel1.SuspendLayout()
         CType(Me.dgvApplicationPayments, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pnlFeeDataFinalized.SuspendLayout()
+        Me.TPEmails.SuspendLayout()
+        CType(Me.dgvEmailsSent, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ToolStrip1.SuspendLayout()
         Me.HeaderPanel.SuspendLayout()
         Me.pnlAssignments.SuspendLayout()
@@ -3221,9 +3224,6 @@ Partial Class SSPPApplicationTrackingLog
         '
         'TPContactInformation
         '
-        Me.TPContactInformation.Controls.Add(Me.btnRefreshContactEmailsSent)
-        Me.TPContactInformation.Controls.Add(Me.lblNoContactEmailsSent)
-        Me.TPContactInformation.Controls.Add(Me.dgvContactEmailsSent)
         Me.TPContactInformation.Controls.Add(Me.txtContactPhoneNumber)
         Me.TPContactInformation.Controls.Add(Me.btnEmailAcknowledgmentLetter)
         Me.TPContactInformation.Controls.Add(Me.btnGetCurrentPermittingContact)
@@ -3240,7 +3240,6 @@ Partial Class SSPPApplicationTrackingLog
         Me.TPContactInformation.Controls.Add(Me.txtContactSocialTitle)
         Me.TPContactInformation.Controls.Add(Me.txtContactLastName)
         Me.TPContactInformation.Controls.Add(Me.txtContactFirstName)
-        Me.TPContactInformation.Controls.Add(Me.lblEmailsSent)
         Me.TPContactInformation.Controls.Add(Me.Label46)
         Me.TPContactInformation.Controls.Add(Me.Label45)
         Me.TPContactInformation.Controls.Add(Me.Label40)
@@ -3262,47 +3261,6 @@ Partial Class SSPPApplicationTrackingLog
         Me.TPContactInformation.Text = "Contact"
         Me.TPContactInformation.UseVisualStyleBackColor = True
         '
-        'btnRefreshContactEmailsSent
-        '
-        Me.btnRefreshContactEmailsSent.AutoSize = True
-        Me.btnRefreshContactEmailsSent.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnRefreshContactEmailsSent.Image = Global.Iaip.My.Resources.Resources.RefreshIcon
-        Me.btnRefreshContactEmailsSent.Location = New System.Drawing.Point(11, 376)
-        Me.btnRefreshContactEmailsSent.Name = "btnRefreshContactEmailsSent"
-        Me.btnRefreshContactEmailsSent.Size = New System.Drawing.Size(22, 22)
-        Me.btnRefreshContactEmailsSent.TabIndex = 16
-        Me.ToolTip1.SetToolTip(Me.btnRefreshContactEmailsSent, "Reload list of emails sent")
-        Me.btnRefreshContactEmailsSent.UseVisualStyleBackColor = True
-        '
-        'lblNoContactEmailsSent
-        '
-        Me.lblNoContactEmailsSent.AutoSize = True
-        Me.lblNoContactEmailsSent.Location = New System.Drawing.Point(94, 360)
-        Me.lblNoContactEmailsSent.Name = "lblNoContactEmailsSent"
-        Me.lblNoContactEmailsSent.Size = New System.Drawing.Size(33, 13)
-        Me.lblNoContactEmailsSent.TabIndex = 365
-        Me.lblNoContactEmailsSent.Text = "None"
-        '
-        'dgvContactEmailsSent
-        '
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgvContactEmailsSent.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
-        Me.dgvContactEmailsSent.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.dgvContactEmailsSent.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
-        Me.dgvContactEmailsSent.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvContactEmailsSent.DateFieldFormat = "d-MMM-yyyy h:mm tt"
-        Me.dgvContactEmailsSent.GridColor = System.Drawing.SystemColors.ControlLight
-        Me.dgvContactEmailsSent.LinkifyColumnByName = Nothing
-        Me.dgvContactEmailsSent.Location = New System.Drawing.Point(92, 357)
-        Me.dgvContactEmailsSent.Name = "dgvContactEmailsSent"
-        Me.dgvContactEmailsSent.ResultsCountLabel = Nothing
-        Me.dgvContactEmailsSent.ResultsCountLabelFormat = "{0} found"
-        Me.dgvContactEmailsSent.Size = New System.Drawing.Size(628, 112)
-        Me.dgvContactEmailsSent.StandardTab = True
-        Me.dgvContactEmailsSent.TabIndex = 17
-        Me.dgvContactEmailsSent.Visible = False
-        '
         'txtContactPhoneNumber
         '
         Me.txtContactPhoneNumber.Location = New System.Drawing.Point(92, 151)
@@ -3314,7 +3272,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.btnEmailAcknowledgmentLetter.AutoSize = True
         Me.btnEmailAcknowledgmentLetter.Enabled = False
-        Me.btnEmailAcknowledgmentLetter.Location = New System.Drawing.Point(382, 205)
+        Me.btnEmailAcknowledgmentLetter.Location = New System.Drawing.Point(546, 205)
         Me.btnEmailAcknowledgmentLetter.Name = "btnEmailAcknowledgmentLetter"
         Me.btnEmailAcknowledgmentLetter.Size = New System.Drawing.Size(174, 23)
         Me.btnEmailAcknowledgmentLetter.TabIndex = 14
@@ -3438,15 +3396,6 @@ Partial Class SSPPApplicationTrackingLog
         Me.txtContactFirstName.Name = "txtContactFirstName"
         Me.txtContactFirstName.Size = New System.Drawing.Size(170, 20)
         Me.txtContactFirstName.TabIndex = 2
-        '
-        'lblEmailsSent
-        '
-        Me.lblEmailsSent.AutoSize = True
-        Me.lblEmailsSent.Location = New System.Drawing.Point(8, 360)
-        Me.lblEmailsSent.Name = "lblEmailsSent"
-        Me.lblEmailsSent.Size = New System.Drawing.Size(60, 13)
-        Me.lblEmailsSent.TabIndex = 365
-        Me.lblEmailsSent.Text = "Emails sent"
         '
         'Label46
         '
@@ -5735,6 +5684,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.TCApplicationTrackingLog.Controls.Add(Me.TPDocuments)
         Me.TCApplicationTrackingLog.Controls.Add(Me.TPSubPartEditor)
         Me.TCApplicationTrackingLog.Controls.Add(Me.TPFees)
+        Me.TCApplicationTrackingLog.Controls.Add(Me.TPEmails)
         Me.TCApplicationTrackingLog.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TCApplicationTrackingLog.Location = New System.Drawing.Point(0, 130)
         Me.TCApplicationTrackingLog.Name = "TCApplicationTrackingLog"
@@ -5868,8 +5818,8 @@ Partial Class SSPPApplicationTrackingLog
         '
         'dgvApplicationInvoices
         '
-        DataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgvApplicationInvoices.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvApplicationInvoices.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.dgvApplicationInvoices.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -5940,8 +5890,8 @@ Partial Class SSPPApplicationTrackingLog
         '
         'dgvApplicationPayments
         '
-        DataGridViewCellStyle3.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgvApplicationPayments.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvApplicationPayments.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle2
         Me.dgvApplicationPayments.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -6115,6 +6065,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         'pnlFeeDataFinalized
         '
+        Me.pnlFeeDataFinalized.Controls.Add(Me.lklRecipientLink)
         Me.pnlFeeDataFinalized.Controls.Add(Me.btnGenerateFeeNotification)
         Me.pnlFeeDataFinalized.Controls.Add(Me.lblFeeDataFinalized)
         Me.pnlFeeDataFinalized.Controls.Add(Me.dtpFacilityFeeNotified)
@@ -6122,7 +6073,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.pnlFeeDataFinalized.Controls.Add(Me.dtpFeeDataFinalized)
         Me.pnlFeeDataFinalized.Location = New System.Drawing.Point(3, 231)
         Me.pnlFeeDataFinalized.Name = "pnlFeeDataFinalized"
-        Me.pnlFeeDataFinalized.Size = New System.Drawing.Size(288, 83)
+        Me.pnlFeeDataFinalized.Size = New System.Drawing.Size(288, 107)
         Me.pnlFeeDataFinalized.TabIndex = 3
         Me.pnlFeeDataFinalized.Visible = False
         '
@@ -6177,6 +6128,70 @@ Partial Class SSPPApplicationTrackingLog
         Me.dtpFeeDataFinalized.Name = "dtpFeeDataFinalized"
         Me.dtpFeeDataFinalized.Size = New System.Drawing.Size(98, 21)
         Me.dtpFeeDataFinalized.TabIndex = 13
+        '
+        'TPEmails
+        '
+        Me.TPEmails.Controls.Add(Me.btnRefreshEmailsSent)
+        Me.TPEmails.Controls.Add(Me.lblNoEmailsSentLabel)
+        Me.TPEmails.Controls.Add(Me.dgvEmailsSent)
+        Me.TPEmails.Controls.Add(Me.lblEmailsSent)
+        Me.TPEmails.Location = New System.Drawing.Point(4, 22)
+        Me.TPEmails.Name = "TPEmails"
+        Me.TPEmails.Size = New System.Drawing.Size(784, 477)
+        Me.TPEmails.TabIndex = 10
+        Me.TPEmails.Text = "Emails"
+        Me.TPEmails.UseVisualStyleBackColor = True
+        '
+        'btnRefreshEmailsSent
+        '
+        Me.btnRefreshEmailsSent.AutoSize = True
+        Me.btnRefreshEmailsSent.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.btnRefreshEmailsSent.Image = Global.Iaip.My.Resources.Resources.RefreshIcon
+        Me.btnRefreshEmailsSent.Location = New System.Drawing.Point(11, 8)
+        Me.btnRefreshEmailsSent.Name = "btnRefreshEmailsSent"
+        Me.btnRefreshEmailsSent.Size = New System.Drawing.Size(22, 22)
+        Me.btnRefreshEmailsSent.TabIndex = 0
+        Me.ToolTip1.SetToolTip(Me.btnRefreshEmailsSent, "Reload list of emails sent")
+        Me.btnRefreshEmailsSent.UseVisualStyleBackColor = True
+        '
+        'lblNoEmailsSentLabel
+        '
+        Me.lblNoEmailsSentLabel.AutoSize = True
+        Me.lblNoEmailsSentLabel.Location = New System.Drawing.Point(13, 39)
+        Me.lblNoEmailsSentLabel.Name = "lblNoEmailsSentLabel"
+        Me.lblNoEmailsSentLabel.Size = New System.Drawing.Size(33, 13)
+        Me.lblNoEmailsSentLabel.TabIndex = 368
+        Me.lblNoEmailsSentLabel.Text = "None"
+        '
+        'dgvEmailsSent
+        '
+        DataGridViewCellStyle3.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvEmailsSent.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle3
+        Me.dgvEmailsSent.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.dgvEmailsSent.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
+        Me.dgvEmailsSent.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvEmailsSent.DateFieldFormat = "d-MMM-yyyy h:mm tt"
+        Me.dgvEmailsSent.GridColor = System.Drawing.SystemColors.ControlLight
+        Me.dgvEmailsSent.LinkifyColumnByName = Nothing
+        Me.dgvEmailsSent.Location = New System.Drawing.Point(11, 36)
+        Me.dgvEmailsSent.Name = "dgvEmailsSent"
+        Me.dgvEmailsSent.ResultsCountLabel = Nothing
+        Me.dgvEmailsSent.ResultsCountLabelFormat = "{0} found"
+        Me.dgvEmailsSent.Size = New System.Drawing.Size(765, 162)
+        Me.dgvEmailsSent.StandardTab = True
+        Me.dgvEmailsSent.TabIndex = 1
+        Me.dgvEmailsSent.Visible = False
+        '
+        'lblEmailsSent
+        '
+        Me.lblEmailsSent.AutoSize = True
+        Me.lblEmailsSent.Location = New System.Drawing.Point(39, 13)
+        Me.lblEmailsSent.Name = "lblEmailsSent"
+        Me.lblEmailsSent.Size = New System.Drawing.Size(63, 13)
+        Me.lblEmailsSent.TabIndex = 369
+        Me.lblEmailsSent.Text = "Emails sent:"
         '
         'ToolStrip1
         '
@@ -6288,6 +6303,16 @@ Partial Class SSPPApplicationTrackingLog
         Me.Label3.TabIndex = 250
         Me.Label3.Text = "Current Facility Info"
         '
+        'lklRecipientLink
+        '
+        Me.lklRecipientLink.AutoSize = True
+        Me.lklRecipientLink.Location = New System.Drawing.Point(5, 87)
+        Me.lklRecipientLink.Name = "lklRecipientLink"
+        Me.lklRecipientLink.Size = New System.Drawing.Size(55, 13)
+        Me.lklRecipientLink.TabIndex = 16
+        Me.lklRecipientLink.TabStop = True
+        Me.lklRecipientLink.Text = "Recipient:"
+        '
         'SSPPApplicationTrackingLog
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -6365,7 +6390,6 @@ Partial Class SSPPApplicationTrackingLog
         Me.PanelOther.PerformLayout()
         Me.TPContactInformation.ResumeLayout(False)
         Me.TPContactInformation.PerformLayout()
-        CType(Me.dgvContactEmailsSent, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TPWebPublisher.ResumeLayout(False)
         Me.TPWebPublisher.PerformLayout()
         Me.TPInformationRequests.ResumeLayout(False)
@@ -6415,6 +6439,9 @@ Partial Class SSPPApplicationTrackingLog
         CType(Me.dgvApplicationPayments, System.ComponentModel.ISupportInitialize).EndInit()
         Me.pnlFeeDataFinalized.ResumeLayout(False)
         Me.pnlFeeDataFinalized.PerformLayout()
+        Me.TPEmails.ResumeLayout(False)
+        Me.TPEmails.PerformLayout()
+        CType(Me.dgvEmailsSent, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ToolStrip1.ResumeLayout(False)
         Me.ToolStrip1.PerformLayout()
         Me.HeaderPanel.ResumeLayout(False)
@@ -6933,9 +6960,11 @@ Partial Class SSPPApplicationTrackingLog
     Friend WithEvents pnlAssignments As Panel
     Friend WithEvents btnSaveFeesGenerateInvoice As Button
     Friend WithEvents btnOpenFacility As Button
-    Friend WithEvents dgvContactEmailsSent As IaipDataGridView
-    Friend WithEvents lblEmailsSent As Label
-    Friend WithEvents lblNoContactEmailsSent As Label
-    Friend WithEvents btnRefreshContactEmailsSent As Button
     Friend WithEvents btnGenerateFeeNotification As Button
+    Friend WithEvents TPEmails As TabPage
+    Friend WithEvents btnRefreshEmailsSent As Button
+    Friend WithEvents lblNoEmailsSentLabel As Label
+    Friend WithEvents dgvEmailsSent As IaipDataGridView
+    Friend WithEvents lblEmailsSent As Label
+    Friend WithEvents lklRecipientLink As LinkLabel
 End Class

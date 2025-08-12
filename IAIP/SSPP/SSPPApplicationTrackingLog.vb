@@ -165,7 +165,7 @@ Public Class SSPPApplicationTrackingLog
 
         chbClosedOut.Visible = False
         btnEmailAcknowledgmentLetter.Visible = False
-        btnRefreshContactEmailsSent.Visible = False
+        btnRefreshEmailsSent.Visible = False
     End Sub
 
     Private Sub LoadDefaultDates()
@@ -3421,8 +3421,7 @@ Public Class SSPPApplicationTrackingLog
                    strPNPosted,
                    FacilityOwnershipTypeCode,
                    NspsFeeExempt,
-                   t.ContactEmailBatchId,
-                   t.FeeNotificationEmailBatchId
+                   t.EmailBatchId
             from SSPPApplicationMaster m
                 left join SSPPApplicationTracking t
                 on m.strApplicationNumber = t.strApplicationNumber
@@ -3440,11 +3439,8 @@ Public Class SSPPApplicationTrackingLog
                     AirsId = Nothing
                 End If
 
-                ContactEmailBatchId = GetNullable(Of Guid?)(dr.Item(NameOf(ContactEmailBatchId)))
-                LoadContactEmailBatchDetails()
-
-                FeeNotificationEmailBatchId = GetNullable(Of Guid?)(dr.Item(NameOf(FeeNotificationEmailBatchId)))
-                LoadFeeEmailBatchDetails()
+                EmailBatchId = GetNullable(Of Guid?)(dr.Item(NameOf(EmailBatchId)))
+                LoadEmailBatchDetails()
 
                 If IsDBNull(dr.Item("strStaffResponsible")) Then
                     cboEngineer.SelectedIndex = 0
@@ -7111,7 +7107,7 @@ Public Class SSPPApplicationTrackingLog
 
             chbClosedOut.Visible = True
             btnEmailAcknowledgmentLetter.Visible = True
-            btnRefreshContactEmailsSent.Visible = True
+            btnRefreshEmailsSent.Visible = True
 
             Return True
         Else
@@ -9970,62 +9966,132 @@ Public Class SSPPApplicationTrackingLog
         End Try
     End Sub
 
-#Region " Email batch "
+#Region " Email functions "
 
-    Private Property ContactEmailBatchId As Guid? = Nothing
-    Private Property ContactEmailBatchDetails As EmailBatchDetails
+    Private Property EmailBatchId As Guid? = Nothing
+    Private Property EmailBatchDetails As EmailBatchDetails
 
-    Private Async Sub LoadContactEmailBatchDetails()
+    Private Sub btnRefreshEmailsSent_Click(sender As Object, e As EventArgs) Handles btnRefreshEmailsSent.Click
+        Cursor = Cursors.WaitCursor
+        btnRefreshEmailsSent.Enabled = False
+        LoadEmailBatchDetails()
+        Cursor = Nothing
+    End Sub
+
+    Private Async Sub LoadEmailBatchDetails()
         Dim emailFetchError As Boolean = False
 
-        If ContactEmailBatchId Is Nothing Then
-            ContactEmailBatchDetails = Nothing
-            lblNoContactEmailsSent.Text = "None"
-            lblNoContactEmailsSent.Visible = True
-            dgvContactEmailsSent.Visible = False
-            txtContactEmailAddress.Focus()
+        If EmailBatchId Is Nothing Then
+            EmailBatchDetails = Nothing
+            lblNoEmailsSentLabel.Text = "None"
+            lblNoEmailsSentLabel.Visible = True
+            dgvEmailsSent.Visible = False
+            TCApplicationTrackingLog.Controls.Remove(TPEmails)
         Else
             btnEmailAcknowledgmentLetter.Enabled = False
+            btnGenerateFeeNotification.Enabled = False
 
-            Dim response As EmailBatchDetails = Await GetBatchDetails(ContactEmailBatchId)
+            Dim response As EmailBatchDetails = Await GetBatchDetails(EmailBatchId)
 
             If response Is Nothing OrElse response.Status = "Failed" OrElse response.Emails Is Nothing Then
-                ContactEmailBatchDetails = Nothing
+                EmailBatchDetails = Nothing
                 emailFetchError = True
-                lblNoContactEmailsSent.Text = "Error fetching email details"
+                lblNoEmailsSentLabel.Text = "Error fetching email details"
             Else
-                ContactEmailBatchDetails = response
-                lblNoContactEmailsSent.Text = "None"
+                EmailBatchDetails = response
+                lblNoEmailsSentLabel.Text = "None"
             End If
 
-            If ContactEmailBatchDetails Is Nothing OrElse Not ContactEmailBatchDetails.Emails.Any Then
-                dgvContactEmailsSent.Visible = False
-                lblNoContactEmailsSent.Visible = True
-
+            If EmailBatchDetails Is Nothing OrElse Not EmailBatchDetails.Emails.Any Then
+                dgvEmailsSent.Visible = False
+                lblNoEmailsSentLabel.Visible = True
                 txtContactEmailAddress.Focus()
             Else
-                dgvContactEmailsSent.Visible = True
-                lblNoContactEmailsSent.Visible = False
+                dgvEmailsSent.Visible = True
+                lblNoEmailsSentLabel.Visible = False
 
-                dgvContactEmailsSent.DataSource = ContactEmailBatchDetails.Emails _
-                .OrderByDescending(Function(p) p.Counter) _
-                .Select(Function(p) New EmailTaskViewModel(p)).ToList()
-                dgvContactEmailsSent.Columns.Item("Subject").Visible = False
+                dgvEmailsSent.DataSource = EmailBatchDetails.Emails _
+                    .OrderByDescending(Function(p) p.Counter) _
+                    .Select(Function(p) New EmailTaskViewModel(p)).ToList()
 
-                dgvContactEmailsSent.Focus()
+                dgvEmailsSent.Columns.Item("Subject").Visible = False
+
+                dgvEmailsSent.Focus()
             End If
         End If
 
-        btnRefreshContactEmailsSent.Enabled = True
+        btnRefreshEmailsSent.Enabled = True
         btnEmailAcknowledgmentLetter.Enabled = Not emailFetchError
+        btnGenerateFeeNotification.Enabled = Not emailFetchError
     End Sub
 
-    Private Sub btnRefreshContactEmailsSent_Click(sender As Object, e As EventArgs) Handles btnRefreshContactEmailsSent.Click
-        Cursor = Cursors.WaitCursor
-        btnRefreshContactEmailsSent.Enabled = False
-        LoadContactEmailBatchDetails()
-        Cursor = Nothing
+    Private Sub UpdateEmailBatchId()
+        If EmailBatchId IsNot Nothing Then
+            Return
+        End If
+
+        EmailBatchId = Guid.NewGuid
+
+        Const SQL As String = "update SSPPAPPLICATIONTRACKING set EmailBatchId = @EmailBatchId where STRAPPLICATIONNUMBER = @AppNumber"
+        Dim p As SqlParameter() = {
+            New SqlParameter("@AppNumber", AppNumber),
+            New SqlParameter("@EmailBatchId", EmailBatchId)
+        }
+        DB.RunCommand(SQL, p)
+
+        TCApplicationTrackingLog.Controls.Add(TPEmails)
     End Sub
+
+    Private Async Function SendFormEmailAsync(emailBody As String, subject As String) As Threading.Tasks.Task(Of Boolean)
+        Using emailDialog As New EmailEditDialog
+            emailDialog.BodyText.Text = emailBody
+            emailDialog.SubjectLabel.Text = subject
+            emailDialog.RecipientLabel.Text = txtContactEmailAddress.Text
+
+            If emailDialog.ShowDialog() = DialogResult.Cancel Then
+                Return False
+            End If
+
+            emailBody = emailDialog.BodyText.Text
+        End Using
+
+        Dim generatedEmail As New NewEmailTask() With {
+            .From = CurrentUser.EmailAddress,
+            .FromName = CurrentUser.FullName,
+            .Recipients = {txtContactEmailAddress.Text},
+            .CopyRecipients = {CurrentUser.EmailAddress},
+            .Subject = subject,
+            .Body = emailBody
+        }
+
+        UpdateEmailBatchId()
+
+        Dim emailResult As EmailQueueApiResponse = Await SendEmailAsync(EmailBatchId, generatedEmail)
+
+        If emailResult Is Nothing Then
+            MessageBox.Show("There was a problem sending the email. Please contact EPD-IT for more information.",
+                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return False
+        End If
+
+        If emailResult.Body Is Nothing Then
+            MessageBox.Show("There was a problem sending the email. Please contact EPD-IT for more information." &
+                                vbNewLine & vbNewLine & $"Emailer Status: {emailResult.Status}",
+                                "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return False
+        End If
+
+        If emailResult.Body.Status = "Empty" Then
+            MessageBox.Show("No email was sent. Please check your data and try again.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return False
+        End If
+
+        Return True
+    End Function
+
+#End Region
+
+#Region " Application Acknowledgement Email "
 
     Private Async Sub btnEmailAcknowledgmentLetter_Click(sender As Object, e As EventArgs) Handles btnEmailAcknowledgmentLetter.Click
         Cursor = Cursors.AppStarting
@@ -10034,23 +10100,12 @@ Public Class SSPPApplicationTrackingLog
 
         If Not txtContactEmailAddress.Text.IsValidEmailAddress Then
             MessageBox.Show("The contact email address is not valid. Please enter a valid email and try again.", "Email not sent", MessageBoxButtons.OK)
+            txtContactEmailAddress.Focus()
             Cursor = Nothing
             Return
         End If
 
-        If ContactEmailBatchId Is Nothing Then
-            ContactEmailBatchId = Guid.NewGuid
-            Const SQL As String = "update SSPPAPPLICATIONTRACKING set ContactEmailBatchId = @ContactEmailBatchId where STRAPPLICATIONNUMBER = @AppNumber"
-
-            Dim p As SqlParameter() = {
-                New SqlParameter("@AppNumber", AppNumber),
-                New SqlParameter("@ContactEmailBatchId", ContactEmailBatchId)
-            }
-            DB.RunCommand(SQL, p)
-        End If
-
         Dim staffPhone As String = FormatDigitsAsPhoneNumber(CurrentUser.PhoneNumber, True)
-        Dim staffEmail As String = CurrentUser.EmailAddress
 
         Dim subject As String = "GA Air Application No. " & AppNumber.ToString & ", dated: " & DTPDateSent.Text
 
@@ -10076,69 +10131,92 @@ Public Class SSPPApplicationTrackingLog
         body.Append("assistance. Call (404) 363-7000 and select option 7.")
         body.AppendLine().AppendLine()
         body.Append($"If you have any questions or concerns regarding your application, please contact me at {staffPhone} ")
-        body.Append($"or via e-mail at {staffEmail}. Any written correspondence should reference the above application ")
+        body.Append($"or via e-mail at {CurrentUser.EmailAddress}. Any written correspondence should reference the above application ")
         body.Append("number that has been assigned to this application and the facility's AIRS number.")
         body.AppendLine().AppendLine()
         body.AppendLine("Sincerely,")
         body.AppendLine(CurrentUser.FullName)
 
-        Cursor = Cursors.WaitCursor
-
-        If Await SendFormEmailAsync(body.ToString, subject, ContactEmailBatchId) Then
-            LoadContactEmailBatchDetails()
-        End If
+        If Await SendFormEmailAsync(body.ToString, subject) Then LoadEmailBatchDetails()
 
         Cursor = Nothing
     End Sub
 
 #End Region
 
-#Region " Email functions "
+#Region " Fee Notification email "
 
-    Private Async Function SendFormEmailAsync(emailBody As String, subject As String, batchId As Guid) As Threading.Tasks.Task(Of Boolean)
-        Using emailDialog As New EmailEditDialog
-            emailDialog.BodyText.Text = emailBody
-            emailDialog.SubjectLabel.Text = subject
-            emailDialog.RecipientLabel.Text = txtContactEmailAddress.Text
+    Private Sub lklRecipientLink_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lklRecipientLink.LinkClicked
+        TCApplicationTrackingLog.SelectedTab = TPContactInformation
+        txtContactEmailAddress.Focus()
+    End Sub
 
-            If emailDialog.ShowDialog() = DialogResult.Cancel Then
-                Return False
-            End If
+    Private Sub txtContactEmailAddress_TextChanged(sender As Object, e As EventArgs) Handles txtContactEmailAddress.TextChanged
+        lklRecipientLink.Text = $"Recipient: {txtContactEmailAddress.Text.Trim()} (update)"
+        lklRecipientLink.LinkArea = New LinkArea(lklRecipientLink.Text.Length - 8, 8)
+    End Sub
 
-            emailBody = emailDialog.BodyText.Text
-        End Using
+    Private Async Sub btnGenerateFeeNotification_Click(sender As Object, e As EventArgs) Handles btnGenerateFeeNotification.Click
+        Cursor = Cursors.AppStarting
 
-        Dim generatedEmail As New NewEmailTask() With {
-            .From = CurrentUser.EmailAddress,
-            .FromName = CurrentUser.FullName,
-            .Recipients = {txtContactEmailAddress.Text},
-            .CopyRecipients = {CurrentUser.EmailAddress},
-            .Subject = subject,
-            .Body = emailBody
-        }
+        txtContactEmailAddress.Text = txtContactEmailAddress.Text.Trim()
 
-        Dim emailResult As EmailQueueApiResponse = Await SendEmailAsync(batchId, generatedEmail)
+        If Not txtContactEmailAddress.Text.IsValidEmailAddress Then
+            MessageBox.Show("The contact email address is not valid. Please enter a valid email and try again.", "Email not sent", MessageBoxButtons.OK)
 
-        If emailResult Is Nothing Then
-            MessageBox.Show("There was a problem sending the email. Please contact EPD-IT for more information.",
-                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            Return False
+            TCApplicationTrackingLog.SelectedTab = TPContactInformation
+            txtContactEmailAddress.Focus()
+            Cursor = Nothing
+            Return
         End If
 
-        If emailResult.Body Is Nothing Then
-            MessageBox.Show("There was a problem sending the email. Please contact EPD-IT for more information." &
-                                vbNewLine & vbNewLine & $"Emailer Status: {emailResult.Status}",
-                                "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            Return False
+        Dim subject As String = $"Application No. {AppNumber}; Fee {If(chbExpFee.Checked, "and Expedited Acceptance ", "")}Notification"
+
+        Dim body As New StringBuilder()
+        body.AppendLine($"Facility: {txtFacilityName.Text}")
+        body.AppendLine($"Location: {cboFacilityCity.Text }, {cboCounty.Text } County")
+        body.AppendLine($"AIRS: {txtAIRSNumber.AirsNumber.FormattedString }")
+        body.AppendLine($"App Type: {cboApplicationType.Text }")
+        body.AppendLine()
+        body.AppendLine($"Application Fee: {If(chbAppFee.Checked, txtAppFeeAmount.Text, "Not Applicable") }")
+        body.AppendLine($"Expedited Review Fee: {If(chbExpFee.Checked, txtExpFeeAmount.Text, "Not Applicable") }")
+        body.AppendLine($"Total: {txtFeeTotal.Text }")
+        body.AppendLine()
+        body.AppendLine("This email serves to acknowledge receipt of your Air Quality Permit application.")
+        body.AppendLine()
+
+        If chbExpFee.Checked Then
+            body.Append("This email also serves as notice of acceptance of the application into the Expedited Permitting Program. ")
+            body.Append("The applicant must complete the invitation process by responding to this email to acknowledge entry into the program ")
+            body.Append("within three business days of this email. The expedited time frame begins upon the applicant’s acceptance of the invitation. ")
+            body.Append("Failure to comply with the deadlines listed in this email may result in removal of the application from the ")
+            body.Append("Expedited Permitting Program. If the applicant decides to decline participation in the program they ")
+            body.Append("must immediately respond, requesting that the application no longer be considered.")
+            body.AppendLine().AppendLine()
         End If
 
-        If emailResult.Body.Status = "Empty" Then
-            MessageBox.Show("No email was sent. Please check your data and try again.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            Return False
-        End If
+        body.Append("The applicant must complete the submittal process by paying the above referenced fee. ")
+        body.Append($"A printable fee invoice is accessible online at {GetPermitApplicationUrl(AppNumber)} ")
+        body.AppendLine().AppendLine()
+        body.Append("FEE PAYMENT INSTRUCTIONS: Don’t send payment to the Air Branch office address; pay by check to the PO Box ")
+        body.Append("listed on the invoice or by credit card following the instructions on the invoice.")
+        body.AppendLine().AppendLine()
+        body.Append("The fee must be submitted within 10 business days of the date of this email. Permitting actions will not be finalized ")
+        body.Append("prior to the Division’s receipt of the fee payment.")
+        body.AppendLine().AppendLine()
+        body.Append("Other environmental permits may be required. For Industrial Stormwater permits, contact the Watershed Protection Branch ")
+        body.Append("at (404) 463-1511; for Solid Waste permits, contact the Land Protection Branch at (404) 362-2537. ")
+        body.Append("For more info, see https://epd.georgia.gov/ ")
+        body.AppendLine().AppendLine()
+        body.Append("Please contact me if you have any questions.")
+        body.AppendLine().AppendLine()
+        body.AppendLine("Sincerely,")
+        body.AppendLine(CurrentUser.FullName)
 
-        Return True
-    End Function
+        If Await SendFormEmailAsync(body.ToString, subject) Then LoadEmailBatchDetails()
+
+        Cursor = Nothing
+    End Sub
 
 #End Region
 
@@ -14206,143 +14284,6 @@ Public Class SSPPApplicationTrackingLog
     Private Sub dgvApplicationPayments_CellLinkActivated(sender As Object, e As IaipDataGridViewCellLinkEventArgs) Handles dgvApplicationPayments.CellLinkActivated
         OpenDepositView(CInt(e.LinkValue))
     End Sub
-
-#Region " Fee Notification email "
-
-    Private Property FeeNotificationEmailBatchId As Guid? = Nothing
-    Private Property FeeNotificationEmailBatchDetails As EmailBatchDetails
-
-    Private Async Sub LoadFeeEmailBatchDetails()
-        Dim emailFetchError As Boolean = False
-
-        If FeeNotificationEmailBatchId Is Nothing Then
-            FeeNotificationEmailBatchDetails = Nothing
-            lblNoFeeEmailsSent.Text = "None"
-            lblNoFeeEmailsSent.Visible = True
-            dgvFeeEmailsSent.Visible = False
-        Else
-            btnGenerateFeeNotification.Enabled = False
-
-            Dim response As EmailBatchDetails = Await GetBatchDetails(FeeNotificationEmailBatchId)
-
-            If response Is Nothing OrElse response.Status = "Failed" OrElse response.Emails Is Nothing Then
-                FeeNotificationEmailBatchDetails = Nothing
-                emailFetchError = True
-                lblNoFeeEmailsSent.Text = "Error fetching email details"
-                TCExtraFeeData.SelectedTab = TPFeeEmails
-                btnRefreshFeeEmailsSent.Focus()
-            Else
-                FeeNotificationEmailBatchDetails = response
-                lblNoFeeEmailsSent.Text = "None"
-            End If
-
-            If FeeNotificationEmailBatchDetails Is Nothing OrElse Not FeeNotificationEmailBatchDetails.Emails.Any Then
-                dgvFeeEmailsSent.Visible = False
-                lblNoFeeEmailsSent.Visible = True
-            Else
-                dgvFeeEmailsSent.Visible = True
-                lblNoFeeEmailsSent.Visible = False
-
-                dgvFeeEmailsSent.DataSource = FeeNotificationEmailBatchDetails.Emails _
-                .OrderByDescending(Function(p) p.Counter) _
-                .Select(Function(p) New EmailTaskViewModel(p)).ToList()
-                dgvFeeEmailsSent.Columns.Item("Subject").Visible = False
-
-                dgvFeeEmailsSent.Focus()
-            End If
-        End If
-
-        btnRefreshFeeEmailsSent.Enabled = True
-        btnGenerateFeeNotification.Enabled = Not emailFetchError
-    End Sub
-
-    Private Async Sub btnGenerateFeeNotification_Click(sender As Object, e As EventArgs) Handles btnGenerateFeeNotification.Click
-        Cursor = Cursors.AppStarting
-
-        txtContactEmailAddress.Text = txtContactEmailAddress.Text.Trim()
-
-        If Not txtContactEmailAddress.Text.IsValidEmailAddress Then
-            MessageBox.Show("The contact email address is not valid. Please enter a valid email and try again.", "Email not sent", MessageBoxButtons.OK)
-
-            TCApplicationTrackingLog.SelectedTab = TPContactInformation
-            txtContactEmailAddress.Focus()
-            Cursor = Nothing
-            Return
-        End If
-
-        If FeeNotificationEmailBatchId Is Nothing Then
-            FeeNotificationEmailBatchId = Guid.NewGuid
-            Const SQL As String = "update SSPPAPPLICATIONTRACKING set FeeNotificationEmailBatchId = @FeeNotificationEmailBatchId where STRAPPLICATIONNUMBER = @AppNumber"
-
-            Dim p As SqlParameter() = {
-                New SqlParameter("@AppNumber", AppNumber),
-                New SqlParameter("@FeeNotificationEmailBatchId", FeeNotificationEmailBatchId)
-            }
-            DB.RunCommand(SQL, p)
-        End If
-
-        Dim subject As String = $"Application No. {AppNumber}; Fee {If(chbExpFee.Checked, "and Expedited Acceptance ", "")}Notification"
-
-        Dim body As New StringBuilder()
-        body.AppendLine($"Facility: {txtFacilityName.Text}")
-        body.AppendLine($"Location: {cboFacilityCity.Text }, {cboCounty.Text } County")
-        body.AppendLine($"AIRS: {txtAIRSNumber.AirsNumber.FormattedString }")
-        body.AppendLine($"App Type: {cboApplicationType.Text }")
-        body.AppendLine()
-        body.AppendLine($"Application Fee: {If(chbAppFee.Checked, txtAppFeeAmount.Text, "Not Applicable") }")
-        body.AppendLine($"Expedited Review Fee: {If(chbExpFee.Checked, txtExpFeeAmount.Text, "Not Applicable") }")
-        body.AppendLine($"Total: {txtFeeTotal.Text }")
-        body.AppendLine()
-        body.AppendLine("This email serves to acknowledge receipt of your Air Quality Permit application.")
-        body.AppendLine()
-
-        If chbExpFee.Checked Then
-            body.Append("This email also serves as notice of acceptance of the application into the Expedited Permitting Program. ")
-            body.Append("The applicant must complete the invitation process by responding to this email to acknowledge entry into the program ")
-            body.Append("within three business days of this email. The expedited time frame begins upon the applicant’s acceptance of the invitation. ")
-            body.Append("Failure to comply with the deadlines listed in this email may result in removal of the application from the ")
-            body.Append("Expedited Permitting Program. If the applicant decides to decline participation in the program they ")
-            body.Append("must immediately respond, requesting that the application no longer be considered.")
-            body.AppendLine().AppendLine()
-        End If
-
-        body.Append("The applicant must complete the submittal process by paying the above referenced fee. ")
-        body.Append($"A printable fee invoice is accessible online at {GetPermitApplicationUrl(AppNumber)} ")
-        body.AppendLine().AppendLine()
-        body.Append("FEE PAYMENT INSTRUCTIONS: Don’t send payment to the Air Branch office address; pay by check to the PO Box ")
-        body.Append("listed on the invoice or by credit card following the instructions on the invoice.")
-        body.AppendLine().AppendLine()
-        body.Append("The fee must be submitted within 10 business days of the date of this email. Permitting actions will not be finalized ")
-        body.Append("prior to the Division’s receipt of the fee payment.")
-        body.AppendLine().AppendLine()
-        body.Append("Other environmental permits may be required. For Industrial Stormwater permits, contact the Watershed Protection Branch ")
-        body.Append("at (404) 463-1511; for Solid Waste permits, contact the Land Protection Branch at (404) 362-2537. ")
-        body.Append("For more info, see https://epd.georgia.gov/ ")
-        body.AppendLine().AppendLine()
-        body.Append("Please contact me if you have any questions.")
-        body.AppendLine().AppendLine()
-        body.AppendLine("Sincerely,")
-        body.AppendLine(CurrentUser.FullName)
-
-        Cursor = Cursors.WaitCursor
-
-        If Await SendFormEmailAsync(body.ToString, subject, FeeNotificationEmailBatchId) Then
-            LoadFeeEmailBatchDetails()
-            TCExtraFeeData.SelectedTab = TPFeeEmails
-            btnRefreshFeeEmailsSent.Focus()
-        End If
-
-        Cursor = Nothing
-    End Sub
-
-    Private Sub btnRefreshFeeEmailsSent_Click(sender As Object, e As EventArgs) Handles btnRefreshFeeEmailsSent.Click
-        Cursor = Cursors.WaitCursor
-        btnRefreshFeeEmailsSent.Enabled = False
-        LoadFeeEmailBatchDetails()
-        Cursor = Nothing
-    End Sub
-
-#End Region
 
     Private Sub lklOpenAppOnline_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lklOpenAppOnline.LinkClicked
         OpenPermitApplicationUrl(AppNumber)
