@@ -89,7 +89,7 @@ Partial Class EmailEditDialog
         'SubjectLabel
         '
         Me.SubjectLabel.AutoSize = True
-        Me.SubjectLabel.Location = New System.Drawing.Point(72, 61)
+        Me.SubjectLabel.Location = New System.Drawing.Point(83, 61)
         Me.SubjectLabel.Name = "SubjectLabel"
         Me.SubjectLabel.Size = New System.Drawing.Size(43, 13)
         Me.SubjectLabel.TabIndex = 2
@@ -101,9 +101,9 @@ Partial Class EmailEditDialog
         Me.BodyLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BodyLabel.Location = New System.Drawing.Point(12, 87)
         Me.BodyLabel.Name = "BodyLabel"
-        Me.BodyLabel.Size = New System.Drawing.Size(61, 13)
+        Me.BodyLabel.Size = New System.Drawing.Size(57, 13)
         Me.BodyLabel.TabIndex = 2
-        Me.BodyLabel.Text = "Message:"
+        Me.BodyLabel.Text = "Message"
         '
         'WarningLabel
         '
@@ -123,9 +123,9 @@ Partial Class EmailEditDialog
         Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.Location = New System.Drawing.Point(12, 35)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(65, 13)
+        Me.Label1.Size = New System.Drawing.Size(61, 13)
         Me.Label1.TabIndex = 2
-        Me.Label1.Text = "Recipient:"
+        Me.Label1.Text = "Recipient"
         '
         'Label2
         '
@@ -133,9 +133,9 @@ Partial Class EmailEditDialog
         Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label2.Location = New System.Drawing.Point(12, 61)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(54, 13)
+        Me.Label2.Size = New System.Drawing.Size(50, 13)
         Me.Label2.TabIndex = 2
-        Me.Label2.Text = "Subject:"
+        Me.Label2.Text = "Subject"
         '
         'EmailEditDialog
         '
