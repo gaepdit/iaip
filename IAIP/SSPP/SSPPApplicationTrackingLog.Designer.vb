@@ -6230,6 +6230,7 @@ Partial Class SSPPApplicationTrackingLog
         'btnGenerateFeeNotification
         '
         Me.btnGenerateFeeNotification.AutoSize = True
+        Me.btnGenerateFeeNotification.Enabled = False
         Me.btnGenerateFeeNotification.Location = New System.Drawing.Point(0, 54)
         Me.btnGenerateFeeNotification.Name = "btnGenerateFeeNotification"
         Me.btnGenerateFeeNotification.Size = New System.Drawing.Size(145, 23)

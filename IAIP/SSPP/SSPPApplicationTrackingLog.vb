@@ -3444,7 +3444,7 @@ Public Class SSPPApplicationTrackingLog
                 LoadContactEmailBatchDetails()
 
                 FeeNotificationEmailBatchId = GetNullable(Of Guid?)(dr.Item(NameOf(FeeNotificationEmailBatchId)))
-                If FeeNotificationEmailBatchId IsNot Nothing Then LoadFeeEmailBatchDetails()
+                LoadFeeEmailBatchDetails()
 
                 If IsDBNull(dr.Item("strStaffResponsible")) Then
                     cboEngineer.SelectedIndex = 0
@@ -14214,7 +14214,12 @@ Public Class SSPPApplicationTrackingLog
     Private Async Sub LoadFeeEmailBatchDetails()
         Dim emailFetchError As Boolean = False
 
-        If FeeNotificationEmailBatchId IsNot Nothing Then
+        If FeeNotificationEmailBatchId Is Nothing Then
+            FeeNotificationEmailBatchDetails = Nothing
+            lblNoFeeEmailsSent.Text = "None"
+            lblNoFeeEmailsSent.Visible = True
+            dgvFeeEmailsSent.Visible = False
+        Else
             btnGenerateFeeNotification.Enabled = False
 
             Dim response As EmailBatchDetails = Await GetBatchDetails(FeeNotificationEmailBatchId)
@@ -14227,21 +14232,21 @@ Public Class SSPPApplicationTrackingLog
                 FeeNotificationEmailBatchDetails = response
                 lblNoFeeEmailsSent.Text = "None"
             End If
-        End If
 
-        If FeeNotificationEmailBatchDetails Is Nothing OrElse Not FeeNotificationEmailBatchDetails.Emails.Any Then
-            dgvFeeEmailsSent.Visible = False
-            lblNoFeeEmailsSent.Visible = True
-        Else
-            dgvFeeEmailsSent.Visible = True
-            lblNoFeeEmailsSent.Visible = False
+            If FeeNotificationEmailBatchDetails Is Nothing OrElse Not FeeNotificationEmailBatchDetails.Emails.Any Then
+                dgvFeeEmailsSent.Visible = False
+                lblNoFeeEmailsSent.Visible = True
+            Else
+                dgvFeeEmailsSent.Visible = True
+                lblNoFeeEmailsSent.Visible = False
 
-            dgvFeeEmailsSent.DataSource = FeeNotificationEmailBatchDetails.Emails _
+                dgvFeeEmailsSent.DataSource = FeeNotificationEmailBatchDetails.Emails _
                 .OrderByDescending(Function(p) p.Counter) _
                 .Select(Function(p) New EmailTaskViewModel(p)).ToList()
-            dgvFeeEmailsSent.Columns.Item("Subject").Visible = False
+                dgvFeeEmailsSent.Columns.Item("Subject").Visible = False
 
-            dgvFeeEmailsSent.Focus()
+                dgvFeeEmailsSent.Focus()
+            End If
         End If
 
         btnRefreshFeeEmailsSent.Enabled = True
