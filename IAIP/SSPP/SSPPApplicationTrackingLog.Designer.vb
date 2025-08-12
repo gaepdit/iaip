@@ -488,6 +488,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.lblOperationalStatus = New System.Windows.Forms.Label()
         Me.TCApplicationTrackingLog = New System.Windows.Forms.TabControl()
         Me.TPFees = New System.Windows.Forms.TabPage()
+        Me.lklRecipientLink = New System.Windows.Forms.LinkLabel()
         Me.btnSaveFeesGenerateInvoice = New System.Windows.Forms.Button()
         Me.lblFeeChangesNotAllowedWarning = New System.Windows.Forms.Label()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
@@ -537,7 +538,6 @@ Partial Class SSPPApplicationTrackingLog
         Me.btnOpenFacility = New System.Windows.Forms.Button()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
-        Me.lklRecipientLink = New System.Windows.Forms.LinkLabel()
         Me.TPSubPartEditor.SuspendLayout()
         Me.TCSupParts.SuspendLayout()
         Me.TPSIP.SuspendLayout()
@@ -3549,7 +3549,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.TPWebPublisher.Name = "TPWebPublisher"
         Me.TPWebPublisher.Size = New System.Drawing.Size(784, 477)
         Me.TPWebPublisher.TabIndex = 4
-        Me.TPWebPublisher.Text = "Web Publisher"
+        Me.TPWebPublisher.Text = "Web Publish"
         Me.TPWebPublisher.UseVisualStyleBackColor = True
         '
         'lblPNExpires
@@ -4528,7 +4528,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.TPOtherInfo.Name = "TPOtherInfo"
         Me.TPOtherInfo.Size = New System.Drawing.Size(784, 477)
         Me.TPOtherInfo.TabIndex = 5
-        Me.TPOtherInfo.Text = "Other Information"
+        Me.TPOtherInfo.Text = "Other Info"
         Me.TPOtherInfo.UseVisualStyleBackColor = True
         '
         'OtherInfoGroup
@@ -5694,6 +5694,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         'TPFees
         '
+        Me.TPFees.Controls.Add(Me.lklRecipientLink)
         Me.TPFees.Controls.Add(Me.btnSaveFeesGenerateInvoice)
         Me.TPFees.Controls.Add(Me.lblFeeChangesNotAllowedWarning)
         Me.TPFees.Controls.Add(Me.SplitContainer1)
@@ -5720,6 +5721,16 @@ Partial Class SSPPApplicationTrackingLog
         Me.TPFees.TabIndex = 9
         Me.TPFees.Text = "Fees"
         Me.TPFees.UseVisualStyleBackColor = True
+        '
+        'lklRecipientLink
+        '
+        Me.lklRecipientLink.AutoSize = True
+        Me.lklRecipientLink.Location = New System.Drawing.Point(8, 318)
+        Me.lklRecipientLink.Name = "lklRecipientLink"
+        Me.lklRecipientLink.Size = New System.Drawing.Size(55, 13)
+        Me.lklRecipientLink.TabIndex = 16
+        Me.lklRecipientLink.TabStop = True
+        Me.lklRecipientLink.Text = "Recipient:"
         '
         'btnSaveFeesGenerateInvoice
         '
@@ -6065,7 +6076,6 @@ Partial Class SSPPApplicationTrackingLog
         '
         'pnlFeeDataFinalized
         '
-        Me.pnlFeeDataFinalized.Controls.Add(Me.lklRecipientLink)
         Me.pnlFeeDataFinalized.Controls.Add(Me.btnGenerateFeeNotification)
         Me.pnlFeeDataFinalized.Controls.Add(Me.lblFeeDataFinalized)
         Me.pnlFeeDataFinalized.Controls.Add(Me.dtpFacilityFeeNotified)
@@ -6073,7 +6083,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.pnlFeeDataFinalized.Controls.Add(Me.dtpFeeDataFinalized)
         Me.pnlFeeDataFinalized.Location = New System.Drawing.Point(3, 231)
         Me.pnlFeeDataFinalized.Name = "pnlFeeDataFinalized"
-        Me.pnlFeeDataFinalized.Size = New System.Drawing.Size(288, 107)
+        Me.pnlFeeDataFinalized.Size = New System.Drawing.Size(288, 79)
         Me.pnlFeeDataFinalized.TabIndex = 3
         Me.pnlFeeDataFinalized.Visible = False
         '
@@ -6302,16 +6312,6 @@ Partial Class SSPPApplicationTrackingLog
         Me.Label3.Size = New System.Drawing.Size(97, 13)
         Me.Label3.TabIndex = 250
         Me.Label3.Text = "Current Facility Info"
-        '
-        'lklRecipientLink
-        '
-        Me.lklRecipientLink.AutoSize = True
-        Me.lklRecipientLink.Location = New System.Drawing.Point(5, 87)
-        Me.lklRecipientLink.Name = "lklRecipientLink"
-        Me.lklRecipientLink.Size = New System.Drawing.Size(55, 13)
-        Me.lklRecipientLink.TabIndex = 16
-        Me.lklRecipientLink.TabStop = True
-        Me.lklRecipientLink.Text = "Recipient:"
         '
         'SSPPApplicationTrackingLog
         '

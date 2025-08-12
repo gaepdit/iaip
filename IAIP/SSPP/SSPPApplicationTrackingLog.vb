@@ -9997,6 +9997,8 @@ Public Class SSPPApplicationTrackingLog
                 EmailBatchDetails = Nothing
                 emailFetchError = True
                 lblNoEmailsSentLabel.Text = "Error fetching email details"
+                TCApplicationTrackingLog.SelectedTab = TPEmails
+                btnRefreshEmailsSent.Focus()
             Else
                 EmailBatchDetails = response
                 lblNoEmailsSentLabel.Text = "None"
@@ -10015,8 +10017,6 @@ Public Class SSPPApplicationTrackingLog
                     .Select(Function(p) New EmailTaskViewModel(p)).ToList()
 
                 dgvEmailsSent.Columns.Item("Subject").Visible = False
-
-                dgvEmailsSent.Focus()
             End If
         End If
 
@@ -10137,7 +10137,11 @@ Public Class SSPPApplicationTrackingLog
         body.AppendLine("Sincerely,")
         body.AppendLine(CurrentUser.FullName)
 
-        If Await SendFormEmailAsync(body.ToString, subject) Then LoadEmailBatchDetails()
+        If Await SendFormEmailAsync(body.ToString, subject) Then
+            LoadEmailBatchDetails()
+            TCApplicationTrackingLog.SelectedTab = TPEmails
+            dgvEmailsSent.Focus()
+        End If
 
         Cursor = Nothing
     End Sub
@@ -10213,7 +10217,11 @@ Public Class SSPPApplicationTrackingLog
         body.AppendLine("Sincerely,")
         body.AppendLine(CurrentUser.FullName)
 
-        If Await SendFormEmailAsync(body.ToString, subject) Then LoadEmailBatchDetails()
+        If Await SendFormEmailAsync(body.ToString, subject) Then
+            LoadEmailBatchDetails()
+            TCApplicationTrackingLog.SelectedTab = TPEmails
+            dgvEmailsSent.Focus()
+        End If
 
         Cursor = Nothing
     End Sub
@@ -14047,6 +14055,7 @@ Public Class SSPPApplicationTrackingLog
 
             FeeDataFinalized = Not FeeChangesAllowed AndAlso TotalFeeAmount > 0
             pnlFeeDataFinalized.Visible = FeeDataFinalized
+            lklRecipientLink.Visible = pnlFeeDataFinalized.Visible
 
             ' Fees not applicable labels
             If chbAppFee.Enabled OrElse chbAppFee.Checked Then
