@@ -10094,6 +10094,7 @@ Public Class SSPPApplicationTrackingLog
 #End Region
 
 #Region " Email functions "
+
     Private Async Function SendFormEmailAsync(emailBody As String, subject As String, batchId As Guid) As Threading.Tasks.Task(Of Boolean)
         Using emailDialog As New EmailEditDialog
             emailDialog.BodyText.Text = emailBody
@@ -14228,6 +14229,8 @@ Public Class SSPPApplicationTrackingLog
                 FeeNotificationEmailBatchDetails = Nothing
                 emailFetchError = True
                 lblNoFeeEmailsSent.Text = "Error fetching email details"
+                TCExtraFeeData.SelectedTab = TPFeeEmails
+                btnRefreshFeeEmailsSent.Focus()
             Else
                 FeeNotificationEmailBatchDetails = response
                 lblNoFeeEmailsSent.Text = "None"
@@ -14325,6 +14328,8 @@ Public Class SSPPApplicationTrackingLog
 
         If Await SendFormEmailAsync(body.ToString, subject, FeeNotificationEmailBatchId) Then
             LoadFeeEmailBatchDetails()
+            TCExtraFeeData.SelectedTab = TPFeeEmails
+            btnRefreshFeeEmailsSent.Focus()
         End If
 
         Cursor = Nothing
