@@ -3440,7 +3440,7 @@ Public Class SSPPApplicationTrackingLog
                 End If
 
                 ContactEmailBatchId = GetNullable(Of Guid?)(dr.Item(NameOf(ContactEmailBatchId)))
-                If ContactEmailBatchId IsNot Nothing Then LoadContactEmailBatchDetails()
+                LoadContactEmailBatchDetails()
 
                 If IsDBNull(dr.Item("strStaffResponsible")) Then
                     cboEngineer.SelectedIndex = 0
@@ -9974,7 +9974,13 @@ Public Class SSPPApplicationTrackingLog
     Private Async Sub LoadContactEmailBatchDetails()
         Dim emailFetchError As Boolean = False
 
-        If ContactEmailBatchId IsNot Nothing Then
+        If ContactEmailBatchId Is Nothing Then
+            ContactEmailBatchDetails = Nothing
+            lblNoContactEmailsSent.Text = "None"
+            lblNoContactEmailsSent.Visible = True
+            dgvContactEmailsSent.Visible = False
+            txtContactEmailAddress.Focus()
+        Else
             btnEmailAcknowledgmentLetter.Enabled = False
 
             Dim response As EmailBatchDetails = Await GetBatchDetails(ContactEmailBatchId)
@@ -9987,23 +9993,23 @@ Public Class SSPPApplicationTrackingLog
                 ContactEmailBatchDetails = response
                 lblNoContactEmailsSent.Text = "None"
             End If
-        End If
 
-        If ContactEmailBatchDetails Is Nothing OrElse Not ContactEmailBatchDetails.Emails.Any Then
-            dgvContactEmailsSent.Visible = False
-            lblNoContactEmailsSent.Visible = True
+            If ContactEmailBatchDetails Is Nothing OrElse Not ContactEmailBatchDetails.Emails.Any Then
+                dgvContactEmailsSent.Visible = False
+                lblNoContactEmailsSent.Visible = True
 
-            txtContactEmailAddress.Focus()
-        Else
-            dgvContactEmailsSent.Visible = True
-            lblNoContactEmailsSent.Visible = False
+                txtContactEmailAddress.Focus()
+            Else
+                dgvContactEmailsSent.Visible = True
+                lblNoContactEmailsSent.Visible = False
 
-            dgvContactEmailsSent.DataSource = ContactEmailBatchDetails.Emails _
+                dgvContactEmailsSent.DataSource = ContactEmailBatchDetails.Emails _
                 .OrderByDescending(Function(p) p.Counter) _
                 .Select(Function(p) New EmailTaskViewModel(p)).ToList()
-            dgvContactEmailsSent.Columns.Item("Subject").Visible = False
+                dgvContactEmailsSent.Columns.Item("Subject").Visible = False
 
-            dgvContactEmailsSent.Focus()
+                dgvContactEmailsSent.Focus()
+            End If
         End If
 
         btnRefreshContactEmailsSent.Enabled = True
