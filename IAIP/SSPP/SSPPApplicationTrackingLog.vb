@@ -109,9 +109,9 @@ Public Class SSPPApplicationTrackingLog
     Protected Overrides Sub OnLoad(e As EventArgs)
         FormStatus = "Loading"
         LoadDefaultDates()
-        LoadComboBoxes() ' This is about 1/3 of total load time
         LoadPermissions()
-        LoadSubPartData()
+
+        LoadMainComboBoxes()
 
         ' Parse parameters & load data
         ParseParameters()
@@ -238,160 +238,204 @@ Public Class SSPPApplicationTrackingLog
         DTPPNExpires.Checked = False
     End Sub
 
-    Private Sub LoadComboBoxes()
-        Try
-            cboOperationalStatus.Items.Add("O - Operating")
-            cboOperationalStatus.Items.Add("P - Planned")
-            cboOperationalStatus.Items.Add("C - Under Construction")
-            cboOperationalStatus.Items.Add("T - Temporarily Closed")
-            cboOperationalStatus.Items.Add("X - Permanently Closed")
-            cboOperationalStatus.Items.Add("I - Seasonal Operation")
+    Private Sub LoadMainComboBoxes()
+        cboOperationalStatus.Items.Add("O - Operating")
+        cboOperationalStatus.Items.Add("P - Planned")
+        cboOperationalStatus.Items.Add("C - Under Construction")
+        cboOperationalStatus.Items.Add("T - Temporarily Closed")
+        cboOperationalStatus.Items.Add("X - Permanently Closed")
+        cboOperationalStatus.Items.Add("I - Seasonal Operation")
 
-            cboClassification.Items.Add("A - MAJOR")
-            cboClassification.Items.Add("B - MINOR")
-            cboClassification.Items.Add("C - UNKNOWN")
-            cboClassification.Items.Add("SM - SYNTHETIC MINOR")
-            cboClassification.Items.Add("PR - PERMIT BY RULE")
+        cboClassification.Items.Add("A - MAJOR")
+        cboClassification.Items.Add("B - MINOR")
+        cboClassification.Items.Add("C - UNKNOWN")
+        cboClassification.Items.Add("SM - SYNTHETIC MINOR")
+        cboClassification.Items.Add("PR - PERMIT BY RULE")
 
-            cboPublicAdvisory.Items.Add("Not Decided")
-            cboPublicAdvisory.Items.Add("PA Needed")
-            cboPublicAdvisory.Items.Add("PA Not Needed")
+        cboPublicAdvisory.Items.Add("Not Decided")
+        cboPublicAdvisory.Items.Add("PA Needed")
+        cboPublicAdvisory.Items.Add("PA Not Needed")
 
-            Dim query As String = "SELECT 'N/A' AS EngineerName, 0 AS NUMUSERID " &
-                " " &
-                "UNION " &
-                "SELECT concat(u.STRLASTNAME , ', ' , u.STRFIRSTNAME) AS EngineerName " &
-                "  , u.NUMUSERID " &
-                "FROM EPDUSERPROFILES u " &
-                "WHERE u.NUMPROGRAM = 5 " &
-                "UNION " &
-                "SELECT concat(u.STRLASTNAME , ', ' , u.STRFIRSTNAME) AS " &
-                "  EngineerName, u.NUMUSERID " &
-                "FROM EPDUSERPROFILES u " &
-                "INNER JOIN SSPPAPPLICATIONMASTER a ON " &
-                "  a.STRSTAFFRESPONSIBLE = u.NUMUSERID " &
-                "WHERE u.NUMPROGRAM <> 5 AND u.NUMUSERID <> 0 " &
-                "ORDER BY EngineerName"
-            Dim dtEngineerList As DataTable = DB.GetDataTable(query) ' This is 16% of the total combo box load
-            With cboEngineer
-                .DataSource = dtEngineerList
-                .DisplayMember = "EngineerName"
-                .ValueMember = "NUMUSERID"
-                .SelectedValue = 0
-            End With
+        Dim query As String = "SELECT 'N/A' AS EngineerName,
+                       0     AS NUMUSERID
+                UNION
+                SELECT concat_ws(', ', u.STRLASTNAME, u.STRFIRSTNAME) AS EngineerName,
+                       u.NUMUSERID
+                from (select NUMUSERID
+                      FROM EPDUSERPROFILES
+                      WHERE NUMPROGRAM = 5
+                      UNION
+                      select STRSTAFFRESPONSIBLE
+                      from SSPPAPPLICATIONMASTER) t
+                    inner join EPDUSERPROFILES u
+                        on t.NUMUSERID = u.NUMUSERID"
+        Dim dtEngineerList As DataTable = DB.GetDataTable(query) ' This is 16% of the total combo box load
+        With cboEngineer
+            .DataSource = dtEngineerList
+            .DisplayMember = "EngineerName"
+            .ValueMember = "NUMUSERID"
+            .SelectedValue = 0
+        End With
 
-            query = "SELECT 'N/A' AS EngineerName, 0 AS NUMUSERID " &
-                "UNION " &
-                "SELECT concat(STRLASTNAME , ', ' ,STRFIRSTNAME) AS EngineerName, " &
-                "  NUMUSERID " &
-                "FROM EPDUSERPROFILES " &
-                "WHERE NUMPROGRAM = '4' " &
-                "ORDER BY EngineerName"
-            Dim dtSSCPList As DataTable = DB.GetDataTable(query)
-            With cboSSCPStaff
-                .DataSource = dtSSCPList
-                .DisplayMember = "EngineerName"
-                .ValueMember = "NUMUSERID"
-                .SelectedValue = 0
-            End With
+        query = "SELECT STRCOUNTYCODE, STRCOUNTYNAME " &
+            "FROM LOOKUPCOUNTYINFORMATION " &
+            "UNION " &
+            "SELECT '000', ' N/A' ORDER BY STRCOUNTYNAME"
+        Dim dtCountyList As DataTable = DB.GetDataTable(query) ' This is 13% of the total combo box load
+        With cboCounty
+            .DataSource = dtCountyList
+            .DisplayMember = "strCountyName"
+            .ValueMember = "strCountyCode"
+            .SelectedIndex = 0
+        End With
 
-            query = "SELECT 'N/A' AS EngineerName, 0 AS NUMUSERID " &
-                "UNION " &
-                "SELECT concat(STRLASTNAME , ', ' ,STRFIRSTNAME) AS EngineerName, " &
-                "  NUMUSERID " &
-                "FROM EPDUSERPROFILES " &
-                "WHERE NUMPROGRAM = '3' " &
-                "ORDER BY EngineerName"
-            Dim dtISMPList As DataTable = DB.GetDataTable(query)
-            With cboISMPStaff
-                .DataSource = dtISMPList
-                .DisplayMember = "EngineerName"
-                .ValueMember = "numUserID"
-                .SelectedValue = 0
-            End With
+        With cboApplicationType
+            .DataSource = GetApplicationTypes() ' This is 10% of the total combo box load
+            .DisplayMember = "Application Type"
+            .ValueMember = "Application Type Code"
+            .SelectedValue = 0
+        End With
 
-            query = "SELECT STRCOUNTYCODE, STRCOUNTYNAME " &
-                "FROM LOOKUPCOUNTYINFORMATION " &
-                "UNION " &
-                "SELECT '000', ' N/A' ORDER BY STRCOUNTYNAME"
-            Dim dtCountyList As DataTable = DB.GetDataTable(query) ' This is 13% of the total combo box load
-            With cboCounty
-                .DataSource = dtCountyList
-                .DisplayMember = "strCountyName"
-                .ValueMember = "strCountyCode"
-                .SelectedIndex = 0
-            End With
+        query = "SELECT STRPERMITTYPECODE, STRPERMITTYPEDESCRIPTION " &
+            "FROM LOOKUPPERMITTYPES " &
+            "WHERE STRTYPEUSED <> 'False' OR STRTYPEUSED IS NULL " &
+            "UNION " &
+            "SELECT '', ' ' ORDER BY STRPERMITTYPEDESCRIPTION"
+        With cboPermitAction
+            .DataSource = DB.GetDataTable(query)
+            .DisplayMember = "strPermitTypeDescription"
+            .ValueMember = "strPermitTypeCode"
+            .SelectedIndex = 0
+        End With
 
-            With cboApplicationType
-                .DataSource = GetApplicationTypes() ' This is 10% of the total combo box load
-                .DisplayMember = "Application Type"
-                .ValueMember = "Application Type Code"
-                .SelectedValue = 0
-            End With
+        query = "SELECT CITY FROM VW_CITIES ORDER BY CITY"
+        Dim dtCity As DataTable = DB.GetDataTable(query) ' This is 27% of the total combo box load
+        With cboFacilityCity
+            .DataSource = dtCity
+            .DisplayMember = "City"
+            .ValueMember = "City"
+            .SelectedIndex = -1
+        End With
 
-            query = "SELECT STRPERMITTYPECODE, STRPERMITTYPEDESCRIPTION " &
-                "FROM LOOKUPPERMITTYPES " &
-                "WHERE STRTYPEUSED <> 'False' OR STRTYPEUSED IS NULL " &
-                "UNION " &
-                "SELECT '', ' ' ORDER BY STRPERMITTYPEDESCRIPTION"
-            With cboPermitAction
-                .DataSource = DB.GetDataTable(query)
-                .DisplayMember = "strPermitTypeDescription"
-                .ValueMember = "strPermitTypeCode"
-                .SelectedIndex = 0
-            End With
+        query = "SELECT STRUNITDESC, NUMUNITCODE " &
+            "FROM LOOKUPEPDUNITS " &
+            "WHERE NUMPROGRAMCODE = 5 and Active = 1 " &
+            "UNION " &
+            "SELECT ' ', 0 ORDER BY STRUNITDESC"
+        Dim dtSSPPUnit As DataTable = DB.GetDataTable(query)
+        With cboApplicationUnit
+            .DataSource = dtSSPPUnit
+            .DisplayMember = "strUnitDesc"
+            .ValueMember = "numUnitCode"
+            .SelectedValue = 0
+        End With
+    End Sub
 
-            query = "SELECT CITY FROM VW_CITIES ORDER BY CITY"
-            Dim dtCity As DataTable = DB.GetDataTable(query) ' This is 27% of the total combo box load
-            With cboFacilityCity
-                .DataSource = dtCity
-                .DisplayMember = "City"
-                .ValueMember = "City"
-                .SelectedIndex = -1
-            End With
+    Private ReviewTabLoaded As Boolean = False
+    Private Sub LoadComboBoxesForReviewTab()
+        If Not TCApplicationTrackingLog.TabPages.Contains(TPReviews) OrElse ReviewTabLoaded Then
+            Return
+        End If
 
-            query = "SELECT STRUNITDESC, NUMUNITCODE " &
-                "FROM LOOKUPEPDUNITS " &
-                "WHERE NUMPROGRAMCODE = 5 and Active = 1 " &
-                "UNION " &
-                "SELECT ' ', 0 ORDER BY STRUNITDESC"
-            Dim dtSSPPUnit As DataTable = DB.GetDataTable(query)
-            With cboApplicationUnit
-                .DataSource = dtSSPPUnit
-                .DisplayMember = "strUnitDesc"
-                .ValueMember = "numUnitCode"
-                .SelectedValue = 0
-            End With
+        Dim query As String = "SELECT 'N/A' AS EngineerName, 0 AS NUMUSERID " &
+            "UNION " &
+            "SELECT concat(STRLASTNAME , ', ' ,STRFIRSTNAME) AS EngineerName, " &
+            "  NUMUSERID " &
+            "FROM EPDUSERPROFILES " &
+            "WHERE NUMPROGRAM = '4' " &
+            "ORDER BY EngineerName"
+        Dim dtSSCPList As DataTable = DB.GetDataTable(query)
+        With cboSSCPStaff
+            .DataSource = dtSSCPList
+            .DisplayMember = "EngineerName"
+            .ValueMember = "NUMUSERID"
+            .SelectedValue = 0
+        End With
 
-            query = "SELECT STRUNITDESC, NUMUNITCODE " &
-                "FROM LOOKUPEPDUNITS " &
-                "WHERE NUMPROGRAMCODE = 4 and Active = 1 " &
-                "UNION " &
-                "SELECT 'No Review Needed', 0 ORDER BY STRUNITDESC"
-            Dim dtSSCPUnit As DataTable = DB.GetDataTable(query)
-            With cboSSCPUnits
-                .DataSource = dtSSCPUnit
-                .DisplayMember = "strUnitDesc"
-                .ValueMember = "numUnitCode"
-                .SelectedValue = 0
-            End With
+        query = "SELECT 'N/A' AS EngineerName, 0 AS NUMUSERID " &
+            "UNION " &
+            "SELECT concat(STRLASTNAME , ', ' ,STRFIRSTNAME) AS EngineerName, " &
+            "  NUMUSERID " &
+            "FROM EPDUSERPROFILES " &
+            "WHERE NUMPROGRAM = '3' " &
+            "ORDER BY EngineerName"
+        Dim dtISMPList As DataTable = DB.GetDataTable(query)
+        With cboISMPStaff
+            .DataSource = dtISMPList
+            .DisplayMember = "EngineerName"
+            .ValueMember = "numUserID"
+            .SelectedValue = 0
+        End With
 
-            query = "SELECT STRUNITDESC, NUMUNITCODE " &
-                "FROM LOOKUPEPDUNITS " &
-                "WHERE NUMPROGRAMCODE = 3 and Active = 1 " &
-                "UNION " &
-                "SELECT 'No Review Needed', 0 ORDER BY STRUNITDESC"
-            Dim dtISMPUnit As DataTable = DB.GetDataTable(query)
-            With cboISMPUnits
-                .DataSource = dtISMPUnit
-                .DisplayMember = "strUnitDesc"
-                .ValueMember = "numUnitCode"
-                .SelectedValue = 0
-            End With
+        query = "SELECT STRUNITDESC, NUMUNITCODE " &
+        "FROM LOOKUPEPDUNITS " &
+        "WHERE NUMPROGRAMCODE = 4 and Active = 1 " &
+        "UNION " &
+        "SELECT 'No Review Needed', 0 ORDER BY STRUNITDESC"
+        Dim dtSSCPUnit As DataTable = DB.GetDataTable(query)
+        With cboSSCPUnits
+            .DataSource = dtSSCPUnit
+            .DisplayMember = "strUnitDesc"
+            .ValueMember = "numUnitCode"
+            .SelectedValue = 0
+        End With
 
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        query = "SELECT STRUNITDESC, NUMUNITCODE " &
+            "FROM LOOKUPEPDUNITS " &
+            "WHERE NUMPROGRAMCODE = 3 and Active = 1 " &
+            "UNION " &
+            "SELECT 'No Review Needed', 0 ORDER BY STRUNITDESC"
+        Dim dtISMPUnit As DataTable = DB.GetDataTable(query)
+        With cboISMPUnits
+            .DataSource = dtISMPUnit
+            .DisplayMember = "strUnitDesc"
+            .ValueMember = "numUnitCode"
+            .SelectedValue = 0
+        End With
+
+        ReviewTabLoaded = True
+    End Sub
+
+    Private SubpartEditorTabLoaded As Boolean = False
+    Private Sub LoadComboBoxesForSubpartEditor()
+        If Not TCApplicationTrackingLog.TabPages.Contains(TPSubPartEditor) OrElse SubpartEditorTabLoaded Then
+            Return
+        End If
+
+        Dim dtPart60 As DataTable = GetSharedData(SharedDataSet.RuleSubparts).Tables(RulePart.NSPS.ToString)
+        Dim dtPart61 As DataTable = GetSharedData(SharedDataSet.RuleSubparts).Tables(RulePart.NESHAP.ToString)
+        Dim dtPart63 As DataTable = GetSharedData(SharedDataSet.RuleSubparts).Tables(RulePart.MACT.ToString)
+        Dim dtSIP As DataTable = GetSharedData(SharedDataSet.RuleSubparts).Tables(RulePart.SIP.ToString)
+
+        With cboSIPSubpart
+            .DataSource = dtSIP
+            .DisplayMember = "Long Description"
+            .ValueMember = "SubPart"
+            .SelectedIndex = 0
+        End With
+
+        With cboNSPSSubpart
+            .DataSource = dtPart60
+            .DisplayMember = "Description"
+            .ValueMember = "SubPart"
+            .SelectedIndex = 0
+        End With
+
+        With cboNESHAPSubpart
+            .DataSource = dtPart61
+            .DisplayMember = "Description"
+            .ValueMember = "SubPart"
+            .SelectedIndex = 0
+        End With
+
+        With cboMACTSubpart
+            .DataSource = dtPart63
+            .DisplayMember = "Description"
+            .ValueMember = "SubPart"
+            .SelectedIndex = 0
+        End With
+
+        SubpartEditorTabLoaded = True
     End Sub
 
     Private Sub LoadPermissions()
@@ -2605,46 +2649,6 @@ Public Class SSPPApplicationTrackingLog
         dgvInformationRequested.Columns("strApplicationNumber").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
         dgvInformationRequested.Columns("strApplicationNumber").DisplayIndex = 5
         dgvInformationRequested.Columns("strApplicationNumber").Visible = False
-    End Sub
-
-    Private Sub LoadSubPartData()
-        Try
-            Dim dtPart60 As DataTable = GetSharedData(SharedDataSet.RuleSubparts).Tables(RulePart.NSPS.ToString)
-            Dim dtPart61 As DataTable = GetSharedData(SharedDataSet.RuleSubparts).Tables(RulePart.NESHAP.ToString)
-            Dim dtPart63 As DataTable = GetSharedData(SharedDataSet.RuleSubparts).Tables(RulePart.MACT.ToString)
-            Dim dtSIP As DataTable = GetSharedData(SharedDataSet.RuleSubparts).Tables(RulePart.SIP.ToString)
-
-            With cboSIPSubpart
-                .DataSource = dtSIP
-                .DisplayMember = "Long Description"
-                .ValueMember = "SubPart"
-                .SelectedIndex = 0
-            End With
-
-            With cboNSPSSubpart
-                .DataSource = dtPart60
-                .DisplayMember = "Description"
-                .ValueMember = "SubPart"
-                .SelectedIndex = 0
-            End With
-
-            With cboNESHAPSubpart
-                .DataSource = dtPart61
-                .DisplayMember = "Description"
-                .ValueMember = "SubPart"
-                .SelectedIndex = 0
-            End With
-
-            With cboMACTSubpart
-                .DataSource = dtPart63
-                .DisplayMember = "Description"
-                .ValueMember = "SubPart"
-                .SelectedIndex = 0
-            End With
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
     End Sub
 
 #End Region
@@ -13899,6 +13903,12 @@ Public Class SSPPApplicationTrackingLog
                     dgvApplicationPayments.SanelyResizeColumns()
                     dgvApplicationPayments.SelectNone()
                 End If
+
+            Case TPReviews.Name
+                LoadComboBoxesForReviewTab()
+
+            Case TPSubPartEditor.Name
+                LoadComboBoxesForSubpartEditor()
 
         End Select
     End Sub
