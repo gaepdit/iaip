@@ -34,7 +34,6 @@ Public Class SSPPApplicationTrackingLog
     Private Property NewApplication As Boolean
 
     Private Property LastModificationDateAsLoaded As DateTimeOffset = Nothing
-    Private Property FacilityApplicationHistoryLoaded As Boolean
     Private MasterApp As String
     Private FormStatus As String
     Private UpdatingValues As Boolean
@@ -2489,8 +2488,9 @@ Public Class SSPPApplicationTrackingLog
                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0")
     End Function
 
+    Private Property FacilityApplicationHistoryLoaded As Boolean
     Private Sub LoadFacilityApplicationHistory()
-        If AppNumber = 0 OrElse FacilityApplicationHistoryLoaded OrElse AirsId Is Nothing Then
+        If AppNumber = 0 OrElse AirsId Is Nothing OrElse FacilityApplicationHistoryLoaded Then
             Return
         End If
 
@@ -2586,8 +2586,9 @@ Public Class SSPPApplicationTrackingLog
         FacilityApplicationHistoryLoaded = True
     End Sub
 
+    Private Property InformationRequestLoaded As Boolean
     Private Sub LoadInformationRequestHistory()
-        If AppNumber = 0 Then
+        If AppNumber = 0 OrElse AirsId Is Nothing OrElse InformationRequestLoaded Then
             Return
         End If
 
@@ -2649,6 +2650,8 @@ Public Class SSPPApplicationTrackingLog
         dgvInformationRequested.Columns("strApplicationNumber").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
         dgvInformationRequested.Columns("strApplicationNumber").DisplayIndex = 5
         dgvInformationRequested.Columns("strApplicationNumber").Visible = False
+
+        InformationRequestLoaded = True
     End Sub
 
 #End Region
