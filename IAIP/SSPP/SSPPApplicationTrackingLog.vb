@@ -109,7 +109,7 @@ Public Class SSPPApplicationTrackingLog
     Protected Overrides Sub OnLoad(e As EventArgs)
         FormStatus = "Loading"
         LoadDefaultDates()
-        LoadComboBoxes()
+        LoadComboBoxes() ' This is about 1/3 of total load time
         LoadPermissions()
         LoadSubPartData()
 
@@ -119,7 +119,7 @@ Public Class SSPPApplicationTrackingLog
         If AppNumber > 0 Then
             If ApplicationExists(AppNumber) Then
                 AddBreadcrumb("SSPP Application Tracking Log: load application", "Application #", AppNumber, Me)
-                LoadApplication()
+                LoadApplication() ' This is 55-60% of total load time
             Else
                 MessageBox.Show("Application #" & AppNumber.ToString & " does not exist.")
                 Close()
@@ -272,7 +272,7 @@ Public Class SSPPApplicationTrackingLog
                 "  a.STRSTAFFRESPONSIBLE = u.NUMUSERID " &
                 "WHERE u.NUMPROGRAM <> 5 AND u.NUMUSERID <> 0 " &
                 "ORDER BY EngineerName"
-            Dim dtEngineerList As DataTable = DB.GetDataTable(query)
+            Dim dtEngineerList As DataTable = DB.GetDataTable(query) ' This is 16% of the total combo box load
             With cboEngineer
                 .DataSource = dtEngineerList
                 .DisplayMember = "EngineerName"
@@ -314,7 +314,7 @@ Public Class SSPPApplicationTrackingLog
                 "FROM LOOKUPCOUNTYINFORMATION " &
                 "UNION " &
                 "SELECT '000', ' N/A' ORDER BY STRCOUNTYNAME"
-            Dim dtCountyList As DataTable = DB.GetDataTable(query)
+            Dim dtCountyList As DataTable = DB.GetDataTable(query) ' This is 13% of the total combo box load
             With cboCounty
                 .DataSource = dtCountyList
                 .DisplayMember = "strCountyName"
@@ -323,7 +323,7 @@ Public Class SSPPApplicationTrackingLog
             End With
 
             With cboApplicationType
-                .DataSource = GetApplicationTypes()
+                .DataSource = GetApplicationTypes() ' This is 10% of the total combo box load
                 .DisplayMember = "Application Type"
                 .ValueMember = "Application Type Code"
                 .SelectedValue = 0
@@ -342,7 +342,7 @@ Public Class SSPPApplicationTrackingLog
             End With
 
             query = "SELECT CITY FROM VW_CITIES ORDER BY CITY"
-            Dim dtCity As DataTable = DB.GetDataTable(query)
+            Dim dtCity As DataTable = DB.GetDataTable(query) ' This is 27% of the total combo box load
             With cboFacilityCity
                 .DataSource = dtCity
                 .DisplayMember = "City"
@@ -3372,7 +3372,7 @@ Public Class SSPPApplicationTrackingLog
         Dim query As String
 
         Try
-            LastModificationDateAsLoaded = GetWhenLastModified(AppNumber)
+            LastModificationDateAsLoaded = GetWhenLastModified(AppNumber) ' 14% of app data load time
 
             query = "select strAIRSNumber,
                    strStaffResponsible,
@@ -3429,7 +3429,7 @@ Public Class SSPPApplicationTrackingLog
                 on m.strApplicationNumber = d.strApplicationNumber
             where m.strApplicationNumber = @appnumber"
 
-            dr = DB.GetDataRow(query, _appNumberSqlParam)
+            dr = DB.GetDataRow(query, _appNumberSqlParam) ' 20% of app data load time
 
             If dr IsNot Nothing Then
                 If Not IsDBNull(dr.Item("strAIRSNumber")) AndAlso ApbFacilityId.IsValidAirsNumberFormat(dr.Item("strAIRSNumber").ToString) Then
@@ -3922,6 +3922,7 @@ Public Class SSPPApplicationTrackingLog
                     lblPNReady.Text = dr.Item("strPNPosted")
                 End If
             End If
+            ' 19% of app data load time
 
             If TCApplicationTrackingLog.TabPages.Contains(TPReviews) Then
                 query = "select " &
@@ -3935,7 +3936,7 @@ Public Class SSPPApplicationTrackingLog
                 "where SSPPApplicationData.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber " &
                 "and SSPPApplicationData.strApplicationNumber = @appnumber"
 
-                dr = DB.GetDataRow(query, _appNumberSqlParam)
+                dr = DB.GetDataRow(query, _appNumberSqlParam) ' 15% of app data load time
 
                 If dr IsNot Nothing Then
                     If IsDBNull(dr.Item("datReviewsubmitted")) Then
@@ -4025,7 +4026,7 @@ Public Class SSPPApplicationTrackingLog
                 "on SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber " &
                 "where SSPPApplicationMaster.strApplicationNumber = @appnumber"
 
-                dr = DB.GetDataRow(query, _appNumberSqlParam)
+                dr = DB.GetDataRow(query, _appNumberSqlParam) ' 15% of app data load time
 
                 If dr IsNot Nothing Then
                     If IsDBNull(dr.Item("datEPAStatesNotifiedAppRec")) Then
@@ -4093,7 +4094,7 @@ Public Class SSPPApplicationTrackingLog
                 End If
             End If
 
-            CheckForLinkedApplications()
+            CheckForLinkedApplications() ' 17% of app data load time
 
             If CloseOut Then
                 CloseOutApplication(CloseOut)
@@ -7573,7 +7574,7 @@ Public Class SSPPApplicationTrackingLog
             lblAppNumber.Text = "Application #" & AppNumber.ToString
             Me.Text = AppNumber.ToString & " - " & Me.Text
 
-            LoadApplicationData()
+            LoadApplicationData() ' This is 22% of the application load time
 
             LoadFacilityAttainmentStatus()
             LoadBasicFacilityInfo()
@@ -7581,12 +7582,12 @@ Public Class SSPPApplicationTrackingLog
 
             LoadContactData()
             LoadFeeRatesComboBoxes()
-            LoadFeesData()
+            LoadFeesData() ' This is 11% of the application load time
 
-            FindMasterApp()
+            FindMasterApp() ' This is 11% of the application load time
 
-            LoadSSPPSIPSubPartInformation()
-            LoadSSPPNSPSSubPartInformation()
+            LoadSSPPSIPSubPartInformation() ' This is 12% of the application load time
+            LoadSSPPNSPSSubPartInformation() ' This is 11% of the application load time
             LoadSSPPNESHAPSubPartInformation()
             LoadSSPPMACTSubPartInformation()
 
