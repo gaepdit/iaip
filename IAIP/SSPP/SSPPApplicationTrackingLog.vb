@@ -118,6 +118,9 @@ Public Class SSPPApplicationTrackingLog
         If AppNumber > 0 Then
             If ApplicationExists(AppNumber) Then
                 AddBreadcrumb("SSPP Application Tracking Log: load application", "Application #", AppNumber, Me)
+
+                ' Application data can be refactored to only load if respective tab page is available.
+                ' Additional refactoring an postpone loading tab page until the first time it is viewed.
                 LoadApplication() ' This is 55-60% of total load time
             Else
                 MessageBox.Show("Application #" & AppNumber.ToString & " does not exist.")
@@ -136,8 +139,10 @@ Public Class SSPPApplicationTrackingLog
 #Region "Page Load Functions"
 
     Private Sub ParseParameters()
-        If Parameters IsNot Nothing AndAlso Parameters.ContainsKey(FormParameter.AppNumber) Then
-            AppNumber = CInt(Parameters(FormParameter.AppNumber))
+        Dim value As String = Nothing
+
+        If Parameters IsNot Nothing AndAlso Parameters.TryGetValue(FormParameter.AppNumber, value) Then
+            AppNumber = CInt(value)
         End If
     End Sub
 
@@ -331,6 +336,12 @@ Public Class SSPPApplicationTrackingLog
     End Sub
 
     Private ReviewTabLoaded As Boolean = False
+    Private Sub LoadComplianceReview()
+        LoadComboBoxesForReviewTab()
+        LoadReviewTab()
+        ReviewTabLoaded = True
+    End Sub
+
     Private Sub LoadComboBoxesForReviewTab()
         If Not TCApplicationTrackingLog.TabPages.Contains(TPReviews) OrElse ReviewTabLoaded Then
             Return
@@ -391,8 +402,6 @@ Public Class SSPPApplicationTrackingLog
             .ValueMember = "numUnitCode"
             .SelectedValue = 0
         End With
-
-        ReviewTabLoaded = True
     End Sub
 
     Private SubpartEditorTabLoaded As Boolean = False
@@ -3931,90 +3940,6 @@ Public Class SSPPApplicationTrackingLog
             End If
             ' 19% of app data load time
 
-            If TCApplicationTrackingLog.TabPages.Contains(TPReviews) Then
-                query = "select " &
-                "datReviewsubmitted, strSSCPUnit, " &
-                "strSSCPReviewer, datSSCPReviewDate, " &
-                "strSSCPComments, strISMPUnit, " &
-                "strISMPReviewer, datISMPReviewDate, " &
-                "strISMPComments " &
-                "from SSPPApplicationData, " &
-                "SSPPApplicationTracking " &
-                "where SSPPApplicationData.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber " &
-                "and SSPPApplicationData.strApplicationNumber = @appnumber"
-
-                dr = DB.GetDataRow(query, _appNumberSqlParam) ' 15% of app data load time
-
-                If dr IsNot Nothing Then
-                    If IsDBNull(dr.Item("datReviewsubmitted")) Then
-                        DTPReviewSubmitted.Value = Today
-                        DTPReviewSubmitted.Checked = False
-                    Else
-                        DTPReviewSubmitted.Value = CDate(dr.Item("datReviewsubmitted"))
-                        DTPReviewSubmitted.Checked = True
-                    End If
-                    If IsDBNull(dr.Item("strSSCPUnit")) Then
-                        cboSSCPUnits.SelectedValue = 0
-                    Else
-                        cboSSCPUnits.SelectedValue = dr.Item("strSSCPUnit")
-                    End If
-                    If IsDBNull(dr.Item("strISMPUnit")) Then
-                        cboISMPUnits.SelectedValue = 0
-                    Else
-                        cboISMPUnits.SelectedValue = dr.Item("strISMPUnit")
-                    End If
-                    If IsDBNull(dr.Item("datSSCPReviewDate")) Then
-                        DTPSSCPReview.Value = Today
-                        DTPSSCPReview.Checked = False
-                    Else
-                        DTPSSCPReview.Value = dr.Item("datSSCPReviewDate")
-                        DTPSSCPReview.Checked = True
-                    End If
-                    If IsDBNull(dr.Item("strSSCPReviewer")) Then
-                        cboSSCPStaff.SelectedValue = 0
-                    Else
-                        cboSSCPStaff.SelectedValue = dr.Item("strSSCPReviewer")
-                    End If
-                    If IsDBNull(dr.Item("strSSCPComments")) Then
-                        rdbSSCPNo.Checked = True
-                        txtSSCPComments.Clear()
-                    Else
-                        If dr.Item("strSSCPComments").ToString = "N/A" Then
-                            rdbSSCPNo.Checked = True
-                            txtSSCPComments.Text = ""
-                        Else
-                            rdbSSCPYes.Checked = True
-                            txtSSCPComments.Text = dr.Item("strSSCPComments")
-                        End If
-                    End If
-
-                    If IsDBNull(dr.Item("datISMPReviewDate")) Then
-                        DTPISMPReview.Value = Today
-                        DTPISMPReview.Checked = False
-                    Else
-                        DTPISMPReview.Value = dr.Item("datISMPReviewDate")
-                        DTPISMPReview.Checked = True
-                    End If
-                    If IsDBNull(dr.Item("strISMPReviewer")) Then
-                        cboISMPStaff.SelectedValue = 0
-                    Else
-                        cboISMPStaff.SelectedValue = dr.Item("strISMPReviewer")
-                    End If
-                    If IsDBNull(dr.Item("strISMPComments")) Then
-                        rdbISMPNo.Checked = True
-                        txtISMPComments.Clear()
-                    Else
-                        If dr.Item("strISMPComments").ToString = "N/A" Then
-                            rdbISMPNo.Checked = True
-                            txtISMPComments.Text = ""
-                        Else
-                            rdbISMPYes.Checked = True
-                            txtISMPComments.Text = dr.Item("strISMPComments")
-                        End If
-                    End If
-                End If
-            End If
-
             If TCApplicationTrackingLog.TabPages.Contains(TPWebPublisher) Then
                 query = "Select " &
                 "datDraftOnWeb, " &
@@ -4110,6 +4035,94 @@ Public Class SSPPApplicationTrackingLog
         Catch ex As Exception
             ErrorReport(ex, "App #: " & AppNumber & "; temp: " & temp, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
+    End Sub
+
+    Private Sub LoadReviewTab()
+        If Not TCApplicationTrackingLog.TabPages.Contains(TPReviews) OrElse ReviewTabLoaded Then
+            Return
+        End If
+
+        Dim query As String = "select " &
+                "datReviewsubmitted, strSSCPUnit, " &
+                "strSSCPReviewer, datSSCPReviewDate, " &
+                "strSSCPComments, strISMPUnit, " &
+                "strISMPReviewer, datISMPReviewDate, " &
+                "strISMPComments " &
+                "from SSPPApplicationData, " &
+                "SSPPApplicationTracking " &
+                "where SSPPApplicationData.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber " &
+                "and SSPPApplicationData.strApplicationNumber = @appnumber"
+
+        Dim dr As DataRow = DB.GetDataRow(query, _appNumberSqlParam) ' 15% of app data load time
+
+        If dr IsNot Nothing Then
+            If IsDBNull(dr.Item("datReviewsubmitted")) Then
+                DTPReviewSubmitted.Value = Today
+                DTPReviewSubmitted.Checked = False
+            Else
+                DTPReviewSubmitted.Value = CDate(dr.Item("datReviewsubmitted"))
+                DTPReviewSubmitted.Checked = True
+            End If
+            If IsDBNull(dr.Item("strSSCPUnit")) Then
+                cboSSCPUnits.SelectedValue = 0
+            Else
+                cboSSCPUnits.SelectedValue = dr.Item("strSSCPUnit")
+            End If
+            If IsDBNull(dr.Item("strISMPUnit")) Then
+                cboISMPUnits.SelectedValue = 0
+            Else
+                cboISMPUnits.SelectedValue = dr.Item("strISMPUnit")
+            End If
+            If IsDBNull(dr.Item("datSSCPReviewDate")) Then
+                DTPSSCPReview.Value = Today
+                DTPSSCPReview.Checked = False
+            Else
+                DTPSSCPReview.Value = dr.Item("datSSCPReviewDate")
+                DTPSSCPReview.Checked = True
+            End If
+            If IsDBNull(dr.Item("strSSCPReviewer")) Then
+                cboSSCPStaff.SelectedValue = 0
+            Else
+                cboSSCPStaff.SelectedValue = dr.Item("strSSCPReviewer")
+            End If
+            If IsDBNull(dr.Item("strSSCPComments")) Then
+                rdbSSCPNo.Checked = True
+                txtSSCPComments.Clear()
+            Else
+                If dr.Item("strSSCPComments").ToString = "N/A" Then
+                    rdbSSCPNo.Checked = True
+                    txtSSCPComments.Text = ""
+                Else
+                    rdbSSCPYes.Checked = True
+                    txtSSCPComments.Text = dr.Item("strSSCPComments")
+                End If
+            End If
+
+            If IsDBNull(dr.Item("datISMPReviewDate")) Then
+                DTPISMPReview.Value = Today
+                DTPISMPReview.Checked = False
+            Else
+                DTPISMPReview.Value = dr.Item("datISMPReviewDate")
+                DTPISMPReview.Checked = True
+            End If
+            If IsDBNull(dr.Item("strISMPReviewer")) Then
+                cboISMPStaff.SelectedValue = 0
+            Else
+                cboISMPStaff.SelectedValue = dr.Item("strISMPReviewer")
+            End If
+            If IsDBNull(dr.Item("strISMPComments")) Then
+                rdbISMPNo.Checked = True
+                txtISMPComments.Clear()
+            Else
+                If dr.Item("strISMPComments").ToString = "N/A" Then
+                    rdbISMPNo.Checked = True
+                    txtISMPComments.Text = ""
+                Else
+                    rdbISMPYes.Checked = True
+                    txtISMPComments.Text = dr.Item("strISMPComments")
+                End If
+            End If
+        End If
     End Sub
 
     Private Sub ReLoadBasicFacilityInfo()
@@ -13908,7 +13921,7 @@ Public Class SSPPApplicationTrackingLog
                 End If
 
             Case TPReviews.Name
-                LoadComboBoxesForReviewTab()
+                LoadComplianceReview()
 
             Case TPSubPartEditor.Name
                 LoadComboBoxesForSubpartEditor()
