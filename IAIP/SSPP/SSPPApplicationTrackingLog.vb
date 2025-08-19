@@ -306,16 +306,20 @@ Public Class SSPPApplicationTrackingLog
 
     Private ReviewTabLoaded As Boolean = False
     Private Sub LoadComplianceReview()
-        LoadComboBoxesForReviewTab()
-        LoadReviewTab()
-        ReviewTabLoaded = True
-    End Sub
-
-    Private Sub LoadComboBoxesForReviewTab()
         If Not TCApplicationTrackingLog.TabPages.Contains(TPReviews) OrElse ReviewTabLoaded Then
             Return
         End If
 
+        Cursor = Cursors.WaitCursor
+
+        LoadComboBoxesForReviewTab()
+        LoadReviewTab()
+        ReviewTabLoaded = True
+
+        Cursor = Nothing
+    End Sub
+
+    Private Sub LoadComboBoxesForReviewTab()
         Dim query As String = "SELECT 'N/A' AS EngineerName, 0 AS NUMUSERID " &
             "UNION " &
             "SELECT concat(STRLASTNAME , ', ' ,STRFIRSTNAME) AS EngineerName, " &
@@ -379,6 +383,8 @@ Public Class SSPPApplicationTrackingLog
             Return
         End If
 
+        Cursor = Cursors.WaitCursor
+
         Dim dtPart60 As DataTable = GetSharedData(SharedDataSet.RuleSubparts).Tables(RulePart.NSPS.ToString)
         Dim dtPart61 As DataTable = GetSharedData(SharedDataSet.RuleSubparts).Tables(RulePart.NESHAP.ToString)
         Dim dtPart63 As DataTable = GetSharedData(SharedDataSet.RuleSubparts).Tables(RulePart.MACT.ToString)
@@ -413,6 +419,8 @@ Public Class SSPPApplicationTrackingLog
         End With
 
         SubpartEditorTabLoaded = True
+
+        Cursor = Nothing
     End Sub
 
     Private Sub LoadPermissions()
@@ -2472,6 +2480,8 @@ Public Class SSPPApplicationTrackingLog
             Return
         End If
 
+        Cursor = Cursors.WaitCursor
+
         Dim query As String = "Select CONVERT(int, SSPPApplicationMaster.strApplicationNumber) as strApplicationNumber, " &
             "case " &
             "    when strApplicationTypeDesc is Null then ' ' " &
@@ -2562,6 +2572,8 @@ Public Class SSPPApplicationTrackingLog
         CheckForLinkedApplications()
 
         FacilityApplicationHistoryLoaded = True
+
+        Cursor = Nothing
     End Sub
 
     Private Property InformationRequestLoaded As Boolean
@@ -2569,6 +2581,8 @@ Public Class SSPPApplicationTrackingLog
         If AppNumber = 0 OrElse AirsId Is Nothing OrElse InformationRequestLoaded Then
             Return
         End If
+
+        Cursor = Cursors.WaitCursor
 
         Dim query As String = "Select " &
             "strApplicationNumber, strRequestKey, " &
@@ -2630,6 +2644,8 @@ Public Class SSPPApplicationTrackingLog
         dgvInformationRequested.Columns("strApplicationNumber").Visible = False
 
         InformationRequestLoaded = True
+
+        Cursor = Nothing
     End Sub
 
 #End Region
@@ -4007,10 +4023,6 @@ Public Class SSPPApplicationTrackingLog
     End Sub
 
     Private Sub LoadReviewTab()
-        If Not TCApplicationTrackingLog.TabPages.Contains(TPReviews) OrElse ReviewTabLoaded Then
-            Return
-        End If
-
         Dim query As String = "select " &
                 "datReviewsubmitted, strSSCPUnit, " &
                 "strSSCPReviewer, datSSCPReviewDate, " &
