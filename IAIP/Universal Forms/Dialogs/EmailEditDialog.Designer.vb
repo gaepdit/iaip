@@ -38,11 +38,14 @@ Partial Class EmailEditDialog
         '
         Me.btnOk.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnOk.DialogResult = System.Windows.Forms.DialogResult.OK
-        Me.btnOk.Location = New System.Drawing.Point(397, 487)
+        Me.btnOk.Image = Global.Iaip.My.Resources.Resources.MailSend
+        Me.btnOk.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.btnOk.Location = New System.Drawing.Point(389, 487)
         Me.btnOk.Name = "btnOk"
-        Me.btnOk.Size = New System.Drawing.Size(67, 23)
+        Me.btnOk.Size = New System.Drawing.Size(75, 23)
         Me.btnOk.TabIndex = 1
-        Me.btnOk.Text = "OK"
+        Me.btnOk.Text = " OK"
+        Me.btnOk.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         '
         'Intro
         '
@@ -110,7 +113,7 @@ Partial Class EmailEditDialog
         Me.WarningLabel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.WarningLabel.AutoSize = True
         Me.WarningLabel.BackColor = System.Drawing.Color.LemonChiffon
-        Me.WarningLabel.Location = New System.Drawing.Point(168, 489)
+        Me.WarningLabel.Location = New System.Drawing.Point(157, 488)
         Me.WarningLabel.Name = "WarningLabel"
         Me.WarningLabel.Padding = New System.Windows.Forms.Padding(3)
         Me.WarningLabel.Size = New System.Drawing.Size(226, 19)
