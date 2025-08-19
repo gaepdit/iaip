@@ -25,6 +25,11 @@ Public Module SharedData
         DistrictOffices
         FacilityOwnershipTypes
         FeeYears
+        AllFacilityCities
+        SsppEngineersList
+        PermitTypes
+        ApplicationTypes
+        SsppUnits
     End Enum
 
     ''' <summary>
@@ -88,6 +93,21 @@ Public Module SharedData
 
                 Case SharedTable.FeeYears
                     dt = AnnualFees.GetAllFeeYearsAsDataTable()
+
+                Case SharedTable.AllFacilityCities
+                    dt = GetFacilityCitiesAsDataTable()
+
+                Case SharedTable.SsppEngineersList
+                    dt = Sspp.GetEngineersList()
+
+                Case SharedTable.PermitTypes
+                    dt = Sspp.GetPermitTypes()
+
+                Case SharedTable.ApplicationTypes
+                    dt = Sspp.GetApplicationTypes()
+
+                Case SharedTable.SsppUnits
+                    dt = Sspp.GetSsppUnits()
 
             End Select
 

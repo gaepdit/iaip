@@ -105,14 +105,13 @@ Public Class SSPPApplicationTrackingLog
 
 #End Region
 
+#Region "Page Load Functions"
+
     Protected Overrides Sub OnLoad(e As EventArgs)
         FormStatus = "Loading"
         LoadDefaultDates()
         LoadPermissions()
-
-        LoadMainComboBoxes()
-
-        ' Parse parameters & load data
+        LoadMainComboBoxes() ' This is 30% of total load time
         ParseParameters()
 
         If AppNumber > 0 Then
@@ -121,7 +120,7 @@ Public Class SSPPApplicationTrackingLog
 
                 ' Application data can be refactored to only load if respective tab page is available.
                 ' Additional refactoring an postpone loading tab page until the first time it is viewed.
-                LoadApplication() ' This is 55-60% of total load time
+                LoadApplication() ' This is 63% of total load time
             Else
                 MessageBox.Show("Application #" & AppNumber.ToString & " does not exist.")
                 Close()
@@ -136,7 +135,9 @@ Public Class SSPPApplicationTrackingLog
         MyBase.OnLoad(e)
     End Sub
 
-#Region "Page Load Functions"
+    Protected Overrides Sub OnShown(e As EventArgs)
+        MyBase.OnShown(e)
+    End Sub
 
     Private Sub ParseParameters()
         Dim value As String = Nothing
@@ -260,77 +261,45 @@ Public Class SSPPApplicationTrackingLog
         cboPublicAdvisory.Items.Add("PA Needed")
         cboPublicAdvisory.Items.Add("PA Not Needed")
 
-        Dim query As String = "SELECT 'N/A' AS EngineerName,
-                       0     AS NUMUSERID
-                UNION
-                SELECT concat_ws(', ', u.STRLASTNAME, u.STRFIRSTNAME) AS EngineerName,
-                       u.NUMUSERID
-                from (select NUMUSERID
-                      FROM EPDUSERPROFILES
-                      WHERE NUMPROGRAM = 5
-                      UNION
-                      select STRSTAFFRESPONSIBLE
-                      from SSPPAPPLICATIONMASTER) t
-                    inner join EPDUSERPROFILES u
-                        on t.NUMUSERID = u.NUMUSERID"
-        Dim dtEngineerList As DataTable = DB.GetDataTable(query) ' This is 16% of the total combo box load
         With cboEngineer
-            .DataSource = dtEngineerList
+            .DataSource = GetSharedData(SharedTable.SsppEngineersList)
             .DisplayMember = "EngineerName"
             .ValueMember = "NUMUSERID"
             .SelectedValue = 0
         End With
 
-        query = "SELECT STRCOUNTYCODE, STRCOUNTYNAME " &
-            "FROM LOOKUPCOUNTYINFORMATION " &
-            "UNION " &
-            "SELECT '000', ' N/A' ORDER BY STRCOUNTYNAME"
-        Dim dtCountyList As DataTable = DB.GetDataTable(query) ' This is 13% of the total combo box load
+        Dim dtCountyList As DataTable = GetSharedData(SharedTable.Counties).Copy
+        dtCountyList.Rows.Add({"000", " N/A"})
         With cboCounty
             .DataSource = dtCountyList
-            .DisplayMember = "strCountyName"
-            .ValueMember = "strCountyCode"
+            .DisplayMember = "County"
+            .ValueMember = "CountyCode"
             .SelectedIndex = 0
         End With
 
         With cboApplicationType
-            .DataSource = GetApplicationTypes() ' This is 10% of the total combo box load
+            .DataSource = GetSharedData(SharedTable.ApplicationTypes)
             .DisplayMember = "Application Type"
             .ValueMember = "Application Type Code"
             .SelectedValue = 0
         End With
 
-        query = "SELECT STRPERMITTYPECODE, STRPERMITTYPEDESCRIPTION " &
-            "FROM LOOKUPPERMITTYPES " &
-            "WHERE STRTYPEUSED <> 'False' OR STRTYPEUSED IS NULL " &
-            "UNION " &
-            "SELECT '', ' ' ORDER BY STRPERMITTYPEDESCRIPTION"
         With cboPermitAction
-            .DataSource = DB.GetDataTable(query)
-            .DisplayMember = "strPermitTypeDescription"
-            .ValueMember = "strPermitTypeCode"
+            .DataSource = GetSharedData(SharedTable.PermitTypes)
+            .DisplayMember = "STRPERMITTYPEDESCRIPTION"
+            .ValueMember = "STRPERMITTYPECODE"
             .SelectedIndex = 0
         End With
 
-        query = "SELECT CITY FROM VW_CITIES ORDER BY CITY"
-        Dim dtCity As DataTable = DB.GetDataTable(query) ' This is 27% of the total combo box load
         With cboFacilityCity
-            .DataSource = dtCity
-            .DisplayMember = "City"
-            .ValueMember = "City"
+            .DataSource = GetSharedData(SharedTable.AllFacilityCities)
             .SelectedIndex = -1
         End With
 
-        query = "SELECT STRUNITDESC, NUMUNITCODE " &
-            "FROM LOOKUPEPDUNITS " &
-            "WHERE NUMPROGRAMCODE = 5 and Active = 1 " &
-            "UNION " &
-            "SELECT ' ', 0 ORDER BY STRUNITDESC"
-        Dim dtSSPPUnit As DataTable = DB.GetDataTable(query)
         With cboApplicationUnit
-            .DataSource = dtSSPPUnit
-            .DisplayMember = "strUnitDesc"
-            .ValueMember = "numUnitCode"
+            .DataSource = GetSharedData(SharedTable.SsppUnits)
+            .DisplayMember = "STRUNITDESC"
+            .ValueMember = "NUMUNITCODE"
             .SelectedValue = 0
         End With
     End Sub
@@ -7594,24 +7563,20 @@ Public Class SSPPApplicationTrackingLog
             lblAppNumber.Text = "Application #" & AppNumber.ToString
             Me.Text = AppNumber.ToString & " - " & Me.Text
 
-            LoadApplicationData() ' This is 22% of the application load time
-
+            LoadApplicationData() ' This is 20% of the application load time
             LoadFacilityAttainmentStatus()
             LoadBasicFacilityInfo()
             LoadOpenApplications()
-
             LoadContactData()
             LoadFeeRatesComboBoxes()
-            LoadFeesData() ' This is 11% of the application load time
-
-            FindMasterApp() ' This is 11% of the application load time
-
-            LoadSSPPSIPSubPartInformation() ' This is 12% of the application load time
+            LoadFeesData() ' This is 12% of the application load time
+            FindMasterApp() ' This is 12% of the application load time
+            LoadSSPPSIPSubPartInformation() ' This is 13% of the application load time
             LoadSSPPNSPSSubPartInformation() ' This is 11% of the application load time
             LoadSSPPNESHAPSubPartInformation()
-            LoadSSPPMACTSubPartInformation()
-
+            LoadSSPPMACTSubPartInformation() ' This is 10% of the application load time
             SetUpPublicAppViewLink()
+
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally

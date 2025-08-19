@@ -351,6 +351,7 @@
     <Compile Include="_DAL\ApplicationFees\FacilityFinances.vb" />
     <Compile Include="_DAL\ApplicationFees\Invoices.vb" />
     <Compile Include="_DAL\ApplicationFees\Deposits.vb" />
+    <Compile Include="_DAL\SSPP\ApplicationLookupTables.vb" />
     <Compile Include="_DAL\SSPP\ApplicationTypes.vb" />
     <Compile Include="_DAL\DbResult.vb" />
     <Compile Include="_DAL\TableValuedParameter.vb" />

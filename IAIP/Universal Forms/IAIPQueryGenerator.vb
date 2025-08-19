@@ -84,12 +84,8 @@ Public Class IAIPQueryGenerator
     Private Sub LoadDataSets()
         Try
 
-            query = "Select strCountyCode, strCountyName " &
-            "from LookUpCountyInformation " &
-            "order by strCountyName "
-
-            dtcboCountySearch1 = DB.GetDataTable(query)
-            dtcboCountySearch2 = dtcboCountySearch1.Copy
+            dtcboCountySearch1 = GetSharedData(SharedTable.Counties).Copy
+            dtcboCountySearch2 = GetSharedData(SharedTable.Counties).Copy
 
             query = "select strDistrictCode, strDistrictName " &
             "from LookUPDistricts " &
@@ -162,15 +158,15 @@ Public Class IAIPQueryGenerator
 
         With cboCountySearch1
             .DataSource = dtcboCountySearch1
-            .DisplayMember = "strCountyName"
-            .ValueMember = "strCountyCode"
+            .DisplayMember = "County"
+            .ValueMember = "CountyCode"
             .SelectedIndex = -1
         End With
 
         With cboCountySearch2
             .DataSource = dtcboCountySearch2
-            .DisplayMember = "strCountyName"
-            .ValueMember = "strCountyCode"
+            .DisplayMember = "County"
+            .ValueMember = "CountyCode"
             .SelectedIndex = -1
         End With
 
