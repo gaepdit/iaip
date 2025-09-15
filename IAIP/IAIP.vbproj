@@ -227,10 +227,16 @@
     <Compile Include="GECO\GecoTool.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Universal Forms\IaipUpdater.Designer.vb">
+    <Compile Include="Universal Forms\Dialogs\EmailEditDialog.Designer.vb">
+      <DependentUpon>EmailEditDialog.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Universal Forms\Dialogs\EmailEditDialog.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Universal Forms\Dialogs\IaipUpdater.Designer.vb">
       <DependentUpon>IaipUpdater.vb</DependentUpon>
     </Compile>
-    <Compile Include="Universal Forms\IaipUpdater.vb">
+    <Compile Include="Universal Forms\Dialogs\IaipUpdater.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Users\IaipResetPassword.Designer.vb">
@@ -264,9 +270,9 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="_ApiCalls\EmailQueue\EmailQueueApi.vb" />
-    <Compile Include="_ApiCalls\EmailQueue\Models\EmailQueueResponse.vb" />
-    <Compile Include="_ApiCalls\EmailQueue\Models\EmailTaskResult.vb" />
-    <Compile Include="_ApiCalls\EmailQueue\Models\NewEmailTask.vb" />
+    <Compile Include="_ApiCalls\EmailQueue\Models\ApiResponseModels.vb" />
+    <Compile Include="_ApiCalls\EmailQueue\Models\EmailDataModels.vb" />
+    <Compile Include="_ApiCalls\EmailQueue\Models\ApiRequestModels.vb" />
     <Compile Include="_ApiCalls\IaipCx\CxApiRequestModels.vb" />
     <Compile Include="_ApiCalls\Notifications\NotificationsApi.vb" />
     <Compile Include="_ApiCalls\Utils\WebApiUtils.vb" />
@@ -400,7 +406,10 @@
     <EmbeddedResource Include="GECO\GecoTool.resx">
       <DependentUpon>GecoTool.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Universal Forms\IaipUpdater.resx">
+    <EmbeddedResource Include="Universal Forms\Dialogs\EmailEditDialog.resx">
+      <DependentUpon>EmailEditDialog.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Universal Forms\Dialogs\IaipUpdater.resx">
       <DependentUpon>IaipUpdater.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Users\IaipResetPassword.resx">
@@ -483,7 +492,7 @@
     <Compile Include="Universal Forms\BaseForm.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Universal Forms\ExceptionDialog.Designer.vb">
+    <Compile Include="Universal Forms\Dialogs\ExceptionDialog.Designer.vb">
       <DependentUpon>ExceptionDialog.vb</DependentUpon>
     </Compile>
     <Compile Include="Users\IaipChangePassword.Designer.vb">
@@ -838,7 +847,7 @@
     <EmbeddedResource Include="SSPP\Sub Forms\SsppPermitRevocationDialog.resx">
       <DependentUpon>SsppPermitRevocationDialog.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Universal Forms\ExceptionDialog.resx">
+    <EmbeddedResource Include="Universal Forms\Dialogs\ExceptionDialog.resx">
       <DependentUpon>ExceptionDialog.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Universal Forms\IaipAbout.resx">
@@ -976,6 +985,7 @@
     <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\MailSend.png" />
     <None Include="Resources\Arrow_045.png" />
     <None Include="Resources\ReportIcon.png" />
     <None Include="Resources\OpenFolderIcon.png" />
@@ -1036,7 +1046,7 @@
     <Compile Include="SSPP\Sub Forms\SsppPermitRevocationDialog.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Universal Forms\ExceptionDialog.vb">
+    <Compile Include="Universal Forms\Dialogs\ExceptionDialog.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="_Code\BooleanFormatProvider.vb" />

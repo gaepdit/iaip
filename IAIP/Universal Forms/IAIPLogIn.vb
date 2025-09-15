@@ -58,10 +58,10 @@ Public Class IAIPLogIn
 
     Private Async Sub CheckConnectionStatusAsync()
         Dim sessionLogin As Boolean = False
-        NetworkStatus = Await GetIaipNetworkStatusAsync().ConfigureAwait(False)
+        NetworkStatus = Await GetIaipNetworkStatusAsync().ConfigureAwait(True)
 
         If NetworkStatus = IaipNetworkStatus.Enabled Then
-            sessionLogin = Await CheckUserSavedSessionAsync().ConfigureAwait(False)
+            sessionLogin = Await CheckUserSavedSessionAsync().ConfigureAwait(True)
         End If
 
         _synchronizationContext.Post(
@@ -102,7 +102,7 @@ Public Class IAIPLogIn
     End Sub
 
     Private Shared Async Function CheckUserSavedSessionAsync() As Task(Of Boolean)
-        Dim userId As Integer = Await ValidateSessionAsync().ConfigureAwait(False)
+        Dim userId As Integer = Await ValidateSessionAsync().ConfigureAwait(True)
 
         If userId <= 0 Then
             Return False
@@ -112,7 +112,7 @@ Public Class IAIPLogIn
             Function()
                 Return DAL.GetIaipUserByUserId(userId.ToString)
             End Function
-            ).ConfigureAwait(False)
+            ).ConfigureAwait(True)
 
         If CurrentUser Is Nothing OrElse CurrentUser.RequirePasswordChange OrElse Not ValidateUserData() Then
             CurrentUser = Nothing
@@ -212,7 +212,7 @@ Public Class IAIPLogIn
             CancelLogin(True)
             Return Nothing
         Else
-            Return Await DAL.AuthenticateIaipUserAsync(txtUserID.Text, txtUserPassword.Text).ConfigureAwait(False)
+            Return Await DAL.AuthenticateIaipUserAsync(txtUserID.Text, txtUserPassword.Text).ConfigureAwait(True)
         End If
     End Function
 

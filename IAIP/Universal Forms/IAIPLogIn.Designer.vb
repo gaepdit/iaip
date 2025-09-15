@@ -403,7 +403,7 @@ Partial Class IAIPLogIn
         Me.pnlMain.Dock = System.Windows.Forms.DockStyle.Fill
         Me.pnlMain.Location = New System.Drawing.Point(0, 96)
         Me.pnlMain.Name = "pnlMain"
-        Me.pnlMain.Size = New System.Drawing.Size(756, 423)
+        Me.pnlMain.Size = New System.Drawing.Size(756, 351)
         Me.pnlMain.TabIndex = 0
         '
         'pnlNotificationContainer
@@ -477,7 +477,7 @@ Partial Class IAIPLogIn
         Me.AcceptButton = Me.btnLoginButton
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(756, 519)
+        Me.ClientSize = New System.Drawing.Size(756, 447)
         Me.Controls.Add(Me.pnlMain)
         Me.Controls.Add(Me.pnlNotificationContainer)
         Me.Controls.Add(Me.MainMenu1)
