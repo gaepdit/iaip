@@ -16,8 +16,9 @@
 
 ## Version 7.5.4 <span>(15-Sep-2025)</span>
 
-* Changed how emails are sent from the permit application tracking log
-* Made some minor improvements to the permit application tracking log performance
+* Changed how emails are sent from the permit application tracking log.
+* Made some minor improvements to the permit application tracking log performance.
+* Updated the app icon for hig-res screens.
 
 ## Version 7.5.3 <span>(11-Aug-2025)</span>
 
