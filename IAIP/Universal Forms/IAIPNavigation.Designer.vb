@@ -101,6 +101,7 @@ Partial Class IAIPNavigation
         Me.DismissMessageButton = New System.Windows.Forms.Button()
         Me.bgrOrgNotifications = New System.ComponentModel.BackgroundWorker()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
+        Me.bgrDataPreloader = New System.ComponentModel.BackgroundWorker()
         Me.MainMenu1.SuspendLayout()
         Me.grpQuickAccess.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -881,6 +882,11 @@ Partial Class IAIPNavigation
         '
         'bgrOrgNotifications
         '
+        Me.bgrOrgNotifications.WorkerSupportsCancellation = True
+        '
+        'bgrDataPreloader
+        '
+        Me.bgrDataPreloader.WorkerSupportsCancellation = True
         '
         'IAIPNavigation
         '
@@ -1005,4 +1011,5 @@ Partial Class IAIPNavigation
     Friend WithEvents pnlCloseButtonPanel As Panel
     Friend WithEvents pnlNoticeLabelPanel As Panel
     Friend WithEvents pnlSpacing As Panel
+    Friend WithEvents bgrDataPreloader As System.ComponentModel.BackgroundWorker
 End Class

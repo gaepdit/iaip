@@ -32,9 +32,8 @@ Partial Class IaipAbout
         Me.lblCurrentServerEnvironment = New System.Windows.Forms.Label()
         Me.lblNetworkStatus = New System.Windows.Forms.Label()
         Me.lblCurrentUser = New System.Windows.Forms.Label()
-        Me.lblDbRetryEnabled = New System.Windows.Forms.Label()
-        Me.lblExternalIPAddress = New System.Windows.Forms.Label()
         Me.lblVpnInterfaceAdapter = New System.Windows.Forms.Label()
+        Me.lblExternalIPAddress = New System.Windows.Forms.Label()
         CType(Me.LogoBox, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.DevInfoPanel.SuspendLayout()
         Me.SuspendLayout()
@@ -147,7 +146,6 @@ Partial Class IaipAbout
         Me.DevInfoPanel.Controls.Add(Me.lblNetworkStatus)
         Me.DevInfoPanel.Controls.Add(Me.lblCurrentUser)
         Me.DevInfoPanel.Controls.Add(Me.lblVpnInterfaceAdapter)
-        Me.DevInfoPanel.Controls.Add(Me.lblDbRetryEnabled)
         Me.DevInfoPanel.Controls.Add(Me.lblExternalIPAddress)
         Me.DevInfoPanel.Location = New System.Drawing.Point(293, 171)
         Me.DevInfoPanel.Name = "DevInfoPanel"
@@ -182,14 +180,14 @@ Partial Class IaipAbout
         Me.lblCurrentUser.TabIndex = 39
         Me.lblCurrentUser.Text = "lblCurrentUser"
         '
-        'lblDbRetryEnabled
+        'lblVpnInterfaceAdapter
         '
-        Me.lblDbRetryEnabled.AutoSize = True
-        Me.lblDbRetryEnabled.Location = New System.Drawing.Point(6, 68)
-        Me.lblDbRetryEnabled.Name = "lblDbRetryEnabled"
-        Me.lblDbRetryEnabled.Size = New System.Drawing.Size(95, 13)
-        Me.lblDbRetryEnabled.TabIndex = 39
-        Me.lblDbRetryEnabled.Text = "lblDbRetryEnabled"
+        Me.lblVpnInterfaceAdapter.AutoSize = True
+        Me.lblVpnInterfaceAdapter.Location = New System.Drawing.Point(6, 42)
+        Me.lblVpnInterfaceAdapter.Name = "lblVpnInterfaceAdapter"
+        Me.lblVpnInterfaceAdapter.Size = New System.Drawing.Size(115, 13)
+        Me.lblVpnInterfaceAdapter.TabIndex = 39
+        Me.lblVpnInterfaceAdapter.Text = "lblVpnInterfaceAdapter"
         '
         'lblExternalIPAddress
         '
@@ -199,15 +197,6 @@ Partial Class IaipAbout
         Me.lblExternalIPAddress.Size = New System.Drawing.Size(103, 13)
         Me.lblExternalIPAddress.TabIndex = 39
         Me.lblExternalIPAddress.Text = "lblExternalIPAddress"
-        '
-        'lblVpnInterfaceAdapter
-        '
-        Me.lblVpnInterfaceAdapter.AutoSize = True
-        Me.lblVpnInterfaceAdapter.Location = New System.Drawing.Point(6, 42)
-        Me.lblVpnInterfaceAdapter.Name = "lblVpnInterfaceAdapter"
-        Me.lblVpnInterfaceAdapter.Size = New System.Drawing.Size(115, 13)
-        Me.lblVpnInterfaceAdapter.TabIndex = 39
-        Me.lblVpnInterfaceAdapter.Text = "lblVpnInterfaceAdapter"
         '
         'IaipAbout
         '
@@ -251,7 +240,6 @@ Partial Class IaipAbout
     Friend WithEvents btnClose As System.Windows.Forms.Button
     Friend WithEvents DevInfoPanel As Panel
     Friend WithEvents lblExternalIPAddress As Label
-    Friend WithEvents lblDbRetryEnabled As Label
     Friend WithEvents lblCurrentServerEnvironment As Label
     Friend WithEvents lblNetworkStatus As Label
     Friend WithEvents lblCurrentUser As Label

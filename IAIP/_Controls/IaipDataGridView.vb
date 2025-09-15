@@ -333,8 +333,8 @@ Friend Class IaipDataGridView
         If AutoFormatCells AndAlso e IsNot Nothing AndAlso e.Value IsNot Nothing AndAlso Not IsDBNull(e.Value) Then
             If TypeOf e.Value Is ApbFacilityId Then
                 e.Value = New ApbFacilityId(e.Value.ToString).FormattedString
-            ElseIf TypeOf e.Value Is Date OrElse TypeOf e.Value Is DateTimeoffset Then
-                e.CellStyle.Format = DateFormat
+            ElseIf TypeOf e.Value Is Date OrElse TypeOf e.Value Is DateTimeOffset Then
+                e.CellStyle.Format = DateFieldFormat
                 e.CellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
             ElseIf TypeOf e.Value Is Decimal Then
                 e.CellStyle.Format = DecimalFieldFormat

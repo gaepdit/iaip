@@ -1,5 +1,4 @@
-﻿Imports Iaip.ApiCalls.IaipCx
-Imports Iaip.UrlHelpers
+﻿Imports Iaip.UrlHelpers
 
 Public Class IaipAbout
 
