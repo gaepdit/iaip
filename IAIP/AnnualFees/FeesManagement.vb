@@ -849,7 +849,7 @@ Public Class FeesManagement
             btnSendInitialEmail.Enabled = False
             Cursor = Cursors.WaitCursor
 
-            Dim response As EmailQueueResponse = Await SendAnnualFeeNotificationAsync(dv, cboAvailableFeeYears.Text, AnnualFeeDueDate)
+            Dim response As EmailQueueApiResponse = Await SendAnnualFeeNotificationAsync(dv, cboAvailableFeeYears.Text, AnnualFeeDueDate)
 
             If response Is Nothing Then
                 MessageBox.Show("There was a problem sending the initial email notification. Please contact EPD-IT for more information.",
@@ -1155,44 +1155,27 @@ Public Class FeesManagement
             MessageBox.Show("There was a problem retrieving the email batch details. Please try again.",
                             "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
         Else
-            dgvFeeManagementLists.DataSource = response.Emails.OrderBy(Function(p) p.Counter).Select(Function(p) New EmailRecord(p)).ToList()
+            dgvFeeManagementLists.DataSource = response.Emails.OrderBy(Function(p) p.Counter).Select(Function(p) New EmailTaskViewModel(p)).ToList()
 
             FeeManagementListCountLabel.Text = $"Viewing details of emails generated for the {cboAvailableFeeYears.Text } initial mailout: " &
                 $"{dgvFeeManagementLists.RowCount} result{If(dgvFeeManagementLists.RowCount = 1, "", "s") }"
         End If
     End Function
 
-    Private Class EmailRecord
-        Public Sub New(email As EmailTaskViewModel)
-            Status = email.Status
-            Sent = If(email.AttemptedAt.HasValue, email.AttemptedAt.Value.ToLocalTime(), CType(Nothing, Date?))
-            Subject = email.Subject
-            Recipients = String.Join(", ", email.Recipients)
-            FailureReason = IfEmpty(email.FailureReason, "N/A")
-        End Sub
-
-        Public Property Status As String
-        Public Property Sent As Date?
-        Public Property Subject As String
-        Public Property Recipients As String
-        <DisplayName("Failure Reason")>
-        Public Property FailureReason As String
-    End Class
-
-    Private Async Function SendAnnualFeeNotificationAsync(dv As DataView, feeYear As Integer, deadline As Date) As Task(Of EmailQueueResponse)
+    Private Async Function SendAnnualFeeNotificationAsync(dv As DataView, feeYear As Integer, deadline As Date) As Task(Of EmailQueueApiResponse)
         Dim emails As New List(Of NewEmailTask)
         Dim gecoUrl As String = ConfigurationManager.AppSettings("GecoUrl")
         Dim deadlineFormatted As String = deadline.ToString("MMMM d, yyyy")
 
         For Each rowView As DataRowView In dv
-            Dim recipientsList As List(Of String) = rowView("Emails").ToString().Split(","c).Select(Function(s) s.Trim()).ToList()
+            Dim recipientsList As String() = rowView("Emails").ToString().Split(","c).Select(Function(s) s.Trim())
             Dim airsNumber As String = rowView("Airs No.").ToString().Trim()
             Dim airsNumberFormatted As String = $"{Strings.Left(airsNumber, 3)}-{Strings.Right(airsNumber, 5)}"
             Dim facilityName As String = rowView("Facility Name (snapshot)").ToString().Trim()
 
             Dim newEmail As New NewEmailTask() With {
-                .From = "GeorgiaAirProtectionBranch@dnr.ga.gov",
-                .FromName = "Georgia Air Protection Branch",
+                .From = ApbContactEmail,
+                .FromName = ApbOrgName,
                 .Recipients = recipientsList,
                 .Subject = $"Data Collection for {feeYear} Calendar Year Emission Fees (AIRS #{airsNumberFormatted}: {facilityName})",
                 .Body = EmailBody(feeYear, deadlineFormatted, gecoUrl)
@@ -1201,7 +1184,7 @@ Public Class FeesManagement
             emails.Add(newEmail)
         Next
 
-        Return Await SendEmailsAsync(emails.ToArray()).ConfigureAwait(False)
+        Return Await SendEmailAsync(emails.ToArray()).ConfigureAwait(True)
     End Function
 
     Private Function EmailBody(feeYear As Integer, deadline As String, gecoUrl As String) As String
