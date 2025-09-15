@@ -19,13 +19,17 @@ Public Module SharedData
         ViolationTypes
         AllComplianceStaff
         IaipAccountRoles
-        AllFeeFacilities
         EpdManagers
         SscpNotificationTypes
         Counties
         DistrictOffices
         FacilityOwnershipTypes
         FeeYears
+        AllFacilityCities
+        SsppEngineersList
+        PermitTypes
+        ApplicationTypes
+        SsppUnits
     End Enum
 
     ''' <summary>
@@ -41,9 +45,11 @@ Public Module SharedData
     ''' </summary>
     Public Enum SharedLookupDictionary
         ActiveUsers
-        Counties
     End Enum
 
+    ''' <summary>
+    ''' Enum delineating all the available shared Objects in the SharedData service
+    ''' </summary>
     Public Enum SharedObject
         FeeRatesSchedule
     End Enum
@@ -59,37 +65,49 @@ Public Module SharedData
             Select Case table
 
                 Case SharedTable.ViolationTypes
-                    dt = DAL.Sscp.GetViolationTypes()
+                    dt = Sscp.GetViolationTypes()
 
                 Case SharedTable.AllComplianceStaff
-                    dt = DAL.GetComplianceStaff()
+                    dt = GetComplianceStaff()
 
                 Case SharedTable.Pollutants
-                    dt = DAL.GetPollutantsTable()
+                    dt = GetPollutantsTable()
 
                 Case SharedTable.IaipAccountRoles
-                    dt = DAL.GetIaipAccountRoles()
-
-                Case SharedTable.AllFeeFacilities
-                    dt = AnnualFees.GetAllFeeFacilities()
+                    dt = GetIaipAccountRoles()
 
                 Case SharedTable.EpdManagers
-                    dt = DAL.GetEpdManagersAsDataTable()
+                    dt = GetEpdManagersAsDataTable()
 
                 Case SharedTable.SscpNotificationTypes
-                    dt = DAL.Sscp.GetSscpNotificationTypes()
+                    dt = Sscp.GetSscpNotificationTypes()
 
                 Case SharedTable.Counties
-                    dt = DAL.GetCountiesAsDataTable()
+                    dt = GetCountiesAsDataTable()
 
                 Case SharedTable.DistrictOffices
-                    dt = DAL.GetDistrictOffices()
+                    dt = GetDistrictOffices()
 
                 Case SharedTable.FacilityOwnershipTypes
-                    dt = DAL.GetFacilityOwnershipTypes()
+                    dt = GetFacilityOwnershipTypes()
 
                 Case SharedTable.FeeYears
                     dt = AnnualFees.GetAllFeeYearsAsDataTable()
+
+                Case SharedTable.AllFacilityCities
+                    dt = GetFacilityCitiesAsDataTable()
+
+                Case SharedTable.SsppEngineersList
+                    dt = Sspp.GetEngineersList()
+
+                Case SharedTable.PermitTypes
+                    dt = Sspp.GetPermitTypes()
+
+                Case SharedTable.ApplicationTypes
+                    dt = Sspp.GetApplicationTypes()
+
+                Case SharedTable.SsppUnits
+                    dt = Sspp.GetSsppUnits()
 
             End Select
 
@@ -110,30 +128,30 @@ Public Module SharedData
 
                 Case SharedDataSet.EpdOrganization
 
-                    ds.Tables.Add(DAL.GetEpdBranchesAsDataTable)
+                    ds.Tables.Add(GetEpdBranchesAsDataTable)
                     ds.Tables(0).TableName = "Branches"
                     ds.Tables(0).Rows.Add(0, "")
 
-                    ds.Tables.Add(DAL.GetEpdProgramsAsDataTable)
+                    ds.Tables.Add(GetEpdProgramsAsDataTable)
                     ds.Tables(1).TableName = "Programs"
                     ds.Tables(1).Rows.Add(0, "")
 
-                    ds.Tables.Add(DAL.GetEpdUnitsAsDataTable)
+                    ds.Tables.Add(GetEpdUnitsAsDataTable)
                     ds.Tables(2).TableName = "Units"
                     ds.Tables(2).Rows.Add(0, "")
 
                 Case SharedDataSet.RuleSubparts
 
-                    ds.Tables.Add(DAL.GetRuleSubpartsAsDataTable(RulePart.NSPS))
+                    ds.Tables.Add(GetRuleSubpartsAsDataTable(RulePart.NSPS))
                     ds.Tables(0).TableName = RulePart.NSPS.ToString
 
-                    ds.Tables.Add(DAL.GetRuleSubpartsAsDataTable(RulePart.NESHAP))
+                    ds.Tables.Add(GetRuleSubpartsAsDataTable(RulePart.NESHAP))
                     ds.Tables(1).TableName = RulePart.NESHAP.ToString
 
-                    ds.Tables.Add(DAL.GetRuleSubpartsAsDataTable(RulePart.MACT))
+                    ds.Tables.Add(GetRuleSubpartsAsDataTable(RulePart.MACT))
                     ds.Tables(2).TableName = RulePart.MACT.ToString
 
-                    ds.Tables.Add(DAL.GetRuleSubpartsAsDataTable(RulePart.SIP))
+                    ds.Tables.Add(GetRuleSubpartsAsDataTable(RulePart.SIP))
                     ds.Tables(3).TableName = RulePart.SIP.ToString
 
             End Select
@@ -152,10 +170,7 @@ Public Module SharedData
             Select Case lookupDictionary
 
                 Case SharedLookupDictionary.ActiveUsers
-                    dict = DAL.GetActiveUsers()
-
-                Case SharedLookupDictionary.Counties
-                    dict = DAL.GetCountiesAsDictionary()
+                    dict = GetActiveUsers()
 
             End Select
 
@@ -173,7 +188,7 @@ Public Module SharedData
             Select Case obj
 
                 Case SharedObject.FeeRatesSchedule
-                    myObj = DAL.ApplicationFees.LoadFeeRatesSchedule()
+                    myObj = ApplicationFees.LoadFeeRatesSchedule()
 
             End Select
 
@@ -198,7 +213,8 @@ Public Module SharedData
             _tDictionary = New Dictionary(Of SharedTable, DataTable)
         End If
 
-        If Not _tDictionary.ContainsKey(table) OrElse _tDictionary(table) Is Nothing Then
+        Dim value As DataTable = Nothing
+        If Not _tDictionary.TryGetValue(table, value) OrElse value Is Nothing Then
             InitializeData(table)
         End If
 
@@ -217,7 +233,8 @@ Public Module SharedData
             _dsDictionary = New Dictionary(Of SharedDataSet, DataSet)
         End If
 
-        If Not _dsDictionary.ContainsKey(dataSet) OrElse _dsDictionary(dataSet) Is Nothing Then
+        Dim value As DataSet = Nothing
+        If Not _dsDictionary.TryGetValue(dataSet, value) OrElse value Is Nothing Then
             InitializeData(dataSet)
         End If
 

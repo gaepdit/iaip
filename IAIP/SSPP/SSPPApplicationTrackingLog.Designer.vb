@@ -22,6 +22,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.components = New System.ComponentModel.Container()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.btnRefreshAIRSNo = New System.Windows.Forms.Button()
         Me.lblLinkWarning = New System.Windows.Forms.Label()
         Me.rtbFacilityInformation = New System.Windows.Forms.RichTextBox()
@@ -487,6 +488,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.lblOperationalStatus = New System.Windows.Forms.Label()
         Me.TCApplicationTrackingLog = New System.Windows.Forms.TabControl()
         Me.TPFees = New System.Windows.Forms.TabPage()
+        Me.lklRecipientLink = New System.Windows.Forms.LinkLabel()
         Me.btnSaveFeesGenerateInvoice = New System.Windows.Forms.Button()
         Me.lblFeeChangesNotAllowedWarning = New System.Windows.Forms.Label()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
@@ -516,11 +518,16 @@ Partial Class SSPPApplicationTrackingLog
         Me.cmbExpFeeType = New System.Windows.Forms.ComboBox()
         Me.cmbAppFeeType = New System.Windows.Forms.ComboBox()
         Me.pnlFeeDataFinalized = New System.Windows.Forms.Panel()
+        Me.btnGenerateFeeNotification = New System.Windows.Forms.Button()
         Me.lblFeeDataFinalized = New System.Windows.Forms.Label()
-        Me.lklGenerateEmail = New System.Windows.Forms.LinkLabel()
         Me.dtpFacilityFeeNotified = New System.Windows.Forms.DateTimePicker()
         Me.lblFacilityFeeNotified = New System.Windows.Forms.Label()
         Me.dtpFeeDataFinalized = New System.Windows.Forms.DateTimePicker()
+        Me.TPEmails = New System.Windows.Forms.TabPage()
+        Me.btnRefreshEmailsSent = New System.Windows.Forms.Button()
+        Me.lblNoEmailsSentLabel = New System.Windows.Forms.Label()
+        Me.dgvEmailsSent = New Iaip.IaipDataGridView()
+        Me.lblEmailsSent = New System.Windows.Forms.Label()
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
         Me.SaveButton = New System.Windows.Forms.ToolStripButton()
         Me.HeaderPanel = New System.Windows.Forms.Panel()
@@ -607,6 +614,8 @@ Partial Class SSPPApplicationTrackingLog
         Me.Panel1.SuspendLayout()
         CType(Me.dgvApplicationPayments, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pnlFeeDataFinalized.SuspendLayout()
+        Me.TPEmails.SuspendLayout()
+        CType(Me.dgvEmailsSent, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ToolStrip1.SuspendLayout()
         Me.HeaderPanel.SuspendLayout()
         Me.pnlAssignments.SuspendLayout()
@@ -620,7 +629,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.btnRefreshAIRSNo.Location = New System.Drawing.Point(176, 30)
         Me.btnRefreshAIRSNo.Name = "btnRefreshAIRSNo"
         Me.btnRefreshAIRSNo.Size = New System.Drawing.Size(22, 22)
-        Me.btnRefreshAIRSNo.TabIndex = 1
+        Me.btnRefreshAIRSNo.TabIndex = 3
         Me.ToolTip1.SetToolTip(Me.btnRefreshAIRSNo, "Refresh facility information")
         Me.btnRefreshAIRSNo.UseVisualStyleBackColor = True
         Me.btnRefreshAIRSNo.Visible = False
@@ -643,7 +652,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.rtbFacilityInformation.ReadOnly = True
         Me.rtbFacilityInformation.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical
         Me.rtbFacilityInformation.Size = New System.Drawing.Size(301, 78)
-        Me.rtbFacilityInformation.TabIndex = 4
+        Me.rtbFacilityInformation.TabIndex = 7
         Me.rtbFacilityInformation.Text = ""
         '
         'txtAIRSNumber
@@ -658,7 +667,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.txtAIRSNumber.Name = "txtAIRSNumber"
         Me.txtAIRSNumber.ReadOnly = True
         Me.txtAIRSNumber.Size = New System.Drawing.Size(79, 20)
-        Me.txtAIRSNumber.TabIndex = 0
+        Me.txtAIRSNumber.TabIndex = 2
         Me.txtAIRSNumber.TextBoxBackColor = System.Drawing.SystemColors.Window
         '
         'lblAppNumber
@@ -747,7 +756,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.chbClosedOut.Location = New System.Drawing.Point(139, 59)
         Me.chbClosedOut.Name = "chbClosedOut"
         Me.chbClosedOut.Size = New System.Drawing.Size(80, 16)
-        Me.chbClosedOut.TabIndex = 3
+        Me.chbClosedOut.TabIndex = 6
         Me.chbClosedOut.Text = "Closed Out"
         '
         'Label10
@@ -765,7 +774,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.txtOutstandingApplication.Name = "txtOutstandingApplication"
         Me.txtOutstandingApplication.ReadOnly = True
         Me.txtOutstandingApplication.Size = New System.Drawing.Size(24, 20)
-        Me.txtOutstandingApplication.TabIndex = 2
+        Me.txtOutstandingApplication.TabIndex = 5
         '
         'TPSubPartEditor
         '
@@ -3257,24 +3266,24 @@ Partial Class SSPPApplicationTrackingLog
         Me.txtContactPhoneNumber.Location = New System.Drawing.Point(92, 151)
         Me.txtContactPhoneNumber.Name = "txtContactPhoneNumber"
         Me.txtContactPhoneNumber.Size = New System.Drawing.Size(149, 20)
-        Me.txtContactPhoneNumber.TabIndex = 366
+        Me.txtContactPhoneNumber.TabIndex = 11
         '
         'btnEmailAcknowledgmentLetter
         '
         Me.btnEmailAcknowledgmentLetter.AutoSize = True
-        Me.btnEmailAcknowledgmentLetter.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnEmailAcknowledgmentLetter.Location = New System.Drawing.Point(404, 206)
+        Me.btnEmailAcknowledgmentLetter.Enabled = False
+        Me.btnEmailAcknowledgmentLetter.Location = New System.Drawing.Point(546, 205)
         Me.btnEmailAcknowledgmentLetter.Name = "btnEmailAcknowledgmentLetter"
-        Me.btnEmailAcknowledgmentLetter.Size = New System.Drawing.Size(157, 23)
-        Me.btnEmailAcknowledgmentLetter.TabIndex = 17
-        Me.btnEmailAcknowledgmentLetter.Text = "Email Acknowledgment Letter"
+        Me.btnEmailAcknowledgmentLetter.Size = New System.Drawing.Size(174, 23)
+        Me.btnEmailAcknowledgmentLetter.TabIndex = 14
+        Me.btnEmailAcknowledgmentLetter.Text = "Generate Acknowledgment Email"
         Me.btnEmailAcknowledgmentLetter.UseVisualStyleBackColor = True
         '
         'btnGetCurrentPermittingContact
         '
         Me.btnGetCurrentPermittingContact.AutoSize = True
         Me.btnGetCurrentPermittingContact.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnGetCurrentPermittingContact.Location = New System.Drawing.Point(15, 5)
+        Me.btnGetCurrentPermittingContact.Location = New System.Drawing.Point(8, 5)
         Me.btnGetCurrentPermittingContact.Name = "btnGetCurrentPermittingContact"
         Me.btnGetCurrentPermittingContact.Size = New System.Drawing.Size(146, 23)
         Me.btnGetCurrentPermittingContact.TabIndex = 0
@@ -3287,7 +3296,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.mtbContactZipCode.Mask = "00000-9999"
         Me.mtbContactZipCode.Name = "mtbContactZipCode"
         Me.mtbContactZipCode.Size = New System.Drawing.Size(68, 20)
-        Me.mtbContactZipCode.TabIndex = 11
+        Me.mtbContactZipCode.TabIndex = 10
         Me.mtbContactZipCode.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
         '
         'mtbContactFaxNumber
@@ -3296,7 +3305,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.mtbContactFaxNumber.Mask = "(999) 000-0000"
         Me.mtbContactFaxNumber.Name = "mtbContactFaxNumber"
         Me.mtbContactFaxNumber.Size = New System.Drawing.Size(89, 20)
-        Me.mtbContactFaxNumber.TabIndex = 13
+        Me.mtbContactFaxNumber.TabIndex = 12
         Me.mtbContactFaxNumber.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
         '
         'txtContactDescription
@@ -3314,7 +3323,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.txtContactEmailAddress.MaxLength = 100
         Me.txtContactEmailAddress.Name = "txtContactEmailAddress"
         Me.txtContactEmailAddress.Size = New System.Drawing.Size(284, 20)
-        Me.txtContactEmailAddress.TabIndex = 14
+        Me.txtContactEmailAddress.TabIndex = 13
         '
         'txtContactState
         '
@@ -3322,7 +3331,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.txtContactState.MaxLength = 2
         Me.txtContactState.Name = "txtContactState"
         Me.txtContactState.Size = New System.Drawing.Size(40, 20)
-        Me.txtContactState.TabIndex = 10
+        Me.txtContactState.TabIndex = 9
         '
         'txtContactCity
         '
@@ -3330,7 +3339,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.txtContactCity.MaxLength = 50
         Me.txtContactCity.Name = "txtContactCity"
         Me.txtContactCity.Size = New System.Drawing.Size(171, 20)
-        Me.txtContactCity.TabIndex = 9
+        Me.txtContactCity.TabIndex = 8
         '
         'txtContactStreetAddress
         '
@@ -3338,7 +3347,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.txtContactStreetAddress.MaxLength = 100
         Me.txtContactStreetAddress.Name = "txtContactStreetAddress"
         Me.txtContactStreetAddress.Size = New System.Drawing.Size(385, 20)
-        Me.txtContactStreetAddress.TabIndex = 8
+        Me.txtContactStreetAddress.TabIndex = 7
         '
         'txtContactTitle
         '
@@ -3346,7 +3355,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.txtContactTitle.MaxLength = 100
         Me.txtContactTitle.Name = "txtContactTitle"
         Me.txtContactTitle.Size = New System.Drawing.Size(385, 20)
-        Me.txtContactTitle.TabIndex = 7
+        Me.txtContactTitle.TabIndex = 6
         '
         'txtContactCompanyName
         '
@@ -3354,7 +3363,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.txtContactCompanyName.MaxLength = 100
         Me.txtContactCompanyName.Name = "txtContactCompanyName"
         Me.txtContactCompanyName.Size = New System.Drawing.Size(385, 20)
-        Me.txtContactCompanyName.TabIndex = 6
+        Me.txtContactCompanyName.TabIndex = 5
         '
         'txtContactPedigree
         '
@@ -3362,7 +3371,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.txtContactPedigree.MaxLength = 15
         Me.txtContactPedigree.Name = "txtContactPedigree"
         Me.txtContactPedigree.Size = New System.Drawing.Size(72, 20)
-        Me.txtContactPedigree.TabIndex = 5
+        Me.txtContactPedigree.TabIndex = 4
         '
         'txtContactSocialTitle
         '
@@ -3370,7 +3379,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.txtContactSocialTitle.MaxLength = 15
         Me.txtContactSocialTitle.Name = "txtContactSocialTitle"
         Me.txtContactSocialTitle.Size = New System.Drawing.Size(72, 20)
-        Me.txtContactSocialTitle.TabIndex = 2
+        Me.txtContactSocialTitle.TabIndex = 1
         '
         'txtContactLastName
         '
@@ -3378,7 +3387,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.txtContactLastName.MaxLength = 35
         Me.txtContactLastName.Name = "txtContactLastName"
         Me.txtContactLastName.Size = New System.Drawing.Size(170, 20)
-        Me.txtContactLastName.TabIndex = 4
+        Me.txtContactLastName.TabIndex = 3
         '
         'txtContactFirstName
         '
@@ -3386,12 +3395,12 @@ Partial Class SSPPApplicationTrackingLog
         Me.txtContactFirstName.MaxLength = 35
         Me.txtContactFirstName.Name = "txtContactFirstName"
         Me.txtContactFirstName.Size = New System.Drawing.Size(170, 20)
-        Me.txtContactFirstName.TabIndex = 3
+        Me.txtContactFirstName.TabIndex = 2
         '
         'Label46
         '
         Me.Label46.AutoSize = True
-        Me.Label46.Location = New System.Drawing.Point(9, 245)
+        Me.Label46.Location = New System.Drawing.Point(8, 245)
         Me.Label46.Name = "Label46"
         Me.Label46.Size = New System.Drawing.Size(60, 13)
         Me.Label46.TabIndex = 365
@@ -3409,7 +3418,7 @@ Partial Class SSPPApplicationTrackingLog
         'Label40
         '
         Me.Label40.AutoSize = True
-        Me.Label40.Location = New System.Drawing.Point(9, 38)
+        Me.Label40.Location = New System.Drawing.Point(8, 38)
         Me.Label40.Name = "Label40"
         Me.Label40.Size = New System.Drawing.Size(59, 13)
         Me.Label40.TabIndex = 363
@@ -3418,7 +3427,7 @@ Partial Class SSPPApplicationTrackingLog
         'Label39
         '
         Me.Label39.AutoSize = True
-        Me.Label39.Location = New System.Drawing.Point(9, 120)
+        Me.Label39.Location = New System.Drawing.Point(8, 120)
         Me.Label39.Name = "Label39"
         Me.Label39.Size = New System.Drawing.Size(33, 13)
         Me.Label39.TabIndex = 362
@@ -3445,7 +3454,7 @@ Partial Class SSPPApplicationTrackingLog
         'Label38
         '
         Me.Label38.AutoSize = True
-        Me.Label38.Location = New System.Drawing.Point(9, 92)
+        Me.Label38.Location = New System.Drawing.Point(8, 92)
         Me.Label38.Name = "Label38"
         Me.Label38.Size = New System.Drawing.Size(58, 13)
         Me.Label38.TabIndex = 356
@@ -3463,7 +3472,7 @@ Partial Class SSPPApplicationTrackingLog
         'Label27
         '
         Me.Label27.AutoSize = True
-        Me.Label27.Location = New System.Drawing.Point(8, 154)
+        Me.Label27.Location = New System.Drawing.Point(7, 154)
         Me.Label27.Name = "Label27"
         Me.Label27.Size = New System.Drawing.Size(78, 13)
         Me.Label27.TabIndex = 354
@@ -3472,7 +3481,7 @@ Partial Class SSPPApplicationTrackingLog
         'Label26
         '
         Me.Label26.AutoSize = True
-        Me.Label26.Location = New System.Drawing.Point(9, 179)
+        Me.Label26.Location = New System.Drawing.Point(8, 179)
         Me.Label26.Name = "Label26"
         Me.Label26.Size = New System.Drawing.Size(64, 13)
         Me.Label26.TabIndex = 353
@@ -3481,7 +3490,7 @@ Partial Class SSPPApplicationTrackingLog
         'Label20
         '
         Me.Label20.AutoSize = True
-        Me.Label20.Location = New System.Drawing.Point(9, 210)
+        Me.Label20.Location = New System.Drawing.Point(8, 210)
         Me.Label20.Name = "Label20"
         Me.Label20.Size = New System.Drawing.Size(73, 13)
         Me.Label20.TabIndex = 352
@@ -3508,7 +3517,7 @@ Partial Class SSPPApplicationTrackingLog
         'Label11
         '
         Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(9, 64)
+        Me.Label11.Location = New System.Drawing.Point(8, 64)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(57, 13)
         Me.Label11.TabIndex = 348
@@ -3540,7 +3549,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.TPWebPublisher.Name = "TPWebPublisher"
         Me.TPWebPublisher.Size = New System.Drawing.Size(784, 477)
         Me.TPWebPublisher.TabIndex = 4
-        Me.TPWebPublisher.Text = "Web Publisher"
+        Me.TPWebPublisher.Text = "Web Publish"
         Me.TPWebPublisher.UseVisualStyleBackColor = True
         '
         'lblPNExpires
@@ -4519,7 +4528,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.TPOtherInfo.Name = "TPOtherInfo"
         Me.TPOtherInfo.Size = New System.Drawing.Size(784, 477)
         Me.TPOtherInfo.TabIndex = 5
-        Me.TPOtherInfo.Text = "Other Information"
+        Me.TPOtherInfo.Text = "Other Info"
         Me.TPOtherInfo.UseVisualStyleBackColor = True
         '
         'OtherInfoGroup
@@ -5675,6 +5684,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.TCApplicationTrackingLog.Controls.Add(Me.TPDocuments)
         Me.TCApplicationTrackingLog.Controls.Add(Me.TPSubPartEditor)
         Me.TCApplicationTrackingLog.Controls.Add(Me.TPFees)
+        Me.TCApplicationTrackingLog.Controls.Add(Me.TPEmails)
         Me.TCApplicationTrackingLog.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TCApplicationTrackingLog.Location = New System.Drawing.Point(0, 130)
         Me.TCApplicationTrackingLog.Name = "TCApplicationTrackingLog"
@@ -5684,6 +5694,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         'TPFees
         '
+        Me.TPFees.Controls.Add(Me.lklRecipientLink)
         Me.TPFees.Controls.Add(Me.btnSaveFeesGenerateInvoice)
         Me.TPFees.Controls.Add(Me.lblFeeChangesNotAllowedWarning)
         Me.TPFees.Controls.Add(Me.SplitContainer1)
@@ -5710,6 +5721,16 @@ Partial Class SSPPApplicationTrackingLog
         Me.TPFees.TabIndex = 9
         Me.TPFees.Text = "Fees"
         Me.TPFees.UseVisualStyleBackColor = True
+        '
+        'lklRecipientLink
+        '
+        Me.lklRecipientLink.AutoSize = True
+        Me.lklRecipientLink.Location = New System.Drawing.Point(8, 318)
+        Me.lklRecipientLink.Name = "lklRecipientLink"
+        Me.lklRecipientLink.Size = New System.Drawing.Size(55, 13)
+        Me.lklRecipientLink.TabIndex = 16
+        Me.lklRecipientLink.TabStop = True
+        Me.lklRecipientLink.Text = "Recipient:"
         '
         'btnSaveFeesGenerateInvoice
         '
@@ -6055,36 +6076,36 @@ Partial Class SSPPApplicationTrackingLog
         '
         'pnlFeeDataFinalized
         '
+        Me.pnlFeeDataFinalized.Controls.Add(Me.btnGenerateFeeNotification)
         Me.pnlFeeDataFinalized.Controls.Add(Me.lblFeeDataFinalized)
-        Me.pnlFeeDataFinalized.Controls.Add(Me.lklGenerateEmail)
         Me.pnlFeeDataFinalized.Controls.Add(Me.dtpFacilityFeeNotified)
         Me.pnlFeeDataFinalized.Controls.Add(Me.lblFacilityFeeNotified)
         Me.pnlFeeDataFinalized.Controls.Add(Me.dtpFeeDataFinalized)
-        Me.pnlFeeDataFinalized.Location = New System.Drawing.Point(11, 231)
+        Me.pnlFeeDataFinalized.Location = New System.Drawing.Point(3, 231)
         Me.pnlFeeDataFinalized.Name = "pnlFeeDataFinalized"
-        Me.pnlFeeDataFinalized.Size = New System.Drawing.Size(280, 76)
+        Me.pnlFeeDataFinalized.Size = New System.Drawing.Size(288, 79)
         Me.pnlFeeDataFinalized.TabIndex = 3
         Me.pnlFeeDataFinalized.Visible = False
+        '
+        'btnGenerateFeeNotification
+        '
+        Me.btnGenerateFeeNotification.AutoSize = True
+        Me.btnGenerateFeeNotification.Enabled = False
+        Me.btnGenerateFeeNotification.Location = New System.Drawing.Point(0, 54)
+        Me.btnGenerateFeeNotification.Name = "btnGenerateFeeNotification"
+        Me.btnGenerateFeeNotification.Size = New System.Drawing.Size(145, 23)
+        Me.btnGenerateFeeNotification.TabIndex = 15
+        Me.btnGenerateFeeNotification.Text = "Generate Notification Email"
+        Me.btnGenerateFeeNotification.UseVisualStyleBackColor = True
         '
         'lblFeeDataFinalized
         '
         Me.lblFeeDataFinalized.AutoSize = True
-        Me.lblFeeDataFinalized.Location = New System.Drawing.Point(-3, 4)
+        Me.lblFeeDataFinalized.Location = New System.Drawing.Point(5, 4)
         Me.lblFeeDataFinalized.Name = "lblFeeDataFinalized"
         Me.lblFeeDataFinalized.Size = New System.Drawing.Size(95, 13)
         Me.lblFeeDataFinalized.TabIndex = 9
         Me.lblFeeDataFinalized.Text = "Fee Data Finalized"
-        '
-        'lklGenerateEmail
-        '
-        Me.lklGenerateEmail.AutoSize = True
-        Me.lklGenerateEmail.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lklGenerateEmail.Location = New System.Drawing.Point(-3, 25)
-        Me.lklGenerateEmail.Name = "lklGenerateEmail"
-        Me.lklGenerateEmail.Size = New System.Drawing.Size(78, 13)
-        Me.lklGenerateEmail.TabIndex = 12
-        Me.lklGenerateEmail.TabStop = True
-        Me.lklGenerateEmail.Text = "Generate email"
         '
         'dtpFacilityFeeNotified
         '
@@ -6092,7 +6113,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.dtpFacilityFeeNotified.CustomFormat = "dd-MMM-yyyy"
         Me.dtpFacilityFeeNotified.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.dtpFacilityFeeNotified.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpFacilityFeeNotified.Location = New System.Drawing.Point(164, 44)
+        Me.dtpFacilityFeeNotified.Location = New System.Drawing.Point(164, 27)
         Me.dtpFacilityFeeNotified.Name = "dtpFacilityFeeNotified"
         Me.dtpFacilityFeeNotified.ShowCheckBox = True
         Me.dtpFacilityFeeNotified.Size = New System.Drawing.Size(116, 21)
@@ -6101,7 +6122,7 @@ Partial Class SSPPApplicationTrackingLog
         'lblFacilityFeeNotified
         '
         Me.lblFacilityFeeNotified.AutoSize = True
-        Me.lblFacilityFeeNotified.Location = New System.Drawing.Point(-3, 48)
+        Me.lblFacilityFeeNotified.Location = New System.Drawing.Point(5, 31)
         Me.lblFacilityFeeNotified.Name = "lblFacilityFeeNotified"
         Me.lblFacilityFeeNotified.Size = New System.Drawing.Size(78, 13)
         Me.lblFacilityFeeNotified.TabIndex = 9
@@ -6117,6 +6138,70 @@ Partial Class SSPPApplicationTrackingLog
         Me.dtpFeeDataFinalized.Name = "dtpFeeDataFinalized"
         Me.dtpFeeDataFinalized.Size = New System.Drawing.Size(98, 21)
         Me.dtpFeeDataFinalized.TabIndex = 13
+        '
+        'TPEmails
+        '
+        Me.TPEmails.Controls.Add(Me.btnRefreshEmailsSent)
+        Me.TPEmails.Controls.Add(Me.lblNoEmailsSentLabel)
+        Me.TPEmails.Controls.Add(Me.dgvEmailsSent)
+        Me.TPEmails.Controls.Add(Me.lblEmailsSent)
+        Me.TPEmails.Location = New System.Drawing.Point(4, 22)
+        Me.TPEmails.Name = "TPEmails"
+        Me.TPEmails.Size = New System.Drawing.Size(784, 477)
+        Me.TPEmails.TabIndex = 10
+        Me.TPEmails.Text = "Emails"
+        Me.TPEmails.UseVisualStyleBackColor = True
+        '
+        'btnRefreshEmailsSent
+        '
+        Me.btnRefreshEmailsSent.AutoSize = True
+        Me.btnRefreshEmailsSent.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.btnRefreshEmailsSent.Image = Global.Iaip.My.Resources.Resources.RefreshIcon
+        Me.btnRefreshEmailsSent.Location = New System.Drawing.Point(11, 8)
+        Me.btnRefreshEmailsSent.Name = "btnRefreshEmailsSent"
+        Me.btnRefreshEmailsSent.Size = New System.Drawing.Size(22, 22)
+        Me.btnRefreshEmailsSent.TabIndex = 0
+        Me.ToolTip1.SetToolTip(Me.btnRefreshEmailsSent, "Reload list of emails sent")
+        Me.btnRefreshEmailsSent.UseVisualStyleBackColor = True
+        '
+        'lblNoEmailsSentLabel
+        '
+        Me.lblNoEmailsSentLabel.AutoSize = True
+        Me.lblNoEmailsSentLabel.Location = New System.Drawing.Point(13, 39)
+        Me.lblNoEmailsSentLabel.Name = "lblNoEmailsSentLabel"
+        Me.lblNoEmailsSentLabel.Size = New System.Drawing.Size(33, 13)
+        Me.lblNoEmailsSentLabel.TabIndex = 368
+        Me.lblNoEmailsSentLabel.Text = "None"
+        '
+        'dgvEmailsSent
+        '
+        DataGridViewCellStyle3.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvEmailsSent.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle3
+        Me.dgvEmailsSent.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.dgvEmailsSent.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
+        Me.dgvEmailsSent.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvEmailsSent.DateFieldFormat = "d-MMM-yyyy h:mm tt"
+        Me.dgvEmailsSent.GridColor = System.Drawing.SystemColors.ControlLight
+        Me.dgvEmailsSent.LinkifyColumnByName = Nothing
+        Me.dgvEmailsSent.Location = New System.Drawing.Point(11, 36)
+        Me.dgvEmailsSent.Name = "dgvEmailsSent"
+        Me.dgvEmailsSent.ResultsCountLabel = Nothing
+        Me.dgvEmailsSent.ResultsCountLabelFormat = "{0} found"
+        Me.dgvEmailsSent.Size = New System.Drawing.Size(765, 162)
+        Me.dgvEmailsSent.StandardTab = True
+        Me.dgvEmailsSent.TabIndex = 1
+        Me.dgvEmailsSent.Visible = False
+        '
+        'lblEmailsSent
+        '
+        Me.lblEmailsSent.AutoSize = True
+        Me.lblEmailsSent.Location = New System.Drawing.Point(39, 13)
+        Me.lblEmailsSent.Name = "lblEmailsSent"
+        Me.lblEmailsSent.Size = New System.Drawing.Size(63, 13)
+        Me.lblEmailsSent.TabIndex = 369
+        Me.lblEmailsSent.Text = "Emails sent:"
         '
         'ToolStrip1
         '
@@ -6201,7 +6286,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.btnFetchNewAppNumber.Location = New System.Drawing.Point(211, 3)
         Me.btnFetchNewAppNumber.Name = "btnFetchNewAppNumber"
         Me.btnFetchNewAppNumber.Size = New System.Drawing.Size(22, 22)
-        Me.btnFetchNewAppNumber.TabIndex = 0
+        Me.btnFetchNewAppNumber.TabIndex = 1
         Me.ToolTip1.SetToolTip(Me.btnFetchNewAppNumber, "Fetch new application number")
         Me.btnFetchNewAppNumber.UseVisualStyleBackColor = True
         Me.btnFetchNewAppNumber.Visible = False
@@ -6214,7 +6299,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.btnOpenFacility.Location = New System.Drawing.Point(204, 30)
         Me.btnOpenFacility.Name = "btnOpenFacility"
         Me.btnOpenFacility.Size = New System.Drawing.Size(22, 22)
-        Me.btnOpenFacility.TabIndex = 1
+        Me.btnOpenFacility.TabIndex = 4
         Me.ToolTip1.SetToolTip(Me.btnOpenFacility, "Open Facility Summary")
         Me.btnOpenFacility.UseVisualStyleBackColor = True
         Me.btnOpenFacility.Visible = False
@@ -6354,6 +6439,9 @@ Partial Class SSPPApplicationTrackingLog
         CType(Me.dgvApplicationPayments, System.ComponentModel.ISupportInitialize).EndInit()
         Me.pnlFeeDataFinalized.ResumeLayout(False)
         Me.pnlFeeDataFinalized.PerformLayout()
+        Me.TPEmails.ResumeLayout(False)
+        Me.TPEmails.PerformLayout()
+        CType(Me.dgvEmailsSent, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ToolStrip1.ResumeLayout(False)
         Me.ToolStrip1.PerformLayout()
         Me.HeaderPanel.ResumeLayout(False)
@@ -6834,7 +6922,6 @@ Partial Class SSPPApplicationTrackingLog
     Friend WithEvents TPFees As TabPage
     Friend WithEvents dtpFacilityFeeNotified As DateTimePicker
     Friend WithEvents lblFeeDataFinalized As Label
-    Friend WithEvents lklGenerateEmail As LinkLabel
     Friend WithEvents chbAppFee As CheckBox
     Friend WithEvents chbExpFee As CheckBox
     Friend WithEvents txtExpFeeOverrideReason As TextBox
@@ -6873,4 +6960,11 @@ Partial Class SSPPApplicationTrackingLog
     Friend WithEvents pnlAssignments As Panel
     Friend WithEvents btnSaveFeesGenerateInvoice As Button
     Friend WithEvents btnOpenFacility As Button
+    Friend WithEvents btnGenerateFeeNotification As Button
+    Friend WithEvents TPEmails As TabPage
+    Friend WithEvents btnRefreshEmailsSent As Button
+    Friend WithEvents lblNoEmailsSentLabel As Label
+    Friend WithEvents dgvEmailsSent As IaipDataGridView
+    Friend WithEvents lblEmailsSent As Label
+    Friend WithEvents lklRecipientLink As LinkLabel
 End Class
