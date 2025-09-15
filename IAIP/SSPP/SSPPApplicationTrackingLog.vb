@@ -34,7 +34,6 @@ Public Class SSPPApplicationTrackingLog
     Private Property NewApplication As Boolean
 
     Private Property LastModificationDateAsLoaded As DateTimeOffset = Nothing
-    Private Property FacilityApplicationHistoryLoaded As Boolean
     Private MasterApp As String
     Private FormStatus As String
     Private UpdatingValues As Boolean
@@ -106,20 +105,22 @@ Public Class SSPPApplicationTrackingLog
 
 #End Region
 
+#Region "Page Load Functions"
+
     Protected Overrides Sub OnLoad(e As EventArgs)
         FormStatus = "Loading"
         LoadDefaultDates()
-        LoadComboBoxes()
         LoadPermissions()
-        LoadSubPartData()
-
-        ' Parse parameters & load data
+        LoadMainComboBoxes() ' This is 30% of total load time
         ParseParameters()
 
         If AppNumber > 0 Then
             If ApplicationExists(AppNumber) Then
                 AddBreadcrumb("SSPP Application Tracking Log: load application", "Application #", AppNumber, Me)
-                LoadApplication()
+
+                ' Application data can be refactored to only load if respective tab page is available.
+                ' Additional refactoring an postpone loading tab page until the first time it is viewed.
+                LoadApplication() ' This is 63% of total load time
             Else
                 MessageBox.Show("Application #" & AppNumber.ToString & " does not exist.")
                 Close()
@@ -134,11 +135,15 @@ Public Class SSPPApplicationTrackingLog
         MyBase.OnLoad(e)
     End Sub
 
-#Region "Page Load Functions"
+    Protected Overrides Sub OnShown(e As EventArgs)
+        MyBase.OnShown(e)
+    End Sub
 
     Private Sub ParseParameters()
-        If Parameters IsNot Nothing AndAlso Parameters.ContainsKey(FormParameter.AppNumber) Then
-            AppNumber = CInt(Parameters(FormParameter.AppNumber))
+        Dim value As String = Nothing
+
+        If Parameters IsNot Nothing AndAlso Parameters.TryGetValue(FormParameter.AppNumber, value) Then
+            AppNumber = CInt(value)
         End If
     End Sub
 
@@ -238,160 +243,184 @@ Public Class SSPPApplicationTrackingLog
         DTPPNExpires.Checked = False
     End Sub
 
-    Private Sub LoadComboBoxes()
-        Try
-            cboOperationalStatus.Items.Add("O - Operating")
-            cboOperationalStatus.Items.Add("P - Planned")
-            cboOperationalStatus.Items.Add("C - Under Construction")
-            cboOperationalStatus.Items.Add("T - Temporarily Closed")
-            cboOperationalStatus.Items.Add("X - Permanently Closed")
-            cboOperationalStatus.Items.Add("I - Seasonal Operation")
+    Private Sub LoadMainComboBoxes()
+        cboOperationalStatus.Items.Add("O - Operating")
+        cboOperationalStatus.Items.Add("P - Planned")
+        cboOperationalStatus.Items.Add("C - Under Construction")
+        cboOperationalStatus.Items.Add("T - Temporarily Closed")
+        cboOperationalStatus.Items.Add("X - Permanently Closed")
+        cboOperationalStatus.Items.Add("I - Seasonal Operation")
 
-            cboClassification.Items.Add("A - MAJOR")
-            cboClassification.Items.Add("B - MINOR")
-            cboClassification.Items.Add("C - UNKNOWN")
-            cboClassification.Items.Add("SM - SYNTHETIC MINOR")
-            cboClassification.Items.Add("PR - PERMIT BY RULE")
+        cboClassification.Items.Add("A - MAJOR")
+        cboClassification.Items.Add("B - MINOR")
+        cboClassification.Items.Add("C - UNKNOWN")
+        cboClassification.Items.Add("SM - SYNTHETIC MINOR")
+        cboClassification.Items.Add("PR - PERMIT BY RULE")
 
-            cboPublicAdvisory.Items.Add("Not Decided")
-            cboPublicAdvisory.Items.Add("PA Needed")
-            cboPublicAdvisory.Items.Add("PA Not Needed")
+        cboPublicAdvisory.Items.Add("Not Decided")
+        cboPublicAdvisory.Items.Add("PA Needed")
+        cboPublicAdvisory.Items.Add("PA Not Needed")
 
-            Dim query As String = "SELECT 'N/A' AS EngineerName, 0 AS NUMUSERID " &
-                " " &
-                "UNION " &
-                "SELECT concat(u.STRLASTNAME , ', ' , u.STRFIRSTNAME) AS EngineerName " &
-                "  , u.NUMUSERID " &
-                "FROM EPDUSERPROFILES u " &
-                "WHERE u.NUMPROGRAM = 5 " &
-                "UNION " &
-                "SELECT concat(u.STRLASTNAME , ', ' , u.STRFIRSTNAME) AS " &
-                "  EngineerName, u.NUMUSERID " &
-                "FROM EPDUSERPROFILES u " &
-                "INNER JOIN SSPPAPPLICATIONMASTER a ON " &
-                "  a.STRSTAFFRESPONSIBLE = u.NUMUSERID " &
-                "WHERE u.NUMPROGRAM <> 5 AND u.NUMUSERID <> 0 " &
-                "ORDER BY EngineerName"
-            Dim dtEngineerList As DataTable = DB.GetDataTable(query)
-            With cboEngineer
-                .DataSource = dtEngineerList
-                .DisplayMember = "EngineerName"
-                .ValueMember = "NUMUSERID"
-                .SelectedValue = 0
-            End With
+        With cboEngineer
+            .DataSource = GetSharedData(SharedTable.SsppEngineersList)
+            .DisplayMember = "EngineerName"
+            .ValueMember = "NUMUSERID"
+            .SelectedValue = 0
+        End With
 
-            query = "SELECT 'N/A' AS EngineerName, 0 AS NUMUSERID " &
-                "UNION " &
-                "SELECT concat(STRLASTNAME , ', ' ,STRFIRSTNAME) AS EngineerName, " &
-                "  NUMUSERID " &
-                "FROM EPDUSERPROFILES " &
-                "WHERE NUMPROGRAM = '4' " &
-                "ORDER BY EngineerName"
-            Dim dtSSCPList As DataTable = DB.GetDataTable(query)
-            With cboSSCPStaff
-                .DataSource = dtSSCPList
-                .DisplayMember = "EngineerName"
-                .ValueMember = "NUMUSERID"
-                .SelectedValue = 0
-            End With
+        Dim dtCountyList As DataTable = GetSharedData(SharedTable.Counties).Copy
+        dtCountyList.Rows.Add({"000", " N/A"})
+        With cboCounty
+            .DataSource = dtCountyList
+            .DisplayMember = "County"
+            .ValueMember = "CountyCode"
+            .SelectedIndex = 0
+        End With
 
-            query = "SELECT 'N/A' AS EngineerName, 0 AS NUMUSERID " &
-                "UNION " &
-                "SELECT concat(STRLASTNAME , ', ' ,STRFIRSTNAME) AS EngineerName, " &
-                "  NUMUSERID " &
-                "FROM EPDUSERPROFILES " &
-                "WHERE NUMPROGRAM = '3' " &
-                "ORDER BY EngineerName"
-            Dim dtISMPList As DataTable = DB.GetDataTable(query)
-            With cboISMPStaff
-                .DataSource = dtISMPList
-                .DisplayMember = "EngineerName"
-                .ValueMember = "numUserID"
-                .SelectedValue = 0
-            End With
+        With cboApplicationType
+            .DataSource = GetSharedData(SharedTable.ApplicationTypes)
+            .DisplayMember = "Application Type"
+            .ValueMember = "Application Type Code"
+            .SelectedValue = 0
+        End With
 
-            query = "SELECT STRCOUNTYCODE, STRCOUNTYNAME " &
-                "FROM LOOKUPCOUNTYINFORMATION " &
-                "UNION " &
-                "SELECT '000', ' N/A' ORDER BY STRCOUNTYNAME"
-            Dim dtCountyList As DataTable = DB.GetDataTable(query)
-            With cboCounty
-                .DataSource = dtCountyList
-                .DisplayMember = "strCountyName"
-                .ValueMember = "strCountyCode"
-                .SelectedIndex = 0
-            End With
+        With cboPermitAction
+            .DataSource = GetSharedData(SharedTable.PermitTypes)
+            .DisplayMember = "STRPERMITTYPEDESCRIPTION"
+            .ValueMember = "STRPERMITTYPECODE"
+            .SelectedIndex = 0
+        End With
 
-            With cboApplicationType
-                .DataSource = GetApplicationTypes()
-                .DisplayMember = "Application Type"
-                .ValueMember = "Application Type Code"
-                .SelectedValue = 0
-            End With
+        With cboFacilityCity
+            .DataSource = GetSharedData(SharedTable.AllFacilityCities)
+            .SelectedIndex = -1
+        End With
 
-            query = "SELECT STRPERMITTYPECODE, STRPERMITTYPEDESCRIPTION " &
-                "FROM LOOKUPPERMITTYPES " &
-                "WHERE STRTYPEUSED <> 'False' OR STRTYPEUSED IS NULL " &
-                "UNION " &
-                "SELECT '', ' ' ORDER BY STRPERMITTYPEDESCRIPTION"
-            With cboPermitAction
-                .DataSource = DB.GetDataTable(query)
-                .DisplayMember = "strPermitTypeDescription"
-                .ValueMember = "strPermitTypeCode"
-                .SelectedIndex = 0
-            End With
+        With cboApplicationUnit
+            .DataSource = GetSharedData(SharedTable.SsppUnits)
+            .DisplayMember = "STRUNITDESC"
+            .ValueMember = "NUMUNITCODE"
+            .SelectedValue = 0
+        End With
+    End Sub
 
-            query = "SELECT CITY FROM VW_CITIES ORDER BY CITY"
-            Dim dtCity As DataTable = DB.GetDataTable(query)
-            With cboFacilityCity
-                .DataSource = dtCity
-                .DisplayMember = "City"
-                .ValueMember = "City"
-                .SelectedIndex = -1
-            End With
+    Private ReviewTabLoaded As Boolean = False
+    Private Sub LoadComplianceReview()
+        If Not TCApplicationTrackingLog.TabPages.Contains(TPReviews) OrElse ReviewTabLoaded Then
+            Return
+        End If
 
-            query = "SELECT STRUNITDESC, NUMUNITCODE " &
-                "FROM LOOKUPEPDUNITS " &
-                "WHERE NUMPROGRAMCODE = 5 and Active = 1 " &
-                "UNION " &
-                "SELECT ' ', 0 ORDER BY STRUNITDESC"
-            Dim dtSSPPUnit As DataTable = DB.GetDataTable(query)
-            With cboApplicationUnit
-                .DataSource = dtSSPPUnit
-                .DisplayMember = "strUnitDesc"
-                .ValueMember = "numUnitCode"
-                .SelectedValue = 0
-            End With
+        Cursor = Cursors.WaitCursor
 
-            query = "SELECT STRUNITDESC, NUMUNITCODE " &
-                "FROM LOOKUPEPDUNITS " &
-                "WHERE NUMPROGRAMCODE = 4 and Active = 1 " &
-                "UNION " &
-                "SELECT 'No Review Needed', 0 ORDER BY STRUNITDESC"
-            Dim dtSSCPUnit As DataTable = DB.GetDataTable(query)
-            With cboSSCPUnits
-                .DataSource = dtSSCPUnit
-                .DisplayMember = "strUnitDesc"
-                .ValueMember = "numUnitCode"
-                .SelectedValue = 0
-            End With
+        LoadComboBoxesForReviewTab()
+        LoadReviewTab()
+        ReviewTabLoaded = True
 
-            query = "SELECT STRUNITDESC, NUMUNITCODE " &
-                "FROM LOOKUPEPDUNITS " &
-                "WHERE NUMPROGRAMCODE = 3 and Active = 1 " &
-                "UNION " &
-                "SELECT 'No Review Needed', 0 ORDER BY STRUNITDESC"
-            Dim dtISMPUnit As DataTable = DB.GetDataTable(query)
-            With cboISMPUnits
-                .DataSource = dtISMPUnit
-                .DisplayMember = "strUnitDesc"
-                .ValueMember = "numUnitCode"
-                .SelectedValue = 0
-            End With
+        Cursor = Nothing
+    End Sub
 
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+    Private Sub LoadComboBoxesForReviewTab()
+        Dim query As String = "SELECT 'N/A' AS EngineerName, 0 AS NUMUSERID " &
+            "UNION " &
+            "SELECT concat(STRLASTNAME , ', ' ,STRFIRSTNAME) AS EngineerName, " &
+            "  NUMUSERID " &
+            "FROM EPDUSERPROFILES " &
+            "WHERE NUMPROGRAM = '4' " &
+            "ORDER BY EngineerName"
+        Dim dtSSCPList As DataTable = DB.GetDataTable(query)
+        With cboSSCPStaff
+            .DataSource = dtSSCPList
+            .DisplayMember = "EngineerName"
+            .ValueMember = "NUMUSERID"
+            .SelectedValue = 0
+        End With
+
+        query = "SELECT 'N/A' AS EngineerName, 0 AS NUMUSERID " &
+            "UNION " &
+            "SELECT concat(STRLASTNAME , ', ' ,STRFIRSTNAME) AS EngineerName, " &
+            "  NUMUSERID " &
+            "FROM EPDUSERPROFILES " &
+            "WHERE NUMPROGRAM = '3' " &
+            "ORDER BY EngineerName"
+        Dim dtISMPList As DataTable = DB.GetDataTable(query)
+        With cboISMPStaff
+            .DataSource = dtISMPList
+            .DisplayMember = "EngineerName"
+            .ValueMember = "numUserID"
+            .SelectedValue = 0
+        End With
+
+        query = "SELECT STRUNITDESC, NUMUNITCODE " &
+        "FROM LOOKUPEPDUNITS " &
+        "WHERE NUMPROGRAMCODE = 4 and Active = 1 " &
+        "UNION " &
+        "SELECT 'No Review Needed', 0 ORDER BY STRUNITDESC"
+        Dim dtSSCPUnit As DataTable = DB.GetDataTable(query)
+        With cboSSCPUnits
+            .DataSource = dtSSCPUnit
+            .DisplayMember = "strUnitDesc"
+            .ValueMember = "numUnitCode"
+            .SelectedValue = 0
+        End With
+
+        query = "SELECT STRUNITDESC, NUMUNITCODE " &
+            "FROM LOOKUPEPDUNITS " &
+            "WHERE NUMPROGRAMCODE = 3 and Active = 1 " &
+            "UNION " &
+            "SELECT 'No Review Needed', 0 ORDER BY STRUNITDESC"
+        Dim dtISMPUnit As DataTable = DB.GetDataTable(query)
+        With cboISMPUnits
+            .DataSource = dtISMPUnit
+            .DisplayMember = "strUnitDesc"
+            .ValueMember = "numUnitCode"
+            .SelectedValue = 0
+        End With
+    End Sub
+
+    Private SubpartEditorTabLoaded As Boolean = False
+    Private Sub LoadComboBoxesForSubpartEditor()
+        If Not TCApplicationTrackingLog.TabPages.Contains(TPSubPartEditor) OrElse SubpartEditorTabLoaded Then
+            Return
+        End If
+
+        Cursor = Cursors.WaitCursor
+
+        Dim dtPart60 As DataTable = GetSharedData(SharedDataSet.RuleSubparts).Tables(RulePart.NSPS.ToString)
+        Dim dtPart61 As DataTable = GetSharedData(SharedDataSet.RuleSubparts).Tables(RulePart.NESHAP.ToString)
+        Dim dtPart63 As DataTable = GetSharedData(SharedDataSet.RuleSubparts).Tables(RulePart.MACT.ToString)
+        Dim dtSIP As DataTable = GetSharedData(SharedDataSet.RuleSubparts).Tables(RulePart.SIP.ToString)
+
+        With cboSIPSubpart
+            .DataSource = dtSIP
+            .DisplayMember = "Long Description"
+            .ValueMember = "SubPart"
+            .SelectedIndex = 0
+        End With
+
+        With cboNSPSSubpart
+            .DataSource = dtPart60
+            .DisplayMember = "Description"
+            .ValueMember = "SubPart"
+            .SelectedIndex = 0
+        End With
+
+        With cboNESHAPSubpart
+            .DataSource = dtPart61
+            .DisplayMember = "Description"
+            .ValueMember = "SubPart"
+            .SelectedIndex = 0
+        End With
+
+        With cboMACTSubpart
+            .DataSource = dtPart63
+            .DisplayMember = "Description"
+            .ValueMember = "SubPart"
+            .SelectedIndex = 0
+        End With
+
+        SubpartEditorTabLoaded = True
+
+        Cursor = Nothing
     End Sub
 
     Private Sub LoadPermissions()
@@ -2445,10 +2474,13 @@ Public Class SSPPApplicationTrackingLog
                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0")
     End Function
 
+    Private Property FacilityApplicationHistoryLoaded As Boolean
     Private Sub LoadFacilityApplicationHistory()
-        If AppNumber = 0 OrElse FacilityApplicationHistoryLoaded OrElse AirsId Is Nothing Then
+        If AppNumber = 0 OrElse AirsId Is Nothing OrElse FacilityApplicationHistoryLoaded Then
             Return
         End If
+
+        Cursor = Cursors.WaitCursor
 
         Dim query As String = "Select CONVERT(int, SSPPApplicationMaster.strApplicationNumber) as strApplicationNumber, " &
             "case " &
@@ -2540,12 +2572,17 @@ Public Class SSPPApplicationTrackingLog
         CheckForLinkedApplications()
 
         FacilityApplicationHistoryLoaded = True
+
+        Cursor = Nothing
     End Sub
 
+    Private Property InformationRequestLoaded As Boolean
     Private Sub LoadInformationRequestHistory()
-        If AppNumber = 0 Then
+        If AppNumber = 0 OrElse AirsId Is Nothing OrElse InformationRequestLoaded Then
             Return
         End If
+
+        Cursor = Cursors.WaitCursor
 
         Dim query As String = "Select " &
             "strApplicationNumber, strRequestKey, " &
@@ -2605,46 +2642,10 @@ Public Class SSPPApplicationTrackingLog
         dgvInformationRequested.Columns("strApplicationNumber").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
         dgvInformationRequested.Columns("strApplicationNumber").DisplayIndex = 5
         dgvInformationRequested.Columns("strApplicationNumber").Visible = False
-    End Sub
 
-    Private Sub LoadSubPartData()
-        Try
-            Dim dtPart60 As DataTable = GetSharedData(SharedDataSet.RuleSubparts).Tables(RulePart.NSPS.ToString)
-            Dim dtPart61 As DataTable = GetSharedData(SharedDataSet.RuleSubparts).Tables(RulePart.NESHAP.ToString)
-            Dim dtPart63 As DataTable = GetSharedData(SharedDataSet.RuleSubparts).Tables(RulePart.MACT.ToString)
-            Dim dtSIP As DataTable = GetSharedData(SharedDataSet.RuleSubparts).Tables(RulePart.SIP.ToString)
+        InformationRequestLoaded = True
 
-            With cboSIPSubpart
-                .DataSource = dtSIP
-                .DisplayMember = "Long Description"
-                .ValueMember = "SubPart"
-                .SelectedIndex = 0
-            End With
-
-            With cboNSPSSubpart
-                .DataSource = dtPart60
-                .DisplayMember = "Description"
-                .ValueMember = "SubPart"
-                .SelectedIndex = 0
-            End With
-
-            With cboNESHAPSubpart
-                .DataSource = dtPart61
-                .DisplayMember = "Description"
-                .ValueMember = "SubPart"
-                .SelectedIndex = 0
-            End With
-
-            With cboMACTSubpart
-                .DataSource = dtPart63
-                .DisplayMember = "Description"
-                .ValueMember = "SubPart"
-                .SelectedIndex = 0
-            End With
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        Cursor = Nothing
     End Sub
 
 #End Region
@@ -3372,7 +3373,7 @@ Public Class SSPPApplicationTrackingLog
         Dim query As String
 
         Try
-            LastModificationDateAsLoaded = GetWhenLastModified(AppNumber)
+            LastModificationDateAsLoaded = GetWhenLastModified(AppNumber) ' 14% of app data load time
 
             query = "select strAIRSNumber,
                    strStaffResponsible,
@@ -3429,7 +3430,7 @@ Public Class SSPPApplicationTrackingLog
                 on m.strApplicationNumber = d.strApplicationNumber
             where m.strApplicationNumber = @appnumber"
 
-            dr = DB.GetDataRow(query, _appNumberSqlParam)
+            dr = DB.GetDataRow(query, _appNumberSqlParam) ' 20% of app data load time
 
             If dr IsNot Nothing Then
                 If Not IsDBNull(dr.Item("strAIRSNumber")) AndAlso ApbFacilityId.IsValidAirsNumberFormat(dr.Item("strAIRSNumber").ToString) Then
@@ -3922,90 +3923,7 @@ Public Class SSPPApplicationTrackingLog
                     lblPNReady.Text = dr.Item("strPNPosted")
                 End If
             End If
-
-            If TCApplicationTrackingLog.TabPages.Contains(TPReviews) Then
-                query = "select " &
-                "datReviewsubmitted, strSSCPUnit, " &
-                "strSSCPReviewer, datSSCPReviewDate, " &
-                "strSSCPComments, strISMPUnit, " &
-                "strISMPReviewer, datISMPReviewDate, " &
-                "strISMPComments " &
-                "from SSPPApplicationData, " &
-                "SSPPApplicationTracking " &
-                "where SSPPApplicationData.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber " &
-                "and SSPPApplicationData.strApplicationNumber = @appnumber"
-
-                dr = DB.GetDataRow(query, _appNumberSqlParam)
-
-                If dr IsNot Nothing Then
-                    If IsDBNull(dr.Item("datReviewsubmitted")) Then
-                        DTPReviewSubmitted.Value = Today
-                        DTPReviewSubmitted.Checked = False
-                    Else
-                        DTPReviewSubmitted.Value = CDate(dr.Item("datReviewsubmitted"))
-                        DTPReviewSubmitted.Checked = True
-                    End If
-                    If IsDBNull(dr.Item("strSSCPUnit")) Then
-                        cboSSCPUnits.SelectedValue = 0
-                    Else
-                        cboSSCPUnits.SelectedValue = dr.Item("strSSCPUnit")
-                    End If
-                    If IsDBNull(dr.Item("strISMPUnit")) Then
-                        cboISMPUnits.SelectedValue = 0
-                    Else
-                        cboISMPUnits.SelectedValue = dr.Item("strISMPUnit")
-                    End If
-                    If IsDBNull(dr.Item("datSSCPReviewDate")) Then
-                        DTPSSCPReview.Value = Today
-                        DTPSSCPReview.Checked = False
-                    Else
-                        DTPSSCPReview.Value = dr.Item("datSSCPReviewDate")
-                        DTPSSCPReview.Checked = True
-                    End If
-                    If IsDBNull(dr.Item("strSSCPReviewer")) Then
-                        cboSSCPStaff.SelectedValue = 0
-                    Else
-                        cboSSCPStaff.SelectedValue = dr.Item("strSSCPReviewer")
-                    End If
-                    If IsDBNull(dr.Item("strSSCPComments")) Then
-                        rdbSSCPNo.Checked = True
-                        txtSSCPComments.Clear()
-                    Else
-                        If dr.Item("strSSCPComments").ToString = "N/A" Then
-                            rdbSSCPNo.Checked = True
-                            txtSSCPComments.Text = ""
-                        Else
-                            rdbSSCPYes.Checked = True
-                            txtSSCPComments.Text = dr.Item("strSSCPComments")
-                        End If
-                    End If
-
-                    If IsDBNull(dr.Item("datISMPReviewDate")) Then
-                        DTPISMPReview.Value = Today
-                        DTPISMPReview.Checked = False
-                    Else
-                        DTPISMPReview.Value = dr.Item("datISMPReviewDate")
-                        DTPISMPReview.Checked = True
-                    End If
-                    If IsDBNull(dr.Item("strISMPReviewer")) Then
-                        cboISMPStaff.SelectedValue = 0
-                    Else
-                        cboISMPStaff.SelectedValue = dr.Item("strISMPReviewer")
-                    End If
-                    If IsDBNull(dr.Item("strISMPComments")) Then
-                        rdbISMPNo.Checked = True
-                        txtISMPComments.Clear()
-                    Else
-                        If dr.Item("strISMPComments").ToString = "N/A" Then
-                            rdbISMPNo.Checked = True
-                            txtISMPComments.Text = ""
-                        Else
-                            rdbISMPYes.Checked = True
-                            txtISMPComments.Text = dr.Item("strISMPComments")
-                        End If
-                    End If
-                End If
-            End If
+            ' 19% of app data load time
 
             If TCApplicationTrackingLog.TabPages.Contains(TPWebPublisher) Then
                 query = "Select " &
@@ -4025,7 +3943,7 @@ Public Class SSPPApplicationTrackingLog
                 "on SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber " &
                 "where SSPPApplicationMaster.strApplicationNumber = @appnumber"
 
-                dr = DB.GetDataRow(query, _appNumberSqlParam)
+                dr = DB.GetDataRow(query, _appNumberSqlParam) ' 15% of app data load time
 
                 If dr IsNot Nothing Then
                     If IsDBNull(dr.Item("datEPAStatesNotifiedAppRec")) Then
@@ -4093,7 +4011,7 @@ Public Class SSPPApplicationTrackingLog
                 End If
             End If
 
-            CheckForLinkedApplications()
+            CheckForLinkedApplications() ' 17% of app data load time
 
             If CloseOut Then
                 CloseOutApplication(CloseOut)
@@ -4102,6 +4020,90 @@ Public Class SSPPApplicationTrackingLog
         Catch ex As Exception
             ErrorReport(ex, "App #: " & AppNumber & "; temp: " & temp, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
+    End Sub
+
+    Private Sub LoadReviewTab()
+        Dim query As String = "select " &
+                "datReviewsubmitted, strSSCPUnit, " &
+                "strSSCPReviewer, datSSCPReviewDate, " &
+                "strSSCPComments, strISMPUnit, " &
+                "strISMPReviewer, datISMPReviewDate, " &
+                "strISMPComments " &
+                "from SSPPApplicationData, " &
+                "SSPPApplicationTracking " &
+                "where SSPPApplicationData.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber " &
+                "and SSPPApplicationData.strApplicationNumber = @appnumber"
+
+        Dim dr As DataRow = DB.GetDataRow(query, _appNumberSqlParam) ' 15% of app data load time
+
+        If dr IsNot Nothing Then
+            If IsDBNull(dr.Item("datReviewsubmitted")) Then
+                DTPReviewSubmitted.Value = Today
+                DTPReviewSubmitted.Checked = False
+            Else
+                DTPReviewSubmitted.Value = CDate(dr.Item("datReviewsubmitted"))
+                DTPReviewSubmitted.Checked = True
+            End If
+            If IsDBNull(dr.Item("strSSCPUnit")) Then
+                cboSSCPUnits.SelectedValue = 0
+            Else
+                cboSSCPUnits.SelectedValue = dr.Item("strSSCPUnit")
+            End If
+            If IsDBNull(dr.Item("strISMPUnit")) Then
+                cboISMPUnits.SelectedValue = 0
+            Else
+                cboISMPUnits.SelectedValue = dr.Item("strISMPUnit")
+            End If
+            If IsDBNull(dr.Item("datSSCPReviewDate")) Then
+                DTPSSCPReview.Value = Today
+                DTPSSCPReview.Checked = False
+            Else
+                DTPSSCPReview.Value = dr.Item("datSSCPReviewDate")
+                DTPSSCPReview.Checked = True
+            End If
+            If IsDBNull(dr.Item("strSSCPReviewer")) Then
+                cboSSCPStaff.SelectedValue = 0
+            Else
+                cboSSCPStaff.SelectedValue = dr.Item("strSSCPReviewer")
+            End If
+            If IsDBNull(dr.Item("strSSCPComments")) Then
+                rdbSSCPNo.Checked = True
+                txtSSCPComments.Clear()
+            Else
+                If dr.Item("strSSCPComments").ToString = "N/A" Then
+                    rdbSSCPNo.Checked = True
+                    txtSSCPComments.Text = ""
+                Else
+                    rdbSSCPYes.Checked = True
+                    txtSSCPComments.Text = dr.Item("strSSCPComments")
+                End If
+            End If
+
+            If IsDBNull(dr.Item("datISMPReviewDate")) Then
+                DTPISMPReview.Value = Today
+                DTPISMPReview.Checked = False
+            Else
+                DTPISMPReview.Value = dr.Item("datISMPReviewDate")
+                DTPISMPReview.Checked = True
+            End If
+            If IsDBNull(dr.Item("strISMPReviewer")) Then
+                cboISMPStaff.SelectedValue = 0
+            Else
+                cboISMPStaff.SelectedValue = dr.Item("strISMPReviewer")
+            End If
+            If IsDBNull(dr.Item("strISMPComments")) Then
+                rdbISMPNo.Checked = True
+                txtISMPComments.Clear()
+            Else
+                If dr.Item("strISMPComments").ToString = "N/A" Then
+                    rdbISMPNo.Checked = True
+                    txtISMPComments.Text = ""
+                Else
+                    rdbISMPYes.Checked = True
+                    txtISMPComments.Text = dr.Item("strISMPComments")
+                End If
+            End If
+        End If
     End Sub
 
     Private Sub ReLoadBasicFacilityInfo()
@@ -7573,24 +7575,20 @@ Public Class SSPPApplicationTrackingLog
             lblAppNumber.Text = "Application #" & AppNumber.ToString
             Me.Text = AppNumber.ToString & " - " & Me.Text
 
-            LoadApplicationData()
-
+            LoadApplicationData() ' This is 20% of the application load time
             LoadFacilityAttainmentStatus()
             LoadBasicFacilityInfo()
             LoadOpenApplications()
-
             LoadContactData()
             LoadFeeRatesComboBoxes()
-            LoadFeesData()
-
-            FindMasterApp()
-
-            LoadSSPPSIPSubPartInformation()
-            LoadSSPPNSPSSubPartInformation()
+            LoadFeesData() ' This is 12% of the application load time
+            FindMasterApp() ' This is 12% of the application load time
+            LoadSSPPSIPSubPartInformation() ' This is 13% of the application load time
+            LoadSSPPNSPSSubPartInformation() ' This is 11% of the application load time
             LoadSSPPNESHAPSubPartInformation()
-            LoadSSPPMACTSubPartInformation()
-
+            LoadSSPPMACTSubPartInformation() ' This is 10% of the application load time
             SetUpPublicAppViewLink()
+
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -13898,6 +13896,12 @@ Public Class SSPPApplicationTrackingLog
                     dgvApplicationPayments.SanelyResizeColumns()
                     dgvApplicationPayments.SelectNone()
                 End If
+
+            Case TPReviews.Name
+                LoadComplianceReview()
+
+            Case TPSubPartEditor.Name
+                LoadComboBoxesForSubpartEditor()
 
         End Select
     End Sub

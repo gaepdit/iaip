@@ -152,19 +152,6 @@ Namespace DAL.AnnualFees
             Return DB.RunCommand(query, parameters)
         End Function
 
-        Public Function GetAllFeeFacilities() As DataTable
-            Dim query As String = "SELECT DISTINCT substring(fa.STRAIRSNUMBER, 5, 8) AS STRAIRSNUMBER, " &
-                "  substring(fa.STRAIRSNUMBER, 5, 3) + '-' + substring(fa.STRAIRSNUMBER, 8, 5) AS [AIRS Number], " &
-                "  fi.STRFACILITYNAME AS [Facility Name] " &
-                "FROM FS_ADMIN fa " &
-                "INNER JOIN APBFACILITYINFORMATION fi ON " &
-                "  fa.STRAIRSNUMBER = fi.STRAIRSNUMBER " &
-                "ORDER BY fi.STRFACILITYNAME"
-            Dim dt As DataTable = DB.GetDataTable(query)
-            dt.PrimaryKey = {dt.Columns("STRAIRSNUMBER")}
-            Return dt
-        End Function
-
         Public Function UpdateFeeRates(FeeYear As Integer, FeePeriodStart As Date,
                                    FeePeriodEnd As Date, Part70Fee As Decimal, SMFee As Decimal,
                                    PerTonRate As Decimal, NSPSFee As Decimal, FeeDueDate As Date,

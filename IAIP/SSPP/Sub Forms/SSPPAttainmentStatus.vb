@@ -32,22 +32,12 @@ Public Class SSPPAttainmentStatus
     End Sub
 
     Private Sub LoadCountyComboBox()
-        Try
-            Dim query As String = "select strCountyCode, strCountyname " &
-            "from LookUpCountyInformation " &
-            "order by strcountyName"
-
-            With cboCounty
-                .DataSource = DB.GetDataTable(query)
-                .DisplayMember = "strCountyName"
-                .ValueMember = "strCountyCode"
-                .SelectedIndex = 0
-            End With
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
+        With cboCounty
+            .DataSource = GetSharedData(SharedTable.Counties)
+            .DisplayMember = "County"
+            .ValueMember = "CountyCode"
+            .SelectedIndex = 0
+        End With
     End Sub
 
     Private Sub ViewSelectedData()

@@ -21,7 +21,7 @@ Public Class IAIPNavigation
 
 #Region " Form events "
 
-    Private Sub IAIPNavigation_Load(sender As Object, e As EventArgs) Handles Me.Load
+    Protected Overrides Sub OnLoad(e As EventArgs)
         ' UI adjustments
         AssociateQuickNavButtons()
         SetUpNavWorkListContextChanger()
@@ -31,6 +31,8 @@ Public Class IAIPNavigation
         DisplayUsername()
 
         AddHandler NetworkChange.NetworkAddressChanged, AddressOf AddressChangedCallback
+
+        MyBase.OnLoad(e)
     End Sub
 
     Private Sub AddressChangedCallback(sender As Object, e As EventArgs)
@@ -49,19 +51,16 @@ Public Class IAIPNavigation
     Public Sub CheckNetworkConnection()
         If CheckingNetwork OrElse bgrNetworkChecker.IsBusy Then Return
 
-        If networkCheckTimer IsNot Nothing Then StopNetworkCheckTimer()
-
+        StopNetworkCheckTimer()
         CheckingNetwork = True
 
-        If Not bgrNetworkChecker.IsBusy Then
-            Try
-                bgrNetworkChecker.RunWorkerAsync()
-            Catch ex As InvalidOperationException
-                If ex.Message.Contains("This BackgroundWorker is currently busy and cannot run multiple tasks concurrently.") Then
-                    Return
-                End If
-            End Try
-        End If
+        Try
+            bgrNetworkChecker.RunWorkerAsync()
+        Catch ex As InvalidOperationException
+            If ex.Message.Contains("This BackgroundWorker is currently busy and cannot run multiple tasks concurrently.") Then
+                Return
+            End If
+        End Try
     End Sub
 
     Private Sub bgrNetworkChecker_DoWork(sender As Object, e As DoWorkEventArgs) Handles bgrNetworkChecker.DoWork
@@ -135,6 +134,7 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub StopNetworkCheckTimer()
+        If networkCheckTimer Is Nothing Then Return
         networkCheckTimerCount = networkCheckTimerCountMax
         networkCheckTimer.Stop()
         networkCheckTimer.Dispose()
@@ -154,7 +154,7 @@ Public Class IAIPNavigation
         mmiUsernameDisplay.Text = "Logged in as " & CurrentUser.Username
     End Sub
 
-    Private Sub IAIPNavigation_Shown(sender As Object, e As EventArgs) Handles Me.Shown
+    Protected Overrides Sub OnShown(e As EventArgs)
         ' Start the bgrUserPermissions background worker
         BuildAccountPermissions()
 
@@ -163,9 +163,14 @@ Public Class IAIPNavigation
 
         ' Start loading the Nav Work List background worker
         LoadWorkViewerData()
+
+        ' Start pre-loading shared data in the background
+        PreloadSharedData()
+
+        MyBase.OnShown(e)
     End Sub
 
-    Private Sub IAIPNavigation_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
+    Protected Overrides Sub OnFormClosing(e As FormClosingEventArgs)
         If Not LoggingOff AndAlso Not IaipExiting Then
             Dim openForms As New List(Of Form)
 
@@ -188,6 +193,8 @@ Public Class IAIPNavigation
         End If
 
         LoggingOff = False
+
+        MyBase.OnFormClosing(e)
     End Sub
 
 #End Region
@@ -563,7 +570,6 @@ Public Class IAIPNavigation
 
     Private Sub dgvWorkViewer_CellMouseEnter(sender As Object, e As DataGridViewCellEventArgs) _
     Handles dgvWorkViewer.CellMouseEnter
-        'Console.WriteLine("CellMouseEnter: " & e.ColumnIndex.ToString & ", " & e.RowIndex.ToString)
         ' Change cursor and text color when hovering over first column (treats text like a hyperlink)
         If e.RowIndex <> -1 AndAlso e.RowIndex < dgvWorkViewer.RowCount AndAlso e.ColumnIndex = 0 Then
             dgvWorkViewer.MakeCellLookLikeHoveredLink(e.RowIndex, e.ColumnIndex, True)
@@ -572,7 +578,6 @@ Public Class IAIPNavigation
 
     Private Sub dgvWorkViewer_CellMouseLeave(sender As Object, e As DataGridViewCellEventArgs) _
     Handles dgvWorkViewer.CellMouseLeave
-        'Console.WriteLine("CellMouseLeave: " & e.ColumnIndex.ToString & ", " & e.RowIndex.ToString)
         ' Reset cursor and text color when mouse leaves (un-hovers) a cell
         If e.RowIndex <> -1 AndAlso e.RowIndex < dgvWorkViewer.RowCount AndAlso e.ColumnIndex = 0 Then
             dgvWorkViewer.MakeCellLookLikeHoveredLink(e.RowIndex, e.ColumnIndex, False)
@@ -581,7 +586,6 @@ Public Class IAIPNavigation
 
     Private Sub dgvWorkViewer_CellEnter(sender As Object, e As DataGridViewCellEventArgs) _
     Handles dgvWorkViewer.CellEnter
-        'Console.WriteLine("CellEnter: " & e.ColumnIndex.ToString & ", " & e.RowIndex.ToString)
         If e.RowIndex <> -1 AndAlso e.RowIndex < dgvWorkViewer.RowCount Then
             SelectItemNumbers(e.RowIndex)
         End If
@@ -589,7 +593,6 @@ Public Class IAIPNavigation
 
     Private Sub dgvWorkViewer_CellClick(sender As Object, e As DataGridViewCellEventArgs) _
     Handles dgvWorkViewer.CellClick
-        'Console.WriteLine("CellClick: " & e.ColumnIndex.ToString & ", " & e.RowIndex.ToString)
         If e.RowIndex <> -1 AndAlso e.RowIndex < dgvWorkViewer.RowCount AndAlso e.ColumnIndex = 0 Then
             OpenSelectedItem()
         End If
@@ -597,7 +600,6 @@ Public Class IAIPNavigation
 
     Private Sub dgvWorkViewer_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) _
     Handles dgvWorkViewer.CellDoubleClick
-        'Console.WriteLine("CellDoubleClick: " & e.ColumnIndex.ToString & ", " & e.RowIndex.ToString)
         If e.RowIndex <> -1 AndAlso e.RowIndex < dgvWorkViewer.RowCount AndAlso e.ColumnIndex <> 0 Then
             OpenSelectedItem()
         End If
@@ -951,10 +953,20 @@ Public Class IAIPNavigation
             ShowAllForms()
         Else
             LoggingOff = True
+            ClearTimersAndBackgroundWorkers()
             LogOutUser()
             OpenSingleForm(IAIPLogIn)
             Close()
         End If
+    End Sub
+
+    Private Sub ClearTimersAndBackgroundWorkers()
+        dataPreloadTimer.Enabled = False
+        networkCheckTimer.Enabled = False
+        bgrDataPreloader.CancelAsync()
+        bgrLoadWorkViewer.CancelAsync()
+        bgrOrgNotifications.CancelAsync()
+        bgrUserPermissions.CancelAsync()
     End Sub
 
     Private Sub mmiResetForm_Click(sender As Object, e As EventArgs) Handles mmiResetForm.Click
@@ -981,15 +993,13 @@ Public Class IAIPNavigation
 
         CheckingOrgNotifications = True
 
-        If Not bgrOrgNotifications.IsBusy Then
-            Try
-                bgrOrgNotifications.RunWorkerAsync()
-            Catch ex As InvalidOperationException
-                If ex.Message.Contains("This BackgroundWorker is currently busy and cannot run multiple tasks concurrently.") Then
-                    Return
-                End If
-            End Try
-        End If
+        Try
+            bgrOrgNotifications.RunWorkerAsync()
+        Catch ex As InvalidOperationException
+            If ex.Message.Contains("This BackgroundWorker is currently busy and cannot run multiple tasks concurrently.") Then
+                Return
+            End If
+        End Try
     End Sub
 
     Private Sub bgrOrgNotifications_DoWork(sender As Object, e As DoWorkEventArgs) Handles bgrOrgNotifications.DoWork
@@ -1023,6 +1033,55 @@ Public Class IAIPNavigation
 
     Private Sub pnlNotifications_ClientSizeChanged(sender As Object, e As EventArgs) Handles pnlNotifications.ClientSizeChanged
         lblNotification.MaximumSize = New Size(CType(sender, Control).ClientSize.Width, 20000)
+    End Sub
+
+#End Region
+
+#Region " Pre-load shared application data "
+
+    ' Priority data can be gradually preloaded in the background.
+
+    Private dataPreloadTimer As Timer
+    Private Sub PreloadSharedData()
+        LoadSomeData()
+
+        dataPreloadTimer = New Timer() With {.Interval = 5_000, .Enabled = True}
+        AddHandler dataPreloadTimer.Tick, AddressOf LoadSomeData
+    End Sub
+
+    Private Sub LoadSomeData()
+        If bgrDataPreloader.IsBusy Then Return
+
+        Try
+            bgrDataPreloader.RunWorkerAsync()
+        Catch ex As InvalidOperationException
+            If ex.Message.Contains("This BackgroundWorker is currently busy and cannot run multiple tasks concurrently.") Then
+                Return
+            End If
+        End Try
+    End Sub
+
+    Private sharedDataCounter As Integer = 1
+    Private Sub bgrDataPreloader_DoWork(sender As Object, e As DoWorkEventArgs) Handles bgrDataPreloader.DoWork
+
+        Select Case sharedDataCounter
+            Case 1
+                GetSharedData(SharedTable.AllComplianceStaff)
+            Case 2
+                GetSharedData(SharedDataSet.RuleSubparts)
+            Case 3
+                GetSharedData(SharedTable.Counties)
+            Case 4
+                GetSharedData(SharedTable.SscpNotificationTypes)
+            Case 5
+                dataPreloadTimer.Enabled = False
+                GetSharedData(SharedTable.FacilityOwnershipTypes)
+
+            Case Else ' Should never be hit
+                dataPreloadTimer.Enabled = False
+        End Select
+
+        sharedDataCounter += 1
     End Sub
 
 #End Region
