@@ -39,7 +39,7 @@ jobs:
       
     steps:
       - name: Check out the current (deployment) branch
-        uses: actions/checkout@v4
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8
         with:
           path: ${{ env.CodeBranch }}
           sparse-checkout: |
@@ -47,16 +47,18 @@ jobs:
             iaip-website
 
       - name: Add msbuild to PATH
-        uses: microsoft/setup-msbuild@6fb02220983dee41ce7ae257b6f4d8f9bf5ed4ce # v2
+        uses: microsoft/setup-msbuild@6fb02220983dee41ce7ae257b6f4d8f9bf5ed4ce
 
       - name: Restore the application
         working-directory: ${{ env.ProjectPath }}
         run: msbuild -t:restore -p:Configuration=$env:Configuration -p:Platform=x86 -v:m $env:ProjectName
 
       - name: Decode the PFX certificate
+        env:
+          BASE64_ENCODED_PFX: ${{ secrets.BASE64_ENCODED_PFX }}
         working-directory: ${{ env.ProjectPath }}
         run: |
-          $pfx_cert_byte = [System.Convert]::FromBase64String("${{ secrets.BASE64_ENCODED_PFX }}")
+          $pfx_cert_byte = [System.Convert]::FromBase64String("$env:BASE64_ENCODED_PFX")
           [IO.File]::WriteAllBytes("$env:ManifestKeyFile", $pfx_cert_byte)
 
       - name: Build the application
@@ -64,8 +66,10 @@ jobs:
         run: msbuild -t:rebuild -p:Configuration=$env:Configuration -p:Platform=x86 -v:m $env:ProjectName
 
       - name: Build the deployment files
+        env:
+          PFX_THUMBPRINT: ${{ secrets.PFX_THUMBPRINT }}
         working-directory: ${{ env.ProjectPath }}
-        run: msbuild -t:publish -p:Configuration=$env:Configuration -p:Platform=x86 -p:PublishDir=$env:PublishDir -p:SignManifests=true -p:ManifestKeyFile=$env:ManifestKeyFile -p:ManifestCertificateThumbprint=${{ secrets.PFX_THUMBPRINT }} -v:m $env:ProjectName
+        run: msbuild -t:publish -p:Configuration=$env:Configuration -p:Platform=x86 -p:PublishDir=$env:PublishDir -p:SignManifests=true -p:ManifestKeyFile=$env:ManifestKeyFile -p:ManifestCertificateThumbprint=$env:PFX_THUMBPRINT -v:m $env:ProjectName
 
       - name: Remove the PFX certificate
         if: always()
@@ -84,7 +88,7 @@ jobs:
 
       - name: Install Pandoc (only on Prod)
         if: github.ref_name == 'deploy/PROD'
-        uses: pandoc/actions/setup@v1
+        uses: pandoc/actions/setup@86321b6dd4675f5014c611e05088e10d4939e09e
 
       - name: Build the IAIP website using Pandoc (only on Prod)
         if: github.ref_name == 'deploy/PROD'
@@ -97,7 +101,7 @@ jobs:
           }
 
       - name: Check out the `gh-pages` branch
-        uses: actions/checkout@v4
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8
         with:
           ref: ${{ env.GhPagesBranch }}
           path: ${{ env.GhPagesBranch }}
