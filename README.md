@@ -16,6 +16,10 @@ There are several associated repositories that interact with this project:
 * Some data are received from the [GEOS data exchange](https://github.com/gaepdit/geos-fis-fims-data-exchange).
 * The [IAIP website](https://github.com/gaepdit/iaip/iaip-website) hosts the installation files and some documentation.
 
+[![Georgia EPD-IT](https://raw.githubusercontent.com/gaepdit/gaepd-brand/main/blinkies/blinkies.cafe-gaepdit.gif)](https://github.com/gaepdit)
+[![SonarCloud Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=gaepdit_iaip&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=gaepdit_iaip)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=gaepdit_iaip&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=gaepdit_iaip)
+
 ## Development Setup
 
 The IAIP is a Winforms Application written in VB.NET targeting .NET Framework version 4.8.
