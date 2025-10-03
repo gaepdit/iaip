@@ -14,6 +14,10 @@
 [2014](changelog-2014.html) |
 [2013](changelog-2013.html)
 
+## Version 7.5.5 <span>(3-Oct-2025)</span>
+
+* Updated the PA/PN copy.
+
 ## Version 7.5.4 <span>(15-Sep-2025)</span>
 
 * Changed how emails are sent from the permit application tracking log.
