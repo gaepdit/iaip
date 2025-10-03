@@ -3,6 +3,7 @@
   <PropertyGroup>
     <ApplicationVersion>7.5.5.0</ApplicationVersion>
     <MinimumRequiredVersion>7.5.5.0</MinimumRequiredVersion>
+    <ApplicationRevision>0</ApplicationRevision>
     <ProjectType>Local</ProjectType>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
@@ -56,7 +57,6 @@
     <ProductName>Integrated Air Information Platform</ProductName>
     <PublisherName>State of Georgia</PublisherName>
     <WebPage>installer.html</WebPage>
-    <ApplicationRevision>0</ApplicationRevision>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
