@@ -2460,7 +2460,7 @@ Partial Class ISMPTestReports
         'txtEmissRateOneStackThreeRun1A
         '
         Me.txtEmissRateOneStackThreeRun1A.Location = New System.Drawing.Point(136, 142)
-        Me.txtEmissRateOneStackThreeRun1A.MaxLength = 11
+        Me.txtEmissRateOneStackThreeRun1A.MaxLength = 10
         Me.txtEmissRateOneStackThreeRun1A.Name = "txtEmissRateOneStackThreeRun1A"
         Me.txtEmissRateOneStackThreeRun1A.Size = New System.Drawing.Size(96, 20)
         Me.txtEmissRateOneStackThreeRun1A.TabIndex = 70
