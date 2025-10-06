@@ -1,5 +1,4 @@
 ﻿Imports System.Deployment.Application
-Imports System.Reflection
 
 Public Module AppVersion
 
@@ -12,9 +11,7 @@ Public Module AppVersion
             If ApplicationDeployment.IsNetworkDeployed Then
                 CurrentVersion = ApplicationDeployment.CurrentDeployment.CurrentVersion
             Else
-                Dim thisAssembly As Assembly = Assembly.GetExecutingAssembly()
-                Dim fileVersionInfo As FileVersionInfo = FileVersionInfo.GetVersionInfo(thisAssembly.Location)
-                CurrentVersion = New Version(fileVersionInfo.FileVersion)
+                CurrentVersion = New Version(Application.ProductVersion)
             End If
         End If
 
