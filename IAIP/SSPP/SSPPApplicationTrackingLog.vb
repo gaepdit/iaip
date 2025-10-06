@@ -293,6 +293,8 @@ Public Class SSPPApplicationTrackingLog
 
         With cboFacilityCity
             .DataSource = GetSharedData(SharedTable.AllFacilityCities)
+            .DisplayMember = "CITY"
+            .ValueMember = "CITY"
             .SelectedIndex = -1
         End With
 

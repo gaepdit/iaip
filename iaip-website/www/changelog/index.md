@@ -14,6 +14,10 @@
 [2014](changelog-2014.html) |
 [2013](changelog-2013.html)
 
+## Version 7.5.6 <span>(6-Oct-2025)</span>
+
+* Fixed a bug in the permit application tracking log.
+
 ## Version 7.5.5 <span>(3-Oct-2025)</span>
 
 * Updated the PA/PN copy.
