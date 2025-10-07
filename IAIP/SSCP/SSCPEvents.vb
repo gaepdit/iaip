@@ -2295,7 +2295,7 @@ Public Class SSCPEvents
                     lblNotificationDue.Text = "(Mandatory Date Field)"
                     lblDateSent.Text = "(Optional Date Field)"
                 Case Else
-                    txtNotificationTypeOther.Visible = False
+                    txtNotificationTypeOther.Visible = cboNotificationType.Text = "Other"
                     lblNotificationDate.Text = "Notification Due Date:"
                     lblNotificationDate2.Text = "Date Sent by Facility:"
                     lblNotificationOther.Text = ""
