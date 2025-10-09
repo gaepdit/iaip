@@ -269,7 +269,9 @@ Public Class SSPPApplicationTrackingLog
         End With
 
         Dim dtCountyList As DataTable = GetSharedData(SharedTable.Counties).Copy
-        dtCountyList.Rows.Add({"000", " N/A"})
+        Dim dr As DataRow = dtCountyList.NewRow()
+        dr.ItemArray = {"000", "N/A"}
+        dtCountyList.Rows.InsertAt(dr, 0)
         With cboCounty
             .DataSource = dtCountyList
             .DisplayMember = "County"
@@ -1221,11 +1223,6 @@ Public Class SSPPApplicationTrackingLog
                 (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then
                 cboClassification.BackColor = Color.Yellow
                 lblClassification.BackColor = Color.Yellow
-            End If
-
-            'cboCounty
-            If CurrentUser.HasRole(118) Then
-                cboCounty.Enabled = True
             End If
 
             'cboEngineer
@@ -5765,7 +5762,6 @@ Public Class SSPPApplicationTrackingLog
                 txtFacilityName.ReadOnly = True
                 txtFacilityStreetAddress.ReadOnly = True
                 cboFacilityCity.Enabled = False
-                cboCounty.Enabled = False
                 txtSICCode.ReadOnly = True
                 txtNAICSCode.ReadOnly = True
                 chbFederallyOwned.Enabled = False

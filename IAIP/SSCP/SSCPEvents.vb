@@ -1176,9 +1176,9 @@ Public Class SSCPEvents
     End Function
 
     Private Function SaveNotifications() As Boolean
-        Dim NotificationDue As String = "True"
+        Dim NotificationDue As String
         Dim NotificationDueDate As Object
-        Dim NotificationSent As String = "True"
+        Dim NotificationSent As String
         Dim NotificationSentDate As Object
         Dim NotificationTypeOther As String
         Dim NotificationComment As String
@@ -1189,7 +1189,9 @@ Public Class SSCPEvents
         Try
             ' Set Notification Dates and Status
             NotificationDueDate = If(dtpNotificationDate.Checked OrElse Not dtpNotificationDate.ShowCheckBox, CType(dtpNotificationDate.Value, Object), DBNull.Value)
+            NotificationDue = If(dtpNotificationDate.Checked OrElse Not dtpNotificationDate.ShowCheckBox, "False", "True")
             NotificationSentDate = If(dtpNotificationDate2.Checked, CType(dtpNotificationDate2.Value, Object), DBNull.Value)
+            NotificationSent = If(dtpNotificationDate2.Checked, "False", "True")
             NotificationTypeOther = If(String.IsNullOrWhiteSpace(txtNotificationTypeOther.Text), "", txtNotificationTypeOther.Text)
             NotificationComment = If(String.IsNullOrWhiteSpace(txtNotificationComments.Text), "", txtNotificationComments.Text)
             NotificationFollowUp = If(rdbNotificationFollowUpYes.Checked, "True", "False")
@@ -2293,7 +2295,7 @@ Public Class SSCPEvents
                     lblNotificationDue.Text = "(Mandatory Date Field)"
                     lblDateSent.Text = "(Optional Date Field)"
                 Case Else
-                    txtNotificationTypeOther.Visible = False
+                    txtNotificationTypeOther.Visible = cboNotificationType.Text = "Other"
                     lblNotificationDate.Text = "Notification Due Date:"
                     lblNotificationDate2.Text = "Date Sent by Facility:"
                     lblNotificationOther.Text = ""
