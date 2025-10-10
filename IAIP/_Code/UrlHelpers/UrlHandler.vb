@@ -3,7 +3,7 @@
     Public Module UrlHandler
 
         Public Function OpenUrl(url As Uri, Optional sender As Form = Nothing, Optional isMailto As Boolean = False) As Boolean
-            ArgumentNotNull(url, NameOf(url))
+            NotNull(url, NameOf(url))
             Return OpenUriString(url.ToString, sender, isMailto)
         End Function
 

@@ -12,7 +12,7 @@ Public Module ColorLabelHelper
 
     <Extension>
     Public Sub ShowMessage(label As Label, message As String, errorLevel As ErrorLevel)
-        ArgumentNotNull(label, NameOf(label))
+        NotNull(label, NameOf(label))
         label.Visible = True
         label.Text = message
 
@@ -47,7 +47,7 @@ Public Module ColorLabelHelper
 
     <Extension>
     Public Sub ClearMessage(label As Label)
-        ArgumentNotNull(label, NameOf(label))
+        NotNull(label, NameOf(label))
         label.ShowMessage(String.Empty, ErrorLevel.None)
     End Sub
 

@@ -22,7 +22,7 @@ Public Class DmuEdtErrorDetail
             Return _activeUsersList
         End Get
         Set(value As Dictionary(Of Integer, String))
-            ArgumentNotNull(value, NameOf(value))
+            NotNull(value, NameOf(value))
             If value.Equals(_activeUsersList) Then Return
             _activeUsersList = value
             PrepUserComboBox()

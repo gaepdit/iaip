@@ -13,8 +13,8 @@ Public Class ListViewItemComparer
     End Sub
 
     Public Function Compare(x As Object, y As Object) As Integer Implements IComparer.Compare
-        ArgumentNotNull(x, NameOf(x))
-        ArgumentNotNull(y, NameOf(y))
+        NotNull(x, NameOf(x))
+        NotNull(y, NameOf(y))
 
         Return [String].Compare(CType(x, ListViewItem).SubItems(col).Text, CType(y, ListViewItem).SubItems(col).Text)
         Return [String].Compare(CType(y, ListViewItem).SubItems(col).Text, CType(x, ListViewItem).SubItems(col).Text)

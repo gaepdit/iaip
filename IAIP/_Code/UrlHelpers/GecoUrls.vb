@@ -19,12 +19,12 @@ Namespace UrlHelpers
         ' Emission fee invoices (by Facility ID and fee year)
 
         Public Function GetEmissionFeeInvoiceUrl(airs As Apb.ApbFacilityId, feeYear As Integer) As Uri
-            ArgumentNotNull(airs, NameOf(airs))
+            NotNull(airs, NameOf(airs))
             Return New Uri(GecoUrl, $"Invoice/?Facility={airs.ShortString}&FeeYear={feeYear}")
         End Function
 
         Public Function GetEmissionFeeInvoiceUrl(airs As Apb.ApbFacilityId, feeYear As Integer, invoiceID As Integer) As Uri
-            ArgumentNotNull(airs, NameOf(airs))
+            NotNull(airs, NameOf(airs))
             Return New Uri(GecoUrl, $"Invoice/?Facility={airs.ShortString}&FeeYear={feeYear}&InvoiceId={invoiceID}")
         End Function
 

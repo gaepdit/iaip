@@ -3,7 +3,7 @@
 Public Module CollectionHelper
 
     Public Function ConvertToDataTable(Of T)(list As IList) As DataTable
-        ArgumentNotNull(list, NameOf(list))
+        NotNull(list, NameOf(list))
         Dim table As DataTable = CreateTable(Of T)()
         Dim entityType As Type = GetType(T)
         Dim properties As PropertyDescriptorCollection = TypeDescriptor.GetProperties(entityType)

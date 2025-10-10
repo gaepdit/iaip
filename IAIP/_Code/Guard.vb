@@ -1,12 +1,12 @@
-﻿Public Module Guard
+Public Module Guard
 
-    Public Sub ArgumentNotNull(Of T)(value As T, parameterName As String)
+    Public Sub NotNull(Of T)(value As T, parameterName As String)
         If value Is Nothing Then
             Throw New ArgumentNullException(parameterName)
         End If
     End Sub
 
-    Public Sub ArgumentNotNullOrEmpty(value As String, parameterName As String)
+    Public Sub NotNullOrEmpty(value As String, parameterName As String)
         If value Is Nothing Then
             Throw New ArgumentNullException(parameterName)
         End If
