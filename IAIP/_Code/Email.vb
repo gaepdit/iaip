@@ -35,7 +35,7 @@ Public Module Email
                     Return CreateEmailResult.InvalidEmail
                 End If
 
-                toParam = ConcatNonEmptyStrings(",", TrimArray(recipientsTo))
+                toParam = TrimArray(recipientsTo).ConcatNonEmptyStrings(",")
             End If
 
             If recipientsCC IsNot Nothing Then
@@ -43,7 +43,7 @@ Public Module Email
                     Return CreateEmailResult.InvalidEmail
                 End If
 
-                cc = ConcatNonEmptyStrings(",", TrimArray(recipientsCC))
+                cc = TrimArray(recipientsCC).ConcatNonEmptyStrings(",")
                 ccParam = "cc=" & cc
             End If
 
@@ -52,11 +52,11 @@ Public Module Email
                     Return CreateEmailResult.InvalidEmail
                 End If
 
-                bcc = ConcatNonEmptyStrings(",", TrimArray(recipientsBCC))
+                bcc = TrimArray(recipientsBCC).ConcatNonEmptyStrings(",")
                 bccParam = "bcc=" & bcc
             End If
 
-            Dim uriQueryString As String = ConcatNonEmptyStrings("&", {subjectParam, bodyParam, ccParam, bccParam})
+            Dim uriQueryString As String = {subjectParam, bodyParam, ccParam, bccParam}.ConcatNonEmptyStrings("&")
 
             If String.IsNullOrEmpty(uriQueryString) Then
                 emailUriString = $"mailto:{toParam}"

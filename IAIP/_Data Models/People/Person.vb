@@ -16,13 +16,13 @@
 
     Public ReadOnly Property FullName() As String
         Get
-            Return ConcatNonEmptyStrings(" ", {FirstName, LastName})
+            Return {FirstName, LastName}.ConcatNonEmptyStrings(" ")
         End Get
     End Property
 
     Public ReadOnly Property AlphaName() As String
         Get
-            Dim a As String = ConcatNonEmptyStrings(", ", {LastName, FirstName})
+            Dim a As String = {LastName, FirstName}.ConcatNonEmptyStrings(", ")
             Return If(a, " ")
         End Get
     End Property

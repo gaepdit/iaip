@@ -17,12 +17,12 @@
     End Function
 
     Private Function CompileAddressString(linear As Boolean) As String
-        Dim cityState As String = ConcatNonEmptyStrings(", ", {Me.City, Me.State})
+        Dim cityState As String = {Me.City, Me.State}.ConcatNonEmptyStrings(", ")
         Dim zip As String = FormatPostalCode(Me.PostalCode)
         If linear Then
-            Return ConcatNonEmptyStrings(", ", {Me.Street, Me.Street2, cityState & " " & zip})
+            Return {Me.Street, Me.Street2, cityState & " " & zip}.ConcatNonEmptyStrings(", ")
         Else
-            Return ConcatNonEmptyStrings(vbNewLine, {Me.Street, Me.Street2, cityState & " " & zip})
+            Return {Me.Street, Me.Street2, cityState & " " & zip}.ConcatNonEmptyStrings(vbNewLine)
         End If
     End Function
 
