@@ -1163,7 +1163,7 @@ Public Class FeesManagement
     End Function
 
     Private Async Function SendAnnualFeeNotificationAsync(dv As DataView, feeYear As Integer, deadline As Date) As Task(Of EmailQueueApiResponse)
-        Dim emails As New List(Of NewEmailTask)
+        Dim emails As New List(Of EmailMessage)
         Dim gecoUrl As String = ConfigurationManager.AppSettings("GecoUrl")
         Dim deadlineFormatted As String = deadline.ToString("MMMM d, yyyy")
 
@@ -1173,7 +1173,7 @@ Public Class FeesManagement
             Dim airsNumberFormatted As String = $"{Strings.Left(airsNumber, 3)}-{Strings.Right(airsNumber, 5)}"
             Dim facilityName As String = rowView("Facility Name (snapshot)").ToString().Trim()
 
-            Dim newEmail As New NewEmailTask() With {
+            Dim newEmail As New EmailMessage() With {
                 .From = ApbContactEmail,
                 .FromName = ApbOrgName,
                 .Recipients = recipientsList,

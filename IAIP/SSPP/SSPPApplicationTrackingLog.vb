@@ -10049,7 +10049,7 @@ Public Class SSPPApplicationTrackingLog
             emailBody = emailDialog.BodyText.Text
         End Using
 
-        Dim generatedEmail As New NewEmailTask() With {
+        Dim generatedEmail As New EmailMessage() With {
             .From = CurrentUser.EmailAddress,
             .FromName = CurrentUser.FullName,
             .Recipients = {txtContactEmailAddress.Text},
