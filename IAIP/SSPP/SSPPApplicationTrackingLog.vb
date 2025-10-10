@@ -10036,27 +10036,20 @@ Public Class SSPPApplicationTrackingLog
         TCApplicationTrackingLog.Controls.Add(TPEmails)
     End Sub
 
-    Private Async Function SendFormEmailAsync(emailBody As String, subject As String) As Threading.Tasks.Task(Of Boolean)
-        Using emailDialog As New EmailEditDialog
-            emailDialog.BodyText.Text = emailBody
-            emailDialog.SubjectLabel.Text = subject
-            emailDialog.RecipientLabel.Text = txtContactEmailAddress.Text
+    Private Async Function SendFormEmailAsync(body As String, subject As String) As Threading.Tasks.Task(Of Boolean)
+        Dim from As String = CurrentUser.EmailAddress
+        Dim recipients As String() = {txtContactEmailAddress.Text}
+        Dim fromName As String = CurrentUser.FullName
+        Dim copyRecipients As String() = {CurrentUser.EmailAddress}
 
-            If emailDialog.ShowDialog() = DialogResult.Cancel Then
-                Return False
-            End If
-
-            emailBody = emailDialog.BodyText.Text
-        End Using
-
-        Dim generatedEmail As New EmailMessage() With {
-            .From = CurrentUser.EmailAddress,
-            .FromName = CurrentUser.FullName,
-            .Recipients = {txtContactEmailAddress.Text},
-            .CopyRecipients = {CurrentUser.EmailAddress},
-            .Subject = subject,
-            .Body = emailBody
+        Dim generatedEmail As New EmailMessage(subject, body, from, recipients) With {
+            .FromName = fromName, .CopyRecipients = copyRecipients
         }
+
+        Using emailDialog As New EmailEditDialog(generatedEmail)
+            If emailDialog.ShowDialog() = DialogResult.Cancel Then Return False
+            generatedEmail.Body = emailDialog.BodyText.Text
+        End Using
 
         UpdateEmailBatchId()
 

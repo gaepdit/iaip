@@ -1,6 +1,13 @@
 ﻿Namespace ApiCalls.EmailQueue
 
     Friend Class EmailMessage
+        Public Sub New(subject As String, body As String, from As String, recipients() As String)
+            Me.From = NotNullOrWhiteSpace(from, NameOf(from))
+            Me.Recipients = NotNullOrValueless(recipients, NameOf(recipients))
+            Me.Subject = NotNullOrWhiteSpace(subject, NameOf(subject))
+            Me.Body = NotNullOrWhiteSpace(body, NameOf(body))
+        End Sub
+
         Public Property From As String ' StringLength(100)
         Public Property FromName As String ' StringLength(100)
         Public Property Recipients As String()
