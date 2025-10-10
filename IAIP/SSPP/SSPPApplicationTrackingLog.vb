@@ -10038,12 +10038,16 @@ Public Class SSPPApplicationTrackingLog
 
     Private Async Function SendFormEmailAsync(body As String, subject As String) As Threading.Tasks.Task(Of Boolean)
         Dim from As String = CurrentUser.EmailAddress
-        Dim recipients As String() = {txtContactEmailAddress.Text}
+        Dim recipient As String = txtContactEmailAddress.Text
         Dim fromName As String = CurrentUser.FullName
-        Dim copyRecipients As String() = {CurrentUser.EmailAddress}
+        Dim copyRecipients As String() = GetUnitManagerEmail()
+        Dim staffEmail As String = GetAssignedStaffEmail()
 
-        Dim generatedEmail As New EmailMessage(subject, body, from, recipients) With {
-            .FromName = fromName, .CopyRecipients = copyRecipients
+        If staffEmail IsNot Nothing Then copyRecipients.Add(staffEmail)
+        copyRecipients.Add(CurrentUser.EmailAddress)
+
+        Dim generatedEmail As New EmailMessage(subject, body, from, recipient) With {
+            .FromName = fromName, .CopyRecipients = copyRecipients.Distinct().ToArray()
         }
 
         Using emailDialog As New EmailEditDialog(generatedEmail)
@@ -10074,6 +10078,34 @@ Public Class SSPPApplicationTrackingLog
         End If
 
         Return True
+    End Function
+
+    Private Function GetAssignedStaffEmail() As String
+        Dim userId As Integer = cboEngineer.SelectedValue
+        If userId = 0 Then Return Nothing
+
+        Dim query As String = "select STREMAILADDRESS as email from dbo.EPDUSERPROFILES
+            where NUMEMPLOYEESTATUS = 1 and STREMAILADDRESS <> '' and NUMUSERID = @userId "
+
+        Dim parameter As New SqlParameter("@userId", userId)
+
+        Return DB.GetString(query, parameter)
+    End Function
+
+    Private Function GetUnitManagerEmail() As String()
+        Dim unit As Integer = cboApplicationUnit.SelectedValue
+        If unit = 0 Then Return Array.Empty(Of String)()
+
+        Dim query As String = "select u.STREMAILADDRESS as email
+            from dbo.EPDUSERPROFILES u left join dbo.IAIPPERMISSIONS p on u.NUMUSERID = p.NUMUSERID
+            where u.NUMEMPLOYEESTATUS = 1 and p.STRIAIPPERMISSIONS like '%(121)%' and u.STREMAILADDRESS <> ''
+            and u.NUMUNIT = @unit "
+
+        Dim parameter As New SqlParameter("@unit", unit)
+        Dim dt As DataTable = DB.GetDataTable(query, parameter)
+        If dt Is Nothing OrElse dt.Rows.Count = 0 Then Return Array.Empty(Of String)()
+
+        Return dt.AsEnumerable().Select(Function(r) r("email").ToString()).ToArray()
     End Function
 
 #End Region

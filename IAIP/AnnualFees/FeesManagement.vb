@@ -1175,7 +1175,7 @@ Public Class FeesManagement
             Dim subject As String = $"Data Collection for {feeYear} Calendar Year Emission Fees (AIRS #{airsNumberFormatted}: {facilityName})"
             Dim body As String = EmailBody(feeYear, deadlineFormatted, gecoUrl)
             Dim from As String = ApbContactEmail
-            Dim recipients As String() = rowView("Emails").ToString().Split(","c).Select(Function(s) s.Trim())
+            Dim recipients As String() = rowView("Emails").ToString().Split(","c).Select(Function(s) s.Trim()).Distinct().ToArray()
 
             Dim newEmail As New EmailMessage(subject, body, from, recipients) With {.FromName = ApbOrgName}
             emails.Add(newEmail)
