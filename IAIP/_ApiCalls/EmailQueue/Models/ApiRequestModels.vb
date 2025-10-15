@@ -1,8 +1,17 @@
-﻿Imports System.Collections.Generic
+﻿Namespace ApiCalls.EmailQueue
 
-Namespace ApiCalls.EmailQueue
+    Friend Class EmailMessage
+        Public Sub New(subject As String, body As String, from As String, recipients As String())
+            Me.From = NotNullOrWhiteSpace(from, NameOf(from))
+            Me.Recipients = NotNullOrValueless(recipients, NameOf(recipients))
+            Me.Subject = NotNullOrWhiteSpace(subject, NameOf(subject))
+            Me.Body = NotNullOrWhiteSpace(body, NameOf(body))
+        End Sub
 
-    Friend Class NewEmailTask
+        Public Sub New(subject As String, body As String, from As String, recipient As String)
+            Me.New(subject, body, from, {recipient})
+        End Sub
+
         Public Property From As String ' StringLength(100)
         Public Property FromName As String ' StringLength(100)
         Public Property Recipients As String()
@@ -14,7 +23,7 @@ Namespace ApiCalls.EmailQueue
 
     Friend Class EmailsForBatchRequest
         Public Property BatchId As Guid
-        Public Property Emails As NewEmailTask()
+        Public Property Emails As EmailMessage()
     End Class
 
 End Namespace

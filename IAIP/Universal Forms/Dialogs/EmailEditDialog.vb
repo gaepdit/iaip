@@ -1,4 +1,14 @@
-﻿Public Class EmailEditDialog
+﻿Imports Iaip.ApiCalls.EmailQueue
+
+Friend Class EmailEditDialog
+    Public Sub New(emailMessage As EmailMessage)
+        InitializeComponent()
+
+        BodyText.Text = emailMessage.Body
+        SubjectLabel.Text = emailMessage.Subject
+        RecipientLabel.Text = emailMessage.Recipients.ConcatNonEmptyStrings(", ")
+        CopiedLabel.Text = emailMessage.CopyRecipients.ConcatNonEmptyStrings(", ").IfEmpty("None")
+    End Sub
 
     Protected Overrides Sub OnLoad(e As EventArgs)
 
@@ -11,8 +21,9 @@
         MyBase.OnLoad(e)
     End Sub
 
-    Private Sub AcknowledgmentEmailDialog_Shown(sender As Object, e As EventArgs) Handles Me.Shown
+    Protected Overrides Sub OnShown(e As EventArgs)
         btnCancel.Focus()
+        MyBase.OnShown(e)
     End Sub
 
 End Class

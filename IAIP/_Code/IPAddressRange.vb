@@ -8,8 +8,8 @@ Public Class IPAddressRange
     Private ReadOnly upperBytes As Byte()
 
     Public Sub New(lowerInclusive As IPAddress, upperInclusive As IPAddress)
-        ArgumentNotNull(lowerInclusive, NameOf(lowerInclusive))
-        ArgumentNotNull(upperInclusive, NameOf(upperInclusive))
+        NotNull(lowerInclusive, NameOf(lowerInclusive))
+        NotNull(upperInclusive, NameOf(upperInclusive))
 
         addressFamily = lowerInclusive.AddressFamily
         lowerBytes = lowerInclusive.GetAddressBytes()
@@ -25,7 +25,7 @@ Public Class IPAddressRange
     End Function
 
     Public Function IsInRange(address As IPAddress) As Boolean
-        ArgumentNotNull(address, NameOf(address))
+        NotNull(address, NameOf(address))
 
         If address.AddressFamily <> addressFamily Then
             Return False
