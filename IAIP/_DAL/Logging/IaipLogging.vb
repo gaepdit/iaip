@@ -4,8 +4,8 @@ Namespace DAL
     Module IaipLogging
 
         Public Sub LogReportUsage(type As String, url As Uri)
-            ArgumentNotNullOrEmpty(type, NameOf(type))
-            ArgumentNotNull(url, NameOf(url))
+            NotNullOrEmpty(type, NameOf(type))
+            NotNull(url, NameOf(url))
 
             AddBreadcrumb($"Report type {type} opened: {url}")
 

@@ -1163,24 +1163,21 @@ Public Class FeesManagement
     End Function
 
     Private Async Function SendAnnualFeeNotificationAsync(dv As DataView, feeYear As Integer, deadline As Date) As Task(Of EmailQueueApiResponse)
-        Dim emails As New List(Of NewEmailTask)
+        Dim emails As New List(Of EmailMessage)
         Dim gecoUrl As String = ConfigurationManager.AppSettings("GecoUrl")
         Dim deadlineFormatted As String = deadline.ToString("MMMM d, yyyy")
 
         For Each rowView As DataRowView In dv
-            Dim recipientsList As String() = rowView("Emails").ToString().Split(","c).Select(Function(s) s.Trim())
             Dim airsNumber As String = rowView("Airs No.").ToString().Trim()
             Dim airsNumberFormatted As String = $"{Strings.Left(airsNumber, 3)}-{Strings.Right(airsNumber, 5)}"
             Dim facilityName As String = rowView("Facility Name (snapshot)").ToString().Trim()
 
-            Dim newEmail As New NewEmailTask() With {
-                .From = ApbContactEmail,
-                .FromName = ApbOrgName,
-                .Recipients = recipientsList,
-                .Subject = $"Data Collection for {feeYear} Calendar Year Emission Fees (AIRS #{airsNumberFormatted}: {facilityName})",
-                .Body = EmailBody(feeYear, deadlineFormatted, gecoUrl)
-            }
+            Dim subject As String = $"Data Collection for {feeYear} Calendar Year Emission Fees (AIRS #{airsNumberFormatted}: {facilityName})"
+            Dim body As String = EmailBody(feeYear, deadlineFormatted, gecoUrl)
+            Dim from As String = ApbContactEmail
+            Dim recipients As String() = rowView("Emails").ToString().Split(","c).Select(Function(s) s.Trim()).Distinct().ToArray()
 
+            Dim newEmail As New EmailMessage(subject, body, from, recipients) With {.FromName = ApbOrgName}
             emails.Add(newEmail)
         Next
 

@@ -14,6 +14,6 @@
     Public Function OSFriendlyName() As String
         Dim ProductName As String = HKLM_GetString("SOFTWARE\Microsoft\Windows NT\CurrentVersion", "ProductName")
         Dim CSDVersion As String = HKLM_GetString("SOFTWARE\Microsoft\Windows NT\CurrentVersion", "CSDVersion")
-        Return ConcatNonEmptyStrings(" ", {ProductName, CSDVersion})
+        Return {ProductName, CSDVersion}.ConcatNonEmptyStrings(" ")
     End Function
 End Module

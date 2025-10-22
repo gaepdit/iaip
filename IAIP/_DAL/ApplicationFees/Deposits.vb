@@ -112,7 +112,7 @@ Namespace DAL.ApplicationFees
         ' Save deposit
 
         Public Function SaveNewDeposit(deposit As Deposit, ByRef newDepositId As Integer) As DbResult
-            ArgumentNotNull(deposit, NameOf(deposit))
+            NotNull(deposit, NameOf(deposit))
 
             Dim params As SqlParameter() = {
                 New SqlParameter("@DepositDate", deposit.DepositDate),
@@ -133,7 +133,7 @@ Namespace DAL.ApplicationFees
         End Function
 
         Public Function UpdateDeposit(deposit As Deposit) As UpdateDepositResult
-            ArgumentNotNull(deposit, NameOf(deposit))
+            NotNull(deposit, NameOf(deposit))
 
             Dim params As SqlParameter() = {
                 New SqlParameter("@DepositID", deposit.DepositID),

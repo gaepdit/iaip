@@ -12,7 +12,6 @@
 Imports System.Reflection
 
 Friend Class ExceptionDialog
-    Inherits Form
 
     Public Property MyException As Exception
     Public Property Unrecoverable As Boolean
