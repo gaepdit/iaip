@@ -212,7 +212,7 @@ Namespace Apb.Sscp
                 p(i) = p(i).Substring(1)
             Next
 
-            Return p.Distinct.ToList
+            Return p.Distinct().ToList()
         End Function
 
         Private Shared Function ParseEnforcementPrograms(progPoll As String) As List(Of String)
@@ -224,7 +224,7 @@ Namespace Apb.Sscp
                 p(i) = p(i).Substring(0, 1)
             Next
 
-            Return p.Distinct.ToList
+            Return p.Distinct().ToList()
         End Function
 
         Private Function CombineProgramPollutants() As String

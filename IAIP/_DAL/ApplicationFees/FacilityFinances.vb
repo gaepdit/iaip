@@ -22,7 +22,7 @@ Namespace DAL.ApplicationFees
         End Function
 
         Public Function GetFacilityFinances(facilityId As ApbFacilityId) As DataSet
-            ArgumentNotNull(facilityId, NameOf(facilityId))
+            NotNull(facilityId, NameOf(facilityId))
 
             Dim ds As DataSet = DB.SPGetDataSet("fees.GetFacilityFinances", New SqlParameter("FacilityID", facilityId.DbFormattedString))
 

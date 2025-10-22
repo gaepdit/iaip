@@ -22,7 +22,7 @@ Module DictionaryExtensions
     ''' has a fixed size.</exception>
     <Extension>
     Public Sub AddAsUniqueIfExists(Of TValue)(ByRef d As IDictionary(Of String, TValue), key As String, value As TValue)
-        ArgumentNotNullOrEmpty(key, NameOf(key))
+        NotNullOrEmpty(key, NameOf(key))
 
         If d.ContainsKey(key) Then
             key &= "-" & Guid.NewGuid.ToString
@@ -45,7 +45,7 @@ Module DictionaryExtensions
     ''' has a fixed size.</exception>
     <Extension>
     Public Sub AddAsUniqueIfExists(ByRef d As IDictionary, key As String, value As Object)
-        ArgumentNotNullOrEmpty(key, NameOf(key))
+        NotNullOrEmpty(key, NameOf(key))
 
         If d.Contains(key) Then
             key &= "-" & Guid.NewGuid.ToString
@@ -66,7 +66,7 @@ Module DictionaryExtensions
     ''' has a fixed size.</exception>
     <Extension>
     Public Sub AddIfNotExists(ByRef d As IDictionary, key As Object, value As Object)
-        ArgumentNotNull(key, NameOf(key))
+        NotNull(key, NameOf(key))
 
         If Not d.Contains(key) Then
             d.Add(key, value)

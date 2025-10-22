@@ -32,6 +32,8 @@ Partial Class EmailEditDialog
         Me.WarningLabel = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
+        Me.CopiedLabel = New System.Windows.Forms.Label()
+        Me.Label6 = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'btnOk
@@ -82,17 +84,17 @@ Partial Class EmailEditDialog
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.BodyText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.BodyText.Location = New System.Drawing.Point(12, 103)
+        Me.BodyText.Location = New System.Drawing.Point(12, 129)
         Me.BodyText.Multiline = True
         Me.BodyText.Name = "BodyText"
         Me.BodyText.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.BodyText.Size = New System.Drawing.Size(525, 365)
+        Me.BodyText.Size = New System.Drawing.Size(525, 339)
         Me.BodyText.TabIndex = 0
         '
         'SubjectLabel
         '
         Me.SubjectLabel.AutoSize = True
-        Me.SubjectLabel.Location = New System.Drawing.Point(83, 61)
+        Me.SubjectLabel.Location = New System.Drawing.Point(83, 87)
         Me.SubjectLabel.Name = "SubjectLabel"
         Me.SubjectLabel.Size = New System.Drawing.Size(43, 13)
         Me.SubjectLabel.TabIndex = 2
@@ -102,7 +104,7 @@ Partial Class EmailEditDialog
         '
         Me.BodyLabel.AutoSize = True
         Me.BodyLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BodyLabel.Location = New System.Drawing.Point(12, 87)
+        Me.BodyLabel.Location = New System.Drawing.Point(12, 113)
         Me.BodyLabel.Name = "BodyLabel"
         Me.BodyLabel.Size = New System.Drawing.Size(57, 13)
         Me.BodyLabel.TabIndex = 2
@@ -134,11 +136,30 @@ Partial Class EmailEditDialog
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(12, 61)
+        Me.Label2.Location = New System.Drawing.Point(12, 87)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(50, 13)
         Me.Label2.TabIndex = 2
         Me.Label2.Text = "Subject"
+        '
+        'CopiedLabel
+        '
+        Me.CopiedLabel.AutoSize = True
+        Me.CopiedLabel.Location = New System.Drawing.Point(83, 61)
+        Me.CopiedLabel.Name = "CopiedLabel"
+        Me.CopiedLabel.Size = New System.Drawing.Size(52, 13)
+        Me.CopiedLabel.TabIndex = 2
+        Me.CopiedLabel.Text = "Recipient"
+        '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label6.Location = New System.Drawing.Point(12, 61)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(46, 13)
+        Me.Label6.TabIndex = 2
+        Me.Label6.Text = "Copied"
         '
         'EmailEditDialog
         '
@@ -148,6 +169,8 @@ Partial Class EmailEditDialog
         Me.CancelButton = Me.btnCancel
         Me.ClientSize = New System.Drawing.Size(549, 522)
         Me.Controls.Add(Me.BodyText)
+        Me.Controls.Add(Me.Label6)
+        Me.Controls.Add(Me.CopiedLabel)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.RecipientLabel)
         Me.Controls.Add(Me.BodyLabel)
@@ -179,4 +202,6 @@ Partial Class EmailEditDialog
     Friend WithEvents WarningLabel As Label
     Friend WithEvents Label1 As Label
     Friend WithEvents Label2 As Label
+    Friend WithEvents CopiedLabel As Label
+    Friend WithEvents Label6 As Label
 End Class

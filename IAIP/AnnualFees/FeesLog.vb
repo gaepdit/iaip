@@ -90,7 +90,7 @@ Public Class FeesLog
                 ShutDownBetween = " datShutDownDate between '" & dtpStartShutDown.Text & "' and '" & dtpEndShutDown.Text & "' "
             End If
 
-            Dim whereClause As String = ConcatNonEmptyStrings(" and ", {FeeYearSQL, OpStatus, AIRSNumber, FacilityName, CollectionStatus, ShutDownBetween})
+            Dim whereClause As String = {FeeYearSQL, OpStatus, AIRSNumber, FacilityName, CollectionStatus, ShutDownBetween}.ConcatNonEmptyStrings(" and ")
 
             If whereClause <> "" Then whereClause = " WHERE " & whereClause
 
