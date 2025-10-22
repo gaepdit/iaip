@@ -9,7 +9,7 @@ Public Module ExcelExport
 
     <Extension>
     Public Sub ExportToExcel(dataGridView As DataGridView, sender As Object)
-        ArgumentNotNull(sender, NameOf(sender))
+        NotNull(sender, NameOf(sender))
 
         If dataGridView Is Nothing OrElse dataGridView.RowCount = 0 Then
             AddBreadcrumb("ExportToExcel: Empty")
@@ -54,7 +54,7 @@ Public Module ExcelExport
 
     <Extension>
     Public Sub ExportToExcel(dataSet As DataSet, sender As Object, Optional defaultFileName As String = "")
-        ArgumentNotNull(sender, NameOf(sender))
+        NotNull(sender, NameOf(sender))
 
         If dataSet Is Nothing OrElse dataSet.Tables.Count = 0 Then
             AddBreadcrumb("ExportToExcel: Empty")
@@ -236,7 +236,7 @@ Public Module ExcelExport
     End Function
 
     Public Sub FixDates(dataTable As DataTable)
-        ArgumentNotNull(dataTable, NameOf(dataTable))
+        NotNull(dataTable, NameOf(dataTable))
 
         For Each col As DataColumn In dataTable.Columns
             If col.DataType Is GetType(Date) OrElse col.DataType Is GetType(DateTimeOffset) Then

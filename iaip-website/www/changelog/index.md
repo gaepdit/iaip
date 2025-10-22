@@ -14,6 +14,10 @@
 [2014](changelog-2014.html) |
 [2013](changelog-2013.html)
 
+## Version 7.5.8 <span>(22-Oct-2025)</span>
+
+* Added additional cc recipients to permit application emails.
+
 ## Version 7.5.7 <span>(9-Oct-2025)</span>
 
 * Fixed another bug in the permit application tracking log.

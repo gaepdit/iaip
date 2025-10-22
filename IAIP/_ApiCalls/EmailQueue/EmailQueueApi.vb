@@ -42,15 +42,15 @@ Namespace ApiCalls.EmailQueue
             Return EmailQueueApiResponse.Ok(JsonSerializer.Deserialize(Of EmailQueueResponseBody)(response.Body, JsonOptions))
         End Function
 
-        Public Function SendEmailAsync(emails As NewEmailTask()) As Task(Of EmailQueueApiResponse)
+        Public Function SendEmailAsync(emails As EmailMessage()) As Task(Of EmailQueueApiResponse)
             Return InternalSendAsync(emails, SendEndpoint)
         End Function
 
-        Public Function SendEmailAsync(email As NewEmailTask) As Task(Of EmailQueueApiResponse)
+        Public Function SendEmailAsync(email As EmailMessage) As Task(Of EmailQueueApiResponse)
             Return SendEmailAsync({email})
         End Function
 
-        Public Function SendEmailAsync(batchId As Guid, emails As NewEmailTask()) As Task(Of EmailQueueApiResponse)
+        Public Function SendEmailAsync(batchId As Guid, emails As EmailMessage()) As Task(Of EmailQueueApiResponse)
             Dim request As New EmailsForBatchRequest() With {
                 .BatchId = batchId,
                 .Emails = emails
@@ -59,7 +59,7 @@ Namespace ApiCalls.EmailQueue
             Return InternalSendAsync(request, SendForBatchEndpoint)
         End Function
 
-        Public Function SendEmailAsync(batchId As Guid, email As NewEmailTask) As Task(Of EmailQueueApiResponse)
+        Public Function SendEmailAsync(batchId As Guid, email As EmailMessage) As Task(Of EmailQueueApiResponse)
             Return SendEmailAsync(batchId, {email})
         End Function
 
