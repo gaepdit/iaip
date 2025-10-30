@@ -858,7 +858,7 @@ Public Class SSCPFCEWork
             Return
         End If
 
-        OpenFceUrl(AirsNumber, txtFCENumber.Text, Me)
+        OpenFceUrl(txtFCENumber.Text, Me)
     End Sub
 
 #End Region
