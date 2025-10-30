@@ -47,9 +47,6 @@ Public Class IAIPFacilitySummary
 
     Friend Enum FacilityDataTable
         ColocatedFacilities
-        ComplianceWork
-        ComplianceEnforcement
-        ComplianceFCE
         ContactsStaff
         ContactsGecoFacility
         ContactsGecoEmails
@@ -101,9 +98,6 @@ Public Class IAIPFacilitySummary
         FacilitySummaryDataSet = New DataSet
 
         AddDataTable(FacilityDataTable.ColocatedFacilities)
-        AddDataTable(FacilityDataTable.ComplianceWork)
-        AddDataTable(FacilityDataTable.ComplianceEnforcement)
-        AddDataTable(FacilityDataTable.ComplianceFCE)
         AddDataTable(FacilityDataTable.EmissionsFeesSummary)
         AddDataTable(FacilityDataTable.ContactsGecoFacility)
         AddDataTable(FacilityDataTable.ContactsGecoEmails)
@@ -159,7 +153,6 @@ Public Class IAIPFacilitySummary
         ContactsTabControl.SelectedTab = TPContactsFacility
         GecoContactsTabControl.SelectedTab = TPGecoUsers
         TestingTabControl.SelectedTab = TPTestReport
-        ComplianceTabControl.SelectedTab = TPComplianceWork
         PermittingTabControl.SelectedTab = TPAppTrackingLog
         EmissionsFeesTabControl.SelectedTab = TPEmissionsAnnual
         EiTabControl.SelectedTab = TPEiPost2009
@@ -574,16 +567,6 @@ Public Class IAIPFacilitySummary
                 SetUpDataGridSource(ColocatedFacilitiesGrid, table)
                 SetUpColocatedFacilityUi()
 
-            ' Compliance
-            Case FacilityDataTable.ComplianceWork
-                SetUpDataGridSource(ComplianceWorkGrid, table)
-
-            Case FacilityDataTable.ComplianceFCE
-                SetUpDataGridSource(ComplianceFceGrid, table)
-
-            Case FacilityDataTable.ComplianceEnforcement
-                SetUpDataGridSource(ComplianceEnforcementGrid, table)
-
             ' Contacts
             Case FacilityDataTable.ContactsStaff
                 SetUpDataGridSource(ContactsStaffGrid, table)
@@ -666,14 +649,6 @@ Public Class IAIPFacilitySummary
     Private Sub OpenItem(dgv As IaipDataGridView, itemId As String)
         Select Case dgv.Name
 
-            ' Compliance
-            Case ComplianceEnforcementGrid.Name
-                OpenFormEnforcement(itemId)
-            Case ComplianceFceGrid.Name
-                OpenFormFce(AirsNumber, itemId)
-            Case ComplianceWorkGrid.Name
-                OpenFormSscpWorkItem(itemId)
-
                 ' Testing
             Case TestReportsGrid.Name
                 OpenFormTestReport(itemId, Me)
@@ -697,9 +672,6 @@ Public Class IAIPFacilitySummary
 
     Private Sub InitializeGridEvents()
         Dim gridsWithEvents As New List(Of IaipDataGridView) From {
-            ComplianceEnforcementGrid,
-            ComplianceFceGrid,
-            ComplianceWorkGrid,
             TestReportsGrid,
             TestNotificationsGrid,
             TestMemosGrid,
@@ -729,12 +701,6 @@ Public Class IAIPFacilitySummary
 
     Private Sub LoadFacilityColocationTable()
         LoadDataTable(FacilityDataTable.ColocatedFacilities)
-    End Sub
-
-    Private Sub LoadComplianceData()
-        LoadDataTable(FacilityDataTable.ComplianceWork)
-        LoadDataTable(FacilityDataTable.ComplianceFCE)
-        LoadDataTable(FacilityDataTable.ComplianceEnforcement)
     End Sub
 
     Private Sub LoadContactsData()
@@ -991,8 +957,6 @@ Public Class IAIPFacilitySummary
         AddBreadcrumb("Facility Summary: tab changed", data, Me)
 
         Select Case FSMainTabControl.SelectedTab.Name
-            Case FSCompliance.Name
-                LoadComplianceData()
             Case FSContacts.Name
                 LoadContactsData()
             Case FSEmissionInventory.Name
