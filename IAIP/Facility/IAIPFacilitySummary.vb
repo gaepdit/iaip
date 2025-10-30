@@ -1209,4 +1209,19 @@ Public Class IAIPFacilitySummary
         Cursor = Cursors.Default
     End Sub
 
+    Private Sub lnkWebFacility_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lnkWebFacility.LinkClicked
+        If AirsNumber IsNot Nothing Then OpenFacilityDetailsOnWeb(AirsNumber, Me)
+    End Sub
+
+    Private Sub lnkWebComplianceWork_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lnkWebComplianceWork.LinkClicked
+        If AirsNumber IsNot Nothing Then OpenComplianceWorkOnWeb(AirsNumber, Me)
+    End Sub
+
+    Private Sub lnkWebFce_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lnkWebFce.LinkClicked
+        If AirsNumber IsNot Nothing Then OpenFcesOnWeb(AirsNumber, Me)
+    End Sub
+
+    Private Sub lnkWebEnforcement_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lnkWebEnforcement.LinkClicked
+        If AirsNumber IsNot Nothing Then OpenEnforcementOnWeb(AirsNumber, Me)
+    End Sub
 End Class

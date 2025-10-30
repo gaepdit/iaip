@@ -312,7 +312,7 @@
     <Compile Include="_Code\TaskbarProgress.vb" />
     <Compile Include="_Code\TemporalCollection.vb" />
     <Compile Include="_Code\UrlHelpers\EventUrls.vb" />
-    <Compile Include="_Code\UrlHelpers\Reports.vb" />
+    <Compile Include="_Code\UrlHelpers\AirWeb.vb" />
     <Compile Include="_Code\UrlHelpers\SupportUrls.vb" />
     <Compile Include="_Code\UrlHelpers\GecoUrls.vb" />
     <Compile Include="_Code\UrlHelpers\MapUrls.vb" />

@@ -167,6 +167,11 @@ Partial Class IAIPFacilitySummary
         Me.TPTestMemos = New System.Windows.Forms.TabPage()
         Me.TestMemosGrid = New Iaip.IaipDataGridView()
         Me.FSCompliance = New System.Windows.Forms.TabPage()
+        Me.lnkWebEnforcement = New System.Windows.Forms.LinkLabel()
+        Me.lnkWebFce = New System.Windows.Forms.LinkLabel()
+        Me.lnkWebComplianceWork = New System.Windows.Forms.LinkLabel()
+        Me.lnkWebFacility = New System.Windows.Forms.LinkLabel()
+        Me.Label12 = New System.Windows.Forms.Label()
         Me.FSPermitting = New System.Windows.Forms.TabPage()
         Me.PermittingTabControl = New System.Windows.Forms.TabControl()
         Me.TPAppTrackingLog = New System.Windows.Forms.TabPage()
@@ -302,6 +307,7 @@ Partial Class IAIPFacilitySummary
         CType(Me.TestNotificationsGrid, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TPTestMemos.SuspendLayout()
         CType(Me.TestMemosGrid, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.FSCompliance.SuspendLayout()
         Me.FSPermitting.SuspendLayout()
         Me.PermittingTabControl.SuspendLayout()
         Me.TPAppTrackingLog.SuspendLayout()
@@ -1937,12 +1943,66 @@ Partial Class IAIPFacilitySummary
         '
         'FSCompliance
         '
+        Me.FSCompliance.Controls.Add(Me.lnkWebEnforcement)
+        Me.FSCompliance.Controls.Add(Me.lnkWebFce)
+        Me.FSCompliance.Controls.Add(Me.lnkWebComplianceWork)
+        Me.FSCompliance.Controls.Add(Me.lnkWebFacility)
+        Me.FSCompliance.Controls.Add(Me.Label12)
         Me.FSCompliance.Location = New System.Drawing.Point(4, 22)
         Me.FSCompliance.Name = "FSCompliance"
         Me.FSCompliance.Size = New System.Drawing.Size(596, 424)
         Me.FSCompliance.TabIndex = 6
         Me.FSCompliance.Text = "Compliance"
         Me.FSCompliance.UseVisualStyleBackColor = True
+        '
+        'lnkWebEnforcement
+        '
+        Me.lnkWebEnforcement.AutoSize = True
+        Me.lnkWebEnforcement.Location = New System.Drawing.Point(35, 120)
+        Me.lnkWebEnforcement.Name = "lnkWebEnforcement"
+        Me.lnkWebEnforcement.Size = New System.Drawing.Size(67, 13)
+        Me.lnkWebEnforcement.TabIndex = 1
+        Me.lnkWebEnforcement.TabStop = True
+        Me.lnkWebEnforcement.Text = "Enforcement"
+        '
+        'lnkWebFce
+        '
+        Me.lnkWebFce.AutoSize = True
+        Me.lnkWebFce.Location = New System.Drawing.Point(35, 94)
+        Me.lnkWebFce.Name = "lnkWebFce"
+        Me.lnkWebFce.Size = New System.Drawing.Size(32, 13)
+        Me.lnkWebFce.TabIndex = 1
+        Me.lnkWebFce.TabStop = True
+        Me.lnkWebFce.Text = "FCEs"
+        '
+        'lnkWebComplianceWork
+        '
+        Me.lnkWebComplianceWork.AutoSize = True
+        Me.lnkWebComplianceWork.Location = New System.Drawing.Point(35, 68)
+        Me.lnkWebComplianceWork.Name = "lnkWebComplianceWork"
+        Me.lnkWebComplianceWork.Size = New System.Drawing.Size(91, 13)
+        Me.lnkWebComplianceWork.TabIndex = 1
+        Me.lnkWebComplianceWork.TabStop = True
+        Me.lnkWebComplianceWork.Text = "Compliance Work"
+        '
+        'lnkWebFacility
+        '
+        Me.lnkWebFacility.AutoSize = True
+        Me.lnkWebFacility.Location = New System.Drawing.Point(35, 42)
+        Me.lnkWebFacility.Name = "lnkWebFacility"
+        Me.lnkWebFacility.Size = New System.Drawing.Size(99, 13)
+        Me.lnkWebFacility.TabIndex = 1
+        Me.lnkWebFacility.TabStop = True
+        Me.lnkWebFacility.Text = "Facility details page"
+        '
+        'Label12
+        '
+        Me.Label12.AutoSize = True
+        Me.Label12.Location = New System.Drawing.Point(35, 16)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(206, 13)
+        Me.Label12.TabIndex = 0
+        Me.Label12.Text = "View compliance data in the Air Web App:"
         '
         'FSPermitting
         '
@@ -2990,7 +3050,7 @@ Partial Class IAIPFacilitySummary
         Me.btnCloseNoteView.Name = "btnCloseNoteView"
         Me.btnCloseNoteView.Size = New System.Drawing.Size(23, 23)
         Me.btnCloseNoteView.TabIndex = 0
-        Me.btnCloseNoteView.Text = "×"
+        Me.btnCloseNoteView.Text = "ï¿½"
         Me.ToolTip1.SetToolTip(Me.btnCloseNoteView, "Close note")
         Me.btnCloseNoteView.UseVisualStyleBackColor = True
         '
@@ -3197,6 +3257,8 @@ Partial Class IAIPFacilitySummary
         CType(Me.TestNotificationsGrid, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TPTestMemos.ResumeLayout(False)
         CType(Me.TestMemosGrid, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.FSCompliance.ResumeLayout(False)
+        Me.FSCompliance.PerformLayout()
         Me.FSPermitting.ResumeLayout(False)
         Me.PermittingTabControl.ResumeLayout(False)
         Me.TPAppTrackingLog.ResumeLayout(False)
@@ -3465,4 +3527,9 @@ Partial Class IAIPFacilitySummary
     Friend WithEvents TPGecoEmailContacts As TabPage
     Friend WithEvents Label11 As Label
     Friend WithEvents GecoEmailContactsGrid As IaipDataGridView
+    Friend WithEvents lnkWebFacility As LinkLabel
+    Friend WithEvents Label12 As Label
+    Friend WithEvents lnkWebEnforcement As LinkLabel
+    Friend WithEvents lnkWebFce As LinkLabel
+    Friend WithEvents lnkWebComplianceWork As LinkLabel
 End Class
