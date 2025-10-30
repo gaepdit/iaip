@@ -8,27 +8,47 @@ Namespace UrlHelpers
         Private ReadOnly ReportsUrl As New Uri(ConfigurationManager.AppSettings("AirWebUrl"))
 
         ' Facility Pages
+        Public Sub OpenFacilityDetailsOnWeb(Optional sender As Form = Nothing)
+            Dim url As New Uri(ReportsUrl, "Facility")
+            DAL.LogReportUsage("AirWeb Facility Search", url)
+            OpenUrl(url, sender)
+        End Sub
         Public Sub OpenFacilityDetailsOnWeb(facilityId As ApbFacilityId, Optional sender As Form = Nothing)
             Dim url As New Uri(ReportsUrl, $"Facility/Details/{facilityId.FormattedString}")
             DAL.LogReportUsage("AirWeb Facility", url)
             OpenUrl(url, sender)
         End Sub
 
+        Public Sub OpenComplianceWorkOnWeb(Optional sender As Form = Nothing)
+            Dim url As New Uri(ReportsUrl, "Compliance/Work")
+            DAL.LogReportUsage("AirWeb Compliance Search", url)
+            OpenUrl(url, sender)
+        End Sub
         Public Sub OpenComplianceWorkOnWeb(facilityId As ApbFacilityId, Optional sender As Form = Nothing)
             Dim url As New Uri(ReportsUrl, $"Compliance/Work/Search?FacilityId={facilityId.FormattedString}#search-results")
-            DAL.LogReportUsage("AirWeb Facility", url)
+            DAL.LogReportUsage("AirWeb Facility Compliance", url)
             OpenUrl(url, sender)
         End Sub
 
+        Public Sub OpenFcesOnWeb(Optional sender As Form = Nothing)
+            Dim url As New Uri(ReportsUrl, $"Compliance/FCE")
+            DAL.LogReportUsage("AirWeb FCE Search", url)
+            OpenUrl(url, sender)
+        End Sub
         Public Sub OpenFcesOnWeb(facilityId As ApbFacilityId, Optional sender As Form = Nothing)
             Dim url As New Uri(ReportsUrl, $"Compliance/FCE/Search?FacilityId={facilityId.FormattedString}#search-results")
-            DAL.LogReportUsage("AirWeb Facility", url)
+            DAL.LogReportUsage("AirWeb Facility FCEs", url)
             OpenUrl(url, sender)
         End Sub
 
+        Public Sub OpenEnforcementOnWeb(Optional sender As Form = Nothing)
+            Dim url As New Uri(ReportsUrl, $"Enforcement")
+            DAL.LogReportUsage("AirWeb Enforcmement Search", url)
+            OpenUrl(url, sender)
+        End Sub
         Public Sub OpenEnforcementOnWeb(facilityId As ApbFacilityId, Optional sender As Form = Nothing)
             Dim url As New Uri(ReportsUrl, $"Enforcement/Search?FacilityId={facilityId.FormattedString}#search-results")
-            DAL.LogReportUsage("AirWeb Facility", url)
+            DAL.LogReportUsage("AirWeb Facility Enforcement", url)
             OpenUrl(url, sender)
         End Sub
 

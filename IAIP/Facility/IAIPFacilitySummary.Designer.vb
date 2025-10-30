@@ -1998,11 +1998,12 @@ Partial Class IAIPFacilitySummary
         'Label12
         '
         Me.Label12.AutoSize = True
+        Me.Label12.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label12.Location = New System.Drawing.Point(35, 16)
         Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(206, 13)
+        Me.Label12.Size = New System.Drawing.Size(314, 13)
         Me.Label12.TabIndex = 0
-        Me.Label12.Text = "View compliance data in the Air Web App:"
+        Me.Label12.Text = "Compliance data has been moved to the Air Web App:"
         '
         'FSPermitting
         '
