@@ -15,19 +15,19 @@ Namespace UrlHelpers
         End Sub
 
         Public Sub OpenComplianceWorkOnWeb(facilityId As ApbFacilityId, Optional sender As Form = Nothing)
-            Dim url As New Uri(ReportsUrl, $"Compliance/Work/Search?PartialFacilityId={facilityId.FormattedString}#search-results")
+            Dim url As New Uri(ReportsUrl, $"Compliance/Work/Search?FacilityId={facilityId.FormattedString}#search-results")
             DAL.LogReportUsage("AirWeb Facility", url)
             OpenUrl(url, sender)
         End Sub
 
         Public Sub OpenFcesOnWeb(facilityId As ApbFacilityId, Optional sender As Form = Nothing)
-            Dim url As New Uri(ReportsUrl, $"Compliance/FCE/Search?PartialFacilityId={facilityId.FormattedString}#search-results")
+            Dim url As New Uri(ReportsUrl, $"Compliance/FCE/Search?FacilityId={facilityId.FormattedString}#search-results")
             DAL.LogReportUsage("AirWeb Facility", url)
             OpenUrl(url, sender)
         End Sub
 
         Public Sub OpenEnforcementOnWeb(facilityId As ApbFacilityId, Optional sender As Form = Nothing)
-            Dim url As New Uri(ReportsUrl, $"Enforcement/Search?PartialFacilityId={facilityId.FormattedString}#search-results")
+            Dim url As New Uri(ReportsUrl, $"Enforcement/Search?FacilityId={facilityId.FormattedString}#search-results")
             DAL.LogReportUsage("AirWeb Facility", url)
             OpenUrl(url, sender)
         End Sub
