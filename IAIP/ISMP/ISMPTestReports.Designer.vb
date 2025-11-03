@@ -867,31 +867,6 @@ Partial Class ISMPTestReports
         Me.cboMaximumExpectedOperatingCapacityUnitsMethod22 = New System.Windows.Forms.ComboBox()
         Me.Label222 = New System.Windows.Forms.Label()
         Me.TPSSCPWork = New System.Windows.Forms.TabPage()
-        Me.llEnforcementCases = New System.Windows.Forms.LinkLabel()
-        Me.cboStaffResponsible = New System.Windows.Forms.ComboBox()
-        Me.Label223 = New System.Windows.Forms.Label()
-        Me.txtTrackingNumber = New System.Windows.Forms.TextBox()
-        Me.Label315 = New System.Windows.Forms.Label()
-        Me.chbAcknoledgmentLetterSent = New System.Windows.Forms.CheckBox()
-        Me.DTPAcknoledgmentLetterSent = New System.Windows.Forms.DateTimePicker()
-        Me.chbEventComplete = New System.Windows.Forms.CheckBox()
-        Me.DTPEventCompleteDate = New System.Windows.Forms.DateTimePicker()
-        Me.btnSaveSSCPData = New System.Windows.Forms.Button()
-        Me.txtTestReportReceivedbySSCPDate = New System.Windows.Forms.TextBox()
-        Me.Label320 = New System.Windows.Forms.Label()
-        Me.Panel22 = New System.Windows.Forms.Panel()
-        Me.rdbTestReportFollowUpYes = New System.Windows.Forms.RadioButton()
-        Me.rdbTestReportFollowUpNo = New System.Windows.Forms.RadioButton()
-        Me.Label321 = New System.Windows.Forms.Label()
-        Me.Label322 = New System.Windows.Forms.Label()
-        Me.Label323 = New System.Windows.Forms.Label()
-        Me.DTPTestReportDueDate = New System.Windows.Forms.DateTimePicker()
-        Me.chbTestReportChangeDueDate = New System.Windows.Forms.CheckBox()
-        Me.DTPTestReportNextDueDate = New System.Windows.Forms.DateTimePicker()
-        Me.Label325 = New System.Windows.Forms.Label()
-        Me.txtTestReportComments = New System.Windows.Forms.TextBox()
-        Me.Label326 = New System.Windows.Forms.Label()
-        Me.txtTestReportDueDate = New System.Windows.Forms.TextBox()
         Me.DeletedTestFlag = New System.Windows.Forms.Label()
         Me.MenuStrip1.SuspendLayout
         Me.ToolStrip1.SuspendLayout
@@ -928,8 +903,6 @@ Partial Class ISMPTestReports
         Me.TPTwoStackStandard.SuspendLayout
         Me.TPTwoStackDRE.SuspendLayout
         Me.TPMethodTwentyTwo.SuspendLayout
-        Me.TPSSCPWork.SuspendLayout
-        Me.Panel22.SuspendLayout
         Me.SuspendLayout
         '
         'MenuStrip1
@@ -952,21 +925,21 @@ Partial Class ISMPTestReports
         '
         Me.mmiSave.Name = "mmiSave"
         Me.mmiSave.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.S), System.Windows.Forms.Keys)
-        Me.mmiSave.Size = New System.Drawing.Size(180, 22)
+        Me.mmiSave.Size = New System.Drawing.Size(148, 22)
         Me.mmiSave.Text = "&Save"
         '
         'PrintToolStripMenuItem
         '
         Me.PrintToolStripMenuItem.Name = "PrintToolStripMenuItem"
         Me.PrintToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.P), System.Windows.Forms.Keys)
-        Me.PrintToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.PrintToolStripMenuItem.Size = New System.Drawing.Size(148, 22)
         Me.PrintToolStripMenuItem.Text = "&Print"
         '
         'mmiClose
         '
         Me.mmiClose.Name = "mmiClose"
         Me.mmiClose.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.W), System.Windows.Forms.Keys)
-        Me.mmiClose.Size = New System.Drawing.Size(180, 22)
+        Me.mmiClose.Size = New System.Drawing.Size(148, 22)
         Me.mmiClose.Text = "&Close"
         '
         'mmiView
@@ -986,7 +959,7 @@ Partial Class ISMPTestReports
         '
         Me.mmiTool.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiOpenTestLogNotification, Me.mmiPrePopulate, Me.mmiDefaultCompliance, Me.mmiPrintNonConf})
         Me.mmiTool.Name = "mmiTool"
-        Me.mmiTool.Size = New System.Drawing.Size(46, 20)
+        Me.mmiTool.Size = New System.Drawing.Size(47, 20)
         Me.mmiTool.Text = "&Tools"
         '
         'mmiOpenTestLogNotification
@@ -9760,264 +9733,12 @@ Partial Class ISMPTestReports
         'TPSSCPWork
         '
         Me.TPSSCPWork.AutoScroll = True
-        Me.TPSSCPWork.Controls.Add(Me.llEnforcementCases)
-        Me.TPSSCPWork.Controls.Add(Me.cboStaffResponsible)
-        Me.TPSSCPWork.Controls.Add(Me.Label223)
-        Me.TPSSCPWork.Controls.Add(Me.txtTrackingNumber)
-        Me.TPSSCPWork.Controls.Add(Me.Label315)
-        Me.TPSSCPWork.Controls.Add(Me.chbAcknoledgmentLetterSent)
-        Me.TPSSCPWork.Controls.Add(Me.DTPAcknoledgmentLetterSent)
-        Me.TPSSCPWork.Controls.Add(Me.chbEventComplete)
-        Me.TPSSCPWork.Controls.Add(Me.DTPEventCompleteDate)
-        Me.TPSSCPWork.Controls.Add(Me.btnSaveSSCPData)
-        Me.TPSSCPWork.Controls.Add(Me.txtTestReportReceivedbySSCPDate)
-        Me.TPSSCPWork.Controls.Add(Me.Label320)
-        Me.TPSSCPWork.Controls.Add(Me.Panel22)
-        Me.TPSSCPWork.Controls.Add(Me.Label321)
-        Me.TPSSCPWork.Controls.Add(Me.Label322)
-        Me.TPSSCPWork.Controls.Add(Me.Label323)
-        Me.TPSSCPWork.Controls.Add(Me.DTPTestReportDueDate)
-        Me.TPSSCPWork.Controls.Add(Me.chbTestReportChangeDueDate)
-        Me.TPSSCPWork.Controls.Add(Me.DTPTestReportNextDueDate)
-        Me.TPSSCPWork.Controls.Add(Me.Label325)
-        Me.TPSSCPWork.Controls.Add(Me.txtTestReportComments)
-        Me.TPSSCPWork.Controls.Add(Me.Label326)
-        Me.TPSSCPWork.Controls.Add(Me.txtTestReportDueDate)
         Me.TPSSCPWork.Location = New System.Drawing.Point(4, 22)
         Me.TPSSCPWork.Name = "TPSSCPWork"
         Me.TPSSCPWork.Size = New System.Drawing.Size(782, 288)
         Me.TPSSCPWork.TabIndex = 11
         Me.TPSSCPWork.Text = "Compliance Work"
         Me.TPSSCPWork.UseVisualStyleBackColor = True
-        '
-        'llEnforcementCases
-        '
-        Me.llEnforcementCases.AutoSize = True
-        Me.llEnforcementCases.Location = New System.Drawing.Point(205, 38)
-        Me.llEnforcementCases.Name = "llEnforcementCases"
-        Me.llEnforcementCases.Size = New System.Drawing.Size(101, 13)
-        Me.llEnforcementCases.TabIndex = 2
-        Me.llEnforcementCases.TabStop = True
-        Me.llEnforcementCases.Text = "Enforcement cases:"
-        Me.llEnforcementCases.Visible = False
-        '
-        'cboStaffResponsible
-        '
-        Me.cboStaffResponsible.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.cboStaffResponsible.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cboStaffResponsible.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboStaffResponsible.Location = New System.Drawing.Point(118, 61)
-        Me.cboStaffResponsible.Name = "cboStaffResponsible"
-        Me.cboStaffResponsible.Size = New System.Drawing.Size(204, 21)
-        Me.cboStaffResponsible.TabIndex = 3
-        '
-        'Label223
-        '
-        Me.Label223.AutoSize = True
-        Me.Label223.Location = New System.Drawing.Point(8, 65)
-        Me.Label223.Name = "Label223"
-        Me.Label223.Size = New System.Drawing.Size(93, 13)
-        Me.Label223.TabIndex = 421
-        Me.Label223.Text = "Staff Responsible:"
-        Me.Label223.TextAlign = System.Drawing.ContentAlignment.BottomLeft
-        '
-        'txtTrackingNumber
-        '
-        Me.txtTrackingNumber.Location = New System.Drawing.Point(118, 34)
-        Me.txtTrackingNumber.Name = "txtTrackingNumber"
-        Me.txtTrackingNumber.ReadOnly = True
-        Me.txtTrackingNumber.Size = New System.Drawing.Size(69, 20)
-        Me.txtTrackingNumber.TabIndex = 1
-        '
-        'Label315
-        '
-        Me.Label315.AutoSize = True
-        Me.Label315.Location = New System.Drawing.Point(8, 38)
-        Me.Label315.Name = "Label315"
-        Me.Label315.Size = New System.Drawing.Size(92, 13)
-        Me.Label315.TabIndex = 419
-        Me.Label315.Text = "Tracking Number:"
-        '
-        'chbAcknoledgmentLetterSent
-        '
-        Me.chbAcknoledgmentLetterSent.AutoSize = True
-        Me.chbAcknoledgmentLetterSent.CheckAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.chbAcknoledgmentLetterSent.Location = New System.Drawing.Point(397, 65)
-        Me.chbAcknoledgmentLetterSent.Name = "chbAcknoledgmentLetterSent"
-        Me.chbAcknoledgmentLetterSent.Size = New System.Drawing.Size(133, 17)
-        Me.chbAcknoledgmentLetterSent.TabIndex = 4
-        Me.chbAcknoledgmentLetterSent.Text = "Acknowledgment Sent"
-        '
-        'DTPAcknoledgmentLetterSent
-        '
-        Me.DTPAcknoledgmentLetterSent.CustomFormat = "dd-MMM-yyyy"
-        Me.DTPAcknoledgmentLetterSent.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPAcknoledgmentLetterSent.Location = New System.Drawing.Point(542, 63)
-        Me.DTPAcknoledgmentLetterSent.Name = "DTPAcknoledgmentLetterSent"
-        Me.DTPAcknoledgmentLetterSent.Size = New System.Drawing.Size(100, 20)
-        Me.DTPAcknoledgmentLetterSent.TabIndex = 5
-        Me.DTPAcknoledgmentLetterSent.Value = New Date(2005, 4, 21, 0, 0, 0, 0)
-        '
-        'chbEventComplete
-        '
-        Me.chbEventComplete.AutoSize = True
-        Me.chbEventComplete.Location = New System.Drawing.Point(11, 10)
-        Me.chbEventComplete.Name = "chbEventComplete"
-        Me.chbEventComplete.Size = New System.Drawing.Size(73, 17)
-        Me.chbEventComplete.TabIndex = 500
-        Me.chbEventComplete.Text = "Complete:"
-        '
-        'DTPEventCompleteDate
-        '
-        Me.DTPEventCompleteDate.CustomFormat = "dd-MMM-yyyy"
-        Me.DTPEventCompleteDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPEventCompleteDate.Location = New System.Drawing.Point(84, 9)
-        Me.DTPEventCompleteDate.Name = "DTPEventCompleteDate"
-        Me.DTPEventCompleteDate.Size = New System.Drawing.Size(100, 20)
-        Me.DTPEventCompleteDate.TabIndex = 0
-        '
-        'btnSaveSSCPData
-        '
-        Me.btnSaveSSCPData.AutoSize = True
-        Me.btnSaveSSCPData.Location = New System.Drawing.Point(8, 334)
-        Me.btnSaveSSCPData.Name = "btnSaveSSCPData"
-        Me.btnSaveSSCPData.Size = New System.Drawing.Size(126, 23)
-        Me.btnSaveSSCPData.TabIndex = 511
-        Me.btnSaveSSCPData.Text = "Save Compliance Data"
-        Me.btnSaveSSCPData.UseVisualStyleBackColor = True
-        '
-        'txtTestReportReceivedbySSCPDate
-        '
-        Me.txtTestReportReceivedbySSCPDate.Location = New System.Drawing.Point(208, 96)
-        Me.txtTestReportReceivedbySSCPDate.Name = "txtTestReportReceivedbySSCPDate"
-        Me.txtTestReportReceivedbySSCPDate.ReadOnly = True
-        Me.txtTestReportReceivedbySSCPDate.Size = New System.Drawing.Size(137, 20)
-        Me.txtTestReportReceivedbySSCPDate.TabIndex = 6
-        '
-        'Label320
-        '
-        Me.Label320.AutoSize = True
-        Me.Label320.Location = New System.Drawing.Point(8, 99)
-        Me.Label320.Name = "Label320"
-        Me.Label320.Size = New System.Drawing.Size(198, 13)
-        Me.Label320.TabIndex = 407
-        Me.Label320.Text = "Test Summary Received by Compliance:"
-        '
-        'Panel22
-        '
-        Me.Panel22.Controls.Add(Me.rdbTestReportFollowUpYes)
-        Me.Panel22.Controls.Add(Me.rdbTestReportFollowUpNo)
-        Me.Panel22.Location = New System.Drawing.Point(160, 296)
-        Me.Panel22.Name = "Panel22"
-        Me.Panel22.Size = New System.Drawing.Size(96, 16)
-        Me.Panel22.TabIndex = 406
-        '
-        'rdbTestReportFollowUpYes
-        '
-        Me.rdbTestReportFollowUpYes.Location = New System.Drawing.Point(0, 0)
-        Me.rdbTestReportFollowUpYes.Name = "rdbTestReportFollowUpYes"
-        Me.rdbTestReportFollowUpYes.Size = New System.Drawing.Size(48, 16)
-        Me.rdbTestReportFollowUpYes.TabIndex = 509
-        Me.rdbTestReportFollowUpYes.Text = "Yes"
-        '
-        'rdbTestReportFollowUpNo
-        '
-        Me.rdbTestReportFollowUpNo.Location = New System.Drawing.Point(48, 0)
-        Me.rdbTestReportFollowUpNo.Name = "rdbTestReportFollowUpNo"
-        Me.rdbTestReportFollowUpNo.Size = New System.Drawing.Size(48, 16)
-        Me.rdbTestReportFollowUpNo.TabIndex = 510
-        Me.rdbTestReportFollowUpNo.Text = "No"
-        '
-        'Label321
-        '
-        Me.Label321.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Label321.Location = New System.Drawing.Point(8, 312)
-        Me.Label321.Name = "Label321"
-        Me.Label321.Size = New System.Drawing.Size(235, 1)
-        Me.Label321.TabIndex = 405
-        '
-        'Label322
-        '
-        Me.Label322.AutoSize = True
-        Me.Label322.Location = New System.Drawing.Point(8, 296)
-        Me.Label322.Name = "Label322"
-        Me.Label322.Size = New System.Drawing.Size(121, 13)
-        Me.Label322.TabIndex = 404
-        Me.Label322.Text = "Follow-Up Action Taken"
-        '
-        'Label323
-        '
-        Me.Label323.AutoSize = True
-        Me.Label323.Location = New System.Drawing.Point(8, 136)
-        Me.Label323.Name = "Label323"
-        Me.Label323.Size = New System.Drawing.Size(166, 13)
-        Me.Label323.TabIndex = 396
-        Me.Label323.Text = "Date Performance Test Required:"
-        '
-        'DTPTestReportDueDate
-        '
-        Me.DTPTestReportDueDate.CustomFormat = "dd-MMM-yyyy"
-        Me.DTPTestReportDueDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPTestReportDueDate.Location = New System.Drawing.Point(180, 156)
-        Me.DTPTestReportDueDate.Name = "DTPTestReportDueDate"
-        Me.DTPTestReportDueDate.Size = New System.Drawing.Size(100, 20)
-        Me.DTPTestReportDueDate.TabIndex = 11
-        Me.DTPTestReportDueDate.Value = New Date(2005, 4, 21, 0, 0, 0, 0)
-        '
-        'chbTestReportChangeDueDate
-        '
-        Me.chbTestReportChangeDueDate.AutoSize = True
-        Me.chbTestReportChangeDueDate.Location = New System.Drawing.Point(39, 156)
-        Me.chbTestReportChangeDueDate.Name = "chbTestReportChangeDueDate"
-        Me.chbTestReportChangeDueDate.Size = New System.Drawing.Size(135, 17)
-        Me.chbTestReportChangeDueDate.TabIndex = 10
-        Me.chbTestReportChangeDueDate.Text = "Change Required Date"
-        '
-        'DTPTestReportNextDueDate
-        '
-        Me.DTPTestReportNextDueDate.CustomFormat = "dd-MMM-yyyy"
-        Me.DTPTestReportNextDueDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPTestReportNextDueDate.Location = New System.Drawing.Point(558, 131)
-        Me.DTPTestReportNextDueDate.Name = "DTPTestReportNextDueDate"
-        Me.DTPTestReportNextDueDate.Size = New System.Drawing.Size(100, 20)
-        Me.DTPTestReportNextDueDate.TabIndex = 9
-        Me.DTPTestReportNextDueDate.Value = New Date(2005, 4, 21, 0, 0, 0, 0)
-        '
-        'Label325
-        '
-        Me.Label325.AutoSize = True
-        Me.Label325.Location = New System.Drawing.Point(386, 136)
-        Me.Label325.Name = "Label325"
-        Me.Label325.Size = New System.Drawing.Size(160, 13)
-        Me.Label325.TabIndex = 8
-        Me.Label325.Text = "Date for Next Performance Test:"
-        '
-        'txtTestReportComments
-        '
-        Me.txtTestReportComments.AcceptsReturn = True
-        Me.txtTestReportComments.Location = New System.Drawing.Point(130, 192)
-        Me.txtTestReportComments.MaxLength = 4000
-        Me.txtTestReportComments.Multiline = True
-        Me.txtTestReportComments.Name = "txtTestReportComments"
-        Me.txtTestReportComments.Size = New System.Drawing.Size(615, 88)
-        Me.txtTestReportComments.TabIndex = 12
-        '
-        'Label326
-        '
-        Me.Label326.AutoSize = True
-        Me.Label326.Location = New System.Drawing.Point(8, 192)
-        Me.Label326.Name = "Label326"
-        Me.Label326.Size = New System.Drawing.Size(118, 13)
-        Me.Label326.TabIndex = 398
-        Me.Label326.Text = "Test Report Comments:"
-        '
-        'txtTestReportDueDate
-        '
-        Me.txtTestReportDueDate.Location = New System.Drawing.Point(180, 132)
-        Me.txtTestReportDueDate.Name = "txtTestReportDueDate"
-        Me.txtTestReportDueDate.ReadOnly = True
-        Me.txtTestReportDueDate.Size = New System.Drawing.Size(120, 20)
-        Me.txtTestReportDueDate.TabIndex = 7
         '
         'DeletedTestFlag
         '
@@ -10044,71 +9765,68 @@ Partial Class ISMPTestReports
         Me.Name = "ISMPTestReports"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
         Me.Text = "Performance Monitoring Test Reports"
-        Me.MenuStrip1.ResumeLayout(false)
+        Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout
-        Me.ToolStrip1.ResumeLayout(false)
+        Me.ToolStrip1.ResumeLayout(False)
         Me.ToolStrip1.PerformLayout
-        Me.SCTestReports.Panel1.ResumeLayout(false)
-        Me.SCTestReports.Panel2.ResumeLayout(false)
-        CType(Me.SCTestReports,System.ComponentModel.ISupportInitialize).EndInit
-        Me.SCTestReports.ResumeLayout(false)
-        Me.GroupBox1.ResumeLayout(false)
+        Me.SCTestReports.Panel1.ResumeLayout(False)
+        Me.SCTestReports.Panel2.ResumeLayout(False)
+        CType(Me.SCTestReports, System.ComponentModel.ISupportInitialize).EndInit
+        Me.SCTestReports.ResumeLayout(False)
+        Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout
-        Me.TCDocumentTypes.ResumeLayout(false)
-        Me.TPOneStack.ResumeLayout(false)
+        Me.TCDocumentTypes.ResumeLayout(False)
+        Me.TPOneStack.ResumeLayout(False)
         Me.TPOneStack.PerformLayout
-        Me.TCOneStack.ResumeLayout(false)
-        Me.TPOneStackTwoRun.ResumeLayout(false)
+        Me.TCOneStack.ResumeLayout(False)
+        Me.TPOneStackTwoRun.ResumeLayout(False)
         Me.TPOneStackTwoRun.PerformLayout
-        Me.TPOneStackThreeRun.ResumeLayout(false)
+        Me.TPOneStackThreeRun.ResumeLayout(False)
         Me.TPOneStackThreeRun.PerformLayout
-        Me.TPOneStackFourRun.ResumeLayout(false)
+        Me.TPOneStackFourRun.ResumeLayout(False)
         Me.TPOneStackFourRun.PerformLayout
-        Me.TPLoadingRack.ResumeLayout(false)
+        Me.TPLoadingRack.ResumeLayout(False)
         Me.TPLoadingRack.PerformLayout
-        Me.TPPondTreatment.ResumeLayout(false)
+        Me.TPPondTreatment.ResumeLayout(False)
         Me.TPPondTreatment.PerformLayout
-        Me.TPGasConcentration.ResumeLayout(false)
+        Me.TPGasConcentration.ResumeLayout(False)
         Me.TPGasConcentration.PerformLayout
-        Me.TPFlare.ResumeLayout(false)
+        Me.TPFlare.ResumeLayout(False)
         Me.TPFlare.PerformLayout
-        Me.TPMethodNine.ResumeLayout(false)
+        Me.TPMethodNine.ResumeLayout(False)
         Me.TPMethodNine.PerformLayout
-        Me.TCMethodNine.ResumeLayout(false)
-        Me.TPMethodNineSingle.ResumeLayout(false)
+        Me.TCMethodNine.ResumeLayout(False)
+        Me.TPMethodNineSingle.ResumeLayout(False)
         Me.TPMethodNineSingle.PerformLayout
-        Me.Panel4.ResumeLayout(false)
+        Me.Panel4.ResumeLayout(False)
         Me.Panel4.PerformLayout
-        Me.TPMethodNineMultiple.ResumeLayout(false)
+        Me.TPMethodNineMultiple.ResumeLayout(False)
         Me.TPMethodNineMultiple.PerformLayout
-        Me.Panel5.ResumeLayout(false)
+        Me.Panel5.ResumeLayout(False)
         Me.Panel5.PerformLayout
-        Me.TPMethodNineMultiple2.ResumeLayout(false)
+        Me.TPMethodNineMultiple2.ResumeLayout(False)
         Me.TPMethodNineMultiple2.PerformLayout
-        Me.TPMemorandum.ResumeLayout(false)
+        Me.TPMemorandum.ResumeLayout(False)
         Me.TPMemorandum.PerformLayout
-        Me.TCMemorandum.ResumeLayout(false)
-        Me.TPMemoStandard.ResumeLayout(false)
+        Me.TCMemorandum.ResumeLayout(False)
+        Me.TPMemoStandard.ResumeLayout(False)
         Me.TPMemoStandard.PerformLayout
-        Me.TPMemoToFile.ResumeLayout(false)
+        Me.TPMemoToFile.ResumeLayout(False)
         Me.TPMemoToFile.PerformLayout
-        Me.TPMemoPTE.ResumeLayout(false)
+        Me.TPMemoPTE.ResumeLayout(False)
         Me.TPMemoPTE.PerformLayout
-        Me.TPRata.ResumeLayout(false)
+        Me.TPRata.ResumeLayout(False)
         Me.TPRata.PerformLayout
-        Me.TPTwoStack.ResumeLayout(false)
+        Me.TPTwoStack.ResumeLayout(False)
         Me.TPTwoStack.PerformLayout
-        Me.TCTwoStack.ResumeLayout(false)
-        Me.TPTwoStackStandard.ResumeLayout(false)
+        Me.TCTwoStack.ResumeLayout(False)
+        Me.TPTwoStackStandard.ResumeLayout(False)
         Me.TPTwoStackStandard.PerformLayout
-        Me.TPTwoStackDRE.ResumeLayout(false)
+        Me.TPTwoStackDRE.ResumeLayout(False)
         Me.TPTwoStackDRE.PerformLayout
-        Me.TPMethodTwentyTwo.ResumeLayout(false)
+        Me.TPMethodTwentyTwo.ResumeLayout(False)
         Me.TPMethodTwentyTwo.PerformLayout
-        Me.TPSSCPWork.ResumeLayout(false)
-        Me.TPSSCPWork.PerformLayout
-        Me.Panel22.ResumeLayout(false)
-        Me.ResumeLayout(false)
+        Me.ResumeLayout(False)
         Me.PerformLayout
 
 End Sub
@@ -10946,30 +10664,6 @@ End Sub
     Friend WithEvents cboOperatingCapacityUnitsMethod22 As System.Windows.Forms.ComboBox
     Friend WithEvents cboMaximumExpectedOperatingCapacityUnitsMethod22 As System.Windows.Forms.ComboBox
     Friend WithEvents Label222 As System.Windows.Forms.Label
-    Friend WithEvents cboStaffResponsible As System.Windows.Forms.ComboBox
-    Friend WithEvents Label223 As System.Windows.Forms.Label
-    Friend WithEvents txtTrackingNumber As System.Windows.Forms.TextBox
-    Friend WithEvents Label315 As System.Windows.Forms.Label
-    Friend WithEvents chbAcknoledgmentLetterSent As System.Windows.Forms.CheckBox
-    Friend WithEvents DTPAcknoledgmentLetterSent As System.Windows.Forms.DateTimePicker
-    Friend WithEvents chbEventComplete As System.Windows.Forms.CheckBox
-    Friend WithEvents DTPEventCompleteDate As System.Windows.Forms.DateTimePicker
-    Friend WithEvents btnSaveSSCPData As System.Windows.Forms.Button
-    Friend WithEvents txtTestReportReceivedbySSCPDate As System.Windows.Forms.TextBox
-    Friend WithEvents Label320 As System.Windows.Forms.Label
-    Friend WithEvents Panel22 As System.Windows.Forms.Panel
-    Friend WithEvents rdbTestReportFollowUpYes As System.Windows.Forms.RadioButton
-    Friend WithEvents rdbTestReportFollowUpNo As System.Windows.Forms.RadioButton
-    Friend WithEvents Label321 As System.Windows.Forms.Label
-    Friend WithEvents Label322 As System.Windows.Forms.Label
-    Friend WithEvents Label323 As System.Windows.Forms.Label
-    Friend WithEvents DTPTestReportDueDate As System.Windows.Forms.DateTimePicker
-    Friend WithEvents chbTestReportChangeDueDate As System.Windows.Forms.CheckBox
-    Friend WithEvents DTPTestReportNextDueDate As System.Windows.Forms.DateTimePicker
-    Friend WithEvents Label325 As System.Windows.Forms.Label
-    Friend WithEvents txtTestReportComments As System.Windows.Forms.TextBox
-    Friend WithEvents Label326 As System.Windows.Forms.Label
-    Friend WithEvents txtTestReportDueDate As System.Windows.Forms.TextBox
     Friend WithEvents tsbResize As System.Windows.Forms.ToolStripButton
     Friend WithEvents tsbPrePopulate As System.Windows.Forms.ToolStripButton
     Friend WithEvents llbTestNotifiactionNumber As System.Windows.Forms.LinkLabel
@@ -10993,6 +10687,5 @@ End Sub
     Friend WithEvents lblMemoEntered As System.Windows.Forms.Label
     Friend WithEvents DeletedTestFlag As System.Windows.Forms.Label
     Friend WithEvents cboUnitManager As ComboBox
-    Friend WithEvents llEnforcementCases As LinkLabel
     Friend WithEvents PrintToolStripMenuItem As ToolStripMenuItem
 End Class
