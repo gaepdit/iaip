@@ -798,6 +798,9 @@ Public Class ISMPTestReportAdministrative
         OpenFormTestMemo(Me.txtReferenceNumber.Text)
     End Sub
     Private Sub DeleteTestReport()
+        MessageBox.Show("Test reports cannot currently be deleted. Please contact EPD-IT for more info.")
+        Return
+
         Try
             If MessageBox.Show("Are you sure you want to delete these test reports?", "Confirm Delete",
                                MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) _
@@ -846,8 +849,8 @@ Public Class ISMPTestReportAdministrative
         ' AIRS number required
         If cboAIRSNumber.Text = "" Then Return
 
-        ' Check if SSCP data already exists
-        Dim query As String = "select convert(bit, count(*)) from dbo.SSCPTESTREPORTS where STRREFERENCENUMBER = @ReferenceNumber "
+        ' Check if SSCP assignment data already exists
+        Dim query As String = "select convert(bit, count(*)) from dbo.ISMPREPORTINFORMATION where STRREFERENCENUMBER = @ReferenceNumber and ComplianceAssignment is null "
         Dim paramRefNum As New SqlParameter("@ReferenceNumber", ReferenceNumber)
         If DB.GetBoolean(query, paramRefNum) Then Return
 
@@ -855,29 +858,14 @@ Public Class ISMPTestReportAdministrative
         query = "select [Staff ID] from iaip_facility.VW_FacilityAssignments_Compliance where AIRS = @airs"
         Dim paramAirs As New SqlParameter("@airs", "0413" & cboAIRSNumber.Text)
         Dim StaffResponsible As String = DB.GetString(query, paramAirs)
-        If String.IsNullOrEmpty(StaffResponsible) Then StaffResponsible = "0"
-
-        ' Best guess at due date of current test (seems unlikely to be correct)
-        query = "select DATSSCPTESTREPORTDUE from dbo.APBSUPPLAMENTALDATA where STRAIRSNUMBER = @airs "
-        Dim TestDue As Date? = DB.GetSingleValue(Of Date?)(query, paramAirs)
-        If TestDue Is Nothing Then TestDue = DTPDateClosed.Value
-
-        Dim DateReceivedBySscp As Date = DTPDateClosed.Value
+        If String.IsNullOrEmpty(StaffResponsible) Then Return
 
         Dim params As SqlParameter() = {
             paramRefNum,
-            New SqlParameter("@StaffResponsible", StaffResponsible),
-            New SqlParameter("@UserId", CurrentUser.UserID),
-            SqlParameterAsNull("@CompleteDate", SqlDbType.DateTime2),
-            SqlParameterAsNull("@AckLetter", SqlDbType.DateTime2),
-            New SqlParameter("@TestDue", TestDue),
-            SqlParameterAsNull("@TestReportComments", SqlDbType.VarChar),
-            New SqlParameter("@FollowUp", Boolean.FalseString),
-            SqlParameterAsNull("@NextTest", SqlDbType.DateTime2),
-            New SqlParameter("@DateReceivedBySscp", DateReceivedBySscp)
+            New SqlParameter("@StaffResponsible", StaffResponsible)
         }
 
-        DB.SPRunCommand("dbo.SaveStackTestSccpData", params)
+        DB.SPRunCommand("dbo.SaveStackTestSscpData", params)
     End Sub
 
 #Region "Main Menu"
