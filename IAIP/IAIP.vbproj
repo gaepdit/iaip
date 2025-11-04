@@ -644,12 +644,6 @@
     <Compile Include="SSCP\SSCPEvents.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SSCP\SSCPFCEWork.Designer.vb">
-      <DependentUpon>SSCPFCEWork.vb</DependentUpon>
-    </Compile>
-    <Compile Include="SSCP\SSCPFCEWork.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="SSCP\SubPages\SSCPEnforcementChecklist.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -685,7 +679,6 @@
     </Compile>
     <Compile Include="_DAL\Facilities\PollutantsPrograms.vb" />
     <Compile Include="_DAL\Facilities\AfsData.vb" />
-    <Compile Include="_DAL\SSCP\FceData.vb" />
     <Compile Include="_Data Models\EDT\EdtErrorMessage.vb" />
     <Compile Include="_Data Models\EDT\EdtSubmission.vb" />
     <Compile Include="_Data Models\Documents\DocumentType.vb" />
@@ -895,10 +888,6 @@
     <EmbeddedResource Include="SSCP\SSCPEvents.resx">
       <DependentUpon>SSCPEvents.vb</DependentUpon>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SSCP\SSCPFCEWork.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>SSCPFCEWork.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SSCP\SubPages\SSCPEnforcementChecklist.resx">
       <DependentUpon>SSCPEnforcementChecklist.vb</DependentUpon>

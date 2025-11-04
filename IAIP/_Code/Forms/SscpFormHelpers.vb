@@ -39,50 +39,26 @@ Module SscpFormHelpers
 
     ' FCE 
 
-    Public Function OpenFormFce(airsNumber As ApbFacilityId, Optional year As String = "") As SSCPFCEWork
-        If Not DAL.AirsNumberExists(airsNumber) Then
-            MessageBox.Show("AIRS number does not exist.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            Return Nothing
-        Else
-            Dim SSCPFCE As New SSCPFCEWork With {
-                .AirsNumber = airsNumber
-            }
+    Public Sub OpenFormFce(fceNumber As String)
+        ' TODO-Air-Web: open Air Web page
 
-            If Not SSCPFCE.IsDisposed Then
-                SSCPFCE.Show()
-                If Not String.IsNullOrEmpty(year) Then
-                    SSCPFCE.SetFceYear(CInt(year))
-                End If
-                Return SSCPFCE
-            Else
-                MessageBox.Show("There was an error opening the FCE.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Return Nothing
-            End If
-        End If
-    End Function
+        'Dim intFce As Integer
 
-    Public Function OpenFormFce(fceNumber As Integer) As SSCPFCEWork
-        Return OpenFormFce(fceNumber.ToString)
-    End Function
+        'If Not String.IsNullOrEmpty(fceNumber) AndAlso
+        '    Integer.TryParse(fceNumber, intFce) AndAlso
+        '    DAL.Sscp.FceExists(intFce) Then
 
-    Public Function OpenFormFce(fceNumber As String) As SSCPFCEWork
-        Dim intFce As Integer
+        '    Dim airsNumber As ApbFacilityId = DAL.Sscp.GetFacilityIdByFceId(intFce)
 
-        If Not String.IsNullOrEmpty(fceNumber) AndAlso
-            Integer.TryParse(fceNumber, intFce) AndAlso
-            DAL.Sscp.FceExists(intFce) Then
+        '    If airsNumber IsNot Nothing Then
+        '        Dim SSCPFCE As SSCPFCEWork = OpenFormFce(airsNumber)
+        '        SSCPFCE.txtFCENumber.Text = fceNumber
+        '        Return SSCPFCE
+        '    End If
+        'End If
 
-            Dim airsNumber As ApbFacilityId = DAL.Sscp.GetFacilityIdByFceId(intFce)
-
-            If airsNumber IsNot Nothing Then
-                Dim SSCPFCE As SSCPFCEWork = OpenFormFce(airsNumber)
-                SSCPFCE.txtFCENumber.Text = fceNumber
-                Return SSCPFCE
-            End If
-        End If
-
-        Return Nothing
-    End Function
+        'Return Nothing
+    End Sub
 
     ' Enforcement 
 
