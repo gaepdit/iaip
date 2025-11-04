@@ -280,7 +280,6 @@
     <Compile Include="_Code\AppUpdater.vb" />
     <Compile Include="_Code\ColorLabelHelper.vb" />
     <Compile Include="_Code\DataGridViewExtensions.vb" />
-    <Compile Include="_Code\DateTimePickerHelpers.vb" />
     <Compile Include="_Code\DictionaryExtensions.vb" />
     <Compile Include="_Code\EnumExtensions.vb" />
     <Compile Include="_Code\ComboBoxHelpers.vb" />
@@ -783,10 +782,6 @@
     <EmbeddedResource Include="SSCP\SscpDocuments.resx">
       <DependentUpon>SscpDocuments.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SSCP\SscpEnforcement.resx">
-      <DependentUpon>SscpEnforcement.vb</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="EIS\EisTool.resx">
       <DependentUpon>EisTool.vb</DependentUpon>
       <SubType>Designer</SubType>
@@ -1077,12 +1072,6 @@
       <DependentUpon>SscpDocuments.vb</DependentUpon>
     </Compile>
     <Compile Include="SSCP\SscpDocuments.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SSCP\SscpEnforcement.Designer.vb">
-      <DependentUpon>SscpEnforcement.vb</DependentUpon>
-    </Compile>
-    <Compile Include="SSCP\SscpEnforcement.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="_Data Models\Facilities\Address.vb" />
