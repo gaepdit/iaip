@@ -430,91 +430,6 @@ Public Class SSCPManagersTools
         End Try
     End Sub
 
-    Private Sub chbNoFCE_CheckedChanged(sender As Object, e As EventArgs) Handles chbNoFCE.CheckedChanged
-        FceSearchFilters.Enabled = Not chbNoFCE.Checked
-    End Sub
-
-    Private Sub RunCMSWarningReport()
-        Dim SqlFilter As String
-
-        Dim SMOverdueDate As Date = Today.AddYears(-MIN_FCE_SPAN_CLASS_SM)
-        Dim AOverdueDate As Date = Today.AddYears(-MIN_FCE_SPAN_CLASS_A)
-        Dim MegaOverdueDate As Date = Today.AddYears(-MIN_FCE_SPAN_CLASS_M)
-
-        Try
-            If chbNoFCE.Checked Then
-                SqlFilter = " Where strCMSMember Is Not null and lastFCE is null "
-            Else
-                SqlFilter = " where " &
-                    " (strCMSMember = 'A' and lastFCE < @adate) or " &
-                    " (strCMSMember = 'S' and lastFCE < @sdate) or " &
-                    " (strCMSMember = 'M' and lastFCE < @mdate) "
-
-                If rdbNext60Days.Checked Then
-                    SMOverdueDate = SMOverdueDate.AddDays(60)
-                    AOverdueDate = AOverdueDate.AddDays(60)
-                    MegaOverdueDate = MegaOverdueDate.AddDays(60)
-                ElseIf rdbNext90Days.Checked Then
-                    SMOverdueDate = SMOverdueDate.AddDays(90)
-                    AOverdueDate = AOverdueDate.AddDays(90)
-                    MegaOverdueDate = MegaOverdueDate.AddDays(90)
-                ElseIf rdbNext120Days.Checked Then
-                    SMOverdueDate = SMOverdueDate.AddDays(120)
-                    AOverdueDate = AOverdueDate.AddDays(120)
-                    MegaOverdueDate = MegaOverdueDate.AddDays(120)
-                ElseIf rdbNextYear.Checked Then
-                    SMOverdueDate = SMOverdueDate.AddYears(1)
-                    AOverdueDate = AOverdueDate.AddYears(1)
-                    MegaOverdueDate = MegaOverdueDate.AddYears(1)
-                End If
-            End If
-
-            Dim SQL As String = "Select * " &
-                "from VW_SSCP_CMSWarning " &
-                SqlFilter
-
-            Dim p As SqlParameter() = {
-                 New SqlParameter("@adate", AOverdueDate),
-                 New SqlParameter("@sdate", SMOverdueDate),
-                 New SqlParameter("@mdate", MegaOverdueDate)
-            }
-
-            dgvCMSWarning.DataSource = DB.GetDataTable(SQL, p)
-
-            dgvCMSWarning.RowHeadersVisible = False
-            dgvCMSWarning.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvCMSWarning.AllowUserToResizeColumns = True
-            dgvCMSWarning.AllowUserToAddRows = False
-            dgvCMSWarning.AllowUserToDeleteRows = False
-            dgvCMSWarning.AllowUserToOrderColumns = True
-            dgvCMSWarning.AllowUserToResizeRows = True
-
-            dgvCMSWarning.Columns("strCMSMember").HeaderText = "CMS Class"
-            dgvCMSWarning.Columns("strCMSMember").DisplayIndex = 0
-            dgvCMSWarning.Columns("AIRSNumber").HeaderText = "AIRS Number"
-            dgvCMSWarning.Columns("AIRSNumber").DisplayIndex = 1
-            dgvCMSWarning.Columns("strFacilityName").HeaderText = "Facility Name"
-            dgvCMSWarning.Columns("strFacilityName").DisplayIndex = 2
-            dgvCMSWarning.Columns("strFacilityCity").HeaderText = "City"
-            dgvCMSWarning.Columns("strFacilityCity").DisplayIndex = 3
-            dgvCMSWarning.Columns("strCountyName").HeaderText = "County"
-            dgvCMSWarning.Columns("strCountyName").DisplayIndex = 4
-            dgvCMSWarning.Columns("strDistrictName").HeaderText = "District"
-            dgvCMSWarning.Columns("strDistrictName").DisplayIndex = 5
-            dgvCMSWarning.Columns("strOperationalStatus").HeaderText = "Operational Status"
-            dgvCMSWarning.Columns("strOperationalStatus").DisplayIndex = 6
-            dgvCMSWarning.Columns("LastFCE").HeaderText = "Last FCE"
-            dgvCMSWarning.Columns("LastFCE").DisplayIndex = 7
-            dgvCMSWarning.Columns("LastFCE").DefaultCellStyle.Format = "dd-MMM-yyyy"
-            dgvCMSWarning.Columns("strClass").HeaderText = "Class"
-            dgvCMSWarning.Columns("strClass").DisplayIndex = 8
-
-            txtCMSWarningCount.Text = dgvCMSWarning.RowCount.ToString
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
     Private Sub RunACCStats()
         Try
             Dim SQL As String
@@ -707,10 +622,6 @@ Public Class SSCPManagersTools
 
     Private Sub btnAddToCmsUniverse_LinkClicked(sender As Object, e As EventArgs) Handles btnAddToCmsUniverse.Click
         AddFacilityToCMS()
-    End Sub
-
-    Private Sub lblCMSWarning_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblCMSWarning.LinkClicked
-        RunCMSWarningReport()
     End Sub
 
     Private Sub btnRunStatisticalReport_Click(sender As Object, e As EventArgs) Handles btnRunStatisticalReport.Click
@@ -2750,10 +2661,6 @@ Public Class SSCPManagersTools
 
     Private Sub btnExportToExcel_Click(sender As Object, e As EventArgs) Handles btnExportToExcel.Click
         dgvStatisticalReports.ExportToExcel(Me)
-    End Sub
-
-    Private Sub btnExportCmsWarningToExcel_Click(sender As Object, e As EventArgs) Handles btnExportCmsWarningToExcel.Click
-        dgvCMSWarning.ExportToExcel(Me)
     End Sub
 
     Private Sub btnExportCmsUniverseToExcel_Click(sender As Object, e As EventArgs) Handles btnExportCmsUniverseToExcel.Click

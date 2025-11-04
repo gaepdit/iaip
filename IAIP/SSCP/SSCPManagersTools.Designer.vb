@@ -38,21 +38,6 @@ Partial Class SSCPManagersTools
         Me.txtCMSAIRSNumber = New System.Windows.Forms.TextBox()
         Me.TPUniverse = New System.Windows.Forms.TabPage()
         Me.dgvCMSUniverse = New System.Windows.Forms.DataGridView()
-        Me.lblCMSWarning = New System.Windows.Forms.LinkLabel()
-        Me.FceSearchFilters = New System.Windows.Forms.GroupBox()
-        Me.rdbFCEOverdue = New System.Windows.Forms.RadioButton()
-        Me.rdbNextYear = New System.Windows.Forms.RadioButton()
-        Me.rdbNext120Days = New System.Windows.Forms.RadioButton()
-        Me.rdbNext90Days = New System.Windows.Forms.RadioButton()
-        Me.rdbNext60Days = New System.Windows.Forms.RadioButton()
-        Me.chbNoFCE = New System.Windows.Forms.CheckBox()
-        Me.Label30 = New System.Windows.Forms.Label()
-        Me.PanelCMSWarning = New System.Windows.Forms.Panel()
-        Me.btnExportCmsWarningToExcel = New System.Windows.Forms.Button()
-        Me.txtCMSWarningCount = New System.Windows.Forms.TextBox()
-        Me.dgvCMSWarning = New System.Windows.Forms.DataGridView()
-        Me.TPCMSWarning = New System.Windows.Forms.TabPage()
-        Me.Splitter3 = New System.Windows.Forms.Splitter()
         Me.TCManagerTools = New System.Windows.Forms.TabControl()
         Me.TPFacilityAssignments = New System.Windows.Forms.TabPage()
         Me.FacilityAssignmentPanel = New System.Windows.Forms.Panel()
@@ -217,10 +202,6 @@ Partial Class SSCPManagersTools
         Me.PanelCMSUniverse.SuspendLayout()
         Me.TPUniverse.SuspendLayout()
         CType(Me.dgvCMSUniverse, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.FceSearchFilters.SuspendLayout()
-        Me.PanelCMSWarning.SuspendLayout()
-        CType(Me.dgvCMSWarning, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.TPCMSWarning.SuspendLayout()
         Me.TCManagerTools.SuspendLayout()
         Me.TPFacilityAssignments.SuspendLayout()
         Me.FacilityAssignmentPanel.SuspendLayout()
@@ -459,167 +440,10 @@ Partial Class SSCPManagersTools
         Me.dgvCMSUniverse.Size = New System.Drawing.Size(760, 631)
         Me.dgvCMSUniverse.TabIndex = 20
         '
-        'lblCMSWarning
-        '
-        Me.lblCMSWarning.AutoSize = True
-        Me.lblCMSWarning.Location = New System.Drawing.Point(8, 8)
-        Me.lblCMSWarning.Name = "lblCMSWarning"
-        Me.lblCMSWarning.Size = New System.Drawing.Size(88, 13)
-        Me.lblCMSWarning.TabIndex = 1
-        Me.lblCMSWarning.TabStop = True
-        Me.lblCMSWarning.Text = "Run CMS Report"
-        '
-        'FceSearchFilters
-        '
-        Me.FceSearchFilters.Controls.Add(Me.rdbFCEOverdue)
-        Me.FceSearchFilters.Controls.Add(Me.rdbNextYear)
-        Me.FceSearchFilters.Controls.Add(Me.rdbNext120Days)
-        Me.FceSearchFilters.Controls.Add(Me.rdbNext90Days)
-        Me.FceSearchFilters.Controls.Add(Me.rdbNext60Days)
-        Me.FceSearchFilters.Location = New System.Drawing.Point(8, 75)
-        Me.FceSearchFilters.Name = "FceSearchFilters"
-        Me.FceSearchFilters.Size = New System.Drawing.Size(225, 140)
-        Me.FceSearchFilters.TabIndex = 14
-        Me.FceSearchFilters.TabStop = False
-        Me.FceSearchFilters.Text = "FCEs required based on last FCE"
-        '
-        'rdbFCEOverdue
-        '
-        Me.rdbFCEOverdue.AutoSize = True
-        Me.rdbFCEOverdue.Checked = True
-        Me.rdbFCEOverdue.Location = New System.Drawing.Point(10, 19)
-        Me.rdbFCEOverdue.Name = "rdbFCEOverdue"
-        Me.rdbFCEOverdue.Size = New System.Drawing.Size(89, 17)
-        Me.rdbFCEOverdue.TabIndex = 32
-        Me.rdbFCEOverdue.TabStop = True
-        Me.rdbFCEOverdue.Text = "FCE Overdue"
-        '
-        'rdbNextYear
-        '
-        Me.rdbNextYear.AutoSize = True
-        Me.rdbNextYear.Location = New System.Drawing.Point(10, 111)
-        Me.rdbNextYear.Name = "rdbNextYear"
-        Me.rdbNextYear.Size = New System.Drawing.Size(189, 17)
-        Me.rdbNextYear.TabIndex = 4
-        Me.rdbNextYear.Text = "FCE Needed in the upcoming Year"
-        '
-        'rdbNext120Days
-        '
-        Me.rdbNext120Days.AutoSize = True
-        Me.rdbNext120Days.Location = New System.Drawing.Point(10, 88)
-        Me.rdbNext120Days.Name = "rdbNext120Days"
-        Me.rdbNext120Days.Size = New System.Drawing.Size(166, 17)
-        Me.rdbNext120Days.TabIndex = 3
-        Me.rdbNext120Days.Text = "FCE Needed in next 120 days"
-        '
-        'rdbNext90Days
-        '
-        Me.rdbNext90Days.AutoSize = True
-        Me.rdbNext90Days.Location = New System.Drawing.Point(10, 65)
-        Me.rdbNext90Days.Name = "rdbNext90Days"
-        Me.rdbNext90Days.Size = New System.Drawing.Size(160, 17)
-        Me.rdbNext90Days.TabIndex = 2
-        Me.rdbNext90Days.Text = "FCE Needed in next 90 days"
-        '
-        'rdbNext60Days
-        '
-        Me.rdbNext60Days.AutoSize = True
-        Me.rdbNext60Days.Location = New System.Drawing.Point(10, 42)
-        Me.rdbNext60Days.Name = "rdbNext60Days"
-        Me.rdbNext60Days.Size = New System.Drawing.Size(160, 17)
-        Me.rdbNext60Days.TabIndex = 1
-        Me.rdbNext60Days.Text = "FCE Needed in next 60 days"
-        '
-        'chbNoFCE
-        '
-        Me.chbNoFCE.AutoSize = True
-        Me.chbNoFCE.Location = New System.Drawing.Point(18, 50)
-        Me.chbNoFCE.Name = "chbNoFCE"
-        Me.chbNoFCE.Size = New System.Drawing.Size(111, 17)
-        Me.chbNoFCE.TabIndex = 34
-        Me.chbNoFCE.Text = "No FCE on record"
-        Me.chbNoFCE.UseVisualStyleBackColor = True
-        '
-        'Label30
-        '
-        Me.Label30.AutoSize = True
-        Me.Label30.Location = New System.Drawing.Point(127, 8)
-        Me.Label30.Name = "Label30"
-        Me.Label30.Size = New System.Drawing.Size(64, 13)
-        Me.Label30.TabIndex = 30
-        Me.Label30.Text = "CMS Count:"
-        '
-        'PanelCMSWarning
-        '
-        Me.PanelCMSWarning.Controls.Add(Me.chbNoFCE)
-        Me.PanelCMSWarning.Controls.Add(Me.btnExportCmsWarningToExcel)
-        Me.PanelCMSWarning.Controls.Add(Me.lblCMSWarning)
-        Me.PanelCMSWarning.Controls.Add(Me.FceSearchFilters)
-        Me.PanelCMSWarning.Controls.Add(Me.Label30)
-        Me.PanelCMSWarning.Controls.Add(Me.txtCMSWarningCount)
-        Me.PanelCMSWarning.Dock = System.Windows.Forms.DockStyle.Right
-        Me.PanelCMSWarning.Location = New System.Drawing.Point(813, 0)
-        Me.PanelCMSWarning.Name = "PanelCMSWarning"
-        Me.PanelCMSWarning.Size = New System.Drawing.Size(296, 631)
-        Me.PanelCMSWarning.TabIndex = 16
-        '
-        'btnExportCmsWarningToExcel
-        '
-        Me.btnExportCmsWarningToExcel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnExportCmsWarningToExcel.AutoSize = True
-        Me.btnExportCmsWarningToExcel.Image = Global.Iaip.My.Resources.Resources.SpreadsheetIcon
-        Me.btnExportCmsWarningToExcel.Location = New System.Drawing.Point(11, 600)
-        Me.btnExportCmsWarningToExcel.Name = "btnExportCmsWarningToExcel"
-        Me.btnExportCmsWarningToExcel.Size = New System.Drawing.Size(104, 23)
-        Me.btnExportCmsWarningToExcel.TabIndex = 33
-        Me.btnExportCmsWarningToExcel.Text = "Export to Excel"
-        Me.btnExportCmsWarningToExcel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
-        Me.btnExportCmsWarningToExcel.UseVisualStyleBackColor = True
-        '
-        'txtCMSWarningCount
-        '
-        Me.txtCMSWarningCount.Location = New System.Drawing.Point(193, 6)
-        Me.txtCMSWarningCount.Name = "txtCMSWarningCount"
-        Me.txtCMSWarningCount.ReadOnly = True
-        Me.txtCMSWarningCount.Size = New System.Drawing.Size(57, 20)
-        Me.txtCMSWarningCount.TabIndex = 31
-        '
-        'dgvCMSWarning
-        '
-        Me.dgvCMSWarning.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvCMSWarning.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgvCMSWarning.Location = New System.Drawing.Point(0, 0)
-        Me.dgvCMSWarning.Name = "dgvCMSWarning"
-        Me.dgvCMSWarning.Size = New System.Drawing.Size(809, 631)
-        Me.dgvCMSWarning.TabIndex = 33
-        '
-        'TPCMSWarning
-        '
-        Me.TPCMSWarning.Controls.Add(Me.dgvCMSWarning)
-        Me.TPCMSWarning.Controls.Add(Me.Splitter3)
-        Me.TPCMSWarning.Controls.Add(Me.PanelCMSWarning)
-        Me.TPCMSWarning.Location = New System.Drawing.Point(4, 22)
-        Me.TPCMSWarning.Name = "TPCMSWarning"
-        Me.TPCMSWarning.Size = New System.Drawing.Size(1109, 631)
-        Me.TPCMSWarning.TabIndex = 4
-        Me.TPCMSWarning.Text = "CMS Warning"
-        Me.TPCMSWarning.UseVisualStyleBackColor = True
-        '
-        'Splitter3
-        '
-        Me.Splitter3.BackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.Splitter3.Dock = System.Windows.Forms.DockStyle.Right
-        Me.Splitter3.Location = New System.Drawing.Point(809, 0)
-        Me.Splitter3.Name = "Splitter3"
-        Me.Splitter3.Size = New System.Drawing.Size(4, 631)
-        Me.Splitter3.TabIndex = 17
-        Me.Splitter3.TabStop = False
-        '
         'TCManagerTools
         '
         Me.TCManagerTools.Controls.Add(Me.TPFacilityAssignments)
         Me.TCManagerTools.Controls.Add(Me.TPUniverse)
-        Me.TCManagerTools.Controls.Add(Me.TPCMSWarning)
         Me.TCManagerTools.Controls.Add(Me.TPStatisticalPage)
         Me.TCManagerTools.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TCManagerTools.Location = New System.Drawing.Point(0, 0)
@@ -2332,12 +2156,6 @@ Partial Class SSCPManagersTools
         Me.PanelCMSUniverse.PerformLayout()
         Me.TPUniverse.ResumeLayout(False)
         CType(Me.dgvCMSUniverse, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.FceSearchFilters.ResumeLayout(False)
-        Me.FceSearchFilters.PerformLayout()
-        Me.PanelCMSWarning.ResumeLayout(False)
-        Me.PanelCMSWarning.PerformLayout()
-        CType(Me.dgvCMSWarning, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.TPCMSWarning.ResumeLayout(False)
         Me.TCManagerTools.ResumeLayout(False)
         Me.TPFacilityAssignments.ResumeLayout(False)
         Me.FacilityAssignmentPanel.ResumeLayout(False)
@@ -2415,18 +2233,6 @@ Partial Class SSCPManagersTools
     Friend WithEvents Label9 As System.Windows.Forms.Label
     Friend WithEvents txtCMSAIRSNumber As System.Windows.Forms.TextBox
     Friend WithEvents TPUniverse As System.Windows.Forms.TabPage
-    Friend WithEvents lblCMSWarning As System.Windows.Forms.LinkLabel
-    Friend WithEvents FceSearchFilters As System.Windows.Forms.GroupBox
-    Friend WithEvents rdbFCEOverdue As System.Windows.Forms.RadioButton
-    Friend WithEvents rdbNextYear As System.Windows.Forms.RadioButton
-    Friend WithEvents rdbNext120Days As System.Windows.Forms.RadioButton
-    Friend WithEvents rdbNext90Days As System.Windows.Forms.RadioButton
-    Friend WithEvents rdbNext60Days As System.Windows.Forms.RadioButton
-    Friend WithEvents Label30 As System.Windows.Forms.Label
-    Friend WithEvents PanelCMSWarning As System.Windows.Forms.Panel
-    Friend WithEvents txtCMSWarningCount As System.Windows.Forms.TextBox
-    Friend WithEvents TPCMSWarning As System.Windows.Forms.TabPage
-    Friend WithEvents Splitter3 As System.Windows.Forms.Splitter
     Friend WithEvents TCManagerTools As System.Windows.Forms.TabControl
     Friend WithEvents TPStatisticalPage As System.Windows.Forms.TabPage
     Friend WithEvents btnRunStatisticalReport As System.Windows.Forms.Button
@@ -2484,7 +2290,6 @@ Partial Class SSCPManagersTools
     Friend WithEvents Label45 As System.Windows.Forms.Label
     Friend WithEvents txtRecordNumber As System.Windows.Forms.TextBox
     Friend WithEvents lblStatisticalRecords As System.Windows.Forms.Label
-    Friend WithEvents chbNoFCE As System.Windows.Forms.CheckBox
     Friend WithEvents dgvCMSUniverse As System.Windows.Forms.DataGridView
     Friend WithEvents TPFacilityAssignments As System.Windows.Forms.TabPage
     Friend WithEvents btnSelectFacility As System.Windows.Forms.Button
@@ -2574,12 +2379,10 @@ Partial Class SSCPManagersTools
     Friend WithEvents cboFiscalYear As System.Windows.Forms.ComboBox
     Friend WithEvents Label62 As System.Windows.Forms.Label
     Friend WithEvents chbIgnoreFiscalYear As System.Windows.Forms.CheckBox
-    Friend WithEvents dgvCMSWarning As System.Windows.Forms.DataGridView
     Friend WithEvents TPTitleVRenewals As System.Windows.Forms.TabPage
     Friend WithEvents btnRunTitleVSearch As System.Windows.Forms.Button
     Friend WithEvents Label66 As System.Windows.Forms.Label
     Friend WithEvents btnExportToExcel As System.Windows.Forms.Button
-    Friend WithEvents btnExportCmsWarningToExcel As System.Windows.Forms.Button
     Friend WithEvents btnExportCmsUniverseToExcel As System.Windows.Forms.Button
     Friend WithEvents btnAddToCmsUniverse As System.Windows.Forms.Button
     Friend WithEvents llbViewRecord As System.Windows.Forms.LinkLabel
