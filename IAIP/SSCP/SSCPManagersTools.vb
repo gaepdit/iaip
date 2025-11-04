@@ -353,11 +353,8 @@ Public Class SSCPManagersTools
             dgvCMSUniverse.Columns("strDistrictName").DisplayIndex = 5
             dgvCMSUniverse.Columns("strOperationalStatus").HeaderText = "Operational Status"
             dgvCMSUniverse.Columns("strOperationalStatus").DisplayIndex = 6
-            dgvCMSUniverse.Columns("LASTFCE").HeaderText = "Last FCE"
-            dgvCMSUniverse.Columns("LASTFCE").DisplayIndex = 7
-
             dgvCMSUniverse.Columns("strCountyName").HeaderText = "County Code"
-            dgvCMSUniverse.Columns("strCountyName").DisplayIndex = 8
+            dgvCMSUniverse.Columns("strCountyName").DisplayIndex = 7
             dgvCMSUniverse.Columns("STRClass").HeaderText = "Class"
 
             txtCMSCount.Text = dgvCMSUniverse.RowCount.ToString
