@@ -297,7 +297,6 @@
     <Compile Include="_Code\Forms\FacilityFormHelpers.vb" />
     <Compile Include="_Code\Forms\SsppFormHelpers.vb" />
     <Compile Include="_Code\Forms\IsmuFormHelpers.vb" />
-    <Compile Include="_Code\Forms\SscpFormHelpers.vb" />
     <Compile Include="_Code\IaipErrorProvider.vb" />
     <Compile Include="_Code\IntegerConvert.vb" />
     <Compile Include="_Code\BooleanEnums.vb" />

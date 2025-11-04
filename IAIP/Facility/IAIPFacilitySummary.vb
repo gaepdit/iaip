@@ -1210,7 +1210,7 @@ Public Class IAIPFacilitySummary
     End Sub
 
     Private Sub lnkWebFacility_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lnkWebFacility.LinkClicked
-        If AirsNumber IsNot Nothing Then OpenFacilityDetailsOnWeb(AirsNumber, Me)
+        If AirsNumber IsNot Nothing Then OpenFacilityOnWeb(AirsNumber, Me)
     End Sub
 
     Private Sub lnkWebComplianceWork_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lnkWebComplianceWork.LinkClicked
@@ -1218,7 +1218,7 @@ Public Class IAIPFacilitySummary
     End Sub
 
     Private Sub lnkWebFce_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lnkWebFce.LinkClicked
-        If AirsNumber IsNot Nothing Then OpenFcesOnWeb(AirsNumber, Me)
+        If AirsNumber IsNot Nothing Then OpenFceOnWeb(AirsNumber, Me)
     End Sub
 
     Private Sub lnkWebEnforcement_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lnkWebEnforcement.LinkClicked
