@@ -797,54 +797,57 @@ Public Class ISMPTestReportAdministrative
     Private Sub OpenMemo()
         OpenFormTestMemo(Me.txtReferenceNumber.Text)
     End Sub
+
     Private Sub DeleteTestReport()
-        MessageBox.Show("Test reports cannot currently be deleted. Please contact EPD-IT for more info.")
+        ' Currently disabled. See https://github.com/gaepdit/iaip/issues/1431
+        MessageBox.Show("Test reports cannot currently be deleted. Please contact EPD-IT for more info. (Ref #1431)")
         Return
 
-        Try
-            If MessageBox.Show("Are you sure you want to delete these test reports?", "Confirm Delete",
-                               MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) _
-                               = DialogResult.No Then
-                Return
-            End If
+        'Try
+        '    If MessageBox.Show("Are you sure you want to delete these test reports?", "Confirm Delete",
+        '                       MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) _
+        '                       = DialogResult.No Then
+        '        Return
+        '    End If
 
-            For Each RefNum As String In clbReferenceNumbers.CheckedItems
-                Dim queryList As New List(Of String)
-                Dim paramList As New List(Of SqlParameter())
+        '    For Each RefNum As String In clbReferenceNumbers.CheckedItems
+        '        Dim queryList As New List(Of String)
+        '        Dim paramList As New List(Of SqlParameter())
 
-                RefNum = Mid(RefNum, 1, (RefNum.IndexOf(" -")))
+        '        RefNum = Mid(RefNum, 1, (RefNum.IndexOf(" -")))
 
-                If Not DAL.Ismp.StackTestExists(RefNum) Then
-                    MessageBox.Show("Stack test " & RefNum & " does not exist.", "No such thing", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                Else
-                    Dim parameter As New SqlParameter("@ref", RefNum)
+        '        If Not DAL.Ismp.StackTestExists(RefNum) Then
+        '            MessageBox.Show("Stack test " & RefNum & " does not exist.", "No such thing", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        '        Else
+        '            Dim parameter As New SqlParameter("@ref", RefNum)
 
-                    queryList.Add("Update ISMPReportInformation set " &
-                        " strDelete = 'DELETE' where strReferenceNumber = @ref")
-                    paramList.Add({parameter})
+        '            queryList.Add("Update ISMPReportInformation set " &
+        '                " strDelete = 'DELETE' where strReferenceNumber = @ref")
+        '            paramList.Add({parameter})
 
-                    queryList.Add("update a
-                        set a.STRDELETE = 'True'
-                        from SSCPITEMMASTER a
-                            inner join SSCPTESTREPORTS r
-                            on a.STRTRACKINGNUMBER = r.STRTRACKINGNUMBER
-                        where r.STRREFERENCENUMBER = @ref")
-                    paramList.Add({parameter})
+        '            queryList.Add("update a
+        '                set a.STRDELETE = 'True'
+        '                from xxxSSCPITEMMASTER a
+        '                    inner join xxxSSCPTESTREPORTS r
+        '                    on a.STRTRACKINGNUMBER = r.STRTRACKINGNUMBER
+        '                where r.STRREFERENCENUMBER = @ref")
+        '            paramList.Add({parameter})
 
-                    DB.RunCommand(queryList, paramList)
-                    MessageBox.Show("Test no. " & RefNum & " deleted.", "Success", MessageBoxButtons.OK, MessageBoxIcon.None)
-                End If
-            Next
+        '            DB.RunCommand(queryList, paramList)
+        '            MessageBox.Show("Test no. " & RefNum & " deleted.", "Success", MessageBoxButtons.OK, MessageBoxIcon.None)
+        '        End If
+        '    Next
 
-            bgw1.WorkerReportsProgress = True
-            bgw1.WorkerSupportsCancellation = True
-            bgw1.RunWorkerAsync()
+        '    bgw1.WorkerReportsProgress = True
+        '    bgw1.WorkerSupportsCancellation = True
+        '    bgw1.RunWorkerAsync()
 
-            Clear()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        '    Clear()
+        'Catch ex As Exception
+        '    ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+        'End Try
     End Sub
+
     Private Sub StartComplianceWork(ReferenceNumber As String)
         ' AIRS number required
         If cboAIRSNumber.Text = "" Then Return

@@ -842,15 +842,19 @@ Public Class IAIPFacilitySummary
     ' " ICIS-Air Update "
 
     Private Sub UpdateEpaData()
-        If ThisFacility IsNot Nothing Then
-            If TriggerDataUpdateAtEPA(AirsNumber) Then
-                MessageBox.Show("Data for this facility will be sent to EPA the next time the database update procedures run.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
-            Else
-                MessageBox.Show("There was an error attempting to flag this facility to update. Contact EPD IT.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End If
-        Else
-            MessageBox.Show("The AIRS number is not valid.", "Invalid AIRS number", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-        End If
+        ' Currently disabled. See https://github.com/gaepdit/iaip/issues/1433
+        MessageBox.Show("This feature is currently disabled. Please contact EPD-IT for more info. (Ref #1433)")
+        Return
+
+        'If ThisFacility IsNot Nothing Then
+        '    If TriggerDataUpdateAtEPA(AirsNumber) Then
+        '        MessageBox.Show("Data for this facility will be sent to EPA the next time the database update procedures run.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        '    Else
+        '        MessageBox.Show("There was an error attempting to flag this facility to update. Contact EPD IT.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        '    End If
+        'Else
+        '    MessageBox.Show("The AIRS number is not valid.", "Invalid AIRS number", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+        'End If
     End Sub
 
     ' " Navigation Panel "
