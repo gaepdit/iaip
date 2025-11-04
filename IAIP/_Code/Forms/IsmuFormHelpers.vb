@@ -85,7 +85,7 @@ Module IsmuFormHelpers
             Return
         End If
 
-        OpenStackTestUrl(referenceNumber, includeConfidentialInfo, sender)
+        OpenSourceTestPrintout(referenceNumber, includeConfidentialInfo, sender)
     End Sub
 
     Public Function OpenFormConfidentialTestData(referenceNumber As String) As ISMPConfidentialData

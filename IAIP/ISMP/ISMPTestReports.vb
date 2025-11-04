@@ -1,6 +1,7 @@
 Imports System.Collections.Generic
-Imports Microsoft.Data.SqlClient
 Imports System.Linq
+Imports Iaip.UrlHelpers
+Imports Microsoft.Data.SqlClient
 
 Public Class ISMPTestReports
     Dim dtMethods As DataTable
@@ -19815,5 +19816,11 @@ Public Class ISMPTestReports
 
     Private Sub mmiClose_Click(sender As Object, e As EventArgs) Handles mmiClose.Click
         Close()
+    End Sub
+
+    Private Sub lnkWebSourceTest_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lnkWebSourceTest.LinkClicked
+        If Not String.IsNullOrEmpty(ReferenceNumber) Then
+            OpenSourceTestSummaryOnWeb(ReferenceNumber)
+        End If
     End Sub
 End Class

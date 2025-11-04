@@ -10,67 +10,73 @@ Namespace UrlHelpers
         ' Facility Pages
         Public Sub OpenFacilityDetailsOnWeb(Optional sender As Form = Nothing)
             Dim url As New Uri(ReportsUrl, "Facility")
-            DAL.LogReportUsage("AirWeb Facility Search", url)
             OpenUrl(url, sender)
+            DAL.LogReportUsage("AirWeb Facility Search", url)
         End Sub
         Public Sub OpenFacilityDetailsOnWeb(facilityId As ApbFacilityId, Optional sender As Form = Nothing)
             Dim url As New Uri(ReportsUrl, $"Facility/Details/{facilityId.FormattedString}")
-            DAL.LogReportUsage("AirWeb Facility", url)
             OpenUrl(url, sender)
+            DAL.LogReportUsage("AirWeb Facility", url)
         End Sub
 
         Public Sub OpenComplianceWorkOnWeb(Optional sender As Form = Nothing)
             Dim url As New Uri(ReportsUrl, "Compliance/Work")
-            DAL.LogReportUsage("AirWeb Compliance Search", url)
             OpenUrl(url, sender)
+            DAL.LogReportUsage("AirWeb Compliance Search", url)
         End Sub
         Public Sub OpenComplianceWorkOnWeb(facilityId As ApbFacilityId, Optional sender As Form = Nothing)
             Dim url As New Uri(ReportsUrl, $"Compliance/Work/Search?FacilityId={facilityId.FormattedString}#search-results")
-            DAL.LogReportUsage("AirWeb Facility Compliance", url)
             OpenUrl(url, sender)
+            DAL.LogReportUsage("AirWeb Facility Compliance", url)
         End Sub
 
         Public Sub OpenFcesOnWeb(Optional sender As Form = Nothing)
             Dim url As New Uri(ReportsUrl, $"Compliance/FCE")
-            DAL.LogReportUsage("AirWeb FCE Search", url)
             OpenUrl(url, sender)
+            DAL.LogReportUsage("AirWeb FCE Search", url)
         End Sub
         Public Sub OpenFcesOnWeb(facilityId As ApbFacilityId, Optional sender As Form = Nothing)
             Dim url As New Uri(ReportsUrl, $"Compliance/FCE/Search?FacilityId={facilityId.FormattedString}#search-results")
-            DAL.LogReportUsage("AirWeb Facility FCEs", url)
             OpenUrl(url, sender)
+            DAL.LogReportUsage("AirWeb Facility FCEs", url)
         End Sub
 
         Public Sub OpenEnforcementOnWeb(Optional sender As Form = Nothing)
             Dim url As New Uri(ReportsUrl, $"Enforcement")
-            DAL.LogReportUsage("AirWeb Enforcmement Search", url)
             OpenUrl(url, sender)
+            DAL.LogReportUsage("AirWeb Enforcmement Search", url)
         End Sub
         Public Sub OpenEnforcementOnWeb(facilityId As ApbFacilityId, Optional sender As Form = Nothing)
             Dim url As New Uri(ReportsUrl, $"Enforcement/Search?FacilityId={facilityId.FormattedString}#search-results")
-            DAL.LogReportUsage("AirWeb Facility Enforcement", url)
             OpenUrl(url, sender)
+            DAL.LogReportUsage("AirWeb Facility Enforcement", url)
+        End Sub
+
+        Public Sub OpenSourceTestSummaryOnWeb(referenceNumber As String, Optional sender As Form = Nothing)
+            Dim url As New Uri(ReportsUrl, $"Compliance/SourceTest/Details/{referenceNumber}")
+            OpenUrl(url, sender)
+            DAL.LogReportUsage("AirWeb Source Test Summary", url)
         End Sub
 
         ' Printouts
 
-        Public Sub OpenAccUrl(id As Integer, Optional sender As Form = Nothing)
+        Public Sub OpenAccPrintout(id As Integer, Optional sender As Form = Nothing)
             Dim url As New Uri(ReportsUrl, $"print/acc/{id}")
+            OpenUrl(url, sender)
             DAL.LogReportUsage("acc", url)
-            OpenUrl(url, sender)
         End Sub
 
-        Public Sub OpenFceUrl(id As Integer, Optional sender As Form = Nothing)
+        Public Sub OpenFcePrintout(id As Integer, Optional sender As Form = Nothing)
             Dim url As New Uri(ReportsUrl, $"print/fce/{id}")
-            DAL.LogReportUsage("fce", url)
             OpenUrl(url, sender)
+            DAL.LogReportUsage("fce", url)
         End Sub
 
-        Public Sub OpenStackTestUrl(referenceNumber As Integer, includeConfidentialInfo As Boolean, Optional sender As Form = Nothing)
+        Public Sub OpenSourceTestPrintout(referenceNumber As Integer, includeConfidentialInfo As Boolean, Optional sender As Form = Nothing)
             Dim queryString As String = If(includeConfidentialInfo, "?includeConfidentialInfo=true", "")
             Dim url As New Uri(ReportsUrl, $"print/source-test/{referenceNumber}{queryString}")
-            DAL.LogReportUsage("stack test", url)
             OpenUrl(url, sender)
+            DAL.LogReportUsage("stack test", url)
         End Sub
 
     End Module

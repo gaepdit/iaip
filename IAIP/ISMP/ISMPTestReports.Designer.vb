@@ -867,6 +867,8 @@ Partial Class ISMPTestReports
         Me.cboMaximumExpectedOperatingCapacityUnitsMethod22 = New System.Windows.Forms.ComboBox()
         Me.Label222 = New System.Windows.Forms.Label()
         Me.TPSSCPWork = New System.Windows.Forms.TabPage()
+        Me.lnkWebSourceTest = New System.Windows.Forms.LinkLabel()
+        Me.Label2 = New System.Windows.Forms.Label()
         Me.DeletedTestFlag = New System.Windows.Forms.Label()
         Me.MenuStrip1.SuspendLayout
         Me.ToolStrip1.SuspendLayout
@@ -903,6 +905,7 @@ Partial Class ISMPTestReports
         Me.TPTwoStackStandard.SuspendLayout
         Me.TPTwoStackDRE.SuspendLayout
         Me.TPMethodTwentyTwo.SuspendLayout
+        Me.TPSSCPWork.SuspendLayout
         Me.SuspendLayout
         '
         'MenuStrip1
@@ -9733,12 +9736,34 @@ Partial Class ISMPTestReports
         'TPSSCPWork
         '
         Me.TPSSCPWork.AutoScroll = True
+        Me.TPSSCPWork.Controls.Add(Me.lnkWebSourceTest)
+        Me.TPSSCPWork.Controls.Add(Me.Label2)
         Me.TPSSCPWork.Location = New System.Drawing.Point(4, 22)
         Me.TPSSCPWork.Name = "TPSSCPWork"
         Me.TPSSCPWork.Size = New System.Drawing.Size(782, 288)
         Me.TPSSCPWork.TabIndex = 11
         Me.TPSSCPWork.Text = "Compliance Work"
         Me.TPSSCPWork.UseVisualStyleBackColor = True
+        '
+        'lnkWebSourceTest
+        '
+        Me.lnkWebSourceTest.AutoSize = True
+        Me.lnkWebSourceTest.Location = New System.Drawing.Point(23, 51)
+        Me.lnkWebSourceTest.Name = "lnkWebSourceTest"
+        Me.lnkWebSourceTest.Size = New System.Drawing.Size(111, 13)
+        Me.lnkWebSourceTest.TabIndex = 7
+        Me.lnkWebSourceTest.TabStop = True
+        Me.lnkWebSourceTest.Text = "Source Test Summary"
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.Location = New System.Drawing.Point(23, 25)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(314, 13)
+        Me.Label2.TabIndex = 6
+        Me.Label2.Text = "Compliance data has been moved to the Air Web App:"
         '
         'DeletedTestFlag
         '
@@ -9826,6 +9851,8 @@ Partial Class ISMPTestReports
         Me.TPTwoStackDRE.PerformLayout
         Me.TPMethodTwentyTwo.ResumeLayout(False)
         Me.TPMethodTwentyTwo.PerformLayout
+        Me.TPSSCPWork.ResumeLayout(False)
+        Me.TPSSCPWork.PerformLayout
         Me.ResumeLayout(False)
         Me.PerformLayout
 
@@ -10688,4 +10715,6 @@ End Sub
     Friend WithEvents DeletedTestFlag As System.Windows.Forms.Label
     Friend WithEvents cboUnitManager As ComboBox
     Friend WithEvents PrintToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents lnkWebSourceTest As LinkLabel
+    Friend WithEvents Label2 As Label
 End Class

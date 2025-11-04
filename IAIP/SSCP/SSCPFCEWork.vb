@@ -858,7 +858,7 @@ Public Class SSCPFCEWork
             Return
         End If
 
-        OpenFceUrl(txtFCENumber.Text, Me)
+        OpenFcePrintout(txtFCENumber.Text, Me)
     End Sub
 
 #End Region

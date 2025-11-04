@@ -2396,7 +2396,7 @@ Public Class SSCPEvents
             Return
         End If
 
-        OpenAccUrl(TrackingNumber, Me)
+        OpenAccPrintout(TrackingNumber, Me)
     End Sub
 
 #End Region
