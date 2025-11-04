@@ -282,23 +282,13 @@ Public Class SSCPManagersTools
         dgvSelectedFacilityList.Columns("InspectionRequired").Width = 150
         dgvSelectedFacilityList.Columns("InspectionRequired").ReadOnly = True
 
-        dgvSelectedFacilityList.Columns.Add("LastInspection", "Last Inspection")
-        dgvSelectedFacilityList.Columns("LastInspection").DisplayIndex = 6
-        dgvSelectedFacilityList.Columns("LastInspection").Width = 150
-        dgvSelectedFacilityList.Columns("LastInspection").ReadOnly = True
-
         dgvSelectedFacilityList.Columns.Add("FCERequired", "FCE Required")
-        dgvSelectedFacilityList.Columns("FCERequired").DisplayIndex = 7
+        dgvSelectedFacilityList.Columns("FCERequired").DisplayIndex = 6
         dgvSelectedFacilityList.Columns("FCERequired").Width = 150
         dgvSelectedFacilityList.Columns("FCERequired").ReadOnly = True
 
-        dgvSelectedFacilityList.Columns.Add("LastFCE", "Last FCE")
-        dgvSelectedFacilityList.Columns("LastFCE").DisplayIndex = 8
-        dgvSelectedFacilityList.Columns("LastFCE").Width = 150
-        dgvSelectedFacilityList.Columns("LastFCE").ReadOnly = True
-
         dgvSelectedFacilityList.Columns.Add("strCMSStatus", "CMS Status")
-        dgvSelectedFacilityList.Columns("strCMSStatus").DisplayIndex = 9
+        dgvSelectedFacilityList.Columns("strCMSStatus").DisplayIndex = 7
         dgvSelectedFacilityList.Columns("strCMSStatus").Width = 150
         dgvSelectedFacilityList.Columns("strCMSStatus").ReadOnly = True
     End Sub
@@ -463,9 +453,9 @@ Public Class SSCPManagersTools
 
             If chbIgnoreFiscalYear.Checked Then
                 SQL = "SELECT SUBSTRING(v.strAIRSNumber, 5, 8) AS AIRSNumber, STRFACILITYNAME, STRFACILITYCITY, 
-                    STRCMSMEMBER, STRCLASS, STROPERATIONALSTATUS, LASTINSPECTION, LASTFCE, 
+                    STRCMSMEMBER, STRCLASS, STROPERATIONALSTATUS, 
                     CONCAT(STRLASTNAME, ', ', STRFIRSTNAME) AS SSCPEngineer, STRUNITDESC, 
-                    STRDISTRICTRESPONSIBLE, STRCOUNTYNAME
+                    STRDISTRICTRESPONSIBLE, STRCOUNTYNAME 
                     FROM VW_SSCP_MT_FACILITYASSIGNMENT AS v
                     LEFT JOIN SSCPINSPECTIONSREQUIRED AS r ON v.STRAIRSNUMBER = r.STRAIRSNUMBER
                     LEFT JOIN EPDUSERPROFILES AS p ON r.NUMSSCPENGINEER = p.NUMUSERID
@@ -477,8 +467,8 @@ Public Class SSCPManagersTools
             Else
                 SQL = "SELECT SUBSTRING(v.STRAIRSNUMBER, 5, 8) AS AIRSNumber, STRFACILITYNAME, STRFACILITYCITY, 
                     STRCMSMEMBER, STRCLASS, STROPERATIONALSTATUS,
-                    CASE WHEN STRINSPECTIONREQUIRED = 'True' THEN 'True' ELSE 'False' END AS InspectionRequired, LASTINSPECTION,
-                    CASE WHEN strFCERequired = 'True' THEN 'True' ELSE 'False' END AS FCERequired, LASTFCE, 
+                    CASE WHEN STRINSPECTIONREQUIRED = 'True' THEN 'True' ELSE 'False' END AS InspectionRequired, 
+                    CASE WHEN strFCERequired = 'True' THEN 'True' ELSE 'False' END AS FCERequired, 
                     CONCAT(STRLASTNAME, ', ', STRFIRSTNAME) AS SSCPEngineer, STRUNITDESC, STRDISTRICTRESPONSIBLE, STRCOUNTYNAME
                     FROM VW_SSCP_MT_FACILITYASSIGNMENT AS v
                     LEFT JOIN SSCPINSPECTIONSREQUIRED AS r ON v.STRAIRSNUMBER = r.STRAIRSNUMBER
@@ -614,20 +604,14 @@ Public Class SSCPManagersTools
                 dgvFilteredFacilityList.Columns("strClass").DisplayIndex = 4
                 dgvFilteredFacilityList.Columns("strOperationalStatus").HeaderText = "Current Operational Status"
                 dgvFilteredFacilityList.Columns("strOperationalStatus").DisplayIndex = 5
-                dgvFilteredFacilityList.Columns("LastInspection").HeaderText = "Last Inspection"
-                dgvFilteredFacilityList.Columns("LastInspection").DisplayIndex = 6
-                dgvFilteredFacilityList.Columns("LastInspection").DefaultCellStyle.Format = "dd-MMM-yyyy"
-                dgvFilteredFacilityList.Columns("LastFCE").HeaderText = "Last FCE"
-                dgvFilteredFacilityList.Columns("LastFCE").DisplayIndex = 7
-                dgvFilteredFacilityList.Columns("LastFCE").DefaultCellStyle.Format = "dd-MMM-yyyy"
                 dgvFilteredFacilityList.Columns("SSCPEngineer").HeaderText = "SSCP Engineer"
-                dgvFilteredFacilityList.Columns("SSCPEngineer").DisplayIndex = 8
+                dgvFilteredFacilityList.Columns("SSCPEngineer").DisplayIndex = 6
                 dgvFilteredFacilityList.Columns("strUnitDesc").HeaderText = "SSCP Title"
-                dgvFilteredFacilityList.Columns("strUnitDesc").DisplayIndex = 9
+                dgvFilteredFacilityList.Columns("strUnitDesc").DisplayIndex = 7
                 dgvFilteredFacilityList.Columns("strDistrictResponsible").HeaderText = "District Source"
-                dgvFilteredFacilityList.Columns("strDistrictResponsible").DisplayIndex = 10
+                dgvFilteredFacilityList.Columns("strDistrictResponsible").DisplayIndex = 8
                 dgvFilteredFacilityList.Columns("strCountyName").HeaderText = "County"
-                dgvFilteredFacilityList.Columns("strCountyName").DisplayIndex = 11
+                dgvFilteredFacilityList.Columns("strCountyName").DisplayIndex = 9
             Else
                 dgvFilteredFacilityList.Columns("AIRSNumber").HeaderText = "AIRS #"
                 dgvFilteredFacilityList.Columns("AIRSNumber").DisplayIndex = 0
@@ -643,22 +627,16 @@ Public Class SSCPManagersTools
                 dgvFilteredFacilityList.Columns("strOperationalStatus").DisplayIndex = 5
                 dgvFilteredFacilityList.Columns("InspectionRequired").HeaderText = "Inspection Required"
                 dgvFilteredFacilityList.Columns("InspectionRequired").DisplayIndex = 6
-                dgvFilteredFacilityList.Columns("LastInspection").HeaderText = "Last Inspection"
-                dgvFilteredFacilityList.Columns("LastInspection").DisplayIndex = 7
-                dgvFilteredFacilityList.Columns("LastInspection").DefaultCellStyle.Format = "dd-MMM-yyyy"
                 dgvFilteredFacilityList.Columns("FCERequired").HeaderText = "FCE Required"
-                dgvFilteredFacilityList.Columns("FCERequired").DisplayIndex = 8
-                dgvFilteredFacilityList.Columns("LastFCE").HeaderText = "Last FCE"
-                dgvFilteredFacilityList.Columns("LastFCE").DisplayIndex = 9
-                dgvFilteredFacilityList.Columns("LastFCE").DefaultCellStyle.Format = "dd-MMM-yyyy"
+                dgvFilteredFacilityList.Columns("FCERequired").DisplayIndex = 7
                 dgvFilteredFacilityList.Columns("SSCPEngineer").HeaderText = "SSCP Engineer"
-                dgvFilteredFacilityList.Columns("SSCPEngineer").DisplayIndex = 10
+                dgvFilteredFacilityList.Columns("SSCPEngineer").DisplayIndex = 8
                 dgvFilteredFacilityList.Columns("strUnitDesc").HeaderText = "SSCP Title"
-                dgvFilteredFacilityList.Columns("strUnitDesc").DisplayIndex = 11
+                dgvFilteredFacilityList.Columns("strUnitDesc").DisplayIndex = 9
                 dgvFilteredFacilityList.Columns("strDistrictResponsible").HeaderText = "District Source"
-                dgvFilteredFacilityList.Columns("strDistrictResponsible").DisplayIndex = 12
+                dgvFilteredFacilityList.Columns("strDistrictResponsible").DisplayIndex = 10
                 dgvFilteredFacilityList.Columns("strCountyName").HeaderText = "County"
-                dgvFilteredFacilityList.Columns("strCountyName").DisplayIndex = 13
+                dgvFilteredFacilityList.Columns("strCountyName").DisplayIndex = 11
             End If
 
             lblFilteredCount.Text = "Count: " & dgvFilteredFacilityList.Rows.Count.ToString
