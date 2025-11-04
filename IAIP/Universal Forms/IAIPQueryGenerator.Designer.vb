@@ -282,9 +282,6 @@ Partial Class IAIPQueryGenerator
         Me.rdbDistrictResponsibleFalse = New System.Windows.Forms.RadioButton()
         Me.rdbDistrictResponsibleTrue = New System.Windows.Forms.RadioButton()
         Me.chbDistrictResponsible = New System.Windows.Forms.CheckBox()
-        Me.DTPLastFCESearch2 = New System.Windows.Forms.DateTimePicker()
-        Me.DTPLastFCESearch1 = New System.Windows.Forms.DateTimePicker()
-        Me.chbLastFCE = New System.Windows.Forms.CheckBox()
         Me.cboSSCPUnitSearch2 = New System.Windows.Forms.ComboBox()
         Me.cboSSCPUnitSearch1 = New System.Windows.Forms.ComboBox()
         Me.Panel72 = New System.Windows.Forms.Panel()
@@ -3083,9 +3080,6 @@ Partial Class IAIPQueryGenerator
         '
         Me.TPComplianceInfo.Controls.Add(Me.Panel76)
         Me.TPComplianceInfo.Controls.Add(Me.chbDistrictResponsible)
-        Me.TPComplianceInfo.Controls.Add(Me.DTPLastFCESearch2)
-        Me.TPComplianceInfo.Controls.Add(Me.DTPLastFCESearch1)
-        Me.TPComplianceInfo.Controls.Add(Me.chbLastFCE)
         Me.TPComplianceInfo.Controls.Add(Me.cboSSCPUnitSearch2)
         Me.TPComplianceInfo.Controls.Add(Me.cboSSCPUnitSearch1)
         Me.TPComplianceInfo.Controls.Add(Me.Panel72)
@@ -3106,7 +3100,7 @@ Partial Class IAIPQueryGenerator
         Me.Panel76.AutoSize = True
         Me.Panel76.Controls.Add(Me.rdbDistrictResponsibleFalse)
         Me.Panel76.Controls.Add(Me.rdbDistrictResponsibleTrue)
-        Me.Panel76.Location = New System.Drawing.Point(420, 93)
+        Me.Panel76.Location = New System.Drawing.Point(420, 63)
         Me.Panel76.Name = "Panel76"
         Me.Panel76.Size = New System.Drawing.Size(77, 27)
         Me.Panel76.TabIndex = 12
@@ -3134,44 +3128,11 @@ Partial Class IAIPQueryGenerator
         'chbDistrictResponsible
         '
         Me.chbDistrictResponsible.AutoSize = True
-        Me.chbDistrictResponsible.Location = New System.Drawing.Point(8, 98)
+        Me.chbDistrictResponsible.Location = New System.Drawing.Point(8, 68)
         Me.chbDistrictResponsible.Name = "chbDistrictResponsible"
         Me.chbDistrictResponsible.Size = New System.Drawing.Size(119, 17)
         Me.chbDistrictResponsible.TabIndex = 11
         Me.chbDistrictResponsible.Text = "District Responsible"
-        '
-        'DTPLastFCESearch2
-        '
-        Me.DTPLastFCESearch2.CustomFormat = "dd-MMM-yyyy"
-        Me.DTPLastFCESearch2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.DTPLastFCESearch2.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPLastFCESearch2.Location = New System.Drawing.Point(279, 63)
-        Me.DTPLastFCESearch2.Name = "DTPLastFCESearch2"
-        Me.DTPLastFCESearch2.ShowCheckBox = True
-        Me.DTPLastFCESearch2.Size = New System.Drawing.Size(132, 22)
-        Me.DTPLastFCESearch2.TabIndex = 10
-        Me.DTPLastFCESearch2.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
-        '
-        'DTPLastFCESearch1
-        '
-        Me.DTPLastFCESearch1.CustomFormat = "dd-MMM-yyyy"
-        Me.DTPLastFCESearch1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.DTPLastFCESearch1.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPLastFCESearch1.Location = New System.Drawing.Point(141, 63)
-        Me.DTPLastFCESearch1.Name = "DTPLastFCESearch1"
-        Me.DTPLastFCESearch1.ShowCheckBox = True
-        Me.DTPLastFCESearch1.Size = New System.Drawing.Size(132, 22)
-        Me.DTPLastFCESearch1.TabIndex = 9
-        Me.DTPLastFCESearch1.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
-        '
-        'chbLastFCE
-        '
-        Me.chbLastFCE.AutoSize = True
-        Me.chbLastFCE.Location = New System.Drawing.Point(8, 66)
-        Me.chbLastFCE.Name = "chbLastFCE"
-        Me.chbLastFCE.Size = New System.Drawing.Size(69, 17)
-        Me.chbLastFCE.TabIndex = 8
-        Me.chbLastFCE.Text = "Last FCE"
         '
         'cboSSCPUnitSearch2
         '
@@ -3516,7 +3477,7 @@ Partial Class IAIPQueryGenerator
         '
         Me.ToolsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SaveSearchQueryToolStripMenuItem, Me.OpenSavedSearchToolStripMenuItem, Me.ToolStripSeparator1, Me.mmiExport})
         Me.ToolsToolStripMenuItem.Name = "ToolsToolStripMenuItem"
-        Me.ToolsToolStripMenuItem.Size = New System.Drawing.Size(46, 20)
+        Me.ToolsToolStripMenuItem.Size = New System.Drawing.Size(47, 20)
         Me.ToolsToolStripMenuItem.Text = "&Tools"
         '
         'SaveSearchQueryToolStripMenuItem
@@ -3970,9 +3931,6 @@ Partial Class IAIPQueryGenerator
     Friend WithEvents rdbSSCPEngineerNotEqual As System.Windows.Forms.RadioButton
     Friend WithEvents rdbSSCPEngineerEqual As System.Windows.Forms.RadioButton
     Friend WithEvents chbSSCPEngineer As System.Windows.Forms.CheckBox
-    Friend WithEvents DTPLastFCESearch2 As System.Windows.Forms.DateTimePicker
-    Friend WithEvents DTPLastFCESearch1 As System.Windows.Forms.DateTimePicker
-    Friend WithEvents chbLastFCE As System.Windows.Forms.CheckBox
     Friend WithEvents Panel74 As System.Windows.Forms.Panel
     Friend WithEvents rdbNAICSCodeNotEqual As System.Windows.Forms.RadioButton
     Friend WithEvents rdbNAICSCodeEqual As System.Windows.Forms.RadioButton

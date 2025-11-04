@@ -64,10 +64,6 @@ Public Class IAIPQueryGenerator
         DTPShutDownDateSearch1.Checked = False
         DTPShutDownDateSearch2.Value = Today
         DTPShutDownDateSearch2.Checked = False
-        DTPLastFCESearch1.Value = Today
-        DTPLastFCESearch1.Checked = False
-        DTPLastFCESearch2.Value = Today
-        DTPLastFCESearch2.Checked = False
 
         tcQueryOptions.Size = New Size(tcQueryOptions.Size.Width, 389)
 
@@ -1107,18 +1103,6 @@ Public Class IAIPQueryGenerator
                 End If
             End If
 
-            If chbLastFCE.Checked Then
-                SQLSelect = SQLSelect &
-                "LastFCE, "
-
-                If SQLFrom.IndexOf("VW_SSCP_MT_FacilityAssignment") <> -1 Then
-                    '   SQLFrom = SQLFrom
-                Else
-                    SQLFrom = SQLFrom & " VW_SSCP_MT_FacilityAssignment, "
-                    SQLWhere = SQLWhere & " and APBMasterAIRS.strAIRSNumber = VW_SSCP_MT_FacilityAssignment.strAIRSNumber "
-                End If
-            End If
-
             If chbSSCPUnit.Checked Then
                 SQLSelect = SQLSelect &
                 "strUnitDesc, "
@@ -1530,24 +1514,6 @@ Public Class IAIPQueryGenerator
                     params.Add(New SqlParameter("@shdate2", DTPShutDownDateSearch2.Value))
                 End If
                 SQLWhere = SQLWhere & " and datShutdownDate between @shdate1 and @shdate2 "
-            End If
-
-            If chbLastFCE.Checked AndAlso
-                (DTPLastFCESearch1.Checked OrElse DTPLastFCESearch2.Checked) Then
-
-                If DTPLastFCESearch1.Checked AndAlso Not DTPLastFCESearch2.Checked Then
-                    params.Add(New SqlParameter("@fcedate1", DTPLastFCESearch1.Value))
-                    params.Add(New SqlParameter("@fcedate2", DTPLastFCESearch1.Value))
-                End If
-                If Not DTPLastFCESearch1.Checked AndAlso DTPLastFCESearch2.Checked Then
-                    params.Add(New SqlParameter("@fcedate1", DTPLastFCESearch2.Value))
-                    params.Add(New SqlParameter("@fcedate2", DTPLastFCESearch2.Value))
-                End If
-                If DTPLastFCESearch1.Checked AndAlso DTPLastFCESearch2.Checked Then
-                    params.Add(New SqlParameter("@fcedate1", DTPLastFCESearch1.Value))
-                    params.Add(New SqlParameter("@fcedate2", DTPLastFCESearch2.Value))
-                End If
-                SQLWhere = SQLWhere & " and LastFCE between @fcedate1 and @fcedate2 "
             End If
 
             If chbCMSUniverse.Checked Then
@@ -2143,12 +2109,6 @@ Public Class IAIPQueryGenerator
                 dgvQueryGenerator.Columns("datShutDownDate").DisplayIndex = i
                 i += 1
             End If
-            If chbLastFCE.Checked Then
-                dgvQueryGenerator.Columns("LastFCE").HeaderText = "Last FCE"
-                dgvQueryGenerator.Columns("LastFCE").DefaultCellStyle.Format = "dd-MMM-yyyy"
-                dgvQueryGenerator.Columns("LastFCE").DisplayIndex = i
-                i += 1
-            End If
             If chbCMSUniverse.Checked Then
                 dgvQueryGenerator.Columns("strCMSMember").HeaderText = "CMS"
                 dgvQueryGenerator.Columns("strCMSMember").DisplayIndex = i
@@ -2614,11 +2574,6 @@ Public Class IAIPQueryGenerator
 
             chbSSCPEngineer.Checked = False
             chbSSCPUnit.Checked = False
-            chbLastFCE.Checked = False
-            DTPLastFCESearch1.Value = Today
-            DTPLastFCESearch1.Checked = False
-            DTPLastFCESearch2.Value = Today
-            DTPLastFCESearch2.Checked = False
             chbDistrictResponsible.Checked = False
 
             rdbSSCPEngineerEqual.Checked = True
