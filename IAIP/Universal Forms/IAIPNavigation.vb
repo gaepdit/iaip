@@ -371,6 +371,7 @@ Public Class IAIPNavigation
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub ClearQuickAccessTool()
         txtOpenFacilitySummary.Clear()
         txtOpenApplication.Clear()
@@ -1037,14 +1038,10 @@ Public Class IAIPNavigation
 
         Select Case sharedDataCounter
             Case 1
-                GetSharedData(SharedTable.AllComplianceStaff)
-            Case 2
                 GetSharedData(SharedDataSet.RuleSubparts)
-            Case 3
+            Case 2
                 GetSharedData(SharedTable.Counties)
-            Case 4
-                GetSharedData(SharedTable.SscpNotificationTypes)
-            Case 5
+            Case 3
                 dataPreloadTimer.Enabled = False
                 GetSharedData(SharedTable.FacilityOwnershipTypes)
 

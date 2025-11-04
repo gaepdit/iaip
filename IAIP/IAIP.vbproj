@@ -667,11 +667,9 @@
     <Compile Include="_DAL\Facilities\AfsData.vb" />
     <Compile Include="_Data Models\EDT\EdtErrorMessage.vb" />
     <Compile Include="_Data Models\EDT\EdtSubmission.vb" />
-    <Compile Include="_Data Models\Documents\DocumentType.vb" />
     <Compile Include="_Data Models\Events\Registrant.vb" />
     <Compile Include="_Data Models\Events\EventRegistration.vb" />
     <Compile Include="_Data Models\Facilities\Location.vb" />
-    <Compile Include="_Data Models\SSCP\EnforcementCase.vb" />
     <Compile Include="_Code\SharedData.vb" />
     <Compile Include="_Code\ExcelExport.vb" />
     <Compile Include="_Code\ArrayExtensions.vb" />
@@ -1041,13 +1039,11 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="_Data Models\Users\IaipUser.vb" />
-    <Compile Include="_DAL\SSCP\WorkItemData.vb" />
     <Compile Include="_DAL\Users\IaipUserData.vb" />
     <Compile Include="_DAL\Misc\NavigationScreenData.vb">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="_Code\CollectionHelper.vb" />
-    <Compile Include="_Data Models\SSCP\WorkItemEnums.vb" />
     <Compile Include="_Data Models\People\Person.vb" />
     <Compile Include="_Data Models\Events\ResEvent.vb">
       <SubType>Code</SubType>
@@ -1055,19 +1051,12 @@
     <Compile Include="_DAL\Facilities\FacilityData.vb" />
     <Compile Include="_DAL\Users\StaffData.vb" />
     <Compile Include="_Data Models\Facilities\Address.vb" />
-    <Compile Include="_Data Models\Documents\Document.vb">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="_Data Models\Facilities\Facility.vb" />
     <Compile Include="_Code\FileSizeFormatProvider.vb" />
     <Compile Include="_Code\SettingsHelper.vb" />
-    <Compile Include="_Data Models\SSCP\Document.vb" />
-    <Compile Include="_Data Models\SSCP\EnforcementInfo.vb" />
     <Compile Include="_Data Models\SSPP\ApplicationFeeInfo.vb">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="_DAL\SSCP\EnforcementData.vb" />
-    <Compile Include="_DAL\Misc\DocumentData.vb" />
     <Compile Include="_DAL\Events\EventsData.vb" />
     <Compile Include="_Code\BitFields.vb" />
     <Compile Include="_Controls\CueTextBox.vb">
@@ -1079,7 +1068,6 @@
     <Compile Include="_Code\Forms\FinanceFormHelpers.vb" />
     <Compile Include="_Code\Forms\FormSettings.vb" />
     <Compile Include="_Code\ControlHelpers.vb" />
-    <Compile Include="_Code\DocumentMessages.vb" />
     <Compile Include="_Code\StartupShutdown.vb">
       <SubType>Code</SubType>
     </Compile>

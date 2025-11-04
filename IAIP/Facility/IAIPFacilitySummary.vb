@@ -195,9 +195,6 @@ Public Class IAIPFacilitySummary
         InfoOperStatusDisplay.Text = ""
         CmsDisplay.Text = ""
         CmsDisplay.BackColor = Color.Empty
-        ComplianceStatusDisplay.Text = ""
-        ComplianceStatusDisplay.BackColor = SystemColors.ControlLightLight
-        ComplianceStatusDisplay.BorderStyle = BorderStyle.None
 
         'Offices
         DistrictOfficeDisplay.Text = ""
@@ -290,17 +287,6 @@ Public Class IAIPFacilitySummary
                 InfoPermitRevocationDateDisplay.Text = String.Format(DateStringFormat, .ShutdownDate)
             End With
 
-            'Compliance Status
-            Dim enforcementCount As Integer = DAL.Sscp.GetOpenEnforcementCountForFacility(AirsNumber)
-            If enforcementCount = 0 Then
-                ComplianceStatusDisplay.Text = "No open enforcement cases"
-            ElseIf enforcementCount = 1 Then
-                ComplianceStatusDisplay.Text = "One open enforcement case"
-            ElseIf enforcementCount > 1 Then
-                ComplianceStatusDisplay.Text = enforcementCount & " open enforcement cases"
-            End If
-            ColorCodeComplianceStatusDisplay(enforcementCount)
-
             'Offices
             DistrictOfficeDisplay.Text = .DistrictOfficeLocation
             ResponsibleOfficeDisplay.Text = If(.DistrictResponsible, "District Office", "Air Branch")
@@ -350,21 +336,6 @@ Public Class IAIPFacilitySummary
             EpaDateDisplay.Text = Nothing
             DataUpdateDateDisplay.Text = Nothing
         End If
-    End Sub
-
-    Private Sub ColorCodeComplianceStatusDisplay(num As Integer)
-        With ComplianceStatusDisplay
-            Select Case num
-                Case > 0
-                    .BackColor = IaipColors.WarningBackColor
-                    .ForeColor = IaipColors.WarningForeColor
-                    .BorderStyle = BorderStyle.None
-                Case Else
-                    .BackColor = SystemColors.ControlLightLight
-                    .ForeColor = Color.Empty
-                    .BorderStyle = BorderStyle.None
-            End Select
-        End With
     End Sub
 
     Private Sub ColorCodeCmsDisplay()
@@ -983,7 +954,7 @@ Public Class IAIPFacilitySummary
     Private Sub DisplayEmptyTextBoxAsNA(sender As Object, e As EventArgs) _
     Handles InfoDescDisplay.TextChanged, LocationDisplay.TextChanged, LatLonDisplay.TextChanged,
         InfoDescDisplay.TextChanged, InfoClassDisplay.TextChanged, InfoOperStatusDisplay.TextChanged,
-        CmsDisplay.TextChanged, ComplianceStatusDisplay.TextChanged, DistrictOfficeDisplay.TextChanged,
+        CmsDisplay.TextChanged, DistrictOfficeDisplay.TextChanged,
         ResponsibleOfficeDisplay.TextChanged, InfoStartupDateDisplay.TextChanged,
         InfoPermitRevocationDateDisplay.TextChanged, CreatedDateDisplay.TextChanged, FisDateDisplay.TextChanged,
         EpaDateDisplay.TextChanged, DataUpdateDateDisplay.TextChanged,
