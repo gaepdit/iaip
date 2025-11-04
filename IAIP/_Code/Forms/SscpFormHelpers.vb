@@ -6,35 +6,32 @@ Module SscpFormHelpers
 
     ' Work Item
 
-    Public Function OpenFormSscpWorkItem(id As Integer) As Form
-        Return OpenFormSscpWorkItem(id.ToString)
-    End Function
-
     Public Function OpenFormSscpWorkItem(id As String) As Form
-        Dim idInt As Integer
+        ' TODO-Air-Web: open Air Web page
+        'Dim idInt As Integer
 
-        If Integer.TryParse(id, idInt) AndAlso DAL.Sscp.WorkItemExists(idInt) Then
-            Dim refNum As String = ""
+        'If Integer.TryParse(id, idInt) AndAlso DAL.Sscp.WorkItemExists(idInt) Then
+        '    Dim refNum As String = ""
 
-            If DAL.Sscp.TryGetRefNumForWorkItem(idInt, refNum) Then Return OpenFormTestReportEntry(refNum)
+        '    If DAL.Sscp.TryGetRefNumForWorkItem(idInt, refNum) Then Return OpenFormTestReportEntry(refNum)
 
-            If SingleFormIsOpen(SSCPEvents) Then
-                Dim item As SSCPEvents = GetSingleForm(Of SSCPEvents)()
+        '    If SingleFormIsOpen(SSCPEvents) Then
+        '        Dim item As SSCPEvents = GetSingleForm(Of SSCPEvents)()
 
-                If item.TrackingNumber = idInt Then
-                    item.Activate()
-                    Return item
-                End If
-            End If
+        '        If item.TrackingNumber = idInt Then
+        '            item.Activate()
+        '            Return item
+        '        End If
+        '    End If
 
-            Dim sscpReport As SSCPEvents = CType(OpenSingleForm(SSCPEvents, idInt, closeFirst:=True), SSCPEvents)
-            sscpReport.TrackingNumber = idInt
-            Return sscpReport
+        '    Dim sscpReport As SSCPEvents = CType(OpenSingleForm(SSCPEvents, idInt, closeFirst:=True), SSCPEvents)
+        '    sscpReport.TrackingNumber = idInt
+        '    Return sscpReport
 
-        Else
-            MessageBox.Show("Tracking number does not exist.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            Return Nothing
-        End If
+        'Else
+        '    MessageBox.Show("Tracking number does not exist.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+        '    Return Nothing
+        'End If
     End Function
 
     ' FCE 
