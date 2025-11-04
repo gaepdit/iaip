@@ -404,9 +404,6 @@ Public Class IAIPNavigation
     ''' Enumeration of the various work list types (contexts) available on the main Navigation Screen
     ''' </summary>
     Public Enum NavWorkListContext
-        <Description("Compliance Work")> ComplianceWork
-        <Description("Late FCEs")> LateFce
-        <Description("Enforcement")> Enforcement
         <Description("Facilities Missing Subparts")> FacilitiesMissingSubparts
         <Description("Monitoring Test Reports")> MonitoringTestReports
         <Description("Monitoring Test Notifications")> MonitoringTestNotifications
@@ -452,9 +449,9 @@ Public Class IAIPNavigation
     Private Sub cboNavWorkListContext_SelectedValueChanged(sender As Object, e As EventArgs)
         Dim c As NavWorkListContext = CType(cboNavWorkListContext.SelectedValue, NavWorkListContext)
         Select Case c
-            Case NavWorkListContext.ComplianceWork, NavWorkListContext.Enforcement, NavWorkListContext.MonitoringTestReports, NavWorkListContext.PermitApplications
+            Case NavWorkListContext.MonitoringTestReports, NavWorkListContext.PermitApplications
                 NavWorkListScopePanel.Visible = True
-            Case NavWorkListContext.LateFce, NavWorkListContext.FacilitiesMissingSubparts, NavWorkListContext.MonitoringTestNotifications
+            Case NavWorkListContext.FacilitiesMissingSubparts, NavWorkListContext.MonitoringTestNotifications
                 NavWorkListScopePanel.Visible = False
         End Select
     End Sub
