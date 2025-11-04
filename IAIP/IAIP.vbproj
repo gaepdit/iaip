@@ -779,9 +779,6 @@
     <EmbeddedResource Include="AnnualFees\FeesStatistics.resx">
       <DependentUpon>FeesStatistics.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SSCP\SscpDocuments.resx">
-      <DependentUpon>SscpDocuments.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="EIS\EisTool.resx">
       <DependentUpon>EisTool.vb</DependentUpon>
       <SubType>Designer</SubType>
@@ -1068,12 +1065,6 @@
     </Compile>
     <Compile Include="_DAL\Facilities\FacilityData.vb" />
     <Compile Include="_DAL\Users\StaffData.vb" />
-    <Compile Include="SSCP\SscpDocuments.Designer.vb">
-      <DependentUpon>SscpDocuments.vb</DependentUpon>
-    </Compile>
-    <Compile Include="SSCP\SscpDocuments.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="_Data Models\Facilities\Address.vb" />
     <Compile Include="_Data Models\Documents\Document.vb">
       <SubType>Code</SubType>

@@ -875,7 +875,6 @@ Public Class IAIPNavigation
         ' SSCP
         AddNavButton("Compliance Log", NameOf(SSCPComplianceLog), NavButtonCategories.SSCP)
         AddNavButtonIfAccountHasFormAccess(22, "Compliance Management", NameOf(SSCPManagersTools), NavButtonCategories.SSCP)
-        AddNavButtonIfUserHasPermission({19, 20, 21, 23, 25, 114}, "Enforcement Documents", NameOf(SscpDocuments), NavButtonCategories.SSCP)
 
         ' ISMP
         AddNavButton("Monitoring Log", NameOf(ISMPMonitoringLog), NavButtonCategories.ISMP)
