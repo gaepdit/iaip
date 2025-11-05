@@ -153,15 +153,15 @@ Namespace DAL
         End Function
 
         Public Function CanFacilityBeDeactivated(airs As ApbFacilityId) As Boolean
-            Dim spName As String = "select iaip_facility.CanFacilityBeDeactivated(@airs)"
+            Dim query As String = "select iaip_facility.CanFacilityBeDeactivated(@airs)"
             Dim parameter As New SqlParameter("@airs", airs.DbFormattedString)
-            Return DB.GetBoolean(spName, parameter)
+            Return DB.GetBoolean(query, parameter)
         End Function
 
         Public Function CanFacilityBeDeleted(airs As ApbFacilityId) As Boolean
-            Dim spName As String = "select iaip_facility.CanFacilityBeDeleted(@airs)"
+            Dim query As String = "select iaip_facility.CanFacilityBeDeleted(@airs)"
             Dim parameter As New SqlParameter("@airs", airs.DbFormattedString)
-            Return DB.GetBoolean(spName, parameter)
+            Return DB.GetBoolean(query, parameter)
         End Function
 
         ''' <summary>
