@@ -128,10 +128,6 @@ Public Class IAIPQueryGenerator
             query = "SELECT numUserID AS numUserID, CONCAT(StrLastName, ', ', strFirstname) AS Staff
                 FROM EPDUserProfiles
                 WHERE numProgram = '4'
-                UNION
-                SELECT numUserID AS numUserID, CONCAT(StrLastName, ', ', strFirstname) AS Staff
-                FROM EPDUserProfiles, SSCPItemMaster
-                WHERE EPDUserProfiles.numuserID = SSCPItemMaster.strResponsibleStaff
                 ORDER BY Staff"
 
             dtcboSSCPEngineerSearch1 = DB.GetDataTable(query)
