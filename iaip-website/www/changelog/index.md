@@ -14,6 +14,10 @@
 [2014](changelog-2014.html) |
 [2013](changelog-2013.html)
 
+## Version 7.5.9 <span>(5-Nov-2025)</span>
+
+* Display CAERS users on the facility EIS page
+
 ## Version 7.5.8 <span>(22-Oct-2025)</span>
 
 * Added additional cc recipients to permit application emails.

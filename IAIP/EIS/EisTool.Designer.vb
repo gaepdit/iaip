@@ -22,13 +22,14 @@ Partial Class EisTool
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.TCDMUTools = New System.Windows.Forms.TabControl()
         Me.TPEISLog = New System.Windows.Forms.TabPage()
         Me.TabControl6 = New System.Windows.Forms.TabControl()
@@ -442,6 +443,8 @@ Partial Class EisTool
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.cboEIYear = New System.Windows.Forms.ComboBox()
+        Me.TPLogCaers = New System.Windows.Forms.TabPage()
+        Me.dgvLogCaers = New Iaip.IaipDataGridView()
         Me.TCDMUTools.SuspendLayout()
         Me.TPEISLog.SuspendLayout()
         Me.TabControl6.SuspendLayout()
@@ -494,6 +497,8 @@ Partial Class EisTool
         Me.TPHistory.SuspendLayout()
         CType(Me.dgvEIResults, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel2.SuspendLayout()
+        Me.TPLogCaers.SuspendLayout()
+        CType(Me.dgvLogCaers, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'TCDMUTools
@@ -526,6 +531,7 @@ Partial Class EisTool
         Me.TabControl6.Controls.Add(Me.TPFacilitySite)
         Me.TabControl6.Controls.Add(Me.TPEISMailout)
         Me.TabControl6.Controls.Add(Me.TPEISContacts)
+        Me.TabControl6.Controls.Add(Me.TPLogCaers)
         Me.TabControl6.Controls.Add(Me.TPQAProcess)
         Me.TabControl6.Controls.Add(Me.TPAdminData)
         Me.TabControl6.Dock = System.Windows.Forms.DockStyle.Fill
@@ -2715,8 +2721,8 @@ Partial Class EisTool
         '
         'dgvEISStats
         '
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgvEISStats.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvEISStats.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle2
         Me.dgvEISStats.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgvEISStats.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvEISStats.DecimalFieldFormat = "G"
@@ -4114,8 +4120,8 @@ Partial Class EisTool
         '
         'dgvThresholdPollutants
         '
-        DataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgvThresholdPollutants.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle3.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvThresholdPollutants.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle3
         Me.dgvThresholdPollutants.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgvThresholdPollutants.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvThresholdPollutants.DecimalFieldFormat = "G"
@@ -4371,8 +4377,8 @@ Partial Class EisTool
         '
         'dgvEISYear
         '
-        DataGridViewCellStyle3.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgvEISYear.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle4.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvEISYear.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle4
         Me.dgvEISYear.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgvEISYear.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvEISYear.DecimalFieldFormat = "G"
@@ -4411,8 +4417,8 @@ Partial Class EisTool
         '
         'dgvOperStatusMismatch
         '
-        DataGridViewCellStyle4.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgvOperStatusMismatch.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle5.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvOperStatusMismatch.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle5
         Me.dgvOperStatusMismatch.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgvOperStatusMismatch.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvOperStatusMismatch.DecimalFieldFormat = "G"
@@ -4480,8 +4486,8 @@ Partial Class EisTool
         '
         'dgvCaersUsers
         '
-        DataGridViewCellStyle5.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgvCaersUsers.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle5
+        DataGridViewCellStyle6.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvCaersUsers.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle6
         Me.dgvCaersUsers.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgvCaersUsers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvCaersUsers.DecimalFieldFormat = "G"
@@ -4540,8 +4546,8 @@ Partial Class EisTool
         '
         'dgvAllContacts
         '
-        DataGridViewCellStyle6.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgvAllContacts.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle6
+        DataGridViewCellStyle7.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvAllContacts.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle7
         Me.dgvAllContacts.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgvAllContacts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvAllContacts.Dock = System.Windows.Forms.DockStyle.Fill
@@ -4598,8 +4604,8 @@ Partial Class EisTool
         '
         'dgvEIResults
         '
-        DataGridViewCellStyle7.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgvEIResults.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle7
+        DataGridViewCellStyle8.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvEIResults.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle8
         Me.dgvEIResults.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgvEIResults.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvEIResults.DecimalFieldFormat = "N3"
@@ -4705,6 +4711,35 @@ Partial Class EisTool
         Me.cboEIYear.Size = New System.Drawing.Size(79, 21)
         Me.cboEIYear.TabIndex = 0
         '
+        'TPLogCaers
+        '
+        Me.TPLogCaers.Controls.Add(Me.dgvLogCaers)
+        Me.TPLogCaers.Location = New System.Drawing.Point(4, 22)
+        Me.TPLogCaers.Name = "TPLogCaers"
+        Me.TPLogCaers.Size = New System.Drawing.Size(1000, 492)
+        Me.TPLogCaers.TabIndex = 5
+        Me.TPLogCaers.Text = "CAERS Users"
+        Me.TPLogCaers.UseVisualStyleBackColor = True
+        '
+        'dgvLogCaers
+        '
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvLogCaers.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        Me.dgvLogCaers.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
+        Me.dgvLogCaers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvLogCaers.DecimalFieldFormat = "G"
+        Me.dgvLogCaers.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgvLogCaers.GridColor = System.Drawing.SystemColors.ControlLight
+        Me.dgvLogCaers.LinkifyColumnByName = Nothing
+        Me.dgvLogCaers.Location = New System.Drawing.Point(0, 0)
+        Me.dgvLogCaers.Name = "dgvLogCaers"
+        Me.dgvLogCaers.ResultsCountLabel = Nothing
+        Me.dgvLogCaers.ResultsCountLabelFormat = "{0} found"
+        Me.dgvLogCaers.RowHeadersWidth = 51
+        Me.dgvLogCaers.Size = New System.Drawing.Size(1000, 492)
+        Me.dgvLogCaers.StandardTab = True
+        Me.dgvLogCaers.TabIndex = 2
+        '
         'EisTool
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -4792,6 +4827,8 @@ Partial Class EisTool
         CType(Me.dgvEIResults, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel2.ResumeLayout(False)
         Me.Panel2.PerformLayout()
+        Me.TPLogCaers.ResumeLayout(False)
+        CType(Me.dgvLogCaers, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -5209,4 +5246,6 @@ Partial Class EisTool
     Friend WithEvents Panel4 As Panel
     Friend WithEvents btnViewAllContacts As Button
     Friend WithEvents cboAllContacts As ComboBox
+    Friend WithEvents TPLogCaers As TabPage
+    Friend WithEvents dgvLogCaers As IaipDataGridView
 End Class
