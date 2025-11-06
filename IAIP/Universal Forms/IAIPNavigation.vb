@@ -244,15 +244,13 @@ Public Class IAIPNavigation
 
     Private Sub AssociateQuickNavButtons()
         txtOpenApplication.Tag = btnOpenApplication
-        txtOpenEnforcement.Tag = btnOpenEnforcement
         txtOpenFacilitySummary.Tag = btnOpenFacilitySummary
-        txtOpenSscpItem.Tag = btnOpenSscpItem
         txtOpenTestLog.Tag = btnOpenTestLog
         txtOpenTestReport.Tag = btnOpenTestReport
     End Sub
 
     Private Sub QuickAccessButton_Click(sender As Object, e As EventArgs) _
-    Handles btnOpenFacilitySummary.Click, btnOpenTestReport.Click, btnOpenTestLog.Click, btnOpenSscpItem.Click, btnOpenEnforcement.Click, btnOpenApplication.Click
+    Handles btnOpenFacilitySummary.Click, btnOpenTestReport.Click, btnOpenTestLog.Click, btnOpenApplication.Click
         Cursor = Cursors.WaitCursor
 
         Dim thisButton As Button = CType(sender, Button)
@@ -261,12 +259,8 @@ Public Class IAIPNavigation
             Select Case thisButton.Name
                 Case btnOpenApplication.Name
                     OpenApplication()
-                Case btnOpenEnforcement.Name
-                    OpenEnforcement()
                 Case btnOpenFacilitySummary.Name
                     OpenFacilitySummary()
-                Case btnOpenSscpItem.Name
-                    OpenSscpItem()
                 Case btnOpenTestLog.Name
                     OpenTestLog()
                 Case btnOpenTestReport.Name
@@ -274,9 +268,7 @@ Public Class IAIPNavigation
             End Select
         Catch ex As Exception
             ex.Data.AddAsUniqueIfExists("txtOpenApplication", txtOpenApplication.Text)
-            ex.Data.AddAsUniqueIfExists("txtOpenEnforcement", txtOpenEnforcement.Text)
             ex.Data.AddAsUniqueIfExists("txtOpenFacilitySummary", txtOpenFacilitySummary.Text)
-            ex.Data.AddAsUniqueIfExists("txtOpenSscpItem", txtOpenSscpItem.Text)
             ex.Data.AddAsUniqueIfExists("txtOpenTestLog", txtOpenTestLog.Text)
             ex.Data.AddAsUniqueIfExists("txtOpenTestReport", txtOpenTestReport.Text)
             Throw
@@ -286,7 +278,7 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub QuickAccessTextbox_Enter(sender As Object, e As EventArgs) _
-    Handles txtOpenApplication.Enter, txtOpenEnforcement.Enter, txtOpenFacilitySummary.AirsTextEnter, txtOpenSscpItem.Enter, txtOpenTestLog.Enter, txtOpenTestReport.Enter
+    Handles txtOpenApplication.Enter, txtOpenFacilitySummary.AirsTextEnter, txtOpenTestLog.Enter, txtOpenTestReport.Enter
         Dim thisButton As Button = CType(CType(sender, TextBox).Tag, Button)
         Me.AcceptButton = thisButton
         thisButton.FlatStyle = FlatStyle.Standard
@@ -294,7 +286,7 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub QuickAccessTextbox_Leave(sender As Object, e As EventArgs) _
-    Handles txtOpenApplication.Leave, txtOpenEnforcement.Leave, txtOpenFacilitySummary.AirsTextLeave, txtOpenSscpItem.Leave, txtOpenTestLog.Leave, txtOpenTestReport.Leave
+    Handles txtOpenApplication.Leave, txtOpenFacilitySummary.AirsTextLeave, txtOpenTestLog.Leave, txtOpenTestReport.Leave
         Dim thisButton As Button = CType(CType(sender, TextBox).Tag, Button)
         Me.AcceptButton = Nothing
         If Not CBool(thisButton.Tag) Then
@@ -304,7 +296,7 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub QuickAccessTextbox_TextChanged(sender As Object, e As EventArgs) _
-    Handles txtOpenApplication.TextChanged, txtOpenEnforcement.TextChanged, txtOpenFacilitySummary.AirsTextChanged, txtOpenSscpItem.TextChanged, txtOpenTestLog.TextChanged, txtOpenTestReport.TextChanged
+    Handles txtOpenApplication.TextChanged, txtOpenFacilitySummary.AirsTextChanged, txtOpenTestLog.TextChanged, txtOpenTestReport.TextChanged
         Dim thisTextbox As TextBox = CType(sender, TextBox)
         Dim thisButton As Button = CType(thisTextbox.Tag, Button)
         If thisTextbox.TextLength > 0 Then
@@ -321,7 +313,7 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub QuickAccessButton_Enter(sender As Object, e As EventArgs) _
-    Handles btnOpenApplication.Enter, btnOpenEnforcement.Enter, btnOpenFacilitySummary.Enter, btnOpenSscpItem.Enter, btnOpenTestLog.Enter, btnOpenTestReport.Enter
+    Handles btnOpenApplication.Enter, btnOpenFacilitySummary.Enter, btnOpenTestLog.Enter, btnOpenTestReport.Enter
         Dim thisButton As Button = CType(sender, Button)
         If CBool(thisButton.Tag) Then
             thisButton.FlatStyle = FlatStyle.Standard
@@ -330,7 +322,7 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub QuickAccessButton_Leave(sender As Object, e As EventArgs) _
-    Handles btnOpenApplication.Leave, btnOpenEnforcement.Leave, btnOpenFacilitySummary.Leave, btnOpenSscpItem.Leave, btnOpenTestLog.Leave, btnOpenTestReport.Leave
+    Handles btnOpenApplication.Leave, btnOpenFacilitySummary.Leave, btnOpenTestLog.Leave, btnOpenTestReport.Leave
         Dim thisButton As Button = CType(sender, Button)
         If AcceptButton IsNot thisButton AndAlso Not CBool(thisButton.Tag) Then
             thisButton.FlatStyle = FlatStyle.Flat
@@ -348,14 +340,6 @@ Public Class IAIPNavigation
 
     Private Sub OpenTestReport()
         OpenFormTestReport(txtOpenTestReport.Text, Me)
-    End Sub
-
-    Private Sub OpenEnforcement()
-        OpenFormEnforcement(txtOpenEnforcement.Text)
-    End Sub
-
-    Private Sub OpenSscpItem()
-        OpenFormSscpWorkItem(txtOpenSscpItem.Text)
     End Sub
 
     Private Sub OpenFacilitySummary()
@@ -387,12 +371,11 @@ Public Class IAIPNavigation
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub ClearQuickAccessTool()
         txtOpenFacilitySummary.Clear()
-        txtOpenEnforcement.Clear()
         txtOpenApplication.Clear()
         txtOpenTestReport.Clear()
-        txtOpenSscpItem.Clear()
         txtOpenTestLog.Clear()
     End Sub
 
@@ -404,9 +387,6 @@ Public Class IAIPNavigation
     ''' Enumeration of the various work list types (contexts) available on the main Navigation Screen
     ''' </summary>
     Public Enum NavWorkListContext
-        <Description("Compliance Work")> ComplianceWork
-        <Description("Late FCEs")> LateFce
-        <Description("Enforcement")> Enforcement
         <Description("Facilities Missing Subparts")> FacilitiesMissingSubparts
         <Description("Monitoring Test Reports")> MonitoringTestReports
         <Description("Monitoring Test Notifications")> MonitoringTestNotifications
@@ -452,9 +432,9 @@ Public Class IAIPNavigation
     Private Sub cboNavWorkListContext_SelectedValueChanged(sender As Object, e As EventArgs)
         Dim c As NavWorkListContext = CType(cboNavWorkListContext.SelectedValue, NavWorkListContext)
         Select Case c
-            Case NavWorkListContext.ComplianceWork, NavWorkListContext.Enforcement, NavWorkListContext.MonitoringTestReports, NavWorkListContext.PermitApplications
+            Case NavWorkListContext.MonitoringTestReports, NavWorkListContext.PermitApplications
                 NavWorkListScopePanel.Visible = True
-            Case NavWorkListContext.LateFce, NavWorkListContext.FacilitiesMissingSubparts, NavWorkListContext.MonitoringTestNotifications
+            Case NavWorkListContext.FacilitiesMissingSubparts, NavWorkListContext.MonitoringTestNotifications
                 NavWorkListScopePanel.Visible = False
         End Select
     End Sub
@@ -611,10 +591,6 @@ Public Class IAIPNavigation
         Select Case dgvWorkViewer.Columns(0).HeaderText
             Case "AIRS #" ' Compliance facilities assigned; delinquent FCEs; facility subparts
                 OpenFacilitySummary()
-            Case "Tracking #" ' Compliance work
-                OpenSscpItem()
-            Case "Enforcement #" 'Enforcement
-                OpenEnforcement()
             Case "Reference #" ' ISMP Test Reports
                 OpenTestReport()
             Case "Test Log #" ' ISMP Test Notifications
@@ -630,12 +606,6 @@ Public Class IAIPNavigation
         Select Case dgvWorkViewer.Columns(0).HeaderText
             Case "AIRS #" ' Compliance facilities assigned; delinquent FCEs; facility subparts
                 txtOpenFacilitySummary.AirsNumber = If(Apb.ApbFacilityId.IsValidAirsNumberFormat(dgvWorkViewer(0, row).Value.ToString), New Apb.ApbFacilityId(dgvWorkViewer(0, row).Value.ToString), Nothing)
-            Case "Tracking #" ' Compliance work
-                txtOpenSscpItem.Text = dgvWorkViewer(0, row).FormattedValue.ToString
-                txtOpenFacilitySummary.AirsNumber = If(Apb.ApbFacilityId.IsValidAirsNumberFormat(dgvWorkViewer(1, row).Value.ToString), New Apb.ApbFacilityId(dgvWorkViewer(1, row).Value.ToString), Nothing)
-            Case "Enforcement #" ' Enforcement
-                txtOpenEnforcement.Text = dgvWorkViewer(0, row).FormattedValue.ToString
-                txtOpenFacilitySummary.AirsNumber = If(Apb.ApbFacilityId.IsValidAirsNumberFormat(dgvWorkViewer(1, row).Value.ToString), New Apb.ApbFacilityId(dgvWorkViewer(1, row).Value.ToString), Nothing)
             Case "Reference #" ' ISMP Test Reports
                 txtOpenTestReport.Text = dgvWorkViewer(0, row).FormattedValue.ToString
                 txtOpenFacilitySummary.AirsNumber = If(Apb.ApbFacilityId.IsValidAirsNumberFormat(dgvWorkViewer(1, row).Value.ToString), New Apb.ApbFacilityId(dgvWorkViewer(1, row).Value.ToString), Nothing)
@@ -659,7 +629,7 @@ Public Class IAIPNavigation
         End If
     End Sub
 
-
+    Private Shared ReadOnly separator As Char() = {"("c, ")"c}
     Private Sub bgrUserPermissions_DoWork(sender As Object, e As DoWorkEventArgs) Handles bgrUserPermissions.DoWork
         Dim AccountFormAccessLookup As DataTable = GetSharedData(SharedTable.IaipAccountRoles)
         Dim accountFormAccessString As String
@@ -670,7 +640,7 @@ Public Class IAIPNavigation
                 accountFormAccessString = accountInfo("FormAccess").ToString
 
                 If accountFormAccessString.Length > 0 Then
-                    Dim formAccessArray As String() = accountFormAccessString.Split({"("c, ")"c}, StringSplitOptions.RemoveEmptyEntries)
+                    Dim formAccessArray As String() = accountFormAccessString.Split(separator, StringSplitOptions.RemoveEmptyEntries)
 
                     For Each formAccessString As String In formAccessArray
                         Dim formAccessSplit As String() = formAccessString.Split("-"c, ","c)
@@ -856,6 +826,9 @@ Public Class IAIPNavigation
         AddNavButtonCategory(NavButtonCategories.EIS, "Emissions and Control Strategies", "EI/ES")
     End Sub
 
+    Private Shared ReadOnly feeManagementPermissions As Integer() = {123, 124, 125}
+    Private Shared ReadOnly feeAdminPermissions As Integer() = {124, 28}
+
     Private Sub CreateNavButtonsList()
 
         ' General
@@ -875,7 +848,6 @@ Public Class IAIPNavigation
         ' SSCP
         AddNavButton("Compliance Log", NameOf(SSCPComplianceLog), NavButtonCategories.SSCP)
         AddNavButtonIfAccountHasFormAccess(22, "Compliance Management", NameOf(SSCPManagersTools), NavButtonCategories.SSCP)
-        AddNavButtonIfUserHasPermission({19, 20, 21, 23, 25, 114}, "Enforcement Documents", NameOf(SscpDocuments), NavButtonCategories.SSCP)
 
         ' ISMP
         AddNavButton("Monitoring Log", NameOf(ISMPMonitoringLog), NavButtonCategories.ISMP)
@@ -890,11 +862,11 @@ Public Class IAIPNavigation
         AddNavButtonIfUserCan(UserCan.EditAnnualFeesDeposits, "Deposits", NameOf(FeesDeposits), NavButtonCategories.AnnualFees)
 
         ' Application Fees
-        AddNavButtonIfUserHasPermission({123, 124, 125}, "New Deposit", NameOf(FinDepositView), NavButtonCategories.ApplicationFees)
-        AddNavButtonIfUserHasPermission({123, 124, 125}, "Search Deposits", NameOf(FinSearchDeposits), NavButtonCategories.ApplicationFees)
+        AddNavButtonIfUserHasPermission(feeManagementPermissions, "New Deposit", NameOf(FinDepositView), NavButtonCategories.ApplicationFees)
+        AddNavButtonIfUserHasPermission(feeManagementPermissions, "Search Deposits", NameOf(FinSearchDeposits), NavButtonCategories.ApplicationFees)
         AddNavButton("Search Invoices", NameOf(FinSearchInvoices), NavButtonCategories.ApplicationFees)
         AddNavButton("Search Facilities", NameOf(FinSearchFacilities), NavButtonCategories.ApplicationFees)
-        AddNavButtonIfUserHasPermission({124, 28}, "Manage Fee Rates", NameOf(FinFeeRateManagement), NavButtonCategories.ApplicationFees)
+        AddNavButtonIfUserHasPermission(feeAdminPermissions, "Manage Fee Rates", NameOf(FinFeeRateManagement), NavButtonCategories.ApplicationFees)
         AddNavButton("Statistics && Reports", NameOf(FinStatistics), NavButtonCategories.ApplicationFees)
 
         ' MASP
@@ -1066,14 +1038,10 @@ Public Class IAIPNavigation
 
         Select Case sharedDataCounter
             Case 1
-                GetSharedData(SharedTable.AllComplianceStaff)
-            Case 2
                 GetSharedData(SharedDataSet.RuleSubparts)
-            Case 3
+            Case 2
                 GetSharedData(SharedTable.Counties)
-            Case 4
-                GetSharedData(SharedTable.SscpNotificationTypes)
-            Case 5
+            Case 3
                 dataPreloadTimer.Enabled = False
                 GetSharedData(SharedTable.FacilityOwnershipTypes)
 

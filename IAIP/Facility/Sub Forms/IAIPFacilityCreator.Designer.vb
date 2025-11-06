@@ -20,7 +20,7 @@ Partial Class IAIPFacilityCreator
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(IAIPFacilityCreator))
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.GBFacilityInformation = New System.Windows.Forms.GroupBox()
         Me.llbOpenWebpage = New System.Windows.Forms.LinkLabel()
         Me.mtbFacilityLongitude = New System.Windows.Forms.MaskedTextBox()
@@ -154,8 +154,9 @@ Partial Class IAIPFacilityCreator
         Me.Label23 = New System.Windows.Forms.Label()
         Me.AirsNumberToDeleteLabel = New System.Windows.Forms.Label()
         Me.TPDeactivatedFacilities = New System.Windows.Forms.TabPage()
-        Me.dgvDeactivatedFacilities = New Iaip.IaipDataGridView()
         Me.btnRefreshDeactivatedFacilities = New System.Windows.Forms.Button()
+        Me.dgvDeactivatedFacilities = New Iaip.IaipDataGridView()
+        Me.Label38 = New System.Windows.Forms.Label()
         Me.GBFacilityInformation.SuspendLayout()
         Me.Panel4.SuspendLayout()
         Me.GBContactInformation.SuspendLayout()
@@ -1413,6 +1414,7 @@ Partial Class IAIPFacilityCreator
         '
         'TPDeleteFacility
         '
+        Me.TPDeleteFacility.Controls.Add(Me.Label38)
         Me.TPDeleteFacility.Controls.Add(Me.lblFacilityCannotBeDeletedOrDeactivated)
         Me.TPDeleteFacility.Controls.Add(Me.AirsNumberToRemove)
         Me.TPDeleteFacility.Controls.Add(Me.FacilityLongDisplay)
@@ -1529,10 +1531,19 @@ Partial Class IAIPFacilityCreator
         Me.TPDeactivatedFacilities.Text = "Deactivated Facilities"
         Me.TPDeactivatedFacilities.UseVisualStyleBackColor = True
         '
+        'btnRefreshDeactivatedFacilities
+        '
+        Me.btnRefreshDeactivatedFacilities.Location = New System.Drawing.Point(3, 6)
+        Me.btnRefreshDeactivatedFacilities.Name = "btnRefreshDeactivatedFacilities"
+        Me.btnRefreshDeactivatedFacilities.Size = New System.Drawing.Size(75, 23)
+        Me.btnRefreshDeactivatedFacilities.TabIndex = 1
+        Me.btnRefreshDeactivatedFacilities.Text = "Reload"
+        Me.btnRefreshDeactivatedFacilities.UseVisualStyleBackColor = True
+        '
         'dgvDeactivatedFacilities
         '
-        DataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgvDeactivatedFacilities.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvDeactivatedFacilities.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.dgvDeactivatedFacilities.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -1548,14 +1559,16 @@ Partial Class IAIPFacilityCreator
         Me.dgvDeactivatedFacilities.StandardTab = True
         Me.dgvDeactivatedFacilities.TabIndex = 0
         '
-        'btnRefreshDeactivatedFacilities
+        'Label38
         '
-        Me.btnRefreshDeactivatedFacilities.Location = New System.Drawing.Point(3, 6)
-        Me.btnRefreshDeactivatedFacilities.Name = "btnRefreshDeactivatedFacilities"
-        Me.btnRefreshDeactivatedFacilities.Size = New System.Drawing.Size(75, 23)
-        Me.btnRefreshDeactivatedFacilities.TabIndex = 1
-        Me.btnRefreshDeactivatedFacilities.Text = "Reload"
-        Me.btnRefreshDeactivatedFacilities.UseVisualStyleBackColor = True
+        Me.Label38.AutoSize = True
+        Me.Label38.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label38.Location = New System.Drawing.Point(34, 13)
+        Me.Label38.Name = "Label38"
+        Me.Label38.Size = New System.Drawing.Size(592, 13)
+        Me.Label38.TabIndex = 7
+        Me.Label38.Text = "Facilities cannot currently be deactivated or deleted. Please contact EPD-IT for " &
+    "more info. (Ref #1432)"
         '
         'IAIPFacilityCreator
         '
@@ -1778,4 +1791,5 @@ Partial Class IAIPFacilityCreator
     Friend WithEvents TPDeactivatedFacilities As TabPage
     Friend WithEvents btnRefreshDeactivatedFacilities As Button
     Friend WithEvents dgvDeactivatedFacilities As IaipDataGridView
+    Friend WithEvents Label38 As Label
 End Class

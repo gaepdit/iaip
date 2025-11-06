@@ -797,57 +797,63 @@ Public Class ISMPTestReportAdministrative
     Private Sub OpenMemo()
         OpenFormTestMemo(Me.txtReferenceNumber.Text)
     End Sub
+
     Private Sub DeleteTestReport()
-        Try
-            If MessageBox.Show("Are you sure you want to delete these test reports?", "Confirm Delete",
-                               MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) _
-                               = DialogResult.No Then
-                Return
-            End If
+        ' Currently disabled. See https://github.com/gaepdit/iaip/issues/1431
+        MessageBox.Show("Test reports cannot currently be deleted. Please contact EPD-IT for more info. (Ref #1431)")
+        Return
 
-            For Each RefNum As String In clbReferenceNumbers.CheckedItems
-                Dim queryList As New List(Of String)
-                Dim paramList As New List(Of SqlParameter())
+        'Try
+        '    If MessageBox.Show("Are you sure you want to delete these test reports?", "Confirm Delete",
+        '                       MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) _
+        '                       = DialogResult.No Then
+        '        Return
+        '    End If
 
-                RefNum = Mid(RefNum, 1, (RefNum.IndexOf(" -")))
+        '    For Each RefNum As String In clbReferenceNumbers.CheckedItems
+        '        Dim queryList As New List(Of String)
+        '        Dim paramList As New List(Of SqlParameter())
 
-                If Not DAL.Ismp.StackTestExists(RefNum) Then
-                    MessageBox.Show("Stack test " & RefNum & " does not exist.", "No such thing", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                Else
-                    Dim parameter As New SqlParameter("@ref", RefNum)
+        '        RefNum = Mid(RefNum, 1, (RefNum.IndexOf(" -")))
 
-                    queryList.Add("Update ISMPReportInformation set " &
-                        " strDelete = 'DELETE' where strReferenceNumber = @ref")
-                    paramList.Add({parameter})
+        '        If Not DAL.Ismp.StackTestExists(RefNum) Then
+        '            MessageBox.Show("Stack test " & RefNum & " does not exist.", "No such thing", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        '        Else
+        '            Dim parameter As New SqlParameter("@ref", RefNum)
 
-                    queryList.Add("update a
-                        set a.STRDELETE = 'True'
-                        from SSCPITEMMASTER a
-                            inner join SSCPTESTREPORTS r
-                            on a.STRTRACKINGNUMBER = r.STRTRACKINGNUMBER
-                        where r.STRREFERENCENUMBER = @ref")
-                    paramList.Add({parameter})
+        '            queryList.Add("Update ISMPReportInformation set " &
+        '                " strDelete = 'DELETE' where strReferenceNumber = @ref")
+        '            paramList.Add({parameter})
 
-                    DB.RunCommand(queryList, paramList)
-                    MessageBox.Show("Test no. " & RefNum & " deleted.", "Success", MessageBoxButtons.OK, MessageBoxIcon.None)
-                End If
-            Next
+        '            queryList.Add("update a
+        '                set a.STRDELETE = 'True'
+        '                from xxxSSCPITEMMASTER a
+        '                    inner join xxxSSCPTESTREPORTS r
+        '                    on a.STRTRACKINGNUMBER = r.STRTRACKINGNUMBER
+        '                where r.STRREFERENCENUMBER = @ref")
+        '            paramList.Add({parameter})
 
-            bgw1.WorkerReportsProgress = True
-            bgw1.WorkerSupportsCancellation = True
-            bgw1.RunWorkerAsync()
+        '            DB.RunCommand(queryList, paramList)
+        '            MessageBox.Show("Test no. " & RefNum & " deleted.", "Success", MessageBoxButtons.OK, MessageBoxIcon.None)
+        '        End If
+        '    Next
 
-            Clear()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        '    bgw1.WorkerReportsProgress = True
+        '    bgw1.WorkerSupportsCancellation = True
+        '    bgw1.RunWorkerAsync()
+
+        '    Clear()
+        'Catch ex As Exception
+        '    ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+        'End Try
     End Sub
+
     Private Sub StartComplianceWork(ReferenceNumber As String)
         ' AIRS number required
         If cboAIRSNumber.Text = "" Then Return
 
-        ' Check if SSCP data already exists
-        Dim query As String = "select convert(bit, count(*)) from dbo.SSCPTESTREPORTS where STRREFERENCENUMBER = @ReferenceNumber "
+        ' Check if SSCP assignment data already exists
+        Dim query As String = "select convert(bit, count(*)) from dbo.ISMPREPORTINFORMATION where STRREFERENCENUMBER = @ReferenceNumber and ComplianceAssignment is null "
         Dim paramRefNum As New SqlParameter("@ReferenceNumber", ReferenceNumber)
         If DB.GetBoolean(query, paramRefNum) Then Return
 
@@ -855,29 +861,14 @@ Public Class ISMPTestReportAdministrative
         query = "select [Staff ID] from iaip_facility.VW_FacilityAssignments_Compliance where AIRS = @airs"
         Dim paramAirs As New SqlParameter("@airs", "0413" & cboAIRSNumber.Text)
         Dim StaffResponsible As String = DB.GetString(query, paramAirs)
-        If String.IsNullOrEmpty(StaffResponsible) Then StaffResponsible = "0"
-
-        ' Best guess at due date of current test (seems unlikely to be correct)
-        query = "select DATSSCPTESTREPORTDUE from dbo.APBSUPPLAMENTALDATA where STRAIRSNUMBER = @airs "
-        Dim TestDue As Date? = DB.GetSingleValue(Of Date?)(query, paramAirs)
-        If TestDue Is Nothing Then TestDue = DTPDateClosed.Value
-
-        Dim DateReceivedBySscp As Date = DTPDateClosed.Value
+        If String.IsNullOrEmpty(StaffResponsible) Then Return
 
         Dim params As SqlParameter() = {
             paramRefNum,
-            New SqlParameter("@StaffResponsible", StaffResponsible),
-            New SqlParameter("@UserId", CurrentUser.UserID),
-            SqlParameterAsNull("@CompleteDate", SqlDbType.DateTime2),
-            SqlParameterAsNull("@AckLetter", SqlDbType.DateTime2),
-            New SqlParameter("@TestDue", TestDue),
-            SqlParameterAsNull("@TestReportComments", SqlDbType.VarChar),
-            New SqlParameter("@FollowUp", Boolean.FalseString),
-            SqlParameterAsNull("@NextTest", SqlDbType.DateTime2),
-            New SqlParameter("@DateReceivedBySscp", DateReceivedBySscp)
+            New SqlParameter("@StaffResponsible", StaffResponsible)
         }
 
-        DB.SPRunCommand("dbo.SaveStackTestSccpData", params)
+        DB.SPRunCommand("dbo.SaveStackTestSscpData", params)
     End Sub
 
 #Region "Main Menu"
