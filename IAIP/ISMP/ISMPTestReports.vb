@@ -1,6 +1,7 @@
 Imports System.Collections.Generic
-Imports Microsoft.Data.SqlClient
 Imports System.Linq
+Imports Iaip.UrlHelpers
+Imports Microsoft.Data.SqlClient
 
 Public Class ISMPTestReports
     Dim dtMethods As DataTable
@@ -13,7 +14,6 @@ Public Class ISMPTestReports
     Dim dtTestingFirm As DataTable
     Dim dtISMPUnits As DataTable
     Dim dtPollutants As DataTable
-    Dim dtComplianceStaff As DataTable
 
     Dim query As String
 
@@ -52,9 +52,7 @@ Public Class ISMPTestReports
             End If
 
             LoadUserPermissions()
-            If TCDocumentTypes.TabPages.Contains(TPSSCPWork) Then
-                LoadSSCPData()
-            End If
+
             If String.IsNullOrEmpty(ReferenceNumber) Then
                 Text = "Performance Monitoring Test Reports"
             Else
@@ -171,18 +169,6 @@ Public Class ISMPTestReports
 
             dtPollutants = DB.GetDataTable(query)
 
-            query = "SELECT CONCAT(strLastName, ', ', strFirstName) AS StaffName, numUserID
-                FROM EPDUserProfiles
-                WHERE (numProgram = '4' OR numbranch = '5') AND numEmployeeStatus = 1 OR strLastName = 'District' AND numuserid <> 0
-                UNION
-                SELECT StaffName AS username, userid AS numUserID
-                FROM VW_ComplianceStaff
-                WHERE userid <> 0
-                UNION
-                SELECT 'No Compliance Staff', 0"
-
-            dtComplianceStaff = DB.GetDataTable(query)
-
         Catch ex As Exception
             ErrorReport(ex, query, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -221,13 +207,6 @@ Public Class ISMPTestReports
                 .DataSource = dtComplianceStatus
                 .DisplayMember = "strComplianceStatus"
                 .ValueMember = "strComplianceKey"
-                .SelectedValue = 0
-            End With
-
-            With cboStaffResponsible
-                .DataSource = dtComplianceStaff
-                .DisplayMember = "StaffName"
-                .ValueMember = "numUserID"
                 .SelectedValue = 0
             End With
 
@@ -5144,7 +5123,6 @@ Public Class ISMPTestReports
 
                 tsbSave.Visible = False
                 mmiSave.Visible = False
-                btnSaveSSCPData.Visible = False
                 tsbPrePopulate.Visible = False
                 tsbTestLogLink.Visible = False
                 tsbMemo.Visible = False
@@ -7595,37 +7573,6 @@ Public Class ISMPTestReports
                 End Select
             End If
 
-            If AccountFormAccess(69, 4) = "1" Then
-                chbEventComplete.Enabled = True
-                DTPEventCompleteDate.Enabled = True
-                cboStaffResponsible.Enabled = True
-                chbAcknoledgmentLetterSent.Enabled = True
-                DTPAcknoledgmentLetterSent.Enabled = True
-                DTPTestReportNextDueDate.Enabled = True
-                chbTestReportChangeDueDate.Enabled = True
-                DTPTestReportDueDate.Enabled = True
-                txtTestReportComments.ReadOnly = False
-                rdbTestReportFollowUpYes.Enabled = True
-                rdbTestReportFollowUpNo.Enabled = True
-                btnSaveSSCPData.Enabled = True
-            Else
-                chbEventComplete.Enabled = False
-                DTPEventCompleteDate.Enabled = False
-                txtTrackingNumber.ReadOnly = True
-                cboStaffResponsible.Enabled = False
-                chbAcknoledgmentLetterSent.Enabled = False
-                DTPAcknoledgmentLetterSent.Enabled = False
-                txtTestReportReceivedbySSCPDate.ReadOnly = True
-                txtTestReportDueDate.ReadOnly = True
-                DTPTestReportNextDueDate.Enabled = False
-                chbTestReportChangeDueDate.Enabled = False
-                DTPTestReportDueDate.Enabled = False
-                txtTestReportComments.ReadOnly = True
-                rdbTestReportFollowUpYes.Enabled = False
-                rdbTestReportFollowUpNo.Enabled = False
-                btnSaveSSCPData.Enabled = False
-            End If
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -7659,153 +7606,7 @@ Public Class ISMPTestReports
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub LoadSSCPData()
-        Try
-            If txtAirsNumber.Text <> "" Then
-                query = "select r.strTrackingNumber,
-                       r.datTestReportDue,
-                       r.strTestReportComments,
-                       r.strTestReportFollowUp,
-                       s.datREceivedDate,
-                       s.strResponsibleStaff,
-                       s.datCompleteDate,
-                       s.datAcknoledgmentLetterSent
-                    from SSCPTestReports r
-                        inner join SSCPITEMMASTER s
-                        on s.STRTRACKINGNUMBER = r.STRTRACKINGNUMBER
-                    where strReferenceNumber = @RefNum"
 
-                Dim p As New SqlParameter("@RefNum", ReferenceNumber)
-
-                Dim dr As DataRow = DB.GetDataRow(query, p)
-
-                If dr IsNot Nothing Then
-                    If IsDBNull(dr.Item("strTrackingNumber")) Then
-                        txtTrackingNumber.Text = ""
-                    Else
-                        txtTrackingNumber.Text = CType(dr.Item("strTrackingNumber"), String)
-                    End If
-                    If IsDBNull(dr.Item("datTestReportDue")) Then
-                        txtTestReportDueDate.Text = ""
-                        DTPTestReportDueDate.Value = Today
-                    Else
-                        txtTestReportDueDate.Text = Format(dr.Item("datTestReportDue"), "dd-MMM-yyyy")
-                        DTPTestReportDueDate.Value = CDate(dr.Item("datTestReportDue"))
-                    End If
-                    If IsDBNull(dr.Item("strTestReportComments")) Then
-                        txtTestReportComments.Text = ""
-                    Else
-                        txtTestReportComments.Text = CType(dr.Item("strTestReportComments"), String)
-                    End If
-                    If IsDBNull(dr.Item("strTestReportFollowup")) Then
-                        rdbTestReportFollowUpYes.Checked = False
-                        rdbTestReportFollowUpNo.Checked = False
-                    Else
-                        If Not CBool(dr.Item("strTestReportFollowUp")) Then
-                            rdbTestReportFollowUpYes.Checked = False
-                            rdbTestReportFollowUpNo.Checked = True
-                        Else
-                            rdbTestReportFollowUpYes.Checked = True
-                            rdbTestReportFollowUpNo.Checked = False
-                        End If
-                    End If
-                    If IsDBNull(dr.Item("datCompleteDate")) Then
-                        DTPEventCompleteDate.Value = Today
-                        chbEventComplete.Checked = False
-                    Else
-                        DTPEventCompleteDate.Value = CDate(dr.Item("datCompleteDate"))
-                        chbEventComplete.Checked = True
-                    End If
-
-                    If IsDBNull(dr.Item("datAcknoledgmentLetterSent")) Then
-                        DTPAcknoledgmentLetterSent.Value = Today
-                        chbAcknoledgmentLetterSent.Checked = False
-                        DTPAcknoledgmentLetterSent.Visible = False
-                    Else
-                        DTPAcknoledgmentLetterSent.Value = CDate(dr.Item("datAcknoledgmentLetterSent"))
-                        chbAcknoledgmentLetterSent.Checked = True
-                        DTPAcknoledgmentLetterSent.Visible = True
-                    End If
-                    If IsDBNull(dr.Item("strResponsibleStaff")) Then
-                        cboStaffResponsible.SelectedValue = "0"
-                    Else
-                        cboStaffResponsible.SelectedValue = dr.Item("strResponsibleStaff")
-                    End If
-                    If IsDBNull(dr.Item("datReceivedDate")) Then
-                        txtTestReportReceivedbySSCPDate.Text = Format(DTPTestDateComplete.Text, "dd-MMM-yyyy")
-                    Else
-                        txtTestReportReceivedbySSCPDate.Text = Format(dr.Item("datReceivedDate"), "dd-MMM-yyyy")
-                    End If
-                End If
-
-                DTPTestReportDueDate.Visible = False
-                chbTestReportChangeDueDate.Checked = False
-                DTPEventCompleteDate.Enabled = False
-
-                If AccountFormAccess(69, 4) = "1" Then
-                    If Not chbEventComplete.Checked Then
-                        CloseSSCPWork(False)
-                    Else
-                        CloseSSCPWork(True)
-                    End If
-                End If
-
-                DisplayEnforcementCases()
-
-                query = "Select datSSCPTestReportDue " &
-                "from APBSupplamentalData " &
-                "where strAIRSNumber = @airs "
-
-                Dim p3 As New SqlParameter("@airs", "0413" & txtAirsNumber.Text)
-
-                Dim dr3 As DataRow = DB.GetDataRow(query, p3)
-
-                If dr3 IsNot Nothing Then
-                    If IsDBNull(dr3.Item("datSSCPTestReportDue")) Then
-                        DTPTestReportNextDueDate.Value = Today
-                    Else
-                        DTPTestReportNextDueDate.Value = CDate(dr3.Item("datSSCPTestReportDue"))
-                    End If
-                Else
-                    DTPTestReportNextDueDate.Value = Today
-                End If
-
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub CloseSSCPWork(Status As Boolean)
-        Try
-            If Status Then
-                cboStaffResponsible.Enabled = False
-                txtTestReportComments.ReadOnly = True
-                rdbTestReportFollowUpYes.Enabled = False
-                rdbTestReportFollowUpNo.Enabled = False
-                chbAcknoledgmentLetterSent.Enabled = False
-                DTPAcknoledgmentLetterSent.Enabled = False
-                chbTestReportChangeDueDate.Enabled = False
-                DTPTestReportDueDate.Enabled = False
-                DTPTestReportNextDueDate.Enabled = False
-                DTPEventCompleteDate.Enabled = True
-            Else
-                cboStaffResponsible.Enabled = True
-                txtTestReportComments.ReadOnly = False
-                rdbTestReportFollowUpYes.Enabled = True
-                rdbTestReportFollowUpNo.Enabled = True
-                chbAcknoledgmentLetterSent.Enabled = True
-                DTPAcknoledgmentLetterSent.Enabled = True
-                chbTestReportChangeDueDate.Enabled = True
-                DTPTestReportDueDate.Enabled = True
-                DTPTestReportNextDueDate.Enabled = True
-                DTPEventCompleteDate.Enabled = False
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
     Private Sub LoadTestNotifications()
         Try
 
@@ -8408,23 +8209,6 @@ Public Class ISMPTestReports
             txtControlEquipmentOperatingDataMemorandumPTE.Clear()
             txtMemorandumPTE.Clear()
 
-            DTPEventCompleteDate.Value = Today
-            txtTrackingNumber.Clear()
-            llEnforcementCases.Visible = False
-            llEnforcementCases.Text = "Enforcement cases:"
-            cboStaffResponsible.SelectedValue = 0
-            DTPAcknoledgmentLetterSent.Value = Today
-            txtTestReportReceivedbySSCPDate.Clear()
-            txtTestReportDueDate.Clear()
-            DTPTestReportDueDate.Value = Today
-            DTPTestReportNextDueDate.Value = Today
-            txtTestReportComments.Clear()
-            rdbTestReportFollowUpYes.Checked = False
-            rdbTestReportFollowUpNo.Checked = False
-            chbTestReportChangeDueDate.Checked = False
-            chbAcknoledgmentLetterSent.Checked = False
-            chbEventComplete.Checked = False
-
             DefaultTabs()
 
         Catch ex As Exception
@@ -8818,13 +8602,6 @@ Public Class ISMPTestReports
                     MsgBox("Save Complete", MsgBoxStyle.Information, "Performance Test Report")
                 End If
             End If
-
-            If AccountFormAccess(69, 4) = "1" AndAlso SaveSSCPWork() Then
-                MsgBox("SSCP Work Save Complete", MsgBoxStyle.Information, "SSCP Work")
-            Else
-                MsgBox("SSCP Work NOT SAVED", MsgBoxStyle.Exclamation, "SSCP Work")
-            End If
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -9797,80 +9574,6 @@ Public Class ISMPTestReports
             Return True
         Catch ex As Exception
             ErrorReport(ex, "Query = " & If(query, "Nothing"), Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-            Return False
-        End Try
-    End Function
-
-    Private Function SaveSSCPWork() As Boolean
-        If ReferenceNumber = "" Then Return False
-
-        Try
-            Dim StaffResponsible As Integer = CurrentUser.UserID
-            If cboStaffResponsible.SelectedValue IsNot Nothing AndAlso cboStaffResponsible.Text <> " " AndAlso cboStaffResponsible.Text <> "" Then
-                StaffResponsible = CInt(cboStaffResponsible.SelectedValue)
-            End If
-
-            Dim CompleteDate As Date? = Nothing
-            If chbEventComplete.Checked Then
-                CompleteDate = DTPEventCompleteDate.Value
-            End If
-
-            Dim AckLetter As Date? = Nothing
-
-            If chbAcknoledgmentLetterSent.Checked Then
-                AckLetter = DTPAcknoledgmentLetterSent.Value
-            End If
-
-            Dim NextTest As Date
-            If chbTestReportChangeDueDate.Checked Then
-                NextTest = DTPTestReportNextDueDate.Value
-            Else
-                If txtTestReportDueDate.Text = "" Then
-                    NextTest = Today.AddYears(1)
-                Else
-                    NextTest = CDate(txtTestReportDueDate.Text).AddYears(1)
-                End If
-            End If
-
-            Dim TestDue As Date
-            If chbTestReportChangeDueDate.Checked Then
-                TestDue = DTPTestReportDueDate.Value
-            Else
-                If txtTestReportDueDate.Text <> "" Then
-                    TestDue = CDate(txtTestReportDueDate.Text)
-                Else
-                    TestDue = CDate(txtReceivedByAPB.Text)
-                End If
-            End If
-
-            Dim TestReportComments As String = " "
-            If txtTestReportComments.Text <> "" Then
-                TestReportComments = txtTestReportComments.Text
-            End If
-
-            Dim FollowUp As Boolean = rdbTestReportFollowUpYes.Checked
-
-            Dim DateReceivedBySscp As Date = Today
-            If txtTestReportReceivedbySSCPDate.Text <> "" Then
-                DateReceivedBySscp = CDate(txtTestReportReceivedbySSCPDate.Text)
-            End If
-
-            Dim params As SqlParameter() = {
-                New SqlParameter("@ReferenceNumber", ReferenceNumber),
-                New SqlParameter("@StaffResponsible", StaffResponsible),
-                New SqlParameter("@UserId", CurrentUser.UserID),
-                New SqlParameter("@CompleteDate", CompleteDate),
-                New SqlParameter("@AckLetter", AckLetter),
-                New SqlParameter("@TestDue", TestDue),
-                New SqlParameter("@TestReportComments", TestReportComments),
-                New SqlParameter("@FollowUp", FollowUp.ToString),
-                New SqlParameter("@NextTest", NextTest),
-                New SqlParameter("@DateReceivedBySscp", DateReceivedBySscp)
-            }
-
-            Return DB.SPReturnValue("dbo.SaveStackTestSccpData", params) = 0
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
             Return False
         End Try
     End Function
@@ -13273,43 +12976,6 @@ Public Class ISMPTestReports
         End Try
     End Sub
 
-    Private Sub llEnforcementCases_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llEnforcementCases.LinkClicked
-        OpenFormEnforcement(e.Link.LinkData.ToString)
-    End Sub
-
-    Private Sub DisplayEnforcementCases()
-        If String.IsNullOrEmpty(txtTrackingNumber.Text) Then
-            Return
-        End If
-
-        Dim dt As New DataTable
-        Try
-            dt = DAL.Sscp.GetAllEnforcementForTrackingNumber(CInt(txtTrackingNumber.Text))
-        Catch ex As Exception
-            ErrorReport(ex, "Ref #: " & ReferenceNumber & "; Tracking #: " & txtTrackingNumber.Text, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 Then
-            llEnforcementCases.Links.Clear()
-            Dim i As Integer = 0
-            For Each row As DataRow In dt.Rows
-                i += 1
-                Dim enfNum As String = row(0).ToString()
-                Dim start As Integer = llEnforcementCases.Text.Length + 1
-                Dim linkLength As Integer = enfNum.Length
-                llEnforcementCases.Text &= " " & enfNum
-                llEnforcementCases.Links.Add(start, linkLength, enfNum)
-                If i < dt.Rows.Count Then
-                    llEnforcementCases.Text &= ","
-                End If
-            Next
-            llEnforcementCases.Visible = True
-            llEnforcementCases.TabStop = True
-        Else
-            llEnforcementCases.Visible = False
-            llEnforcementCases.Text = "Enforcement cases:"
-        End If
-    End Sub
-
     Public Sub LoadConfidentialData(ConfidentialData As String)
         Try
             If Mid(ConfidentialData, 3, 1) = "1" Then
@@ -15575,40 +15241,6 @@ Public Class ISMPTestReports
         End Try
     End Sub
 
-#Region "checkboxes"
-
-    Private Sub chbEventComplete_CheckedChanged(sender As Object, e As EventArgs) Handles chbEventComplete.CheckedChanged
-        CloseSSCPWork(chbEventComplete.Checked)
-    End Sub
-
-    Private Sub chbTestReportChangeDueDate_CheckedChanged(sender As Object, e As EventArgs) Handles chbTestReportChangeDueDate.CheckedChanged
-        Try
-            If chbTestReportChangeDueDate.Checked Then
-                DTPTestReportDueDate.Visible = True
-            Else
-                DTPTestReportDueDate.Visible = False
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
-    Private Sub chbAcknoledgmentLetterSent_CheckedChanged(sender As Object, e As EventArgs) Handles chbAcknoledgmentLetterSent.CheckedChanged
-        Try
-            If chbAcknoledgmentLetterSent.Checked Then
-                DTPAcknoledgmentLetterSent.Visible = True
-            Else
-                DTPAcknoledgmentLetterSent.Visible = False
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
-#End Region
-
 #Region "Tool Strip Buttons"
 
     Private Sub tsbSave_Click(sender As Object, e As EventArgs) Handles tsbSave.Click
@@ -15628,6 +15260,7 @@ Public Class ISMPTestReports
 
                     LoadData()
                     LoadTestNotifications()
+
                     If cboTestNotificationNumber.Text <> " " AndAlso cboTestNotificationNumber.Text <> "" Then
                         llbTestNotifiactionNumber.Visible = True
                         labTestNotificationNumber.Visible = False
@@ -15635,10 +15268,9 @@ Public Class ISMPTestReports
                         llbTestNotifiactionNumber.Visible = False
                         labTestNotificationNumber.Visible = True
                     End If
+
                     LoadUserPermissions()
-                    If TCDocumentTypes.TabPages.Contains(TPSSCPWork) Then
-                        LoadSSCPData()
-                    End If
+
                     If String.IsNullOrEmpty(ReferenceNumber) Then
                         Text = "Performance Monitoring Test Reports"
                     Else
@@ -20116,13 +19748,6 @@ Public Class ISMPTestReports
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnSaveSSCPData_Click(sender As Object, e As EventArgs) Handles btnSaveSSCPData.Click
-        If AccountFormAccess(69, 4) = "1" AndAlso SaveSSCPWork() Then
-            MsgBox("SSCP Work Save Complete", MsgBoxStyle.Information, "SSCP Work")
-        Else
-            MsgBox("SSCP Work NOT SAVED", MsgBoxStyle.Exclamation, "SSCP Work")
-        End If
-    End Sub
     Private Sub llbTestNotifiactionNumber_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbTestNotifiactionNumber.LinkClicked
         Try
             If cboTestNotificationNumber.Text <> "" Then
@@ -20181,7 +19806,6 @@ Public Class ISMPTestReports
                 If dtTestingFirm IsNot Nothing Then dtTestingFirm.Dispose()
                 If dtISMPUnits IsNot Nothing Then dtISMPUnits.Dispose()
                 If dtPollutants IsNot Nothing Then dtPollutants.Dispose()
-                If dtComplianceStaff IsNot Nothing Then dtComplianceStaff.Dispose()
 
                 If components IsNot Nothing Then components.Dispose()
             End If
@@ -20192,5 +19816,11 @@ Public Class ISMPTestReports
 
     Private Sub mmiClose_Click(sender As Object, e As EventArgs) Handles mmiClose.Click
         Close()
+    End Sub
+
+    Private Sub lnkWebSourceTest_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lnkWebSourceTest.LinkClicked
+        If Not String.IsNullOrEmpty(ReferenceNumber) Then
+            OpenSourceTestSummaryOnWeb(ReferenceNumber)
+        End If
     End Sub
 End Class

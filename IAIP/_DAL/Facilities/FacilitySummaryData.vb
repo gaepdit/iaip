@@ -20,15 +20,6 @@ Namespace DAL
                 Case FacilityDataTable.ColocatedFacilities
                     Return "iaip_facility.GetColocatedFacilities"
 
-                Case FacilityDataTable.ComplianceEnforcement
-                    Return "iaip_facility.GetSummaryEnforcement"
-
-                Case FacilityDataTable.ComplianceFCE
-                    Return "iaip_facility.GetSummaryFce"
-
-                Case FacilityDataTable.ComplianceWork
-                    Return "iaip_facility.GetSummaryCompliance"
-
                 Case FacilityDataTable.ContactsGecoFacility
                     Return "iaip_facility.GetContactsGecoFacility"
 

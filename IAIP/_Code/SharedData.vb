@@ -16,11 +16,8 @@ Public Module SharedData
     ''' </summary>
     Public Enum SharedTable
         Pollutants
-        ViolationTypes
-        AllComplianceStaff
         IaipAccountRoles
         EpdManagers
-        SscpNotificationTypes
         Counties
         DistrictOffices
         FacilityOwnershipTypes
@@ -64,12 +61,6 @@ Public Module SharedData
 
             Select Case table
 
-                Case SharedTable.ViolationTypes
-                    dt = Sscp.GetViolationTypes()
-
-                Case SharedTable.AllComplianceStaff
-                    dt = GetComplianceStaff()
-
                 Case SharedTable.Pollutants
                     dt = GetPollutantsTable()
 
@@ -78,9 +69,6 @@ Public Module SharedData
 
                 Case SharedTable.EpdManagers
                     dt = GetEpdManagersAsDataTable()
-
-                Case SharedTable.SscpNotificationTypes
-                    dt = Sscp.GetSscpNotificationTypes()
 
                 Case SharedTable.Counties
                     dt = GetCountiesAsDataTable()
@@ -299,24 +287,6 @@ Public Module SharedData
     Public Sub ClearSharedObject(value As SharedObject)
         _objDictionary?.Remove(value)
     End Sub
-
-    ' Public functions for reloading shared data
-    ' Clears then returns fresh copy of data
-
-    Public Function ReloadSharedData(table As SharedTable) As DataTable
-        ClearSharedData(table)
-        Return GetSharedData(table)
-    End Function
-
-    Public Function ReloadSharedData(dataSet As SharedDataSet) As DataSet
-        ClearSharedData(dataSet)
-        Return GetSharedData(dataSet)
-    End Function
-
-    Public Function ReloadSharedData(lookupDictionary As SharedLookupDictionary) As Dictionary(Of Integer, String)
-        ClearSharedData(lookupDictionary)
-        Return GetSharedData(lookupDictionary)
-    End Function
 
     Public Function ReloadSharedObject(Of T)(value As SharedObject) As T
         ClearSharedObject(value)
