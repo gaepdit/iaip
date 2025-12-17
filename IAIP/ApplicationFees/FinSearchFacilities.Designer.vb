@@ -1,4 +1,4 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
+<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class FinSearchFacilities
     Inherits BaseForm
 
@@ -108,6 +108,8 @@ Partial Class FinSearchFacilities
         '
         'txtFacilityName
         '
+        Me.txtFacilityName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtFacilityName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtFacilityName.Location = New System.Drawing.Point(82, 58)
         Me.txtFacilityName.Name = "txtFacilityName"
         Me.txtFacilityName.Size = New System.Drawing.Size(103, 20)
