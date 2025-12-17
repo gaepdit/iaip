@@ -452,6 +452,8 @@ Partial Class SSCPComplianceLog
         '
         'txtFacilityNameFilter
         '
+        Me.txtFacilityNameFilter.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtFacilityNameFilter.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtFacilityNameFilter.Location = New System.Drawing.Point(119, 107)
         Me.txtFacilityNameFilter.MaxLength = 8
         Me.txtFacilityNameFilter.Name = "txtFacilityNameFilter"
@@ -469,6 +471,8 @@ Partial Class SSCPComplianceLog
         '
         'txtFCENumberFilter
         '
+        Me.txtFCENumberFilter.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtFCENumberFilter.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtFCENumberFilter.Location = New System.Drawing.Point(119, 84)
         Me.txtFCENumberFilter.MaxLength = 8
         Me.txtFCENumberFilter.Name = "txtFCENumberFilter"
@@ -486,6 +490,8 @@ Partial Class SSCPComplianceLog
         '
         'txtEnforcementNumberFilter
         '
+        Me.txtEnforcementNumberFilter.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtEnforcementNumberFilter.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtEnforcementNumberFilter.Location = New System.Drawing.Point(119, 61)
         Me.txtEnforcementNumberFilter.MaxLength = 8
         Me.txtEnforcementNumberFilter.Name = "txtEnforcementNumberFilter"
@@ -512,6 +518,8 @@ Partial Class SSCPComplianceLog
         '
         'txtTrackingNumberFilter
         '
+        Me.txtTrackingNumberFilter.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtTrackingNumberFilter.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtTrackingNumberFilter.Location = New System.Drawing.Point(119, 37)
         Me.txtTrackingNumberFilter.MaxLength = 8
         Me.txtTrackingNumberFilter.Name = "txtTrackingNumberFilter"
@@ -520,6 +528,8 @@ Partial Class SSCPComplianceLog
         '
         'txtAIRSNumberFilter
         '
+        Me.txtAIRSNumberFilter.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtAIRSNumberFilter.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtAIRSNumberFilter.Location = New System.Drawing.Point(119, 14)
         Me.txtAIRSNumberFilter.MaxLength = 8
         Me.txtAIRSNumberFilter.Name = "txtAIRSNumberFilter"
@@ -991,6 +1001,8 @@ Partial Class SSCPComplianceLog
         '
         'txtNewAIRSNumber
         '
+        Me.txtNewAIRSNumber.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtNewAIRSNumber.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtNewAIRSNumber.Location = New System.Drawing.Point(9, 23)
         Me.txtNewAIRSNumber.MaxLength = 9
         Me.txtNewAIRSNumber.Name = "txtNewAIRSNumber"

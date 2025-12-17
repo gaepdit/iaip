@@ -74,6 +74,8 @@ Partial Class IAIPEditHeaderData
         'FacilityDescription
         '
         Me.FacilityDescription.AcceptsReturn = True
+        Me.FacilityDescription.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.FacilityDescription.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.FacilityDescription.Location = New System.Drawing.Point(116, 277)
         Me.FacilityDescription.MaxLength = 4000
         Me.FacilityDescription.Multiline = True
@@ -234,6 +236,8 @@ Partial Class IAIPEditHeaderData
         '
         'SicCode
         '
+        Me.SicCode.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.SicCode.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.SicCode.Location = New System.Drawing.Point(523, 56)
         Me.SicCode.MaxLength = 4
         Me.SicCode.Name = "SicCode"
@@ -559,6 +563,8 @@ Partial Class IAIPEditHeaderData
         '
         'NaicsCode
         '
+        Me.NaicsCode.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.NaicsCode.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.NaicsCode.Location = New System.Drawing.Point(523, 83)
         Me.NaicsCode.MaxLength = 6
         Me.NaicsCode.Name = "NaicsCode"

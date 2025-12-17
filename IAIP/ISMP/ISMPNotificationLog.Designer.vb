@@ -250,6 +250,8 @@ Partial Class ISMPNotificationLog
         '
         'txtContactFirstName
         '
+        Me.txtContactFirstName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtContactFirstName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtContactFirstName.Location = New System.Drawing.Point(484, 33)
         Me.txtContactFirstName.MaxLength = 100
         Me.txtContactFirstName.Name = "txtContactFirstName"
@@ -258,6 +260,8 @@ Partial Class ISMPNotificationLog
         '
         'txtContactLastName
         '
+        Me.txtContactLastName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtContactLastName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtContactLastName.Location = New System.Drawing.Point(594, 33)
         Me.txtContactLastName.MaxLength = 100
         Me.txtContactLastName.Name = "txtContactLastName"
@@ -266,6 +270,8 @@ Partial Class ISMPNotificationLog
         '
         'txtContactEmailAddress
         '
+        Me.txtContactEmailAddress.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtContactEmailAddress.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtContactEmailAddress.Location = New System.Drawing.Point(484, 73)
         Me.txtContactEmailAddress.MaxLength = 3980
         Me.txtContactEmailAddress.Name = "txtContactEmailAddress"
@@ -379,6 +385,8 @@ Partial Class ISMPNotificationLog
         '
         'txtTestNotificationNumber
         '
+        Me.txtTestNotificationNumber.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtTestNotificationNumber.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtTestNotificationNumber.Location = New System.Drawing.Point(137, 33)
         Me.txtTestNotificationNumber.MaxLength = 6
         Me.txtTestNotificationNumber.Name = "txtTestNotificationNumber"
