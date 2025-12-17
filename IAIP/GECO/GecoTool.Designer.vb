@@ -163,6 +163,8 @@ Partial Class GecoTool
         '
         'txtEmail
         '
+        Me.txtEmail.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtEmail.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtEmail.Location = New System.Drawing.Point(8, 21)
         Me.txtEmail.Name = "txtEmail"
         Me.txtEmail.Size = New System.Drawing.Size(229, 20)
@@ -402,6 +404,8 @@ Partial Class GecoTool
         '
         'txtEditEmail
         '
+        Me.txtEditEmail.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtEditEmail.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtEditEmail.Location = New System.Drawing.Point(272, 128)
         Me.txtEditEmail.Name = "txtEditEmail"
         Me.txtEditEmail.Size = New System.Drawing.Size(208, 20)
@@ -554,6 +558,8 @@ Partial Class GecoTool
         '
         'txtWebUserEmail
         '
+        Me.txtWebUserEmail.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtWebUserEmail.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtWebUserEmail.Location = New System.Drawing.Point(114, 9)
         Me.txtWebUserEmail.Name = "txtWebUserEmail"
         Me.txtWebUserEmail.Size = New System.Drawing.Size(224, 20)

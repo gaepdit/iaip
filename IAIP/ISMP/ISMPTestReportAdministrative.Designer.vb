@@ -560,6 +560,8 @@ Partial Class ISMPTestReportAdministrative
         '
         'txtDaysInAPB
         '
+        Me.txtDaysInAPB.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtDaysInAPB.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtDaysInAPB.Location = New System.Drawing.Point(328, 141)
         Me.txtDaysInAPB.Name = "txtDaysInAPB"
         Me.txtDaysInAPB.ReadOnly = True
@@ -606,6 +608,8 @@ Partial Class ISMPTestReportAdministrative
         '
         'txtEmissionSource
         '
+        Me.txtEmissionSource.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtEmissionSource.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtEmissionSource.Location = New System.Drawing.Point(116, 220)
         Me.txtEmissionSource.MaxLength = 100
         Me.txtEmissionSource.Name = "txtEmissionSource"
@@ -688,6 +692,8 @@ Partial Class ISMPTestReportAdministrative
         '
         'txtFacilityAddress
         '
+        Me.txtFacilityAddress.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtFacilityAddress.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtFacilityAddress.Location = New System.Drawing.Point(116, 89)
         Me.txtFacilityAddress.Name = "txtFacilityAddress"
         Me.txtFacilityAddress.ReadOnly = True
@@ -697,6 +703,8 @@ Partial Class ISMPTestReportAdministrative
         '
         'txtFacilityCity
         '
+        Me.txtFacilityCity.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtFacilityCity.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtFacilityCity.Location = New System.Drawing.Point(116, 115)
         Me.txtFacilityCity.Name = "txtFacilityCity"
         Me.txtFacilityCity.ReadOnly = True
@@ -706,6 +714,8 @@ Partial Class ISMPTestReportAdministrative
         '
         'txtFacilityState
         '
+        Me.txtFacilityState.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtFacilityState.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtFacilityState.Location = New System.Drawing.Point(266, 115)
         Me.txtFacilityState.MaxLength = 5
         Me.txtFacilityState.Name = "txtFacilityState"
@@ -716,6 +726,8 @@ Partial Class ISMPTestReportAdministrative
         '
         'txtFacilityZipCode
         '
+        Me.txtFacilityZipCode.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtFacilityZipCode.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtFacilityZipCode.Location = New System.Drawing.Point(312, 115)
         Me.txtFacilityZipCode.MaxLength = 5
         Me.txtFacilityZipCode.Name = "txtFacilityZipCode"
@@ -831,6 +843,8 @@ Partial Class ISMPTestReportAdministrative
         '
         'txtReferenceNumber
         '
+        Me.txtReferenceNumber.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtReferenceNumber.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtReferenceNumber.Location = New System.Drawing.Point(116, 8)
         Me.txtReferenceNumber.MaxLength = 9
         Me.txtReferenceNumber.Name = "txtReferenceNumber"
@@ -1010,6 +1024,8 @@ Partial Class ISMPTestReportAdministrative
         '
         'txtCloseTestReportRefNum
         '
+        Me.txtCloseTestReportRefNum.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtCloseTestReportRefNum.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtCloseTestReportRefNum.Location = New System.Drawing.Point(106, 6)
         Me.txtCloseTestReportRefNum.Name = "txtCloseTestReportRefNum"
         Me.txtCloseTestReportRefNum.Size = New System.Drawing.Size(136, 20)
@@ -1097,6 +1113,8 @@ Partial Class ISMPTestReportAdministrative
         '
         'txtAddTestReportCommissioner
         '
+        Me.txtAddTestReportCommissioner.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtAddTestReportCommissioner.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtAddTestReportCommissioner.Location = New System.Drawing.Point(124, 102)
         Me.txtAddTestReportCommissioner.Name = "txtAddTestReportCommissioner"
         Me.txtAddTestReportCommissioner.Size = New System.Drawing.Size(211, 20)
@@ -1104,6 +1122,8 @@ Partial Class ISMPTestReportAdministrative
         '
         'txtAddTestReportDirector
         '
+        Me.txtAddTestReportDirector.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtAddTestReportDirector.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtAddTestReportDirector.Location = New System.Drawing.Point(124, 127)
         Me.txtAddTestReportDirector.Name = "txtAddTestReportDirector"
         Me.txtAddTestReportDirector.Size = New System.Drawing.Size(211, 20)
@@ -1111,6 +1131,8 @@ Partial Class ISMPTestReportAdministrative
         '
         'txtAddTestReportProgramManager
         '
+        Me.txtAddTestReportProgramManager.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtAddTestReportProgramManager.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtAddTestReportProgramManager.Location = New System.Drawing.Point(124, 151)
         Me.txtAddTestReportProgramManager.Name = "txtAddTestReportProgramManager"
         Me.txtAddTestReportProgramManager.Size = New System.Drawing.Size(211, 20)
@@ -1163,6 +1185,8 @@ Partial Class ISMPTestReportAdministrative
         '
         'txtAddTestReportRefNum
         '
+        Me.txtAddTestReportRefNum.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtAddTestReportRefNum.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtAddTestReportRefNum.Location = New System.Drawing.Point(124, 51)
         Me.txtAddTestReportRefNum.Name = "txtAddTestReportRefNum"
         Me.txtAddTestReportRefNum.Size = New System.Drawing.Size(108, 20)
