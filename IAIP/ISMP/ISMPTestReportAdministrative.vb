@@ -519,78 +519,6 @@ Public Class ISMPTestReportAdministrative
 
                     Select Case ComplianceStatus
                         Case "00"
-                            query = ""
-                        Case "01"
-                            query = ""
-                        Case Else
-                            query = "Select strUpdateStatus " &
-                            "from AFSISMPRecords " &
-                            "where strReferenceNumber = @ref "
-
-                            Dim dr2 As DataRow = DB.GetDataRow(query, p)
-                            If dr2 IsNot Nothing Then
-                                UpdateCode = dr2.Item("strupdateStatus")
-                            Else
-                                UpdateCode = ""
-                            End If
-                            Select Case UpdateCode
-                                Case "A"
-                                    'Leave it alone
-                                Case "C"
-                                    'Leave it alone
-                                Case "N"
-                                    query = "Update AFSISMPRecords set " &
-                                    "strUpDateStatus = 'C' " &
-                                    "where strReferenceNumber = @ref "
-                                    DB.RunCommand(query, p)
-
-                                Case ""
-                                    query = "Select strAFSActionNumber " &
-                                    "from APBSupplamentalData " &
-                                    "where strAIRSNumber = @airs "
-
-                                    Dim p2 As New SqlParameter("@airs", "0413" & AIRSNumber)
-
-                                    Dim dr3 As DataRow = DB.GetDataRow(query, p2)
-                                    If dr3 IsNot Nothing Then
-                                        AFSActionNumber = dr3.Item("strAFSActionNumber")
-                                    End If
-
-                                    query = "Insert into AFSISMPRecords " &
-                                    "(strReferenceNumber, strAFSActionNumber, " &
-                                    "strUpDateStatus, strModifingPerson, " &
-                                    "datModifingDate) " &
-                                    "values " &
-                                    "(@strReferenceNumber, @strAFSActionNumber, " &
-                                    "'A', @strModifingPerson, " &
-                                    "getdate()) "
-
-                                    Dim p3 As SqlParameter() = {
-                                        New SqlParameter("@strReferenceNumber", RefNum),
-                                        New SqlParameter("@strAFSActionNumber", AFSActionNumber),
-                                        New SqlParameter("@strModifingPerson", CurrentUser.UserID)
-                                    }
-
-                                    DB.RunCommand(query, p3)
-
-                                    AFSActionNumber = CInt(AFSActionNumber) + 1
-
-                                    query = "Update APBSupplamentalData set " &
-                                    "strAFSActionNumber =@afs " &
-                                    "where strAIRSNumber = @airs "
-
-                                    Dim p4 As SqlParameter() = {
-                                        New SqlParameter("@afs", AFSActionNumber),
-                                        New SqlParameter("@airs", "0413" & AIRSNumber)
-                                    }
-
-                                    DB.RunCommand(query, p4)
-                                Case Else
-                                    'Leave it alone
-                            End Select
-                    End Select
-                    Select Case ComplianceStatus
-                        Case "00"
                             MsgBox("Reference Number " & RefNum.ToString & " does not exist in the system.",
                                    MsgBoxStyle.Exclamation, "ISMP Test Report Information")
                             Return
@@ -650,7 +578,7 @@ Public Class ISMPTestReportAdministrative
                                format(i.datTestDateEnd, 'dd-MMM-yyyy')               as forDatTestDateEnd,
                                format(i.datReviewedByUnitmanager, 'dd-MMM-yyyy')     as forDatReviewedByUnitManager,
                                format(i.datCompleteDate, 'dd-MMM-yyyy')              as forDateComplete,
-                               i.strClosed,
+                               convert(bit, i.STRCLOSED)                             as IsClosed,
                                t.strReportType,
                                concat(u2.strLastName, ', ', u2.strFirstName)         as ReviewingEngineer,
                                concat(u.strLastName, ', ', u.strFirstName)           as UnitManager,
@@ -659,8 +587,7 @@ Public Class ISMPTestReportAdministrative
                                p.strPollutantDescription,
                                e.strUnitDesc,
                                d.strDocumentType,
-                               l.strComplianceStatus,
-                               convert(bit, iif(a.STRAFSACTIONNUMBER is null, 0, 1)) as AfsActionNumberExists
+                               l.strComplianceStatus
                         from ISMPMASTER m
                             INNER JOIN ISMPREPORTINFORMATION i
                             ON m.strReferenceNumber = i.strReferenceNumber
@@ -680,15 +607,13 @@ Public Class ISMPTestReportAdministrative
                             ON i.strDocumentTYpe = d.strKEy
                             INNER JOIN LOOKUPISMPCOMPLIANCESTATUS l
                             ON i.strComplianceStatus = l.strComplianceKey
-                            left join AFSISMPRECORDS a
-                            on a.STRREFERENCENUMBER = m.STRREFERENCENUMBER
                         where m.strReferenceNumber = @ref"
 
                     Dim p1 As New SqlParameter("@ref", txtReferenceNumber.Text)
 
                     Dim dr2 As DataRow = DB.GetDataRow(query, p1)
                     If dr2 IsNot Nothing Then
-                        If dr2.Item("AfsActionNumberExists") Then
+                        If dr2.Item("IsClosed") Then
                             cboAIRSNumber.Enabled = False
                             btnSearchForAIRS.Enabled = False
                             btnLoadCombos.Enabled = False
@@ -711,7 +636,7 @@ Public Class ISMPTestReportAdministrative
                         Else
                             txtDaysInAPB.Text = DateDiff(DateInterval.Day, CDate(dr2.Item("forDatReceivedDate")), CDate(dr2.Item("forDateComplete")))
                         End If
-                        If dr2.Item("strClosed").ToString = "True" Then
+                        If dr2.Item("IsClosed") Then
                             rdbOpenReport.Checked = False
                             rdbCloseReport.Checked = True
                             SaveToolStripMenuItem.Enabled = False
