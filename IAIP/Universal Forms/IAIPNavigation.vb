@@ -214,7 +214,12 @@ Public Class IAIPNavigation
         Next
         cboNavWorkListContext.BindToDictionary(NavWorkListContextDictionary)
         AddHandler cboNavWorkListContext.SelectedValueChanged, AddressOf cboNavWorkListContext_SelectedValueChanged
-        cboNavWorkListContext.SelectedValue = [Enum].Parse(GetType(NavWorkListContext), GetUserSetting(UserSetting.SelectedNavWorkListContext))
+
+        Dim selectedNavWorkListContext As NavWorkListContext
+
+        If [Enum].TryParse(GetUserSetting(UserSetting.SelectedNavWorkListContext), selectedNavWorkListContext) Then
+            cboNavWorkListContext.SelectedValue = selectedNavWorkListContext
+        End If
     End Sub
 
     Private Sub EnableConnectionEnvironmentOptions()
