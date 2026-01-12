@@ -47,6 +47,8 @@ Partial Class IaipChangePassword
         '
         'NewPassword
         '
+        Me.NewPassword.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.NewPassword.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.NewPassword.Location = New System.Drawing.Point(144, 56)
         Me.NewPassword.Name = "NewPassword"
         Me.NewPassword.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
@@ -64,6 +66,8 @@ Partial Class IaipChangePassword
         '
         'ConfirmPassword
         '
+        Me.ConfirmPassword.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.ConfirmPassword.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.ConfirmPassword.Location = New System.Drawing.Point(144, 82)
         Me.ConfirmPassword.Name = "ConfirmPassword"
         Me.ConfirmPassword.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
@@ -90,6 +94,8 @@ Partial Class IaipChangePassword
         '
         'CurrentPassword
         '
+        Me.CurrentPassword.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.CurrentPassword.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.CurrentPassword.Location = New System.Drawing.Point(144, 30)
         Me.CurrentPassword.Name = "CurrentPassword"
         Me.CurrentPassword.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)

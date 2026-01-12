@@ -1,7 +1,8 @@
 Imports System.Collections.Generic
-Imports Microsoft.Data.SqlClient
 Imports System.Data.SqlTypes
+Imports System.Web.UI.WebControls.WebParts
 Imports Iaip.Apb.Facilities
+Imports Microsoft.Data.SqlClient
 
 Public Class EisTool
 
@@ -455,9 +456,38 @@ Public Class EisTool
 
             LoadQASpecificData()
 
+            LoadFacilityCaersUsers()
+
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
+    End Sub
+
+    Private Sub LoadFacilityCaersUsers()
+        Dim param As New SqlParameter("@FacilitySiteID", mtbEILogAIRSNumber.AirsNumber.ShortString)
+        Dim dt As DataTable = DB.SPGetDataTable("geco.Caer_GetFacilityContacts", param)
+        If dt Is Nothing OrElse dt.Rows.Count = 0 Then Return
+
+        dgvLogCaers.DataSource = dt
+
+        dgvLogCaers.Columns("Id").Visible = False
+        dgvLogCaers.Columns("FacilitySiteId").Visible = False
+        dgvLogCaers.Columns("Active").Visible = False
+
+        dgvLogCaers.Columns("FirstName").HeaderText = "First Name"
+        dgvLogCaers.Columns("CaerRole").HeaderText = "CAERS Role"
+        dgvLogCaers.Columns("Honorific").HeaderText = "Honorific"
+        dgvLogCaers.Columns("FirstName").HeaderText = "First Name"
+        dgvLogCaers.Columns("LastName").HeaderText = "Last Name"
+        dgvLogCaers.Columns("Title").HeaderText = "Title"
+        dgvLogCaers.Columns("Company").HeaderText = "Company"
+        dgvLogCaers.Columns("Email").HeaderText = "Email"
+        dgvLogCaers.Columns("PhoneNumber").HeaderText = "Phone Number"
+        dgvLogCaers.Columns("Street").HeaderText = "Street"
+        dgvLogCaers.Columns("Street2").HeaderText = "Street 2"
+        dgvLogCaers.Columns("City").HeaderText = "City"
+        dgvLogCaers.Columns("State").HeaderText = "State"
+        dgvLogCaers.Columns("PostalCode").HeaderText = "Postal Code"
     End Sub
 
     Private Function LoadAdminData() As Boolean
@@ -726,7 +756,6 @@ Public Class EisTool
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-
 
     Private Sub btnViewEISStats_Click(sender As Object, e As EventArgs) Handles btnViewEISStats.Click
         ViewEISStats()

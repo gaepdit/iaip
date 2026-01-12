@@ -92,6 +92,8 @@ Partial Class IaipResetPassword
         '
         'Token
         '
+        Me.Token.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.Token.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.Token.Location = New System.Drawing.Point(149, 56)
         Me.Token.Name = "Token"
         Me.Token.Size = New System.Drawing.Size(116, 20)
@@ -135,6 +137,8 @@ Partial Class IaipResetPassword
         '
         'Username
         '
+        Me.Username.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.Username.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.Username.Location = New System.Drawing.Point(149, 30)
         Me.Username.Name = "Username"
         Me.Username.Size = New System.Drawing.Size(116, 20)

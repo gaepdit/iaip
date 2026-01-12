@@ -352,6 +352,8 @@ Partial Class SSCPManagersTools
         '
         'txtCMSAIRSNumber
         '
+        Me.txtCMSAIRSNumber.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtCMSAIRSNumber.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtCMSAIRSNumber.Location = New System.Drawing.Point(89, 106)
         Me.txtCMSAIRSNumber.MaxLength = 8
         Me.txtCMSAIRSNumber.Name = "txtCMSAIRSNumber"
@@ -1476,6 +1478,8 @@ Partial Class SSCPManagersTools
         '
         'txtRecordNumber
         '
+        Me.txtRecordNumber.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtRecordNumber.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtRecordNumber.Location = New System.Drawing.Point(199, 19)
         Me.txtRecordNumber.Name = "txtRecordNumber"
         Me.txtRecordNumber.Size = New System.Drawing.Size(100, 20)

@@ -79,6 +79,8 @@ Partial Class FinCreateRateItem
         '
         Me.txtDescription.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtDescription.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtDescription.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtDescription.Location = New System.Drawing.Point(123, 62)
         Me.txtDescription.MaxLength = 50
         Me.txtDescription.Name = "txtDescription"

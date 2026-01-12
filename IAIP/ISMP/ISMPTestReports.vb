@@ -16858,7 +16858,7 @@ Public Class ISMPTestReports
             Dim temp As Decimal = 0
             Dim x As Integer = 0
 
-            If IsNumeric(txtPollConcAvgPond.Text) AndAlso IsNumeric(txtTreatmentRateAvgPond.Text) Then
+            If IsNumeric(txtPollConcAvgPond.Text) AndAlso IsNumeric(txtTreatmentRateAvgPond.Text) AndAlso CDec(txtPollConcAvgPond.Text) <> 0 Then
                 temp = ((CDec(txtTreatmentRateAvgPond.Text)) / (CDec(txtPollConcAvgPond.Text))) * 100
             Else
                 temp = 0
@@ -16876,7 +16876,7 @@ Public Class ISMPTestReports
             Dim temp As Decimal = 0
             Dim x As Integer = 0
 
-            If IsNumeric(txtPollConcAvgPond.Text) AndAlso IsNumeric(txtTreatmentRateAvgPond.Text) Then
+            If IsNumeric(txtPollConcAvgPond.Text) AndAlso IsNumeric(txtTreatmentRateAvgPond.Text) AndAlso CDec(txtPollConcAvgPond.Text) <> 0 Then
                 temp = ((CDec(txtTreatmentRateAvgPond.Text)) / (CDec(txtPollConcAvgPond.Text))) * 100
             Else
                 temp = 0
@@ -18733,42 +18733,49 @@ Public Class ISMPTestReports
             txtPollConcAvgTwoStackDRE1.Text = Mid(CStr(temp), 1, x)
 
             If IsNumeric(txtPollConcTwoStackDRE1A.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE1B.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE1C.Text) _
-               AndAlso IsNumeric(txtPollConcTwoStackDRE2A.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2B.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2C.Text) Then
+                AndAlso IsNumeric(txtPollConcTwoStackDRE2A.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2B.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2C.Text) _
+                AndAlso CDec(txtPollConcTwoStackDRE1A.Text) <> 0 AndAlso CDec(txtPollConcTwoStackDRE1B.Text) <> 0 AndAlso CDec(txtPollConcTwoStackDRE1C.Text) <> 0 Then
                 temp = (((CDec(txtPollConcTwoStackDRE1A.Text) - CDec(txtPollConcTwoStackDRE2A.Text)) / CDec(txtPollConcTwoStackDRE1A.Text) * 100 _
                         + (CDec(txtPollConcTwoStackDRE1B.Text) - CDec(txtPollConcTwoStackDRE2B.Text)) / CDec(txtPollConcTwoStackDRE1B.Text) * 100 _
                         + (CDec(txtPollConcTwoStackDRE1C.Text) - CDec(txtPollConcTwoStackDRE2C.Text)) / CDec(txtPollConcTwoStackDRE1C.Text) * 100) / 3)
             Else
                 If (IsNumeric(txtPollConcTwoStackDRE1A.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2A.Text)) _
                     AndAlso (IsNumeric(txtPollConcTwoStackDRE1B.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
-                    AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2C.Text))) Then
+                    AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2C.Text))) _
+                    AndAlso CDec(txtPollConcTwoStackDRE1A.Text) <> 0 AndAlso CDec(txtPollConcTwoStackDRE1B.Text) <> 0 Then
                     temp = ((CDec(txtPollConcTwoStackDRE1A.Text) - CDec(txtPollConcTwoStackDRE2A.Text)) / CDec(txtPollConcTwoStackDRE1A.Text) * 100 _
                            + (CDec(txtPollConcTwoStackDRE1B.Text) - CDec(txtPollConcTwoStackDRE2B.Text)) / CDec(txtPollConcTwoStackDRE1B.Text) * 100) / 2
                 Else
                     If (IsNumeric(txtPollConcTwoStackDRE1A.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2A.Text)) _
-                                        AndAlso (IsNumeric(txtPollConcTwoStackDRE1C.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2C.Text)) _
-                                        AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2B.Text))) Then
+                        AndAlso (IsNumeric(txtPollConcTwoStackDRE1C.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2C.Text)) _
+                        AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2B.Text))) _
+                        AndAlso CDec(txtPollConcTwoStackDRE1A.Text) <> 0 AndAlso CDec(txtPollConcTwoStackDRE1C.Text) <> 0 Then
                         temp = ((CDec(txtPollConcTwoStackDRE1A.Text) - CDec(txtPollConcTwoStackDRE2A.Text)) / CDec(txtPollConcTwoStackDRE1A.Text) * 100 _
                                + (CDec(txtPollConcTwoStackDRE1C.Text) - CDec(txtPollConcTwoStackDRE2C.Text)) / CDec(txtPollConcTwoStackDRE1C.Text) * 100) / 2
                     Else
                         If (IsNumeric(txtPollConcTwoStackDRE1C.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2C.Text)) _
-                                            AndAlso (IsNumeric(txtPollConcTwoStackDRE1B.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
-                                            AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2A.Text))) Then
+                            AndAlso (IsNumeric(txtPollConcTwoStackDRE1B.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
+                            AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2A.Text))) _
+                            AndAlso CDec(txtPollConcTwoStackDRE1B.Text) <> 0 AndAlso CDec(txtPollConcTwoStackDRE1C.Text) <> 0 Then
                             temp = ((CDec(txtPollConcTwoStackDRE1C.Text) - CDec(txtPollConcTwoStackDRE2C.Text)) / CDec(txtPollConcTwoStackDRE1C.Text) * 100 _
                                    + (CDec(txtPollConcTwoStackDRE1B.Text) - CDec(txtPollConcTwoStackDRE2B.Text)) / CDec(txtPollConcTwoStackDRE1B.Text) * 100) / 2
                         Else
                             If (IsNumeric(txtPollConcTwoStackDRE1A.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2A.Text)) _
                               AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2B.Text))) _
-                              AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2C.Text))) Then
+                              AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2C.Text))) _
+                              AndAlso CDec(txtPollConcTwoStackDRE1A.Text) <> 0 Then
                                 temp = (CDec(txtPollConcTwoStackDRE1A.Text) - CDec(txtPollConcTwoStackDRE2A.Text)) / CDec(txtPollConcTwoStackDRE1A.Text) * 100
                             Else
                                 If (IsNumeric(txtPollConcTwoStackDRE1B.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
-                                  AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2A.Text))) _
-                                  AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2C.Text))) Then
+                                    AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2A.Text))) _
+                                    AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2C.Text))) _
+                                    AndAlso CDec(txtPollConcTwoStackDRE1B.Text) <> 0 Then
                                     temp = (CDec(txtPollConcTwoStackDRE1B.Text) - CDec(txtPollConcTwoStackDRE2B.Text)) / CDec(txtPollConcTwoStackDRE1B.Text) * 100
                                 Else
                                     If (IsNumeric(txtPollConcTwoStackDRE1C.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2C.Text)) _
-                                      AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2B.Text))) _
-                                      AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2A.Text))) Then
+                                        AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2B.Text))) _
+                                        AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2A.Text))) _
+                                        AndAlso CDec(txtPollConcTwoStackDRE1C.Text) <> 0 Then
                                         temp = (CDec(txtPollConcTwoStackDRE1C.Text) - CDec(txtPollConcTwoStackDRE2C.Text)) / CDec(txtPollConcTwoStackDRE1C.Text) * 100
                                     Else
                                         temp = 0
@@ -18836,42 +18843,49 @@ Public Class ISMPTestReports
             txtPollConcAvgTwoStackDRE1.Text = Mid(CStr(temp), 1, x)
 
             If IsNumeric(txtPollConcTwoStackDRE1A.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE1B.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE1C.Text) _
-               AndAlso IsNumeric(txtPollConcTwoStackDRE2A.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2B.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2C.Text) Then
+                AndAlso IsNumeric(txtPollConcTwoStackDRE2A.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2B.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2C.Text) _
+                AndAlso CDec(txtPollConcTwoStackDRE1A.Text) <> 0 AndAlso CDec(txtPollConcTwoStackDRE1B.Text) <> 0 AndAlso CDec(txtPollConcTwoStackDRE1C.Text) <> 0 Then
                 temp = (((CDec(txtPollConcTwoStackDRE1A.Text) - CDec(txtPollConcTwoStackDRE2A.Text)) / CDec(txtPollConcTwoStackDRE1A.Text) * 100 _
                         + (CDec(txtPollConcTwoStackDRE1B.Text) - CDec(txtPollConcTwoStackDRE2B.Text)) / CDec(txtPollConcTwoStackDRE1B.Text) * 100 _
                         + (CDec(txtPollConcTwoStackDRE1C.Text) - CDec(txtPollConcTwoStackDRE2C.Text)) / CDec(txtPollConcTwoStackDRE1C.Text) * 100) / 3)
             Else
                 If (IsNumeric(txtPollConcTwoStackDRE1A.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2A.Text)) _
                     AndAlso (IsNumeric(txtPollConcTwoStackDRE1B.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
-                    AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2C.Text))) Then
+                    AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2C.Text))) _
+                    AndAlso CDec(txtPollConcTwoStackDRE1A.Text) <> 0 AndAlso CDec(txtPollConcTwoStackDRE1B.Text) <> 0 Then
                     temp = ((CDec(txtPollConcTwoStackDRE1A.Text) - CDec(txtPollConcTwoStackDRE2A.Text)) / CDec(txtPollConcTwoStackDRE1A.Text) * 100 _
                            + (CDec(txtPollConcTwoStackDRE1B.Text) - CDec(txtPollConcTwoStackDRE2B.Text)) / CDec(txtPollConcTwoStackDRE1B.Text) * 100) / 2
                 Else
                     If (IsNumeric(txtPollConcTwoStackDRE1A.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2A.Text)) _
-                                        AndAlso (IsNumeric(txtPollConcTwoStackDRE1C.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2C.Text)) _
-                                        AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2B.Text))) Then
+                        AndAlso (IsNumeric(txtPollConcTwoStackDRE1C.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2C.Text)) _
+                        AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2B.Text))) _
+                        AndAlso CDec(txtPollConcTwoStackDRE1A.Text) <> 0 AndAlso CDec(txtPollConcTwoStackDRE1C.Text) <> 0 Then
                         temp = ((CDec(txtPollConcTwoStackDRE1A.Text) - CDec(txtPollConcTwoStackDRE2A.Text)) / CDec(txtPollConcTwoStackDRE1A.Text) * 100 _
                                + (CDec(txtPollConcTwoStackDRE1C.Text) - CDec(txtPollConcTwoStackDRE2C.Text)) / CDec(txtPollConcTwoStackDRE1C.Text) * 100) / 2
                     Else
                         If (IsNumeric(txtPollConcTwoStackDRE1C.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2C.Text)) _
-                                            AndAlso (IsNumeric(txtPollConcTwoStackDRE1B.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
-                                            AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2A.Text))) Then
+                            AndAlso (IsNumeric(txtPollConcTwoStackDRE1B.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
+                            AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2A.Text))) _
+                            AndAlso CDec(txtPollConcTwoStackDRE1B.Text) <> 0 AndAlso CDec(txtPollConcTwoStackDRE1C.Text) <> 0 Then
                             temp = ((CDec(txtPollConcTwoStackDRE1C.Text) - CDec(txtPollConcTwoStackDRE2C.Text)) / CDec(txtPollConcTwoStackDRE1C.Text) * 100 _
                                    + (CDec(txtPollConcTwoStackDRE1B.Text) - CDec(txtPollConcTwoStackDRE2B.Text)) / CDec(txtPollConcTwoStackDRE1B.Text) * 100) / 2
                         Else
                             If (IsNumeric(txtPollConcTwoStackDRE1A.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2A.Text)) _
-                              AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2B.Text))) _
-                              AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2C.Text))) Then
+                                AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2B.Text))) _
+                                AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2C.Text))) _
+                                AndAlso CDec(txtPollConcTwoStackDRE1A.Text) <> 0 Then
                                 temp = (CDec(txtPollConcTwoStackDRE1A.Text) - CDec(txtPollConcTwoStackDRE2A.Text)) / CDec(txtPollConcTwoStackDRE1A.Text) * 100
                             Else
                                 If (IsNumeric(txtPollConcTwoStackDRE1B.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
-                                  AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2A.Text))) _
-                                  AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2C.Text))) Then
+                                    AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2A.Text))) _
+                                    AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2C.Text))) _
+                                    AndAlso CDec(txtPollConcTwoStackDRE1B.Text) <> 0 Then
                                     temp = (CDec(txtPollConcTwoStackDRE1B.Text) - CDec(txtPollConcTwoStackDRE2B.Text)) / CDec(txtPollConcTwoStackDRE1B.Text) * 100
                                 Else
                                     If (IsNumeric(txtPollConcTwoStackDRE1C.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2C.Text)) _
-                                      AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2B.Text))) _
-                                      AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2A.Text))) Then
+                                        AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2B.Text))) _
+                                        AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2A.Text))) _
+                                        AndAlso CDec(txtPollConcTwoStackDRE1C.Text) <> 0 Then
                                         temp = (CDec(txtPollConcTwoStackDRE1C.Text) - CDec(txtPollConcTwoStackDRE2C.Text)) / CDec(txtPollConcTwoStackDRE1C.Text) * 100
                                     Else
                                         temp = 0
@@ -18939,42 +18953,49 @@ Public Class ISMPTestReports
             txtPollConcAvgTwoStackDRE1.Text = Mid(CStr(temp), 1, x)
 
             If IsNumeric(txtPollConcTwoStackDRE1A.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE1B.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE1C.Text) _
-               AndAlso IsNumeric(txtPollConcTwoStackDRE2A.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2B.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2C.Text) Then
+               AndAlso IsNumeric(txtPollConcTwoStackDRE2A.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2B.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2C.Text) _
+                AndAlso CDec(txtPollConcTwoStackDRE1A.Text) <> 0 AndAlso CDec(txtPollConcTwoStackDRE1B.Text) <> 0 AndAlso CDec(txtPollConcTwoStackDRE1C.Text) <> 0 Then
                 temp = (((CDec(txtPollConcTwoStackDRE1A.Text) - CDec(txtPollConcTwoStackDRE2A.Text)) / CDec(txtPollConcTwoStackDRE1A.Text) * 100 _
                         + (CDec(txtPollConcTwoStackDRE1B.Text) - CDec(txtPollConcTwoStackDRE2B.Text)) / CDec(txtPollConcTwoStackDRE1B.Text) * 100 _
                         + (CDec(txtPollConcTwoStackDRE1C.Text) - CDec(txtPollConcTwoStackDRE2C.Text)) / CDec(txtPollConcTwoStackDRE1C.Text) * 100) / 3)
             Else
                 If (IsNumeric(txtPollConcTwoStackDRE1A.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2A.Text)) _
                     AndAlso (IsNumeric(txtPollConcTwoStackDRE1B.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
-                    AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2C.Text))) Then
+                    AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2C.Text))) _
+                    AndAlso CDec(txtPollConcTwoStackDRE1A.Text) <> 0 AndAlso CDec(txtPollConcTwoStackDRE1B.Text) <> 0 Then
                     temp = ((CDec(txtPollConcTwoStackDRE1A.Text) - CDec(txtPollConcTwoStackDRE2A.Text)) / CDec(txtPollConcTwoStackDRE1A.Text) * 100 _
                            + (CDec(txtPollConcTwoStackDRE1B.Text) - CDec(txtPollConcTwoStackDRE2B.Text)) / CDec(txtPollConcTwoStackDRE1B.Text) * 100) / 2
                 Else
                     If (IsNumeric(txtPollConcTwoStackDRE1A.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2A.Text)) _
-                                        AndAlso (IsNumeric(txtPollConcTwoStackDRE1C.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2C.Text)) _
-                                        AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2B.Text))) Then
+                        AndAlso (IsNumeric(txtPollConcTwoStackDRE1C.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2C.Text)) _
+                        AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2B.Text))) _
+                        AndAlso CDec(txtPollConcTwoStackDRE1A.Text) <> 0 AndAlso CDec(txtPollConcTwoStackDRE1C.Text) <> 0 Then
                         temp = ((CDec(txtPollConcTwoStackDRE1A.Text) - CDec(txtPollConcTwoStackDRE2A.Text)) / CDec(txtPollConcTwoStackDRE1A.Text) * 100 _
                                + (CDec(txtPollConcTwoStackDRE1C.Text) - CDec(txtPollConcTwoStackDRE2C.Text)) / CDec(txtPollConcTwoStackDRE1C.Text) * 100) / 2
                     Else
                         If (IsNumeric(txtPollConcTwoStackDRE1C.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2C.Text)) _
-                                            AndAlso (IsNumeric(txtPollConcTwoStackDRE1B.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
-                                            AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2A.Text))) Then
+                            AndAlso (IsNumeric(txtPollConcTwoStackDRE1B.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
+                            AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2A.Text))) _
+                            AndAlso CDec(txtPollConcTwoStackDRE1B.Text) <> 0 AndAlso CDec(txtPollConcTwoStackDRE1C.Text) <> 0 Then
                             temp = ((CDec(txtPollConcTwoStackDRE1C.Text) - CDec(txtPollConcTwoStackDRE2C.Text)) / CDec(txtPollConcTwoStackDRE1C.Text) * 100 _
                                    + (CDec(txtPollConcTwoStackDRE1B.Text) - CDec(txtPollConcTwoStackDRE2B.Text)) / CDec(txtPollConcTwoStackDRE1B.Text) * 100) / 2
                         Else
                             If (IsNumeric(txtPollConcTwoStackDRE1A.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2A.Text)) _
-                              AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2B.Text))) _
-                              AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2C.Text))) Then
+                                AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2B.Text))) _
+                                AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2C.Text))) _
+                                AndAlso CDec(txtPollConcTwoStackDRE1A.Text) <> 0 Then
                                 temp = (CDec(txtPollConcTwoStackDRE1A.Text) - CDec(txtPollConcTwoStackDRE2A.Text)) / CDec(txtPollConcTwoStackDRE1A.Text) * 100
                             Else
                                 If (IsNumeric(txtPollConcTwoStackDRE1B.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
-                                  AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2A.Text))) _
-                                  AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2C.Text))) Then
+                                    AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2A.Text))) _
+                                    AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2C.Text))) _
+                                    AndAlso CDec(txtPollConcTwoStackDRE1B.Text) <> 0 Then
                                     temp = (CDec(txtPollConcTwoStackDRE1B.Text) - CDec(txtPollConcTwoStackDRE2B.Text)) / CDec(txtPollConcTwoStackDRE1B.Text) * 100
                                 Else
                                     If (IsNumeric(txtPollConcTwoStackDRE1C.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2C.Text)) _
-                                      AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2B.Text))) _
-                                      AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2A.Text))) Then
+                                        AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2B.Text))) _
+                                        AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2A.Text))) _
+                                        AndAlso CDec(txtPollConcTwoStackDRE1C.Text) <> 0 Then
                                         temp = (CDec(txtPollConcTwoStackDRE1C.Text) - CDec(txtPollConcTwoStackDRE2C.Text)) / CDec(txtPollConcTwoStackDRE1C.Text) * 100
                                     Else
                                         temp = 0
@@ -19042,42 +19063,49 @@ Public Class ISMPTestReports
             txtPollConcAvgTwoStackDRE2.Text = Mid(CStr(temp), 1, x)
 
             If IsNumeric(txtPollConcTwoStackDRE1A.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE1B.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE1C.Text) _
-                AndAlso IsNumeric(txtPollConcTwoStackDRE2A.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2B.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2C.Text) Then
+                AndAlso IsNumeric(txtPollConcTwoStackDRE2A.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2B.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2C.Text) _
+                AndAlso CDec(txtPollConcTwoStackDRE1A.Text) <> 0 AndAlso CDec(txtPollConcTwoStackDRE1B.Text) <> 0 AndAlso CDec(txtPollConcTwoStackDRE1C.Text) <> 0 Then
                 temp = (((CDec(txtPollConcTwoStackDRE1A.Text) - CDec(txtPollConcTwoStackDRE2A.Text)) / CDec(txtPollConcTwoStackDRE1A.Text) * 100 _
                         + (CDec(txtPollConcTwoStackDRE1B.Text) - CDec(txtPollConcTwoStackDRE2B.Text)) / CDec(txtPollConcTwoStackDRE1B.Text) * 100 _
                         + (CDec(txtPollConcTwoStackDRE1C.Text) - CDec(txtPollConcTwoStackDRE2C.Text)) / CDec(txtPollConcTwoStackDRE1C.Text) * 100) / 3)
             Else
                 If (IsNumeric(txtPollConcTwoStackDRE1A.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2A.Text)) _
                     AndAlso (IsNumeric(txtPollConcTwoStackDRE1B.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
-                    AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2C.Text))) Then
+                    AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2C.Text))) _
+                    AndAlso CDec(txtPollConcTwoStackDRE1A.Text) <> 0 AndAlso CDec(txtPollConcTwoStackDRE1B.Text) <> 0 Then
                     temp = ((CDec(txtPollConcTwoStackDRE1A.Text) - CDec(txtPollConcTwoStackDRE2A.Text)) / CDec(txtPollConcTwoStackDRE1A.Text) * 100 _
                            + (CDec(txtPollConcTwoStackDRE1B.Text) - CDec(txtPollConcTwoStackDRE2B.Text)) / CDec(txtPollConcTwoStackDRE1B.Text) * 100) / 2
                 Else
                     If (IsNumeric(txtPollConcTwoStackDRE1A.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2A.Text)) _
-                                        AndAlso (IsNumeric(txtPollConcTwoStackDRE1C.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2C.Text)) _
-                                        AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2B.Text))) Then
+                        AndAlso (IsNumeric(txtPollConcTwoStackDRE1C.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2C.Text)) _
+                        AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2B.Text))) _
+                        AndAlso CDec(txtPollConcTwoStackDRE1A.Text) <> 0 AndAlso CDec(txtPollConcTwoStackDRE1C.Text) <> 0 Then
                         temp = ((CDec(txtPollConcTwoStackDRE1A.Text) - CDec(txtPollConcTwoStackDRE2A.Text)) / CDec(txtPollConcTwoStackDRE1A.Text) * 100 _
                                + (CDec(txtPollConcTwoStackDRE1C.Text) - CDec(txtPollConcTwoStackDRE2C.Text)) / CDec(txtPollConcTwoStackDRE1C.Text) * 100) / 2
                     Else
                         If (IsNumeric(txtPollConcTwoStackDRE1C.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2C.Text)) _
-                                            AndAlso (IsNumeric(txtPollConcTwoStackDRE1B.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
-                                            AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2A.Text))) Then
+                            AndAlso (IsNumeric(txtPollConcTwoStackDRE1B.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
+                            AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2A.Text))) _
+                            AndAlso CDec(txtPollConcTwoStackDRE1B.Text) <> 0 AndAlso CDec(txtPollConcTwoStackDRE1C.Text) <> 0 Then
                             temp = ((CDec(txtPollConcTwoStackDRE1C.Text) - CDec(txtPollConcTwoStackDRE2C.Text)) / CDec(txtPollConcTwoStackDRE1C.Text) * 100 _
                                    + (CDec(txtPollConcTwoStackDRE1B.Text) - CDec(txtPollConcTwoStackDRE2B.Text)) / CDec(txtPollConcTwoStackDRE1B.Text) * 100) / 2
                         Else
                             If (IsNumeric(txtPollConcTwoStackDRE1A.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2A.Text)) _
-                              AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2B.Text))) _
-                              AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2C.Text))) Then
+                                AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2B.Text))) _
+                                AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2C.Text))) _
+                                AndAlso CDec(txtPollConcTwoStackDRE1A.Text) <> 0 Then
                                 temp = (CDec(txtPollConcTwoStackDRE1A.Text) - CDec(txtPollConcTwoStackDRE2A.Text)) / CDec(txtPollConcTwoStackDRE1A.Text) * 100
                             Else
                                 If (IsNumeric(txtPollConcTwoStackDRE1B.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
-                                  AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2A.Text))) _
-                                  AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2C.Text))) Then
+                                    AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2A.Text))) _
+                                    AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2C.Text))) _
+                                    AndAlso CDec(txtPollConcTwoStackDRE1B.Text) <> 0 Then
                                     temp = (CDec(txtPollConcTwoStackDRE1B.Text) - CDec(txtPollConcTwoStackDRE2B.Text)) / CDec(txtPollConcTwoStackDRE1B.Text) * 100
                                 Else
                                     If (IsNumeric(txtPollConcTwoStackDRE1C.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2C.Text)) _
-                                      AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2B.Text))) _
-                                      AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2A.Text))) Then
+                                        AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2B.Text))) _
+                                        AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2A.Text))) _
+                                        AndAlso CDec(txtPollConcTwoStackDRE1C.Text) <> 0 Then
                                         temp = (CDec(txtPollConcTwoStackDRE1C.Text) - CDec(txtPollConcTwoStackDRE2C.Text)) / CDec(txtPollConcTwoStackDRE1C.Text) * 100
                                     Else
                                         temp = 0
@@ -19145,42 +19173,49 @@ Public Class ISMPTestReports
             txtPollConcAvgTwoStackDRE2.Text = Mid(CStr(temp), 1, x)
 
             If IsNumeric(txtPollConcTwoStackDRE1A.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE1B.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE1C.Text) _
-               AndAlso IsNumeric(txtPollConcTwoStackDRE2A.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2B.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2C.Text) Then
+                AndAlso IsNumeric(txtPollConcTwoStackDRE2A.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2B.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2C.Text) _
+                AndAlso CDec(txtPollConcTwoStackDRE1A.Text) <> 0 AndAlso CDec(txtPollConcTwoStackDRE1B.Text) <> 0 AndAlso CDec(txtPollConcTwoStackDRE1C.Text) <> 0 Then
                 temp = (((CDec(txtPollConcTwoStackDRE1A.Text) - CDec(txtPollConcTwoStackDRE2A.Text)) / CDec(txtPollConcTwoStackDRE1A.Text) * 100 _
                         + (CDec(txtPollConcTwoStackDRE1B.Text) - CDec(txtPollConcTwoStackDRE2B.Text)) / CDec(txtPollConcTwoStackDRE1B.Text) * 100 _
                         + (CDec(txtPollConcTwoStackDRE1C.Text) - CDec(txtPollConcTwoStackDRE2C.Text)) / CDec(txtPollConcTwoStackDRE1C.Text) * 100) / 3)
             Else
                 If (IsNumeric(txtPollConcTwoStackDRE1A.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2A.Text)) _
                     AndAlso (IsNumeric(txtPollConcTwoStackDRE1B.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
-                    AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2C.Text))) Then
+                    AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2C.Text))) _
+                    AndAlso CDec(txtPollConcTwoStackDRE1A.Text) <> 0 AndAlso CDec(txtPollConcTwoStackDRE1B.Text) <> 0 Then
                     temp = ((CDec(txtPollConcTwoStackDRE1A.Text) - CDec(txtPollConcTwoStackDRE2A.Text)) / CDec(txtPollConcTwoStackDRE1A.Text) * 100 _
                            + (CDec(txtPollConcTwoStackDRE1B.Text) - CDec(txtPollConcTwoStackDRE2B.Text)) / CDec(txtPollConcTwoStackDRE1B.Text) * 100) / 2
                 Else
                     If (IsNumeric(txtPollConcTwoStackDRE1A.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2A.Text)) _
-                                        AndAlso (IsNumeric(txtPollConcTwoStackDRE1C.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2C.Text)) _
-                                        AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2B.Text))) Then
+                        AndAlso (IsNumeric(txtPollConcTwoStackDRE1C.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2C.Text)) _
+                        AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2B.Text))) _
+                        AndAlso CDec(txtPollConcTwoStackDRE1A.Text) <> 0 AndAlso CDec(txtPollConcTwoStackDRE1C.Text) <> 0 Then
                         temp = ((CDec(txtPollConcTwoStackDRE1A.Text) - CDec(txtPollConcTwoStackDRE2A.Text)) / CDec(txtPollConcTwoStackDRE1A.Text) * 100 _
                                + (CDec(txtPollConcTwoStackDRE1C.Text) - CDec(txtPollConcTwoStackDRE2C.Text)) / CDec(txtPollConcTwoStackDRE1C.Text) * 100) / 2
                     Else
                         If (IsNumeric(txtPollConcTwoStackDRE1C.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2C.Text)) _
-                                            AndAlso (IsNumeric(txtPollConcTwoStackDRE1B.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
-                                            AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2A.Text))) Then
+                            AndAlso (IsNumeric(txtPollConcTwoStackDRE1B.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
+                            AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2A.Text))) _
+                            AndAlso CDec(txtPollConcTwoStackDRE1B.Text) <> 0 AndAlso CDec(txtPollConcTwoStackDRE1C.Text) <> 0 Then
                             temp = ((CDec(txtPollConcTwoStackDRE1C.Text) - CDec(txtPollConcTwoStackDRE2C.Text)) / CDec(txtPollConcTwoStackDRE1C.Text) * 100 _
                                    + (CDec(txtPollConcTwoStackDRE1B.Text) - CDec(txtPollConcTwoStackDRE2B.Text)) / CDec(txtPollConcTwoStackDRE1B.Text) * 100) / 2
                         Else
                             If (IsNumeric(txtPollConcTwoStackDRE1A.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2A.Text)) _
-                              AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2B.Text))) _
-                              AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2C.Text))) Then
+                                AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2B.Text))) _
+                                AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2C.Text))) _
+                                AndAlso CDec(txtPollConcTwoStackDRE1A.Text) <> 0 Then
                                 temp = (CDec(txtPollConcTwoStackDRE1A.Text) - CDec(txtPollConcTwoStackDRE2A.Text)) / CDec(txtPollConcTwoStackDRE1A.Text) * 100
                             Else
                                 If (IsNumeric(txtPollConcTwoStackDRE1B.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
-                                  AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2A.Text))) _
-                                  AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2C.Text))) Then
+                                    AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2A.Text))) _
+                                    AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2C.Text))) _
+                                    AndAlso CDec(txtPollConcTwoStackDRE1B.Text) <> 0 Then
                                     temp = (CDec(txtPollConcTwoStackDRE1B.Text) - CDec(txtPollConcTwoStackDRE2B.Text)) / CDec(txtPollConcTwoStackDRE1B.Text) * 100
                                 Else
                                     If (IsNumeric(txtPollConcTwoStackDRE1C.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2C.Text)) _
-                                      AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2B.Text))) _
-                                      AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2A.Text))) Then
+                                        AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2B.Text))) _
+                                        AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2A.Text))) _
+                                        AndAlso CDec(txtPollConcTwoStackDRE1C.Text) <> 0 Then
                                         temp = (CDec(txtPollConcTwoStackDRE1C.Text) - CDec(txtPollConcTwoStackDRE2C.Text)) / CDec(txtPollConcTwoStackDRE1C.Text) * 100
                                     Else
                                         temp = 0
@@ -19248,42 +19283,49 @@ Public Class ISMPTestReports
             txtPollConcAvgTwoStackDRE2.Text = Mid(CStr(temp), 1, x)
 
             If IsNumeric(txtPollConcTwoStackDRE1A.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE1B.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE1C.Text) _
-                 AndAlso IsNumeric(txtPollConcTwoStackDRE2A.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2B.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2C.Text) Then
+                AndAlso IsNumeric(txtPollConcTwoStackDRE2A.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2B.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2C.Text) _
+                AndAlso CDec(txtPollConcTwoStackDRE1A.Text) <> 0 AndAlso CDec(txtPollConcTwoStackDRE1B.Text) <> 0 AndAlso CDec(txtPollConcTwoStackDRE1C.Text) <> 0 Then
                 temp = (((CDec(txtPollConcTwoStackDRE1A.Text) - CDec(txtPollConcTwoStackDRE2A.Text)) / CDec(txtPollConcTwoStackDRE1A.Text) * 100 _
                         + (CDec(txtPollConcTwoStackDRE1B.Text) - CDec(txtPollConcTwoStackDRE2B.Text)) / CDec(txtPollConcTwoStackDRE1B.Text) * 100 _
                         + (CDec(txtPollConcTwoStackDRE1C.Text) - CDec(txtPollConcTwoStackDRE2C.Text)) / CDec(txtPollConcTwoStackDRE1C.Text) * 100) / 3)
             Else
                 If (IsNumeric(txtPollConcTwoStackDRE1A.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2A.Text)) _
                     AndAlso (IsNumeric(txtPollConcTwoStackDRE1B.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
-                    AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2C.Text))) Then
+                    AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2C.Text))) _
+                    AndAlso CDec(txtPollConcTwoStackDRE1A.Text) <> 0 AndAlso CDec(txtPollConcTwoStackDRE1B.Text) <> 0 Then
                     temp = ((CDec(txtPollConcTwoStackDRE1A.Text) - CDec(txtPollConcTwoStackDRE2A.Text)) / CDec(txtPollConcTwoStackDRE1A.Text) * 100 _
                            + (CDec(txtPollConcTwoStackDRE1B.Text) - CDec(txtPollConcTwoStackDRE2B.Text)) / CDec(txtPollConcTwoStackDRE1B.Text) * 100) / 2
                 Else
                     If (IsNumeric(txtPollConcTwoStackDRE1A.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2A.Text)) _
-                                        AndAlso (IsNumeric(txtPollConcTwoStackDRE1C.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2C.Text)) _
-                                        AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2B.Text))) Then
+                        AndAlso (IsNumeric(txtPollConcTwoStackDRE1C.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2C.Text)) _
+                        AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2B.Text))) _
+                        AndAlso CDec(txtPollConcTwoStackDRE1A.Text) <> 0 AndAlso CDec(txtPollConcTwoStackDRE1C.Text) <> 0 Then
                         temp = ((CDec(txtPollConcTwoStackDRE1A.Text) - CDec(txtPollConcTwoStackDRE2A.Text)) / CDec(txtPollConcTwoStackDRE1A.Text) * 100 _
                                + (CDec(txtPollConcTwoStackDRE1C.Text) - CDec(txtPollConcTwoStackDRE2C.Text)) / CDec(txtPollConcTwoStackDRE1C.Text) * 100) / 2
                     Else
                         If (IsNumeric(txtPollConcTwoStackDRE1C.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2C.Text)) _
-                                            AndAlso (IsNumeric(txtPollConcTwoStackDRE1B.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
-                                            AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2A.Text))) Then
+                            AndAlso (IsNumeric(txtPollConcTwoStackDRE1B.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
+                            AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2A.Text))) _
+                            AndAlso CDec(txtPollConcTwoStackDRE1B.Text) <> 0 AndAlso CDec(txtPollConcTwoStackDRE1C.Text) <> 0 Then
                             temp = ((CDec(txtPollConcTwoStackDRE1C.Text) - CDec(txtPollConcTwoStackDRE2C.Text)) / CDec(txtPollConcTwoStackDRE1C.Text) * 100 _
                                    + (CDec(txtPollConcTwoStackDRE1B.Text) - CDec(txtPollConcTwoStackDRE2B.Text)) / CDec(txtPollConcTwoStackDRE1B.Text) * 100) / 2
                         Else
                             If (IsNumeric(txtPollConcTwoStackDRE1A.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2A.Text)) _
-                              AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2B.Text))) _
-                              AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2C.Text))) Then
+                                AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2B.Text))) _
+                                AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2C.Text))) _
+                                AndAlso CDec(txtPollConcTwoStackDRE1A.Text) <> 0 Then
                                 temp = (CDec(txtPollConcTwoStackDRE1A.Text) - CDec(txtPollConcTwoStackDRE2A.Text)) / CDec(txtPollConcTwoStackDRE1A.Text) * 100
                             Else
                                 If (IsNumeric(txtPollConcTwoStackDRE1B.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2B.Text)) _
-                                  AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2A.Text))) _
-                                  AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2C.Text))) Then
+                                    AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2A.Text))) _
+                                    AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1C.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2C.Text))) _
+                                    AndAlso CDec(txtPollConcTwoStackDRE1B.Text) <> 0 Then
                                     temp = (CDec(txtPollConcTwoStackDRE1B.Text) - CDec(txtPollConcTwoStackDRE2B.Text)) / CDec(txtPollConcTwoStackDRE1B.Text) * 100
                                 Else
                                     If (IsNumeric(txtPollConcTwoStackDRE1C.Text) AndAlso IsNumeric(txtPollConcTwoStackDRE2C.Text)) _
-                                      AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2B.Text))) _
-                                      AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2A.Text))) Then
+                                        AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1B.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2B.Text))) _
+                                        AndAlso (Not (IsNumeric(txtPollConcTwoStackDRE1A.Text)) OrElse Not (IsNumeric(txtPollConcTwoStackDRE2A.Text))) _
+                                        AndAlso CDec(txtPollConcTwoStackDRE1C.Text) <> 0 Then
                                         temp = (CDec(txtPollConcTwoStackDRE1C.Text) - CDec(txtPollConcTwoStackDRE2C.Text)) / CDec(txtPollConcTwoStackDRE1C.Text) * 100
                                     Else
                                         temp = 0

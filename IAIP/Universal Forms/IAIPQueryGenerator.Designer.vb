@@ -502,6 +502,8 @@ Partial Class IAIPQueryGenerator
         '
         'txtFacilityNameSearch2
         '
+        Me.txtFacilityNameSearch2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtFacilityNameSearch2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtFacilityNameSearch2.Location = New System.Drawing.Point(237, 68)
         Me.txtFacilityNameSearch2.Name = "txtFacilityNameSearch2"
         Me.txtFacilityNameSearch2.Size = New System.Drawing.Size(127, 20)
@@ -509,6 +511,8 @@ Partial Class IAIPQueryGenerator
         '
         'txtFacilityNameSearch1
         '
+        Me.txtFacilityNameSearch1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtFacilityNameSearch1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtFacilityNameSearch1.Location = New System.Drawing.Point(97, 68)
         Me.txtFacilityNameSearch1.Name = "txtFacilityNameSearch1"
         Me.txtFacilityNameSearch1.Size = New System.Drawing.Size(127, 20)
@@ -574,6 +578,8 @@ Partial Class IAIPQueryGenerator
         '
         'txtAIRSNumberSearch2
         '
+        Me.txtAIRSNumberSearch2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtAIRSNumberSearch2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtAIRSNumberSearch2.Location = New System.Drawing.Point(237, 41)
         Me.txtAIRSNumberSearch2.Name = "txtAIRSNumberSearch2"
         Me.txtAIRSNumberSearch2.Size = New System.Drawing.Size(127, 20)
@@ -581,6 +587,8 @@ Partial Class IAIPQueryGenerator
         '
         'txtAIRSNumberSearch1
         '
+        Me.txtAIRSNumberSearch1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtAIRSNumberSearch1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtAIRSNumberSearch1.Location = New System.Drawing.Point(97, 41)
         Me.txtAIRSNumberSearch1.Name = "txtAIRSNumberSearch1"
         Me.txtAIRSNumberSearch1.Size = New System.Drawing.Size(127, 20)
@@ -864,6 +872,8 @@ Partial Class IAIPQueryGenerator
         '
         'txtFacilityLatitudeSearch2
         '
+        Me.txtFacilityLatitudeSearch2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtFacilityLatitudeSearch2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtFacilityLatitudeSearch2.Location = New System.Drawing.Point(281, 109)
         Me.txtFacilityLatitudeSearch2.Name = "txtFacilityLatitudeSearch2"
         Me.txtFacilityLatitudeSearch2.Size = New System.Drawing.Size(127, 20)
@@ -871,6 +881,8 @@ Partial Class IAIPQueryGenerator
         '
         'txtFacilityLatitudeSearch1
         '
+        Me.txtFacilityLatitudeSearch1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtFacilityLatitudeSearch1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtFacilityLatitudeSearch1.Location = New System.Drawing.Point(141, 109)
         Me.txtFacilityLatitudeSearch1.Name = "txtFacilityLatitudeSearch1"
         Me.txtFacilityLatitudeSearch1.Size = New System.Drawing.Size(127, 20)
@@ -878,6 +890,8 @@ Partial Class IAIPQueryGenerator
         '
         'txtFacilityLongitudeSearch2
         '
+        Me.txtFacilityLongitudeSearch2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtFacilityLongitudeSearch2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtFacilityLongitudeSearch2.Location = New System.Drawing.Point(281, 134)
         Me.txtFacilityLongitudeSearch2.Name = "txtFacilityLongitudeSearch2"
         Me.txtFacilityLongitudeSearch2.Size = New System.Drawing.Size(127, 20)
@@ -885,6 +899,8 @@ Partial Class IAIPQueryGenerator
         '
         'txtFacilityLongitudeSearch1
         '
+        Me.txtFacilityLongitudeSearch1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtFacilityLongitudeSearch1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtFacilityLongitudeSearch1.Location = New System.Drawing.Point(141, 134)
         Me.txtFacilityLongitudeSearch1.Name = "txtFacilityLongitudeSearch1"
         Me.txtFacilityLongitudeSearch1.Size = New System.Drawing.Size(127, 20)
@@ -952,6 +968,8 @@ Partial Class IAIPQueryGenerator
         '
         'txtFacilityZipCodeSearch2
         '
+        Me.txtFacilityZipCodeSearch2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtFacilityZipCodeSearch2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtFacilityZipCodeSearch2.Location = New System.Drawing.Point(281, 84)
         Me.txtFacilityZipCodeSearch2.Name = "txtFacilityZipCodeSearch2"
         Me.txtFacilityZipCodeSearch2.Size = New System.Drawing.Size(127, 20)
@@ -959,6 +977,8 @@ Partial Class IAIPQueryGenerator
         '
         'txtFacilityZipCodeSearch1
         '
+        Me.txtFacilityZipCodeSearch1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtFacilityZipCodeSearch1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtFacilityZipCodeSearch1.Location = New System.Drawing.Point(141, 84)
         Me.txtFacilityZipCodeSearch1.Name = "txtFacilityZipCodeSearch1"
         Me.txtFacilityZipCodeSearch1.Size = New System.Drawing.Size(127, 20)
@@ -1026,6 +1046,8 @@ Partial Class IAIPQueryGenerator
         '
         'txtFacilityCitySearch2
         '
+        Me.txtFacilityCitySearch2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtFacilityCitySearch2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtFacilityCitySearch2.Location = New System.Drawing.Point(281, 59)
         Me.txtFacilityCitySearch2.Name = "txtFacilityCitySearch2"
         Me.txtFacilityCitySearch2.Size = New System.Drawing.Size(127, 20)
@@ -1033,6 +1055,8 @@ Partial Class IAIPQueryGenerator
         '
         'txtFacilityCitySearch1
         '
+        Me.txtFacilityCitySearch1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtFacilityCitySearch1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtFacilityCitySearch1.Location = New System.Drawing.Point(141, 59)
         Me.txtFacilityCitySearch1.Name = "txtFacilityCitySearch1"
         Me.txtFacilityCitySearch1.Size = New System.Drawing.Size(127, 20)
@@ -1100,6 +1124,8 @@ Partial Class IAIPQueryGenerator
         '
         'txtFacilityStreet2Search2
         '
+        Me.txtFacilityStreet2Search2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtFacilityStreet2Search2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtFacilityStreet2Search2.Location = New System.Drawing.Point(281, 34)
         Me.txtFacilityStreet2Search2.Name = "txtFacilityStreet2Search2"
         Me.txtFacilityStreet2Search2.Size = New System.Drawing.Size(127, 20)
@@ -1107,6 +1133,8 @@ Partial Class IAIPQueryGenerator
         '
         'txtFacilityStreet2Search1
         '
+        Me.txtFacilityStreet2Search1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtFacilityStreet2Search1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtFacilityStreet2Search1.Location = New System.Drawing.Point(141, 34)
         Me.txtFacilityStreet2Search1.Name = "txtFacilityStreet2Search1"
         Me.txtFacilityStreet2Search1.Size = New System.Drawing.Size(127, 20)
@@ -1174,6 +1202,8 @@ Partial Class IAIPQueryGenerator
         '
         'txtFacilityStreet1Search2
         '
+        Me.txtFacilityStreet1Search2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtFacilityStreet1Search2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtFacilityStreet1Search2.Location = New System.Drawing.Point(281, 9)
         Me.txtFacilityStreet1Search2.Name = "txtFacilityStreet1Search2"
         Me.txtFacilityStreet1Search2.Size = New System.Drawing.Size(127, 20)
@@ -1181,6 +1211,8 @@ Partial Class IAIPQueryGenerator
         '
         'txtFacilityStreet1Search1
         '
+        Me.txtFacilityStreet1Search1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtFacilityStreet1Search1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtFacilityStreet1Search1.Location = New System.Drawing.Point(141, 9)
         Me.txtFacilityStreet1Search1.Name = "txtFacilityStreet1Search1"
         Me.txtFacilityStreet1Search1.Size = New System.Drawing.Size(127, 20)
@@ -1345,6 +1377,8 @@ Partial Class IAIPQueryGenerator
         '
         'txtNAICSCodeSearch2
         '
+        Me.txtNAICSCodeSearch2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtNAICSCodeSearch2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtNAICSCodeSearch2.Location = New System.Drawing.Point(283, 83)
         Me.txtNAICSCodeSearch2.Name = "txtNAICSCodeSearch2"
         Me.txtNAICSCodeSearch2.Size = New System.Drawing.Size(132, 20)
@@ -1352,6 +1386,8 @@ Partial Class IAIPQueryGenerator
         '
         'txtNAICSCodeSearch1
         '
+        Me.txtNAICSCodeSearch1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtNAICSCodeSearch1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtNAICSCodeSearch1.Location = New System.Drawing.Point(145, 83)
         Me.txtNAICSCodeSearch1.Name = "txtNAICSCodeSearch1"
         Me.txtNAICSCodeSearch1.Size = New System.Drawing.Size(132, 20)
@@ -1507,6 +1543,8 @@ Partial Class IAIPQueryGenerator
         '
         'txtPlantDescriptionSearch2
         '
+        Me.txtPlantDescriptionSearch2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtPlantDescriptionSearch2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtPlantDescriptionSearch2.Location = New System.Drawing.Point(283, 182)
         Me.txtPlantDescriptionSearch2.Name = "txtPlantDescriptionSearch2"
         Me.txtPlantDescriptionSearch2.Size = New System.Drawing.Size(132, 20)
@@ -1514,6 +1552,8 @@ Partial Class IAIPQueryGenerator
         '
         'txtPlantDescriptionSearch1
         '
+        Me.txtPlantDescriptionSearch1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtPlantDescriptionSearch1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtPlantDescriptionSearch1.Location = New System.Drawing.Point(145, 182)
         Me.txtPlantDescriptionSearch1.Name = "txtPlantDescriptionSearch1"
         Me.txtPlantDescriptionSearch1.Size = New System.Drawing.Size(132, 20)
@@ -1677,6 +1717,8 @@ Partial Class IAIPQueryGenerator
         '
         'txtSICCodeSearch2
         '
+        Me.txtSICCodeSearch2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtSICCodeSearch2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtSICCodeSearch2.Location = New System.Drawing.Point(283, 60)
         Me.txtSICCodeSearch2.Name = "txtSICCodeSearch2"
         Me.txtSICCodeSearch2.Size = New System.Drawing.Size(132, 20)
@@ -1684,6 +1726,8 @@ Partial Class IAIPQueryGenerator
         '
         'txtSICCodeSearch1
         '
+        Me.txtSICCodeSearch1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtSICCodeSearch1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtSICCodeSearch1.Location = New System.Drawing.Point(145, 60)
         Me.txtSICCodeSearch1.Name = "txtSICCodeSearch1"
         Me.txtSICCodeSearch1.Size = New System.Drawing.Size(132, 20)

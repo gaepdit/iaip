@@ -1608,6 +1608,8 @@ Partial Class ISMPTestReports
         '
         'txtSourceTested
         '
+        Me.txtSourceTested.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtSourceTested.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtSourceTested.BackColor = System.Drawing.SystemColors.Window
         Me.txtSourceTested.Location = New System.Drawing.Point(427, 16)
         Me.txtSourceTested.MaxLength = 100
@@ -1940,6 +1942,8 @@ Partial Class ISMPTestReports
         '
         'txtEmissRateAvgOneStackTwoRun
         '
+        Me.txtEmissRateAvgOneStackTwoRun.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtEmissRateAvgOneStackTwoRun.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtEmissRateAvgOneStackTwoRun.BackColor = System.Drawing.SystemColors.Window
         Me.txtEmissRateAvgOneStackTwoRun.Location = New System.Drawing.Point(494, 142)
         Me.txtEmissRateAvgOneStackTwoRun.MaxLength = 11
@@ -1950,6 +1954,8 @@ Partial Class ISMPTestReports
         '
         'txtPollConcAvgOneStackTwoRun
         '
+        Me.txtPollConcAvgOneStackTwoRun.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtPollConcAvgOneStackTwoRun.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtPollConcAvgOneStackTwoRun.BackColor = System.Drawing.SystemColors.Window
         Me.txtPollConcAvgOneStackTwoRun.Location = New System.Drawing.Point(494, 120)
         Me.txtPollConcAvgOneStackTwoRun.MaxLength = 11
@@ -1980,6 +1986,8 @@ Partial Class ISMPTestReports
         '
         'txtEmissRateOneStackTwoRun1B
         '
+        Me.txtEmissRateOneStackTwoRun1B.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtEmissRateOneStackTwoRun1B.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtEmissRateOneStackTwoRun1B.Location = New System.Drawing.Point(242, 142)
         Me.txtEmissRateOneStackTwoRun1B.MaxLength = 11
         Me.txtEmissRateOneStackTwoRun1B.Name = "txtEmissRateOneStackTwoRun1B"
@@ -1988,6 +1996,8 @@ Partial Class ISMPTestReports
         '
         'txtPollConcOneStackTwoRun1B
         '
+        Me.txtPollConcOneStackTwoRun1B.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtPollConcOneStackTwoRun1B.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtPollConcOneStackTwoRun1B.Location = New System.Drawing.Point(242, 120)
         Me.txtPollConcOneStackTwoRun1B.MaxLength = 11
         Me.txtPollConcOneStackTwoRun1B.Name = "txtPollConcOneStackTwoRun1B"
@@ -1996,6 +2006,8 @@ Partial Class ISMPTestReports
         '
         'txtGasMoistOneStackTwoRun1B
         '
+        Me.txtGasMoistOneStackTwoRun1B.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtGasMoistOneStackTwoRun1B.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtGasMoistOneStackTwoRun1B.Location = New System.Drawing.Point(242, 54)
         Me.txtGasMoistOneStackTwoRun1B.MaxLength = 11
         Me.txtGasMoistOneStackTwoRun1B.Name = "txtGasMoistOneStackTwoRun1B"
@@ -2004,6 +2016,8 @@ Partial Class ISMPTestReports
         '
         'txtGasFlowDSCFMOneStackTwoRun1B
         '
+        Me.txtGasFlowDSCFMOneStackTwoRun1B.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtGasFlowDSCFMOneStackTwoRun1B.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtGasFlowDSCFMOneStackTwoRun1B.Location = New System.Drawing.Point(242, 98)
         Me.txtGasFlowDSCFMOneStackTwoRun1B.MaxLength = 11
         Me.txtGasFlowDSCFMOneStackTwoRun1B.Name = "txtGasFlowDSCFMOneStackTwoRun1B"
@@ -2012,6 +2026,8 @@ Partial Class ISMPTestReports
         '
         'txtGasFlowACFMOneStackTwoRun1B
         '
+        Me.txtGasFlowACFMOneStackTwoRun1B.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtGasFlowACFMOneStackTwoRun1B.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtGasFlowACFMOneStackTwoRun1B.Location = New System.Drawing.Point(242, 76)
         Me.txtGasFlowACFMOneStackTwoRun1B.MaxLength = 11
         Me.txtGasFlowACFMOneStackTwoRun1B.Name = "txtGasFlowACFMOneStackTwoRun1B"
@@ -2020,6 +2036,8 @@ Partial Class ISMPTestReports
         '
         'txtGasTempOneStackTwoRun1B
         '
+        Me.txtGasTempOneStackTwoRun1B.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtGasTempOneStackTwoRun1B.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtGasTempOneStackTwoRun1B.Location = New System.Drawing.Point(242, 32)
         Me.txtGasTempOneStackTwoRun1B.MaxLength = 11
         Me.txtGasTempOneStackTwoRun1B.Name = "txtGasTempOneStackTwoRun1B"
@@ -2028,6 +2046,8 @@ Partial Class ISMPTestReports
         '
         'txtRunNumOneStackTwoRun1B
         '
+        Me.txtRunNumOneStackTwoRun1B.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtRunNumOneStackTwoRun1B.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtRunNumOneStackTwoRun1B.BackColor = System.Drawing.SystemColors.Window
         Me.txtRunNumOneStackTwoRun1B.Location = New System.Drawing.Point(248, 8)
         Me.txtRunNumOneStackTwoRun1B.MaxLength = 3
@@ -2037,6 +2057,8 @@ Partial Class ISMPTestReports
         '
         'txtEmissRateOneStackTwoRun1A
         '
+        Me.txtEmissRateOneStackTwoRun1A.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtEmissRateOneStackTwoRun1A.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtEmissRateOneStackTwoRun1A.Location = New System.Drawing.Point(136, 142)
         Me.txtEmissRateOneStackTwoRun1A.MaxLength = 11
         Me.txtEmissRateOneStackTwoRun1A.Name = "txtEmissRateOneStackTwoRun1A"
@@ -2045,6 +2067,8 @@ Partial Class ISMPTestReports
         '
         'txtPollConcOneStackTwoRun1A
         '
+        Me.txtPollConcOneStackTwoRun1A.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtPollConcOneStackTwoRun1A.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtPollConcOneStackTwoRun1A.Location = New System.Drawing.Point(136, 120)
         Me.txtPollConcOneStackTwoRun1A.MaxLength = 11
         Me.txtPollConcOneStackTwoRun1A.Name = "txtPollConcOneStackTwoRun1A"
@@ -2053,6 +2077,8 @@ Partial Class ISMPTestReports
         '
         'txtGasMoistOneStackTwoRun1A
         '
+        Me.txtGasMoistOneStackTwoRun1A.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtGasMoistOneStackTwoRun1A.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtGasMoistOneStackTwoRun1A.Location = New System.Drawing.Point(136, 54)
         Me.txtGasMoistOneStackTwoRun1A.MaxLength = 11
         Me.txtGasMoistOneStackTwoRun1A.Name = "txtGasMoistOneStackTwoRun1A"
@@ -2061,6 +2087,8 @@ Partial Class ISMPTestReports
         '
         'txtGasFlowDSCFMOneStackTwoRun1A
         '
+        Me.txtGasFlowDSCFMOneStackTwoRun1A.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtGasFlowDSCFMOneStackTwoRun1A.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtGasFlowDSCFMOneStackTwoRun1A.Location = New System.Drawing.Point(136, 98)
         Me.txtGasFlowDSCFMOneStackTwoRun1A.MaxLength = 11
         Me.txtGasFlowDSCFMOneStackTwoRun1A.Name = "txtGasFlowDSCFMOneStackTwoRun1A"
@@ -2069,6 +2097,8 @@ Partial Class ISMPTestReports
         '
         'txtGasFlowACFMOneStackTwoRun1A
         '
+        Me.txtGasFlowACFMOneStackTwoRun1A.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtGasFlowACFMOneStackTwoRun1A.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtGasFlowACFMOneStackTwoRun1A.Location = New System.Drawing.Point(136, 76)
         Me.txtGasFlowACFMOneStackTwoRun1A.MaxLength = 11
         Me.txtGasFlowACFMOneStackTwoRun1A.Name = "txtGasFlowACFMOneStackTwoRun1A"
@@ -2077,6 +2107,8 @@ Partial Class ISMPTestReports
         '
         'txtGasTempOneStackTwoRun1A
         '
+        Me.txtGasTempOneStackTwoRun1A.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtGasTempOneStackTwoRun1A.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtGasTempOneStackTwoRun1A.Location = New System.Drawing.Point(136, 32)
         Me.txtGasTempOneStackTwoRun1A.MaxLength = 11
         Me.txtGasTempOneStackTwoRun1A.Name = "txtGasTempOneStackTwoRun1A"
@@ -2085,6 +2117,8 @@ Partial Class ISMPTestReports
         '
         'txtRunNumOneStackTwoRun1A
         '
+        Me.txtRunNumOneStackTwoRun1A.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtRunNumOneStackTwoRun1A.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtRunNumOneStackTwoRun1A.BackColor = System.Drawing.SystemColors.Window
         Me.txtRunNumOneStackTwoRun1A.Location = New System.Drawing.Point(142, 8)
         Me.txtRunNumOneStackTwoRun1A.MaxLength = 3
@@ -3131,6 +3165,8 @@ Partial Class ISMPTestReports
         '
         'txtOperatingCapacityOneStack
         '
+        Me.txtOperatingCapacityOneStack.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtOperatingCapacityOneStack.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtOperatingCapacityOneStack.Location = New System.Drawing.Point(498, 6)
         Me.txtOperatingCapacityOneStack.MaxLength = 11
         Me.txtOperatingCapacityOneStack.Name = "txtOperatingCapacityOneStack"
@@ -3149,6 +3185,8 @@ Partial Class ISMPTestReports
         '
         'txtAllowableEmissionRate2OneStack
         '
+        Me.txtAllowableEmissionRate2OneStack.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtAllowableEmissionRate2OneStack.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtAllowableEmissionRate2OneStack.Location = New System.Drawing.Point(346, 28)
         Me.txtAllowableEmissionRate2OneStack.MaxLength = 11
         Me.txtAllowableEmissionRate2OneStack.Name = "txtAllowableEmissionRate2OneStack"
@@ -3157,6 +3195,8 @@ Partial Class ISMPTestReports
         '
         'txtAllowableEmissionRate3OneStack
         '
+        Me.txtAllowableEmissionRate3OneStack.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtAllowableEmissionRate3OneStack.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtAllowableEmissionRate3OneStack.Location = New System.Drawing.Point(554, 28)
         Me.txtAllowableEmissionRate3OneStack.MaxLength = 11
         Me.txtAllowableEmissionRate3OneStack.Name = "txtAllowableEmissionRate3OneStack"
@@ -3165,6 +3205,8 @@ Partial Class ISMPTestReports
         '
         'txtAllowableEmissionRate1OneStack
         '
+        Me.txtAllowableEmissionRate1OneStack.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtAllowableEmissionRate1OneStack.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtAllowableEmissionRate1OneStack.Location = New System.Drawing.Point(138, 28)
         Me.txtAllowableEmissionRate1OneStack.MaxLength = 11
         Me.txtAllowableEmissionRate1OneStack.Name = "txtAllowableEmissionRate1OneStack"
@@ -3173,6 +3215,8 @@ Partial Class ISMPTestReports
         '
         'txtMaximumExpectedOperatingCapacityOneStack
         '
+        Me.txtMaximumExpectedOperatingCapacityOneStack.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtMaximumExpectedOperatingCapacityOneStack.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtMaximumExpectedOperatingCapacityOneStack.Location = New System.Drawing.Point(138, 6)
         Me.txtMaximumExpectedOperatingCapacityOneStack.MaxLength = 11
         Me.txtMaximumExpectedOperatingCapacityOneStack.Name = "txtMaximumExpectedOperatingCapacityOneStack"
@@ -3268,6 +3312,8 @@ Partial Class ISMPTestReports
         '
         'txtPercentAllowableOneStack
         '
+        Me.txtPercentAllowableOneStack.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtPercentAllowableOneStack.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtPercentAllowableOneStack.Location = New System.Drawing.Point(138, 326)
         Me.txtPercentAllowableOneStack.MaxLength = 11
         Me.txtPercentAllowableOneStack.Name = "txtPercentAllowableOneStack"
@@ -3432,6 +3478,8 @@ Partial Class ISMPTestReports
         '
         'txtDestructionEfficiencyLoadingRack
         '
+        Me.txtDestructionEfficiencyLoadingRack.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtDestructionEfficiencyLoadingRack.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtDestructionEfficiencyLoadingRack.BackColor = System.Drawing.SystemColors.Window
         Me.txtDestructionEfficiencyLoadingRack.Location = New System.Drawing.Point(135, 197)
         Me.txtDestructionEfficiencyLoadingRack.MaxLength = 11
@@ -3514,6 +3562,8 @@ Partial Class ISMPTestReports
         '
         'txtEmissRateLoadingRack
         '
+        Me.txtEmissRateLoadingRack.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtEmissRateLoadingRack.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtEmissRateLoadingRack.Location = New System.Drawing.Point(495, 197)
         Me.txtEmissRateLoadingRack.MaxLength = 11
         Me.txtEmissRateLoadingRack.Name = "txtEmissRateLoadingRack"
@@ -3522,6 +3572,8 @@ Partial Class ISMPTestReports
         '
         'txtTestDurationLoadingRack
         '
+        Me.txtTestDurationLoadingRack.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtTestDurationLoadingRack.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtTestDurationLoadingRack.Location = New System.Drawing.Point(135, 129)
         Me.txtTestDurationLoadingRack.MaxLength = 11
         Me.txtTestDurationLoadingRack.Name = "txtTestDurationLoadingRack"
@@ -3530,6 +3582,8 @@ Partial Class ISMPTestReports
         '
         'txtPollConcOUTLoadingRack
         '
+        Me.txtPollConcOUTLoadingRack.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtPollConcOUTLoadingRack.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtPollConcOUTLoadingRack.Location = New System.Drawing.Point(135, 173)
         Me.txtPollConcOUTLoadingRack.MaxLength = 11
         Me.txtPollConcOUTLoadingRack.Name = "txtPollConcOUTLoadingRack"
@@ -3538,6 +3592,8 @@ Partial Class ISMPTestReports
         '
         'txtPollConcINLoadingRack
         '
+        Me.txtPollConcINLoadingRack.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtPollConcINLoadingRack.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtPollConcINLoadingRack.Location = New System.Drawing.Point(135, 151)
         Me.txtPollConcINLoadingRack.MaxLength = 11
         Me.txtPollConcINLoadingRack.Name = "txtPollConcINLoadingRack"
@@ -3616,6 +3672,8 @@ Partial Class ISMPTestReports
         '
         'txtOperatingCapacityLoadingRack
         '
+        Me.txtOperatingCapacityLoadingRack.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtOperatingCapacityLoadingRack.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtOperatingCapacityLoadingRack.Location = New System.Drawing.Point(495, 7)
         Me.txtOperatingCapacityLoadingRack.MaxLength = 11
         Me.txtOperatingCapacityLoadingRack.Name = "txtOperatingCapacityLoadingRack"
@@ -3634,6 +3692,8 @@ Partial Class ISMPTestReports
         '
         'txtAllowableEmissionRate2LoadingRack
         '
+        Me.txtAllowableEmissionRate2LoadingRack.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtAllowableEmissionRate2LoadingRack.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtAllowableEmissionRate2LoadingRack.Location = New System.Drawing.Point(343, 29)
         Me.txtAllowableEmissionRate2LoadingRack.MaxLength = 11
         Me.txtAllowableEmissionRate2LoadingRack.Name = "txtAllowableEmissionRate2LoadingRack"
@@ -3642,6 +3702,8 @@ Partial Class ISMPTestReports
         '
         'txtAllowableEmissionRate3LoadingRack
         '
+        Me.txtAllowableEmissionRate3LoadingRack.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtAllowableEmissionRate3LoadingRack.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtAllowableEmissionRate3LoadingRack.Location = New System.Drawing.Point(551, 29)
         Me.txtAllowableEmissionRate3LoadingRack.MaxLength = 11
         Me.txtAllowableEmissionRate3LoadingRack.Name = "txtAllowableEmissionRate3LoadingRack"
@@ -3650,6 +3712,8 @@ Partial Class ISMPTestReports
         '
         'txtAllowableEmissionRate1LoadingRack
         '
+        Me.txtAllowableEmissionRate1LoadingRack.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtAllowableEmissionRate1LoadingRack.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtAllowableEmissionRate1LoadingRack.Location = New System.Drawing.Point(135, 29)
         Me.txtAllowableEmissionRate1LoadingRack.MaxLength = 11
         Me.txtAllowableEmissionRate1LoadingRack.Name = "txtAllowableEmissionRate1LoadingRack"
@@ -3658,6 +3722,8 @@ Partial Class ISMPTestReports
         '
         'txtMaximumExpectedOperatingCapacityLoadingRack
         '
+        Me.txtMaximumExpectedOperatingCapacityLoadingRack.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtMaximumExpectedOperatingCapacityLoadingRack.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtMaximumExpectedOperatingCapacityLoadingRack.Location = New System.Drawing.Point(135, 7)
         Me.txtMaximumExpectedOperatingCapacityLoadingRack.MaxLength = 11
         Me.txtMaximumExpectedOperatingCapacityLoadingRack.Name = "txtMaximumExpectedOperatingCapacityLoadingRack"
@@ -3915,6 +3981,8 @@ Partial Class ISMPTestReports
         '
         'txtDestructionEfficancyPond
         '
+        Me.txtDestructionEfficancyPond.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtDestructionEfficancyPond.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtDestructionEfficancyPond.Location = New System.Drawing.Point(135, 196)
         Me.txtDestructionEfficancyPond.MaxLength = 11
         Me.txtDestructionEfficancyPond.Name = "txtDestructionEfficancyPond"
@@ -3943,6 +4011,8 @@ Partial Class ISMPTestReports
         '
         'txtTreatmentRateAvgPond
         '
+        Me.txtTreatmentRateAvgPond.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtTreatmentRateAvgPond.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtTreatmentRateAvgPond.BackColor = System.Drawing.SystemColors.Window
         Me.txtTreatmentRateAvgPond.Location = New System.Drawing.Point(599, 174)
         Me.txtTreatmentRateAvgPond.MaxLength = 11
@@ -3954,6 +4024,8 @@ Partial Class ISMPTestReports
         '
         'txtPollConcAvgPond
         '
+        Me.txtPollConcAvgPond.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtPollConcAvgPond.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtPollConcAvgPond.BackColor = System.Drawing.SystemColors.Window
         Me.txtPollConcAvgPond.Location = New System.Drawing.Point(599, 152)
         Me.txtPollConcAvgPond.MaxLength = 11
@@ -3965,6 +4037,8 @@ Partial Class ISMPTestReports
         '
         'txtTreatmentRatePond1C
         '
+        Me.txtTreatmentRatePond1C.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtTreatmentRatePond1C.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtTreatmentRatePond1C.Location = New System.Drawing.Point(347, 174)
         Me.txtTreatmentRatePond1C.MaxLength = 11
         Me.txtTreatmentRatePond1C.Name = "txtTreatmentRatePond1C"
@@ -3973,6 +4047,8 @@ Partial Class ISMPTestReports
         '
         'txtPollConcPond1C
         '
+        Me.txtPollConcPond1C.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtPollConcPond1C.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtPollConcPond1C.Location = New System.Drawing.Point(347, 152)
         Me.txtPollConcPond1C.MaxLength = 11
         Me.txtPollConcPond1C.Name = "txtPollConcPond1C"
@@ -3981,6 +4057,8 @@ Partial Class ISMPTestReports
         '
         'txtRunNumPond1C
         '
+        Me.txtRunNumPond1C.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtRunNumPond1C.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtRunNumPond1C.BackColor = System.Drawing.SystemColors.Window
         Me.txtRunNumPond1C.Location = New System.Drawing.Point(359, 130)
         Me.txtRunNumPond1C.MaxLength = 3
@@ -3990,6 +4068,8 @@ Partial Class ISMPTestReports
         '
         'txtTreatmentRatePond1B
         '
+        Me.txtTreatmentRatePond1B.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtTreatmentRatePond1B.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtTreatmentRatePond1B.Location = New System.Drawing.Point(241, 174)
         Me.txtTreatmentRatePond1B.MaxLength = 11
         Me.txtTreatmentRatePond1B.Name = "txtTreatmentRatePond1B"
@@ -3998,6 +4078,8 @@ Partial Class ISMPTestReports
         '
         'txtPollConcPond1B
         '
+        Me.txtPollConcPond1B.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtPollConcPond1B.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtPollConcPond1B.Location = New System.Drawing.Point(241, 152)
         Me.txtPollConcPond1B.MaxLength = 11
         Me.txtPollConcPond1B.Name = "txtPollConcPond1B"
@@ -4006,6 +4088,8 @@ Partial Class ISMPTestReports
         '
         'txtRunNumPond1B
         '
+        Me.txtRunNumPond1B.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtRunNumPond1B.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtRunNumPond1B.BackColor = System.Drawing.SystemColors.Window
         Me.txtRunNumPond1B.Location = New System.Drawing.Point(255, 130)
         Me.txtRunNumPond1B.MaxLength = 3
@@ -4015,6 +4099,8 @@ Partial Class ISMPTestReports
         '
         'txtTreatmentRatePond1A
         '
+        Me.txtTreatmentRatePond1A.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtTreatmentRatePond1A.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtTreatmentRatePond1A.Location = New System.Drawing.Point(135, 174)
         Me.txtTreatmentRatePond1A.MaxLength = 11
         Me.txtTreatmentRatePond1A.Name = "txtTreatmentRatePond1A"
@@ -4023,6 +4109,8 @@ Partial Class ISMPTestReports
         '
         'txtPollConcPond1A
         '
+        Me.txtPollConcPond1A.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtPollConcPond1A.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtPollConcPond1A.Location = New System.Drawing.Point(135, 152)
         Me.txtPollConcPond1A.MaxLength = 11
         Me.txtPollConcPond1A.Name = "txtPollConcPond1A"
@@ -4031,6 +4119,8 @@ Partial Class ISMPTestReports
         '
         'txtRunNumPond1A
         '
+        Me.txtRunNumPond1A.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtRunNumPond1A.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtRunNumPond1A.BackColor = System.Drawing.SystemColors.Window
         Me.txtRunNumPond1A.Location = New System.Drawing.Point(151, 130)
         Me.txtRunNumPond1A.MaxLength = 3
@@ -4138,6 +4228,8 @@ Partial Class ISMPTestReports
         '
         'txtOperatingCapacityPond
         '
+        Me.txtOperatingCapacityPond.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtOperatingCapacityPond.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtOperatingCapacityPond.Location = New System.Drawing.Point(495, 8)
         Me.txtOperatingCapacityPond.MaxLength = 11
         Me.txtOperatingCapacityPond.Name = "txtOperatingCapacityPond"
@@ -4156,6 +4248,8 @@ Partial Class ISMPTestReports
         '
         'txtAllowableEmissionRate2Pond
         '
+        Me.txtAllowableEmissionRate2Pond.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtAllowableEmissionRate2Pond.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtAllowableEmissionRate2Pond.Location = New System.Drawing.Point(343, 30)
         Me.txtAllowableEmissionRate2Pond.MaxLength = 11
         Me.txtAllowableEmissionRate2Pond.Name = "txtAllowableEmissionRate2Pond"
@@ -4164,6 +4258,8 @@ Partial Class ISMPTestReports
         '
         'txtAllowableEmissionRate3Pond
         '
+        Me.txtAllowableEmissionRate3Pond.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtAllowableEmissionRate3Pond.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtAllowableEmissionRate3Pond.Location = New System.Drawing.Point(551, 30)
         Me.txtAllowableEmissionRate3Pond.MaxLength = 11
         Me.txtAllowableEmissionRate3Pond.Name = "txtAllowableEmissionRate3Pond"
@@ -4172,6 +4268,8 @@ Partial Class ISMPTestReports
         '
         'txtAllowableEmissionRate1Pond
         '
+        Me.txtAllowableEmissionRate1Pond.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtAllowableEmissionRate1Pond.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtAllowableEmissionRate1Pond.Location = New System.Drawing.Point(135, 30)
         Me.txtAllowableEmissionRate1Pond.MaxLength = 11
         Me.txtAllowableEmissionRate1Pond.Name = "txtAllowableEmissionRate1Pond"
@@ -4180,6 +4278,8 @@ Partial Class ISMPTestReports
         '
         'txtMaximumExpectedOperatingCapacityPond
         '
+        Me.txtMaximumExpectedOperatingCapacityPond.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtMaximumExpectedOperatingCapacityPond.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtMaximumExpectedOperatingCapacityPond.Location = New System.Drawing.Point(135, 8)
         Me.txtMaximumExpectedOperatingCapacityPond.MaxLength = 11
         Me.txtMaximumExpectedOperatingCapacityPond.Name = "txtMaximumExpectedOperatingCapacityPond"
@@ -4420,6 +4520,8 @@ Partial Class ISMPTestReports
         '
         'txtPercentAllowableGas
         '
+        Me.txtPercentAllowableGas.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtPercentAllowableGas.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtPercentAllowableGas.Location = New System.Drawing.Point(135, 196)
         Me.txtPercentAllowableGas.MaxLength = 11
         Me.txtPercentAllowableGas.Name = "txtPercentAllowableGas"
@@ -4438,6 +4540,8 @@ Partial Class ISMPTestReports
         '
         'txtEmissRateAvgGas
         '
+        Me.txtEmissRateAvgGas.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtEmissRateAvgGas.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtEmissRateAvgGas.BackColor = System.Drawing.SystemColors.Window
         Me.txtEmissRateAvgGas.Location = New System.Drawing.Point(599, 174)
         Me.txtEmissRateAvgGas.MaxLength = 11
@@ -4449,6 +4553,8 @@ Partial Class ISMPTestReports
         '
         'txtPollConcAvgGas
         '
+        Me.txtPollConcAvgGas.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtPollConcAvgGas.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtPollConcAvgGas.BackColor = System.Drawing.SystemColors.Window
         Me.txtPollConcAvgGas.Location = New System.Drawing.Point(599, 152)
         Me.txtPollConcAvgGas.MaxLength = 11
@@ -4460,6 +4566,8 @@ Partial Class ISMPTestReports
         '
         'txtEmissRateGas1C
         '
+        Me.txtEmissRateGas1C.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtEmissRateGas1C.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtEmissRateGas1C.Location = New System.Drawing.Point(347, 174)
         Me.txtEmissRateGas1C.MaxLength = 11
         Me.txtEmissRateGas1C.Name = "txtEmissRateGas1C"
@@ -4468,6 +4576,8 @@ Partial Class ISMPTestReports
         '
         'txtPollConcGas1C
         '
+        Me.txtPollConcGas1C.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtPollConcGas1C.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtPollConcGas1C.Location = New System.Drawing.Point(347, 152)
         Me.txtPollConcGas1C.MaxLength = 11
         Me.txtPollConcGas1C.Name = "txtPollConcGas1C"
@@ -4476,6 +4586,8 @@ Partial Class ISMPTestReports
         '
         'txtRunNumGas1C
         '
+        Me.txtRunNumGas1C.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtRunNumGas1C.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtRunNumGas1C.BackColor = System.Drawing.SystemColors.Window
         Me.txtRunNumGas1C.Location = New System.Drawing.Point(359, 130)
         Me.txtRunNumGas1C.MaxLength = 3
@@ -4485,6 +4597,8 @@ Partial Class ISMPTestReports
         '
         'txtEmissRateGas1B
         '
+        Me.txtEmissRateGas1B.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtEmissRateGas1B.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtEmissRateGas1B.Location = New System.Drawing.Point(241, 174)
         Me.txtEmissRateGas1B.MaxLength = 11
         Me.txtEmissRateGas1B.Name = "txtEmissRateGas1B"
@@ -4493,6 +4607,8 @@ Partial Class ISMPTestReports
         '
         'txtPollConcGas1B
         '
+        Me.txtPollConcGas1B.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtPollConcGas1B.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtPollConcGas1B.Location = New System.Drawing.Point(241, 152)
         Me.txtPollConcGas1B.MaxLength = 11
         Me.txtPollConcGas1B.Name = "txtPollConcGas1B"
@@ -4501,6 +4617,8 @@ Partial Class ISMPTestReports
         '
         'txtRunNumGas1B
         '
+        Me.txtRunNumGas1B.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtRunNumGas1B.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtRunNumGas1B.BackColor = System.Drawing.SystemColors.Window
         Me.txtRunNumGas1B.Location = New System.Drawing.Point(255, 130)
         Me.txtRunNumGas1B.MaxLength = 3
@@ -4510,6 +4628,8 @@ Partial Class ISMPTestReports
         '
         'txtEmissRateGas1A
         '
+        Me.txtEmissRateGas1A.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtEmissRateGas1A.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtEmissRateGas1A.Location = New System.Drawing.Point(135, 174)
         Me.txtEmissRateGas1A.MaxLength = 11
         Me.txtEmissRateGas1A.Name = "txtEmissRateGas1A"
@@ -4518,6 +4638,8 @@ Partial Class ISMPTestReports
         '
         'txtPollConcGas1A
         '
+        Me.txtPollConcGas1A.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtPollConcGas1A.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtPollConcGas1A.Location = New System.Drawing.Point(135, 152)
         Me.txtPollConcGas1A.MaxLength = 11
         Me.txtPollConcGas1A.Name = "txtPollConcGas1A"
@@ -4526,6 +4648,8 @@ Partial Class ISMPTestReports
         '
         'txtRunNumGas1A
         '
+        Me.txtRunNumGas1A.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtRunNumGas1A.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtRunNumGas1A.BackColor = System.Drawing.SystemColors.Window
         Me.txtRunNumGas1A.Location = New System.Drawing.Point(151, 130)
         Me.txtRunNumGas1A.MaxLength = 3
@@ -4642,6 +4766,8 @@ Partial Class ISMPTestReports
         '
         'txtOperatingCapacityGas
         '
+        Me.txtOperatingCapacityGas.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtOperatingCapacityGas.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtOperatingCapacityGas.Location = New System.Drawing.Point(495, 8)
         Me.txtOperatingCapacityGas.MaxLength = 11
         Me.txtOperatingCapacityGas.Name = "txtOperatingCapacityGas"
@@ -4660,6 +4786,8 @@ Partial Class ISMPTestReports
         '
         'txtAllowableEmissionRate2Gas
         '
+        Me.txtAllowableEmissionRate2Gas.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtAllowableEmissionRate2Gas.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtAllowableEmissionRate2Gas.Location = New System.Drawing.Point(343, 30)
         Me.txtAllowableEmissionRate2Gas.MaxLength = 11
         Me.txtAllowableEmissionRate2Gas.Name = "txtAllowableEmissionRate2Gas"
@@ -4668,6 +4796,8 @@ Partial Class ISMPTestReports
         '
         'txtAllowableEmissionRate3Gas
         '
+        Me.txtAllowableEmissionRate3Gas.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtAllowableEmissionRate3Gas.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtAllowableEmissionRate3Gas.Location = New System.Drawing.Point(551, 30)
         Me.txtAllowableEmissionRate3Gas.MaxLength = 11
         Me.txtAllowableEmissionRate3Gas.Name = "txtAllowableEmissionRate3Gas"
@@ -4676,6 +4806,8 @@ Partial Class ISMPTestReports
         '
         'txtAllowableEmissionRate1Gas
         '
+        Me.txtAllowableEmissionRate1Gas.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtAllowableEmissionRate1Gas.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtAllowableEmissionRate1Gas.Location = New System.Drawing.Point(135, 30)
         Me.txtAllowableEmissionRate1Gas.MaxLength = 10
         Me.txtAllowableEmissionRate1Gas.Name = "txtAllowableEmissionRate1Gas"
@@ -4684,6 +4816,8 @@ Partial Class ISMPTestReports
         '
         'txtMaximumExpectedOperatingCapacityGas
         '
+        Me.txtMaximumExpectedOperatingCapacityGas.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtMaximumExpectedOperatingCapacityGas.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtMaximumExpectedOperatingCapacityGas.Location = New System.Drawing.Point(135, 8)
         Me.txtMaximumExpectedOperatingCapacityGas.MaxLength = 11
         Me.txtMaximumExpectedOperatingCapacityGas.Name = "txtMaximumExpectedOperatingCapacityGas"
@@ -4899,6 +5033,8 @@ Partial Class ISMPTestReports
         '
         'txtPercentAllowableFlare
         '
+        Me.txtPercentAllowableFlare.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtPercentAllowableFlare.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtPercentAllowableFlare.Location = New System.Drawing.Point(135, 191)
         Me.txtPercentAllowableFlare.MaxLength = 11
         Me.txtPercentAllowableFlare.Name = "txtPercentAllowableFlare"
@@ -4917,6 +5053,8 @@ Partial Class ISMPTestReports
         '
         'txtHeatingValuesAvgFlare
         '
+        Me.txtHeatingValuesAvgFlare.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtHeatingValuesAvgFlare.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtHeatingValuesAvgFlare.BackColor = System.Drawing.SystemColors.Window
         Me.txtHeatingValuesAvgFlare.Location = New System.Drawing.Point(559, 147)
         Me.txtHeatingValuesAvgFlare.MaxLength = 11
@@ -4928,6 +5066,8 @@ Partial Class ISMPTestReports
         '
         'txtVelocityAvgFlare
         '
+        Me.txtVelocityAvgFlare.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtVelocityAvgFlare.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtVelocityAvgFlare.BackColor = System.Drawing.SystemColors.Window
         Me.txtVelocityAvgFlare.Location = New System.Drawing.Point(559, 169)
         Me.txtVelocityAvgFlare.MaxLength = 11
@@ -4939,6 +5079,8 @@ Partial Class ISMPTestReports
         '
         'txtVelocity1BFlare
         '
+        Me.txtVelocity1BFlare.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtVelocity1BFlare.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtVelocity1BFlare.Location = New System.Drawing.Point(231, 169)
         Me.txtVelocity1BFlare.MaxLength = 11
         Me.txtVelocity1BFlare.Name = "txtVelocity1BFlare"
@@ -4967,6 +5109,8 @@ Partial Class ISMPTestReports
         '
         'txtHeatingValue1AFlare
         '
+        Me.txtHeatingValue1AFlare.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtHeatingValue1AFlare.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtHeatingValue1AFlare.Location = New System.Drawing.Point(135, 147)
         Me.txtHeatingValue1AFlare.MaxLength = 11
         Me.txtHeatingValue1AFlare.Name = "txtHeatingValue1AFlare"
@@ -4975,6 +5119,8 @@ Partial Class ISMPTestReports
         '
         'txtHeatingValue1BFlare
         '
+        Me.txtHeatingValue1BFlare.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtHeatingValue1BFlare.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtHeatingValue1BFlare.Location = New System.Drawing.Point(231, 147)
         Me.txtHeatingValue1BFlare.MaxLength = 11
         Me.txtHeatingValue1BFlare.Name = "txtHeatingValue1BFlare"
@@ -4983,6 +5129,8 @@ Partial Class ISMPTestReports
         '
         'txtHeatingValue1CFlare
         '
+        Me.txtHeatingValue1CFlare.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtHeatingValue1CFlare.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtHeatingValue1CFlare.Location = New System.Drawing.Point(327, 147)
         Me.txtHeatingValue1CFlare.MaxLength = 11
         Me.txtHeatingValue1CFlare.Name = "txtHeatingValue1CFlare"
@@ -4991,6 +5139,8 @@ Partial Class ISMPTestReports
         '
         'txtVelocity1AFlare
         '
+        Me.txtVelocity1AFlare.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtVelocity1AFlare.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtVelocity1AFlare.Location = New System.Drawing.Point(135, 169)
         Me.txtVelocity1AFlare.MaxLength = 11
         Me.txtVelocity1AFlare.Name = "txtVelocity1AFlare"
@@ -4999,6 +5149,8 @@ Partial Class ISMPTestReports
         '
         'txtVelocity1CFlare
         '
+        Me.txtVelocity1CFlare.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtVelocity1CFlare.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtVelocity1CFlare.Location = New System.Drawing.Point(327, 169)
         Me.txtVelocity1CFlare.MaxLength = 11
         Me.txtVelocity1CFlare.Name = "txtVelocity1CFlare"
@@ -5096,6 +5248,8 @@ Partial Class ISMPTestReports
         '
         'txtHeatContentFlare
         '
+        Me.txtHeatContentFlare.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtHeatContentFlare.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtHeatContentFlare.Location = New System.Drawing.Point(503, 32)
         Me.txtHeatContentFlare.MaxLength = 11
         Me.txtHeatContentFlare.Name = "txtHeatContentFlare"
@@ -5152,6 +5306,8 @@ Partial Class ISMPTestReports
         '
         'txtOperatingCapacityFlare
         '
+        Me.txtOperatingCapacityFlare.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtOperatingCapacityFlare.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtOperatingCapacityFlare.Location = New System.Drawing.Point(495, 8)
         Me.txtOperatingCapacityFlare.MaxLength = 11
         Me.txtOperatingCapacityFlare.Name = "txtOperatingCapacityFlare"
@@ -5170,6 +5326,8 @@ Partial Class ISMPTestReports
         '
         'txtVelocityFlare
         '
+        Me.txtVelocityFlare.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtVelocityFlare.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtVelocityFlare.Location = New System.Drawing.Point(231, 32)
         Me.txtVelocityFlare.MaxLength = 11
         Me.txtVelocityFlare.Name = "txtVelocityFlare"
@@ -5178,6 +5336,8 @@ Partial Class ISMPTestReports
         '
         'txtMaximumExpectedOperatingCapacityFlare
         '
+        Me.txtMaximumExpectedOperatingCapacityFlare.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtMaximumExpectedOperatingCapacityFlare.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtMaximumExpectedOperatingCapacityFlare.Location = New System.Drawing.Point(135, 8)
         Me.txtMaximumExpectedOperatingCapacityFlare.MaxLength = 11
         Me.txtMaximumExpectedOperatingCapacityFlare.Name = "txtMaximumExpectedOperatingCapacityFlare"
@@ -5399,6 +5559,8 @@ Partial Class ISMPTestReports
         '
         'txtOpacityMethod9Single
         '
+        Me.txtOpacityMethod9Single.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtOpacityMethod9Single.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtOpacityMethod9Single.Location = New System.Drawing.Point(136, 152)
         Me.txtOpacityMethod9Single.MaxLength = 11
         Me.txtOpacityMethod9Single.Name = "txtOpacityMethod9Single"
@@ -5407,6 +5569,8 @@ Partial Class ISMPTestReports
         '
         'txtTestDurationMethod9Single
         '
+        Me.txtTestDurationMethod9Single.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtTestDurationMethod9Single.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtTestDurationMethod9Single.Location = New System.Drawing.Point(136, 130)
         Me.txtTestDurationMethod9Single.MaxLength = 11
         Me.txtTestDurationMethod9Single.Name = "txtTestDurationMethod9Single"
@@ -5483,6 +5647,8 @@ Partial Class ISMPTestReports
         '
         'txtOperatingCapacityMethod9Single
         '
+        Me.txtOperatingCapacityMethod9Single.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtOperatingCapacityMethod9Single.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtOperatingCapacityMethod9Single.Location = New System.Drawing.Point(496, 8)
         Me.txtOperatingCapacityMethod9Single.MaxLength = 11
         Me.txtOperatingCapacityMethod9Single.Name = "txtOperatingCapacityMethod9Single"
@@ -5491,6 +5657,8 @@ Partial Class ISMPTestReports
         '
         'txtAllowableEmissionRate1Method9Single
         '
+        Me.txtAllowableEmissionRate1Method9Single.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtAllowableEmissionRate1Method9Single.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtAllowableEmissionRate1Method9Single.Location = New System.Drawing.Point(136, 30)
         Me.txtAllowableEmissionRate1Method9Single.MaxLength = 11
         Me.txtAllowableEmissionRate1Method9Single.Name = "txtAllowableEmissionRate1Method9Single"
@@ -5540,6 +5708,8 @@ Partial Class ISMPTestReports
         '
         'txtMaximumExpectedOperatingCapacityMethod9Single
         '
+        Me.txtMaximumExpectedOperatingCapacityMethod9Single.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtMaximumExpectedOperatingCapacityMethod9Single.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtMaximumExpectedOperatingCapacityMethod9Single.Location = New System.Drawing.Point(136, 8)
         Me.txtMaximumExpectedOperatingCapacityMethod9Single.MaxLength = 11
         Me.txtMaximumExpectedOperatingCapacityMethod9Single.Name = "txtMaximumExpectedOperatingCapacityMethod9Single"
@@ -6329,6 +6499,8 @@ Partial Class ISMPTestReports
         '
         'txtSerialNumberMemorandumToFile
         '
+        Me.txtSerialNumberMemorandumToFile.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtSerialNumberMemorandumToFile.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtSerialNumberMemorandumToFile.Location = New System.Drawing.Point(136, 36)
         Me.txtSerialNumberMemorandumToFile.MaxLength = 200
         Me.txtSerialNumberMemorandumToFile.Name = "txtSerialNumberMemorandumToFile"
@@ -6337,6 +6509,8 @@ Partial Class ISMPTestReports
         '
         'txtModelMemorandumToFile
         '
+        Me.txtModelMemorandumToFile.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtModelMemorandumToFile.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtModelMemorandumToFile.Location = New System.Drawing.Point(136, 8)
         Me.txtModelMemorandumToFile.MaxLength = 200
         Me.txtModelMemorandumToFile.Name = "txtModelMemorandumToFile"
@@ -6484,6 +6658,8 @@ Partial Class ISMPTestReports
         '
         'txtOperatingCapacityMemorandumPTE
         '
+        Me.txtOperatingCapacityMemorandumPTE.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtOperatingCapacityMemorandumPTE.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtOperatingCapacityMemorandumPTE.Location = New System.Drawing.Point(496, 8)
         Me.txtOperatingCapacityMemorandumPTE.MaxLength = 11
         Me.txtOperatingCapacityMemorandumPTE.Name = "txtOperatingCapacityMemorandumPTE"
@@ -6502,6 +6678,8 @@ Partial Class ISMPTestReports
         '
         'txtAllowableEmissionRate2MemorandumPTE
         '
+        Me.txtAllowableEmissionRate2MemorandumPTE.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtAllowableEmissionRate2MemorandumPTE.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtAllowableEmissionRate2MemorandumPTE.Location = New System.Drawing.Point(344, 30)
         Me.txtAllowableEmissionRate2MemorandumPTE.MaxLength = 11
         Me.txtAllowableEmissionRate2MemorandumPTE.Name = "txtAllowableEmissionRate2MemorandumPTE"
@@ -6510,6 +6688,8 @@ Partial Class ISMPTestReports
         '
         'txtAllowableEmissionRate3MemorandumPTE
         '
+        Me.txtAllowableEmissionRate3MemorandumPTE.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtAllowableEmissionRate3MemorandumPTE.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtAllowableEmissionRate3MemorandumPTE.Location = New System.Drawing.Point(552, 30)
         Me.txtAllowableEmissionRate3MemorandumPTE.MaxLength = 11
         Me.txtAllowableEmissionRate3MemorandumPTE.Name = "txtAllowableEmissionRate3MemorandumPTE"
@@ -6518,6 +6698,8 @@ Partial Class ISMPTestReports
         '
         'txtAllowableEmissionRate1MemorandumPTE
         '
+        Me.txtAllowableEmissionRate1MemorandumPTE.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtAllowableEmissionRate1MemorandumPTE.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtAllowableEmissionRate1MemorandumPTE.Location = New System.Drawing.Point(136, 30)
         Me.txtAllowableEmissionRate1MemorandumPTE.MaxLength = 11
         Me.txtAllowableEmissionRate1MemorandumPTE.Name = "txtAllowableEmissionRate1MemorandumPTE"
@@ -6526,6 +6708,8 @@ Partial Class ISMPTestReports
         '
         'txtMaximumExpectedOperatingCapacityMemorandumPTE
         '
+        Me.txtMaximumExpectedOperatingCapacityMemorandumPTE.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtMaximumExpectedOperatingCapacityMemorandumPTE.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtMaximumExpectedOperatingCapacityMemorandumPTE.Location = New System.Drawing.Point(136, 8)
         Me.txtMaximumExpectedOperatingCapacityMemorandumPTE.MaxLength = 11
         Me.txtMaximumExpectedOperatingCapacityMemorandumPTE.Name = "txtMaximumExpectedOperatingCapacityMemorandumPTE"
@@ -6702,6 +6886,8 @@ Partial Class ISMPTestReports
         '
         'txtPart75Statement
         '
+        Me.txtPart75Statement.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtPart75Statement.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtPart75Statement.Location = New System.Drawing.Point(484, 222)
         Me.txtPart75Statement.Name = "txtPart75Statement"
         Me.txtPart75Statement.Size = New System.Drawing.Size(40, 20)
@@ -6854,6 +7040,8 @@ Partial Class ISMPTestReports
         'txtCMSRata11
         '
         Me.txtCMSRata11.AcceptsReturn = True
+        Me.txtCMSRata11.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtCMSRata11.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtCMSRata11.BackColor = System.Drawing.SystemColors.Window
         Me.txtCMSRata11.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtCMSRata11.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -6869,6 +7057,8 @@ Partial Class ISMPTestReports
         'txtCMSRata12
         '
         Me.txtCMSRata12.AcceptsReturn = True
+        Me.txtCMSRata12.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtCMSRata12.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtCMSRata12.BackColor = System.Drawing.SystemColors.Window
         Me.txtCMSRata12.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtCMSRata12.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -6884,6 +7074,8 @@ Partial Class ISMPTestReports
         'txtCMSRata10
         '
         Me.txtCMSRata10.AcceptsReturn = True
+        Me.txtCMSRata10.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtCMSRata10.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtCMSRata10.BackColor = System.Drawing.SystemColors.Window
         Me.txtCMSRata10.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtCMSRata10.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -6899,6 +7091,8 @@ Partial Class ISMPTestReports
         'txtCMSRata9
         '
         Me.txtCMSRata9.AcceptsReturn = True
+        Me.txtCMSRata9.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtCMSRata9.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtCMSRata9.BackColor = System.Drawing.SystemColors.Window
         Me.txtCMSRata9.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtCMSRata9.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -6914,6 +7108,8 @@ Partial Class ISMPTestReports
         'txtCMSRata8
         '
         Me.txtCMSRata8.AcceptsReturn = True
+        Me.txtCMSRata8.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtCMSRata8.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtCMSRata8.BackColor = System.Drawing.SystemColors.Window
         Me.txtCMSRata8.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtCMSRata8.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -6929,6 +7125,8 @@ Partial Class ISMPTestReports
         'txtCMSRata7
         '
         Me.txtCMSRata7.AcceptsReturn = True
+        Me.txtCMSRata7.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtCMSRata7.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtCMSRata7.BackColor = System.Drawing.SystemColors.Window
         Me.txtCMSRata7.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtCMSRata7.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -6944,6 +7142,8 @@ Partial Class ISMPTestReports
         'txtCMSRata6
         '
         Me.txtCMSRata6.AcceptsReturn = True
+        Me.txtCMSRata6.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtCMSRata6.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtCMSRata6.BackColor = System.Drawing.SystemColors.Window
         Me.txtCMSRata6.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtCMSRata6.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -6959,6 +7159,8 @@ Partial Class ISMPTestReports
         'txtCMSRata5
         '
         Me.txtCMSRata5.AcceptsReturn = True
+        Me.txtCMSRata5.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtCMSRata5.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtCMSRata5.BackColor = System.Drawing.SystemColors.Window
         Me.txtCMSRata5.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtCMSRata5.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -6974,6 +7176,8 @@ Partial Class ISMPTestReports
         'txtCMSRata4
         '
         Me.txtCMSRata4.AcceptsReturn = True
+        Me.txtCMSRata4.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtCMSRata4.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtCMSRata4.BackColor = System.Drawing.SystemColors.Window
         Me.txtCMSRata4.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtCMSRata4.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -6989,6 +7193,8 @@ Partial Class ISMPTestReports
         'txtCMSRata3
         '
         Me.txtCMSRata3.AcceptsReturn = True
+        Me.txtCMSRata3.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtCMSRata3.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtCMSRata3.BackColor = System.Drawing.SystemColors.Window
         Me.txtCMSRata3.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtCMSRata3.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -7004,6 +7210,8 @@ Partial Class ISMPTestReports
         'txtCMSRata2
         '
         Me.txtCMSRata2.AcceptsReturn = True
+        Me.txtCMSRata2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtCMSRata2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtCMSRata2.BackColor = System.Drawing.SystemColors.Window
         Me.txtCMSRata2.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtCMSRata2.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -7034,6 +7242,8 @@ Partial Class ISMPTestReports
         'txtRefMethodRata8
         '
         Me.txtRefMethodRata8.AcceptsReturn = True
+        Me.txtRefMethodRata8.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtRefMethodRata8.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtRefMethodRata8.BackColor = System.Drawing.SystemColors.Window
         Me.txtRefMethodRata8.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtRefMethodRata8.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -7049,6 +7259,8 @@ Partial Class ISMPTestReports
         'txtRefMethodRata9
         '
         Me.txtRefMethodRata9.AcceptsReturn = True
+        Me.txtRefMethodRata9.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtRefMethodRata9.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtRefMethodRata9.BackColor = System.Drawing.SystemColors.Window
         Me.txtRefMethodRata9.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtRefMethodRata9.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -7064,6 +7276,8 @@ Partial Class ISMPTestReports
         'txtRefMethodRata12
         '
         Me.txtRefMethodRata12.AcceptsReturn = True
+        Me.txtRefMethodRata12.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtRefMethodRata12.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtRefMethodRata12.BackColor = System.Drawing.SystemColors.Window
         Me.txtRefMethodRata12.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtRefMethodRata12.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -7079,6 +7293,8 @@ Partial Class ISMPTestReports
         'txtRefMethodRata11
         '
         Me.txtRefMethodRata11.AcceptsReturn = True
+        Me.txtRefMethodRata11.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtRefMethodRata11.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtRefMethodRata11.BackColor = System.Drawing.SystemColors.Window
         Me.txtRefMethodRata11.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtRefMethodRata11.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -7094,6 +7310,8 @@ Partial Class ISMPTestReports
         'txtRefMethodRata10
         '
         Me.txtRefMethodRata10.AcceptsReturn = True
+        Me.txtRefMethodRata10.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtRefMethodRata10.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtRefMethodRata10.BackColor = System.Drawing.SystemColors.Window
         Me.txtRefMethodRata10.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtRefMethodRata10.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -7109,6 +7327,8 @@ Partial Class ISMPTestReports
         'txtRefMethodRata7
         '
         Me.txtRefMethodRata7.AcceptsReturn = True
+        Me.txtRefMethodRata7.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtRefMethodRata7.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtRefMethodRata7.BackColor = System.Drawing.SystemColors.Window
         Me.txtRefMethodRata7.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtRefMethodRata7.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -7124,6 +7344,8 @@ Partial Class ISMPTestReports
         'txtRefMethodRata6
         '
         Me.txtRefMethodRata6.AcceptsReturn = True
+        Me.txtRefMethodRata6.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtRefMethodRata6.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtRefMethodRata6.BackColor = System.Drawing.SystemColors.Window
         Me.txtRefMethodRata6.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtRefMethodRata6.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -7139,6 +7361,8 @@ Partial Class ISMPTestReports
         'txtRefMethodRata5
         '
         Me.txtRefMethodRata5.AcceptsReturn = True
+        Me.txtRefMethodRata5.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtRefMethodRata5.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtRefMethodRata5.BackColor = System.Drawing.SystemColors.Window
         Me.txtRefMethodRata5.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtRefMethodRata5.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -7154,6 +7378,8 @@ Partial Class ISMPTestReports
         'txtRefMethodRata4
         '
         Me.txtRefMethodRata4.AcceptsReturn = True
+        Me.txtRefMethodRata4.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtRefMethodRata4.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtRefMethodRata4.BackColor = System.Drawing.SystemColors.Window
         Me.txtRefMethodRata4.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtRefMethodRata4.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -7169,6 +7395,8 @@ Partial Class ISMPTestReports
         'txtRefMethodRata3
         '
         Me.txtRefMethodRata3.AcceptsReturn = True
+        Me.txtRefMethodRata3.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtRefMethodRata3.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtRefMethodRata3.BackColor = System.Drawing.SystemColors.Window
         Me.txtRefMethodRata3.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtRefMethodRata3.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -7184,6 +7412,8 @@ Partial Class ISMPTestReports
         'txtRefMethodRata2
         '
         Me.txtRefMethodRata2.AcceptsReturn = True
+        Me.txtRefMethodRata2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtRefMethodRata2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtRefMethodRata2.BackColor = System.Drawing.SystemColors.Window
         Me.txtRefMethodRata2.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtRefMethodRata2.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -7411,6 +7641,8 @@ Partial Class ISMPTestReports
         'txtCMSRata1
         '
         Me.txtCMSRata1.AcceptsReturn = True
+        Me.txtCMSRata1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtCMSRata1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtCMSRata1.BackColor = System.Drawing.SystemColors.Window
         Me.txtCMSRata1.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtCMSRata1.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -7426,6 +7658,8 @@ Partial Class ISMPTestReports
         'txtRefMethodRata1
         '
         Me.txtRefMethodRata1.AcceptsReturn = True
+        Me.txtRefMethodRata1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtRefMethodRata1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtRefMethodRata1.BackColor = System.Drawing.SystemColors.Window
         Me.txtRefMethodRata1.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtRefMethodRata1.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -7533,6 +7767,8 @@ Partial Class ISMPTestReports
         '
         'txtApplicableStandardPercentRata
         '
+        Me.txtApplicableStandardPercentRata.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtApplicableStandardPercentRata.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtApplicableStandardPercentRata.Location = New System.Drawing.Point(484, 170)
         Me.txtApplicableStandardPercentRata.Name = "txtApplicableStandardPercentRata"
         Me.txtApplicableStandardPercentRata.Size = New System.Drawing.Size(40, 20)
@@ -7541,6 +7777,8 @@ Partial Class ISMPTestReports
         '
         'txtRefMethodPercentRata
         '
+        Me.txtRefMethodPercentRata.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtRefMethodPercentRata.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtRefMethodPercentRata.Location = New System.Drawing.Point(484, 114)
         Me.txtRefMethodPercentRata.Name = "txtRefMethodPercentRata"
         Me.txtRefMethodPercentRata.Size = New System.Drawing.Size(40, 20)
@@ -7550,6 +7788,8 @@ Partial Class ISMPTestReports
         'txtRelativeAccuracy
         '
         Me.txtRelativeAccuracy.AcceptsReturn = True
+        Me.txtRelativeAccuracy.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtRelativeAccuracy.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtRelativeAccuracy.BackColor = System.Drawing.SystemColors.Window
         Me.txtRelativeAccuracy.Cursor = System.Windows.Forms.Cursors.IBeam
         Me.txtRelativeAccuracy.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -7645,6 +7885,8 @@ Partial Class ISMPTestReports
         '
         'txtApplicableRegulationRata
         '
+        Me.txtApplicableRegulationRata.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtApplicableRegulationRata.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtApplicableRegulationRata.Location = New System.Drawing.Point(167, 38)
         Me.txtApplicableRegulationRata.MaxLength = 200
         Me.txtApplicableRegulationRata.Name = "txtApplicableRegulationRata"
@@ -7662,6 +7904,8 @@ Partial Class ISMPTestReports
         '
         'txtApplicableStandardRata
         '
+        Me.txtApplicableStandardRata.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtApplicableStandardRata.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtApplicableStandardRata.Location = New System.Drawing.Point(167, 7)
         Me.txtApplicableStandardRata.MaxLength = 50
         Me.txtApplicableStandardRata.Name = "txtApplicableStandardRata"
@@ -7995,6 +8239,8 @@ Partial Class ISMPTestReports
         '
         'txtEmissRateTotalAvgTwoStackStandard
         '
+        Me.txtEmissRateTotalAvgTwoStackStandard.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtEmissRateTotalAvgTwoStackStandard.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtEmissRateTotalAvgTwoStackStandard.BackColor = System.Drawing.SystemColors.Window
         Me.txtEmissRateTotalAvgTwoStackStandard.Location = New System.Drawing.Point(424, 188)
         Me.txtEmissRateTotalAvgTwoStackStandard.Name = "txtEmissRateTotalAvgTwoStackStandard"
@@ -8005,6 +8251,8 @@ Partial Class ISMPTestReports
         '
         'txtEmissRateAvgTwoStackStandard2
         '
+        Me.txtEmissRateAvgTwoStackStandard2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtEmissRateAvgTwoStackStandard2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtEmissRateAvgTwoStackStandard2.BackColor = System.Drawing.SystemColors.Window
         Me.txtEmissRateAvgTwoStackStandard2.Location = New System.Drawing.Point(704, 188)
         Me.txtEmissRateAvgTwoStackStandard2.MaxLength = 11
@@ -8016,6 +8264,8 @@ Partial Class ISMPTestReports
         '
         'txtPollConcAvgTwoStackStandard1
         '
+        Me.txtPollConcAvgTwoStackStandard1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtPollConcAvgTwoStackStandard1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtPollConcAvgTwoStackStandard1.BackColor = System.Drawing.SystemColors.Window
         Me.txtPollConcAvgTwoStackStandard1.Location = New System.Drawing.Point(704, 122)
         Me.txtPollConcAvgTwoStackStandard1.MaxLength = 11
@@ -8027,6 +8277,8 @@ Partial Class ISMPTestReports
         '
         'txtEmissRateTotalTwoStackStandard3
         '
+        Me.txtEmissRateTotalTwoStackStandard3.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtEmissRateTotalTwoStackStandard3.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtEmissRateTotalTwoStackStandard3.BackColor = System.Drawing.SystemColors.Window
         Me.txtEmissRateTotalTwoStackStandard3.Location = New System.Drawing.Point(282, 188)
         Me.txtEmissRateTotalTwoStackStandard3.MaxLength = 11
@@ -8038,6 +8290,8 @@ Partial Class ISMPTestReports
         '
         'txtEmissRateTotalTwoStackStandard2
         '
+        Me.txtEmissRateTotalTwoStackStandard2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtEmissRateTotalTwoStackStandard2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtEmissRateTotalTwoStackStandard2.BackColor = System.Drawing.SystemColors.Window
         Me.txtEmissRateTotalTwoStackStandard2.Location = New System.Drawing.Point(209, 188)
         Me.txtEmissRateTotalTwoStackStandard2.MaxLength = 11
@@ -8049,6 +8303,8 @@ Partial Class ISMPTestReports
         '
         'txtEmissRateTotalTwoStackStandard1
         '
+        Me.txtEmissRateTotalTwoStackStandard1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtEmissRateTotalTwoStackStandard1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtEmissRateTotalTwoStackStandard1.BackColor = System.Drawing.SystemColors.Window
         Me.txtEmissRateTotalTwoStackStandard1.Location = New System.Drawing.Point(136, 188)
         Me.txtEmissRateTotalTwoStackStandard1.MaxLength = 11
@@ -8070,6 +8326,8 @@ Partial Class ISMPTestReports
         '
         'txtRunNumTwoStackStandard2C
         '
+        Me.txtRunNumTwoStackStandard2C.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtRunNumTwoStackStandard2C.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtRunNumTwoStackStandard2C.BackColor = System.Drawing.SystemColors.Window
         Me.txtRunNumTwoStackStandard2C.Location = New System.Drawing.Point(502, 32)
         Me.txtRunNumTwoStackStandard2C.MaxLength = 3
@@ -8087,6 +8345,8 @@ Partial Class ISMPTestReports
         '
         'txtGasMoistTwoStackStandard2C
         '
+        Me.txtGasMoistTwoStackStandard2C.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtGasMoistTwoStackStandard2C.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtGasMoistTwoStackStandard2C.Location = New System.Drawing.Point(496, 78)
         Me.txtGasMoistTwoStackStandard2C.MaxLength = 11
         Me.txtGasMoistTwoStackStandard2C.Name = "txtGasMoistTwoStackStandard2C"
@@ -8095,6 +8355,8 @@ Partial Class ISMPTestReports
         '
         'txtEmissRateTwoStackStandard2C
         '
+        Me.txtEmissRateTwoStackStandard2C.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtEmissRateTwoStackStandard2C.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtEmissRateTwoStackStandard2C.Location = New System.Drawing.Point(496, 166)
         Me.txtEmissRateTwoStackStandard2C.MaxLength = 11
         Me.txtEmissRateTwoStackStandard2C.Name = "txtEmissRateTwoStackStandard2C"
@@ -8103,6 +8365,8 @@ Partial Class ISMPTestReports
         '
         'txtPollConcTwoStackStandard2C
         '
+        Me.txtPollConcTwoStackStandard2C.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtPollConcTwoStackStandard2C.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtPollConcTwoStackStandard2C.Location = New System.Drawing.Point(496, 144)
         Me.txtPollConcTwoStackStandard2C.MaxLength = 11
         Me.txtPollConcTwoStackStandard2C.Name = "txtPollConcTwoStackStandard2C"
@@ -8111,6 +8375,8 @@ Partial Class ISMPTestReports
         '
         'txtGasFlowDSCFMTwoStackStandard2C
         '
+        Me.txtGasFlowDSCFMTwoStackStandard2C.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtGasFlowDSCFMTwoStackStandard2C.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtGasFlowDSCFMTwoStackStandard2C.Location = New System.Drawing.Point(496, 122)
         Me.txtGasFlowDSCFMTwoStackStandard2C.MaxLength = 11
         Me.txtGasFlowDSCFMTwoStackStandard2C.Name = "txtGasFlowDSCFMTwoStackStandard2C"
@@ -8119,6 +8385,8 @@ Partial Class ISMPTestReports
         '
         'txtGasFlowACFMTwoStackStandard2C
         '
+        Me.txtGasFlowACFMTwoStackStandard2C.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtGasFlowACFMTwoStackStandard2C.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtGasFlowACFMTwoStackStandard2C.Location = New System.Drawing.Point(496, 100)
         Me.txtGasFlowACFMTwoStackStandard2C.MaxLength = 11
         Me.txtGasFlowACFMTwoStackStandard2C.Name = "txtGasFlowACFMTwoStackStandard2C"
@@ -8127,6 +8395,8 @@ Partial Class ISMPTestReports
         '
         'txtGasMoistTwoStackStandard2B
         '
+        Me.txtGasMoistTwoStackStandard2B.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtGasMoistTwoStackStandard2B.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtGasMoistTwoStackStandard2B.Location = New System.Drawing.Point(424, 78)
         Me.txtGasMoistTwoStackStandard2B.MaxLength = 11
         Me.txtGasMoistTwoStackStandard2B.Name = "txtGasMoistTwoStackStandard2B"
@@ -8135,6 +8405,8 @@ Partial Class ISMPTestReports
         '
         'txtEmissRateTwoStackStandard2B
         '
+        Me.txtEmissRateTwoStackStandard2B.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtEmissRateTwoStackStandard2B.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtEmissRateTwoStackStandard2B.Location = New System.Drawing.Point(424, 166)
         Me.txtEmissRateTwoStackStandard2B.MaxLength = 11
         Me.txtEmissRateTwoStackStandard2B.Name = "txtEmissRateTwoStackStandard2B"
@@ -8143,6 +8415,8 @@ Partial Class ISMPTestReports
         '
         'txtPollConcTwoStackStandard2B
         '
+        Me.txtPollConcTwoStackStandard2B.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtPollConcTwoStackStandard2B.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtPollConcTwoStackStandard2B.Location = New System.Drawing.Point(424, 144)
         Me.txtPollConcTwoStackStandard2B.MaxLength = 11
         Me.txtPollConcTwoStackStandard2B.Name = "txtPollConcTwoStackStandard2B"
@@ -8151,6 +8425,8 @@ Partial Class ISMPTestReports
         '
         'txtGasTempTwoStackStandard2C
         '
+        Me.txtGasTempTwoStackStandard2C.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtGasTempTwoStackStandard2C.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtGasTempTwoStackStandard2C.Location = New System.Drawing.Point(496, 56)
         Me.txtGasTempTwoStackStandard2C.MaxLength = 11
         Me.txtGasTempTwoStackStandard2C.Name = "txtGasTempTwoStackStandard2C"
@@ -8159,6 +8435,8 @@ Partial Class ISMPTestReports
         '
         'txtGasFlowDSCFMTwoStackStandard2B
         '
+        Me.txtGasFlowDSCFMTwoStackStandard2B.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtGasFlowDSCFMTwoStackStandard2B.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtGasFlowDSCFMTwoStackStandard2B.Location = New System.Drawing.Point(424, 122)
         Me.txtGasFlowDSCFMTwoStackStandard2B.MaxLength = 11
         Me.txtGasFlowDSCFMTwoStackStandard2B.Name = "txtGasFlowDSCFMTwoStackStandard2B"
@@ -8167,6 +8445,8 @@ Partial Class ISMPTestReports
         '
         'txtGasFlowACFMTwoStackStandard2B
         '
+        Me.txtGasFlowACFMTwoStackStandard2B.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtGasFlowACFMTwoStackStandard2B.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtGasFlowACFMTwoStackStandard2B.Location = New System.Drawing.Point(424, 100)
         Me.txtGasFlowACFMTwoStackStandard2B.MaxLength = 11
         Me.txtGasFlowACFMTwoStackStandard2B.Name = "txtGasFlowACFMTwoStackStandard2B"
@@ -8175,6 +8455,8 @@ Partial Class ISMPTestReports
         '
         'txtGasTempTwoStackStandard2B
         '
+        Me.txtGasTempTwoStackStandard2B.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtGasTempTwoStackStandard2B.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtGasTempTwoStackStandard2B.Location = New System.Drawing.Point(424, 56)
         Me.txtGasTempTwoStackStandard2B.MaxLength = 11
         Me.txtGasTempTwoStackStandard2B.Name = "txtGasTempTwoStackStandard2B"
@@ -8183,6 +8465,8 @@ Partial Class ISMPTestReports
         '
         'txtRunNumTwoStackStandard2B
         '
+        Me.txtRunNumTwoStackStandard2B.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtRunNumTwoStackStandard2B.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtRunNumTwoStackStandard2B.BackColor = System.Drawing.SystemColors.Window
         Me.txtRunNumTwoStackStandard2B.Location = New System.Drawing.Point(430, 32)
         Me.txtRunNumTwoStackStandard2B.MaxLength = 3
@@ -8192,6 +8476,8 @@ Partial Class ISMPTestReports
         '
         'txtEmissRateTwoStackStandard2A
         '
+        Me.txtEmissRateTwoStackStandard2A.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtEmissRateTwoStackStandard2A.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtEmissRateTwoStackStandard2A.Location = New System.Drawing.Point(352, 166)
         Me.txtEmissRateTwoStackStandard2A.MaxLength = 11
         Me.txtEmissRateTwoStackStandard2A.Name = "txtEmissRateTwoStackStandard2A"
@@ -8200,6 +8486,8 @@ Partial Class ISMPTestReports
         '
         'txtPollConcTwoStackStandard2A
         '
+        Me.txtPollConcTwoStackStandard2A.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtPollConcTwoStackStandard2A.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtPollConcTwoStackStandard2A.Location = New System.Drawing.Point(352, 144)
         Me.txtPollConcTwoStackStandard2A.MaxLength = 11
         Me.txtPollConcTwoStackStandard2A.Name = "txtPollConcTwoStackStandard2A"
@@ -8208,6 +8496,8 @@ Partial Class ISMPTestReports
         '
         'txtGasMoistTwoStackStandard2A
         '
+        Me.txtGasMoistTwoStackStandard2A.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtGasMoistTwoStackStandard2A.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtGasMoistTwoStackStandard2A.Location = New System.Drawing.Point(352, 78)
         Me.txtGasMoistTwoStackStandard2A.MaxLength = 11
         Me.txtGasMoistTwoStackStandard2A.Name = "txtGasMoistTwoStackStandard2A"
@@ -8216,6 +8506,8 @@ Partial Class ISMPTestReports
         '
         'txtGasFlowDSCFMTwoStackStandard2A
         '
+        Me.txtGasFlowDSCFMTwoStackStandard2A.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtGasFlowDSCFMTwoStackStandard2A.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtGasFlowDSCFMTwoStackStandard2A.Location = New System.Drawing.Point(352, 122)
         Me.txtGasFlowDSCFMTwoStackStandard2A.MaxLength = 11
         Me.txtGasFlowDSCFMTwoStackStandard2A.Name = "txtGasFlowDSCFMTwoStackStandard2A"
@@ -8224,6 +8516,8 @@ Partial Class ISMPTestReports
         '
         'txtGasFlowACFMTwoStackStandard2A
         '
+        Me.txtGasFlowACFMTwoStackStandard2A.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtGasFlowACFMTwoStackStandard2A.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtGasFlowACFMTwoStackStandard2A.Location = New System.Drawing.Point(352, 100)
         Me.txtGasFlowACFMTwoStackStandard2A.MaxLength = 11
         Me.txtGasFlowACFMTwoStackStandard2A.Name = "txtGasFlowACFMTwoStackStandard2A"
@@ -8232,6 +8526,8 @@ Partial Class ISMPTestReports
         '
         'txtGasTempTwoStackStandard2A
         '
+        Me.txtGasTempTwoStackStandard2A.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtGasTempTwoStackStandard2A.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtGasTempTwoStackStandard2A.Location = New System.Drawing.Point(352, 56)
         Me.txtGasTempTwoStackStandard2A.MaxLength = 11
         Me.txtGasTempTwoStackStandard2A.Name = "txtGasTempTwoStackStandard2A"
@@ -8240,6 +8536,8 @@ Partial Class ISMPTestReports
         '
         'txtRunNumTwoStackStandard2A
         '
+        Me.txtRunNumTwoStackStandard2A.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtRunNumTwoStackStandard2A.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtRunNumTwoStackStandard2A.BackColor = System.Drawing.SystemColors.Window
         Me.txtRunNumTwoStackStandard2A.Location = New System.Drawing.Point(358, 32)
         Me.txtRunNumTwoStackStandard2A.MaxLength = 3
@@ -8265,6 +8563,8 @@ Partial Class ISMPTestReports
         '
         'txtRunNumTwoStackStandard1C
         '
+        Me.txtRunNumTwoStackStandard1C.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtRunNumTwoStackStandard1C.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtRunNumTwoStackStandard1C.BackColor = System.Drawing.SystemColors.Window
         Me.txtRunNumTwoStackStandard1C.Location = New System.Drawing.Point(288, 32)
         Me.txtRunNumTwoStackStandard1C.MaxLength = 3
@@ -8282,6 +8582,8 @@ Partial Class ISMPTestReports
         '
         'txtGasMoistTwoStackStandard1C
         '
+        Me.txtGasMoistTwoStackStandard1C.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtGasMoistTwoStackStandard1C.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtGasMoistTwoStackStandard1C.Location = New System.Drawing.Point(282, 78)
         Me.txtGasMoistTwoStackStandard1C.MaxLength = 11
         Me.txtGasMoistTwoStackStandard1C.Name = "txtGasMoistTwoStackStandard1C"
@@ -8290,6 +8592,8 @@ Partial Class ISMPTestReports
         '
         'txtEmissRateTwoStackStandard1C
         '
+        Me.txtEmissRateTwoStackStandard1C.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtEmissRateTwoStackStandard1C.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtEmissRateTwoStackStandard1C.Location = New System.Drawing.Point(282, 166)
         Me.txtEmissRateTwoStackStandard1C.MaxLength = 11
         Me.txtEmissRateTwoStackStandard1C.Name = "txtEmissRateTwoStackStandard1C"
@@ -8298,6 +8602,8 @@ Partial Class ISMPTestReports
         '
         'txtPollConcTwoStackStandard1C
         '
+        Me.txtPollConcTwoStackStandard1C.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtPollConcTwoStackStandard1C.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtPollConcTwoStackStandard1C.Location = New System.Drawing.Point(282, 144)
         Me.txtPollConcTwoStackStandard1C.MaxLength = 11
         Me.txtPollConcTwoStackStandard1C.Name = "txtPollConcTwoStackStandard1C"
@@ -8306,6 +8612,8 @@ Partial Class ISMPTestReports
         '
         'txtGasFlowDSCFMTwoStackStandard1C
         '
+        Me.txtGasFlowDSCFMTwoStackStandard1C.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtGasFlowDSCFMTwoStackStandard1C.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtGasFlowDSCFMTwoStackStandard1C.Location = New System.Drawing.Point(282, 122)
         Me.txtGasFlowDSCFMTwoStackStandard1C.MaxLength = 11
         Me.txtGasFlowDSCFMTwoStackStandard1C.Name = "txtGasFlowDSCFMTwoStackStandard1C"
@@ -8314,6 +8622,8 @@ Partial Class ISMPTestReports
         '
         'txtGasFlowACFMTwoStackStandard1C
         '
+        Me.txtGasFlowACFMTwoStackStandard1C.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtGasFlowACFMTwoStackStandard1C.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtGasFlowACFMTwoStackStandard1C.Location = New System.Drawing.Point(282, 100)
         Me.txtGasFlowACFMTwoStackStandard1C.MaxLength = 11
         Me.txtGasFlowACFMTwoStackStandard1C.Name = "txtGasFlowACFMTwoStackStandard1C"
@@ -8322,6 +8632,8 @@ Partial Class ISMPTestReports
         '
         'txtGasMoistTwoStackStandard1B
         '
+        Me.txtGasMoistTwoStackStandard1B.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtGasMoistTwoStackStandard1B.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtGasMoistTwoStackStandard1B.Location = New System.Drawing.Point(209, 78)
         Me.txtGasMoistTwoStackStandard1B.MaxLength = 11
         Me.txtGasMoistTwoStackStandard1B.Name = "txtGasMoistTwoStackStandard1B"
@@ -8330,6 +8642,8 @@ Partial Class ISMPTestReports
         '
         'txtStackOneNameTwoStackStandard
         '
+        Me.txtStackOneNameTwoStackStandard.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtStackOneNameTwoStackStandard.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtStackOneNameTwoStackStandard.BackColor = System.Drawing.SystemColors.Window
         Me.txtStackOneNameTwoStackStandard.Location = New System.Drawing.Point(136, 8)
         Me.txtStackOneNameTwoStackStandard.MaxLength = 30
@@ -8339,6 +8653,8 @@ Partial Class ISMPTestReports
         '
         'txtStackTwoNameTwoStackStandard
         '
+        Me.txtStackTwoNameTwoStackStandard.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtStackTwoNameTwoStackStandard.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtStackTwoNameTwoStackStandard.BackColor = System.Drawing.SystemColors.Window
         Me.txtStackTwoNameTwoStackStandard.Location = New System.Drawing.Point(352, 8)
         Me.txtStackTwoNameTwoStackStandard.MaxLength = 30
@@ -8368,6 +8684,8 @@ Partial Class ISMPTestReports
         '
         'txtEmissRateAvgTwoStackStandard1
         '
+        Me.txtEmissRateAvgTwoStackStandard1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtEmissRateAvgTwoStackStandard1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtEmissRateAvgTwoStackStandard1.BackColor = System.Drawing.SystemColors.Window
         Me.txtEmissRateAvgTwoStackStandard1.Location = New System.Drawing.Point(704, 165)
         Me.txtEmissRateAvgTwoStackStandard1.MaxLength = 11
@@ -8379,6 +8697,8 @@ Partial Class ISMPTestReports
         '
         'txtPollConcAvgTwoStackStandard2
         '
+        Me.txtPollConcAvgTwoStackStandard2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtPollConcAvgTwoStackStandard2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtPollConcAvgTwoStackStandard2.BackColor = System.Drawing.SystemColors.Window
         Me.txtPollConcAvgTwoStackStandard2.Location = New System.Drawing.Point(704, 144)
         Me.txtPollConcAvgTwoStackStandard2.MaxLength = 11
@@ -8410,6 +8730,8 @@ Partial Class ISMPTestReports
         '
         'txtEmissRateTwoStackStandard1B
         '
+        Me.txtEmissRateTwoStackStandard1B.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtEmissRateTwoStackStandard1B.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtEmissRateTwoStackStandard1B.Location = New System.Drawing.Point(209, 166)
         Me.txtEmissRateTwoStackStandard1B.MaxLength = 11
         Me.txtEmissRateTwoStackStandard1B.Name = "txtEmissRateTwoStackStandard1B"
@@ -8418,6 +8740,8 @@ Partial Class ISMPTestReports
         '
         'txtPollConcTwoStackStandard1B
         '
+        Me.txtPollConcTwoStackStandard1B.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtPollConcTwoStackStandard1B.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtPollConcTwoStackStandard1B.Location = New System.Drawing.Point(209, 144)
         Me.txtPollConcTwoStackStandard1B.MaxLength = 11
         Me.txtPollConcTwoStackStandard1B.Name = "txtPollConcTwoStackStandard1B"
@@ -8426,6 +8750,8 @@ Partial Class ISMPTestReports
         '
         'txtGasTempTwoStackStandard1C
         '
+        Me.txtGasTempTwoStackStandard1C.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtGasTempTwoStackStandard1C.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtGasTempTwoStackStandard1C.Location = New System.Drawing.Point(282, 56)
         Me.txtGasTempTwoStackStandard1C.MaxLength = 11
         Me.txtGasTempTwoStackStandard1C.Name = "txtGasTempTwoStackStandard1C"
@@ -8434,6 +8760,8 @@ Partial Class ISMPTestReports
         '
         'txtGasFlowDSCFMTwoStackStandard1B
         '
+        Me.txtGasFlowDSCFMTwoStackStandard1B.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtGasFlowDSCFMTwoStackStandard1B.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtGasFlowDSCFMTwoStackStandard1B.Location = New System.Drawing.Point(209, 122)
         Me.txtGasFlowDSCFMTwoStackStandard1B.MaxLength = 11
         Me.txtGasFlowDSCFMTwoStackStandard1B.Name = "txtGasFlowDSCFMTwoStackStandard1B"
@@ -8442,6 +8770,8 @@ Partial Class ISMPTestReports
         '
         'txtGasFlowACFMTwoStackStandard1B
         '
+        Me.txtGasFlowACFMTwoStackStandard1B.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtGasFlowACFMTwoStackStandard1B.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtGasFlowACFMTwoStackStandard1B.Location = New System.Drawing.Point(209, 100)
         Me.txtGasFlowACFMTwoStackStandard1B.MaxLength = 11
         Me.txtGasFlowACFMTwoStackStandard1B.Name = "txtGasFlowACFMTwoStackStandard1B"
@@ -8450,6 +8780,8 @@ Partial Class ISMPTestReports
         '
         'txtGasTempTwoStackStandard1B
         '
+        Me.txtGasTempTwoStackStandard1B.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtGasTempTwoStackStandard1B.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtGasTempTwoStackStandard1B.Location = New System.Drawing.Point(209, 56)
         Me.txtGasTempTwoStackStandard1B.MaxLength = 11
         Me.txtGasTempTwoStackStandard1B.Name = "txtGasTempTwoStackStandard1B"
@@ -8458,6 +8790,8 @@ Partial Class ISMPTestReports
         '
         'txtRunNumTwoStackStandard1B
         '
+        Me.txtRunNumTwoStackStandard1B.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtRunNumTwoStackStandard1B.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtRunNumTwoStackStandard1B.BackColor = System.Drawing.SystemColors.Window
         Me.txtRunNumTwoStackStandard1B.Location = New System.Drawing.Point(215, 32)
         Me.txtRunNumTwoStackStandard1B.MaxLength = 3
@@ -8467,6 +8801,8 @@ Partial Class ISMPTestReports
         '
         'txtEmissRateTwoStackStandard1A
         '
+        Me.txtEmissRateTwoStackStandard1A.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtEmissRateTwoStackStandard1A.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtEmissRateTwoStackStandard1A.Location = New System.Drawing.Point(136, 166)
         Me.txtEmissRateTwoStackStandard1A.MaxLength = 11
         Me.txtEmissRateTwoStackStandard1A.Name = "txtEmissRateTwoStackStandard1A"
@@ -8475,6 +8811,8 @@ Partial Class ISMPTestReports
         '
         'txtPollConcTwoStackStandard1A
         '
+        Me.txtPollConcTwoStackStandard1A.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtPollConcTwoStackStandard1A.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtPollConcTwoStackStandard1A.Location = New System.Drawing.Point(136, 144)
         Me.txtPollConcTwoStackStandard1A.MaxLength = 11
         Me.txtPollConcTwoStackStandard1A.Name = "txtPollConcTwoStackStandard1A"
@@ -8483,6 +8821,8 @@ Partial Class ISMPTestReports
         '
         'txtGasMoistTwoStackStandard1A
         '
+        Me.txtGasMoistTwoStackStandard1A.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtGasMoistTwoStackStandard1A.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtGasMoistTwoStackStandard1A.Location = New System.Drawing.Point(136, 78)
         Me.txtGasMoistTwoStackStandard1A.MaxLength = 11
         Me.txtGasMoistTwoStackStandard1A.Name = "txtGasMoistTwoStackStandard1A"
@@ -8491,6 +8831,8 @@ Partial Class ISMPTestReports
         '
         'txtGasFlowDSCFMTwoStackStandard1A
         '
+        Me.txtGasFlowDSCFMTwoStackStandard1A.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtGasFlowDSCFMTwoStackStandard1A.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtGasFlowDSCFMTwoStackStandard1A.Location = New System.Drawing.Point(136, 122)
         Me.txtGasFlowDSCFMTwoStackStandard1A.MaxLength = 11
         Me.txtGasFlowDSCFMTwoStackStandard1A.Name = "txtGasFlowDSCFMTwoStackStandard1A"
@@ -8499,6 +8841,8 @@ Partial Class ISMPTestReports
         '
         'txtGasFlowACFMTwoStackStandard1A
         '
+        Me.txtGasFlowACFMTwoStackStandard1A.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtGasFlowACFMTwoStackStandard1A.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtGasFlowACFMTwoStackStandard1A.Location = New System.Drawing.Point(136, 100)
         Me.txtGasFlowACFMTwoStackStandard1A.MaxLength = 11
         Me.txtGasFlowACFMTwoStackStandard1A.Name = "txtGasFlowACFMTwoStackStandard1A"
@@ -8507,6 +8851,8 @@ Partial Class ISMPTestReports
         '
         'txtGasTempTwoStackStandard1A
         '
+        Me.txtGasTempTwoStackStandard1A.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtGasTempTwoStackStandard1A.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtGasTempTwoStackStandard1A.Location = New System.Drawing.Point(136, 56)
         Me.txtGasTempTwoStackStandard1A.MaxLength = 11
         Me.txtGasTempTwoStackStandard1A.Name = "txtGasTempTwoStackStandard1A"
@@ -8515,6 +8861,8 @@ Partial Class ISMPTestReports
         '
         'txtRunNumTwoStackStandard1A
         '
+        Me.txtRunNumTwoStackStandard1A.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtRunNumTwoStackStandard1A.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtRunNumTwoStackStandard1A.BackColor = System.Drawing.SystemColors.Window
         Me.txtRunNumTwoStackStandard1A.Location = New System.Drawing.Point(142, 32)
         Me.txtRunNumTwoStackStandard1A.MaxLength = 3
@@ -8610,6 +8958,8 @@ Partial Class ISMPTestReports
         '
         'txtPercentAllowableTwoStack
         '
+        Me.txtPercentAllowableTwoStack.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtPercentAllowableTwoStack.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtPercentAllowableTwoStack.Location = New System.Drawing.Point(136, 210)
         Me.txtPercentAllowableTwoStack.MaxLength = 11
         Me.txtPercentAllowableTwoStack.Name = "txtPercentAllowableTwoStack"
@@ -9398,6 +9748,8 @@ Partial Class ISMPTestReports
         '
         'txtOperatingCapacityTwoStack
         '
+        Me.txtOperatingCapacityTwoStack.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtOperatingCapacityTwoStack.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtOperatingCapacityTwoStack.Location = New System.Drawing.Point(497, 5)
         Me.txtOperatingCapacityTwoStack.MaxLength = 11
         Me.txtOperatingCapacityTwoStack.Name = "txtOperatingCapacityTwoStack"
@@ -9416,6 +9768,8 @@ Partial Class ISMPTestReports
         '
         'txtAllowableEmissionRate2TwoStack
         '
+        Me.txtAllowableEmissionRate2TwoStack.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtAllowableEmissionRate2TwoStack.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtAllowableEmissionRate2TwoStack.Location = New System.Drawing.Point(345, 27)
         Me.txtAllowableEmissionRate2TwoStack.MaxLength = 11
         Me.txtAllowableEmissionRate2TwoStack.Name = "txtAllowableEmissionRate2TwoStack"
@@ -9424,6 +9778,8 @@ Partial Class ISMPTestReports
         '
         'txtAllowableEmissionRate3TwoStack
         '
+        Me.txtAllowableEmissionRate3TwoStack.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtAllowableEmissionRate3TwoStack.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtAllowableEmissionRate3TwoStack.Location = New System.Drawing.Point(553, 27)
         Me.txtAllowableEmissionRate3TwoStack.MaxLength = 11
         Me.txtAllowableEmissionRate3TwoStack.Name = "txtAllowableEmissionRate3TwoStack"
@@ -9432,6 +9788,8 @@ Partial Class ISMPTestReports
         '
         'txtAllowableEmissionRate1TwoStack
         '
+        Me.txtAllowableEmissionRate1TwoStack.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtAllowableEmissionRate1TwoStack.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtAllowableEmissionRate1TwoStack.Location = New System.Drawing.Point(137, 27)
         Me.txtAllowableEmissionRate1TwoStack.MaxLength = 11
         Me.txtAllowableEmissionRate1TwoStack.Name = "txtAllowableEmissionRate1TwoStack"
@@ -9440,6 +9798,8 @@ Partial Class ISMPTestReports
         '
         'txtMaximumExpectedOperatingCapacityTwoStack
         '
+        Me.txtMaximumExpectedOperatingCapacityTwoStack.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtMaximumExpectedOperatingCapacityTwoStack.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtMaximumExpectedOperatingCapacityTwoStack.Location = New System.Drawing.Point(137, 5)
         Me.txtMaximumExpectedOperatingCapacityTwoStack.MaxLength = 11
         Me.txtMaximumExpectedOperatingCapacityTwoStack.Name = "txtMaximumExpectedOperatingCapacityTwoStack"
@@ -9606,6 +9966,8 @@ Partial Class ISMPTestReports
         '
         'txtTestDurationMethod22
         '
+        Me.txtTestDurationMethod22.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtTestDurationMethod22.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtTestDurationMethod22.Location = New System.Drawing.Point(137, 84)
         Me.txtTestDurationMethod22.MaxLength = 11
         Me.txtTestDurationMethod22.Name = "txtTestDurationMethod22"
@@ -9614,6 +9976,8 @@ Partial Class ISMPTestReports
         '
         'txtAccumulatedEmissionMethod22
         '
+        Me.txtAccumulatedEmissionMethod22.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtAccumulatedEmissionMethod22.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtAccumulatedEmissionMethod22.Location = New System.Drawing.Point(137, 105)
         Me.txtAccumulatedEmissionMethod22.MaxLength = 11
         Me.txtAccumulatedEmissionMethod22.Name = "txtAccumulatedEmissionMethod22"
@@ -9652,6 +10016,8 @@ Partial Class ISMPTestReports
         '
         'txtOperatingCapacityMethod22
         '
+        Me.txtOperatingCapacityMethod22.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtOperatingCapacityMethod22.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtOperatingCapacityMethod22.Location = New System.Drawing.Point(497, 8)
         Me.txtOperatingCapacityMethod22.MaxLength = 11
         Me.txtOperatingCapacityMethod22.Name = "txtOperatingCapacityMethod22"
@@ -9670,6 +10036,8 @@ Partial Class ISMPTestReports
         '
         'txtAllowableEmissionRateMethod22
         '
+        Me.txtAllowableEmissionRateMethod22.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtAllowableEmissionRateMethod22.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtAllowableEmissionRateMethod22.Location = New System.Drawing.Point(137, 30)
         Me.txtAllowableEmissionRateMethod22.MaxLength = 11
         Me.txtAllowableEmissionRateMethod22.Name = "txtAllowableEmissionRateMethod22"
@@ -9678,6 +10046,8 @@ Partial Class ISMPTestReports
         '
         'txtMaximumExpectedOperatingCapacityMethod22
         '
+        Me.txtMaximumExpectedOperatingCapacityMethod22.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtMaximumExpectedOperatingCapacityMethod22.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtMaximumExpectedOperatingCapacityMethod22.Location = New System.Drawing.Point(137, 8)
         Me.txtMaximumExpectedOperatingCapacityMethod22.MaxLength = 11
         Me.txtMaximumExpectedOperatingCapacityMethod22.Name = "txtMaximumExpectedOperatingCapacityMethod22"

@@ -1,4 +1,4 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
+<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class FinDepositView
     Inherits BaseForm
 
@@ -242,6 +242,8 @@ Partial Class FinDepositView
         '
         'txtCreditConf
         '
+        Me.txtCreditConf.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtCreditConf.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtCreditConf.Location = New System.Drawing.Point(100, 155)
         Me.txtCreditConf.Name = "txtCreditConf"
         Me.txtCreditConf.Size = New System.Drawing.Size(118, 20)
@@ -249,6 +251,8 @@ Partial Class FinDepositView
         '
         'txtBatchNumber
         '
+        Me.txtBatchNumber.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtBatchNumber.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtBatchNumber.Location = New System.Drawing.Point(100, 103)
         Me.txtBatchNumber.Name = "txtBatchNumber"
         Me.txtBatchNumber.Size = New System.Drawing.Size(118, 20)
@@ -256,6 +260,8 @@ Partial Class FinDepositView
         '
         'txtDepositNumber
         '
+        Me.txtDepositNumber.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtDepositNumber.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtDepositNumber.Location = New System.Drawing.Point(100, 77)
         Me.txtDepositNumber.Name = "txtDepositNumber"
         Me.txtDepositNumber.Size = New System.Drawing.Size(118, 20)
@@ -263,6 +269,8 @@ Partial Class FinDepositView
         '
         'txtCheckNumber
         '
+        Me.txtCheckNumber.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtCheckNumber.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtCheckNumber.Location = New System.Drawing.Point(100, 129)
         Me.txtCheckNumber.Name = "txtCheckNumber"
         Me.txtCheckNumber.Size = New System.Drawing.Size(118, 20)
@@ -311,6 +319,8 @@ Partial Class FinDepositView
         '
         'txtInvoiceToApply
         '
+        Me.txtInvoiceToApply.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtInvoiceToApply.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtInvoiceToApply.Location = New System.Drawing.Point(9, 44)
         Me.txtInvoiceToApply.Name = "txtInvoiceToApply"
         Me.txtInvoiceToApply.Size = New System.Drawing.Size(94, 20)

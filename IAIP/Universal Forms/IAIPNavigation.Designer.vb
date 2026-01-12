@@ -360,6 +360,8 @@ Partial Class IAIPNavigation
         'txtOpenTestLog
         '
         Me.txtOpenTestLog.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.txtOpenTestLog.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtOpenTestLog.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtOpenTestLog.Cue = "Notification #"
         Me.txtOpenTestLog.Location = New System.Drawing.Point(168, 88)
         Me.txtOpenTestLog.Margin = New System.Windows.Forms.Padding(2)
@@ -420,6 +422,8 @@ Partial Class IAIPNavigation
         'txtOpenApplication
         '
         Me.txtOpenApplication.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.txtOpenApplication.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtOpenApplication.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtOpenApplication.Cue = "Application #"
         Me.txtOpenApplication.Location = New System.Drawing.Point(10, 88)
         Me.txtOpenApplication.Margin = New System.Windows.Forms.Padding(2)
@@ -442,6 +446,8 @@ Partial Class IAIPNavigation
         'txtOpenTestReport
         '
         Me.txtOpenTestReport.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.txtOpenTestReport.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtOpenTestReport.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtOpenTestReport.Cue = "Reference #"
         Me.txtOpenTestReport.Location = New System.Drawing.Point(167, 36)
         Me.txtOpenTestReport.Margin = New System.Windows.Forms.Padding(2)
