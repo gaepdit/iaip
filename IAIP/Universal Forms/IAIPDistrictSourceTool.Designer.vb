@@ -185,6 +185,8 @@ Partial Class IAIPDistrictSourceTool
         '
         'txtNewDistrictCode
         '
+        Me.txtNewDistrictCode.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtNewDistrictCode.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtNewDistrictCode.Location = New System.Drawing.Point(109, 42)
         Me.txtNewDistrictCode.MaxLength = 1
         Me.txtNewDistrictCode.Name = "txtNewDistrictCode"
@@ -202,6 +204,8 @@ Partial Class IAIPDistrictSourceTool
         '
         'txtNewDistrict
         '
+        Me.txtNewDistrict.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtNewDistrict.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtNewDistrict.Location = New System.Drawing.Point(109, 16)
         Me.txtNewDistrict.Name = "txtNewDistrict"
         Me.txtNewDistrict.Size = New System.Drawing.Size(240, 20)

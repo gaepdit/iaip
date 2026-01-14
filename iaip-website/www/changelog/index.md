@@ -14,6 +14,10 @@
 [2014](changelog-2014.html) |
 [2013](changelog-2013.html)
 
+## Version 8.0.0 <span>(??-???-2026)</span>
+
+8️⃣: All compliance monitoring and enforcement functionality (except stack tests) has been moved to the new [Air Web App](https://air.gaepd.org). If you have questions or need help, please contact us at [helpdesk@gaepd.zendesk.com](mailto:helpdesk@gaepd.zendesk.com).
+
 ## Version 7.5.9 <span>(5-Nov-2025)</span>
 
 * Display CAERS users on the facility EIS page

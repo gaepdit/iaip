@@ -47,9 +47,6 @@ Public Class IAIPFacilitySummary
 
     Friend Enum FacilityDataTable
         ColocatedFacilities
-        ComplianceWork
-        ComplianceEnforcement
-        ComplianceFCE
         ContactsStaff
         ContactsGecoFacility
         ContactsGecoEmails
@@ -101,9 +98,6 @@ Public Class IAIPFacilitySummary
         FacilitySummaryDataSet = New DataSet
 
         AddDataTable(FacilityDataTable.ColocatedFacilities)
-        AddDataTable(FacilityDataTable.ComplianceWork)
-        AddDataTable(FacilityDataTable.ComplianceEnforcement)
-        AddDataTable(FacilityDataTable.ComplianceFCE)
         AddDataTable(FacilityDataTable.EmissionsFeesSummary)
         AddDataTable(FacilityDataTable.ContactsGecoFacility)
         AddDataTable(FacilityDataTable.ContactsGecoEmails)
@@ -159,7 +153,6 @@ Public Class IAIPFacilitySummary
         ContactsTabControl.SelectedTab = TPContactsFacility
         GecoContactsTabControl.SelectedTab = TPGecoUsers
         TestingTabControl.SelectedTab = TPTestReport
-        ComplianceTabControl.SelectedTab = TPComplianceWork
         PermittingTabControl.SelectedTab = TPAppTrackingLog
         EmissionsFeesTabControl.SelectedTab = TPEmissionsAnnual
         EiTabControl.SelectedTab = TPEiPost2009
@@ -202,9 +195,6 @@ Public Class IAIPFacilitySummary
         InfoOperStatusDisplay.Text = ""
         CmsDisplay.Text = ""
         CmsDisplay.BackColor = Color.Empty
-        ComplianceStatusDisplay.Text = ""
-        ComplianceStatusDisplay.BackColor = SystemColors.ControlLightLight
-        ComplianceStatusDisplay.BorderStyle = BorderStyle.None
 
         'Offices
         DistrictOfficeDisplay.Text = ""
@@ -297,17 +287,6 @@ Public Class IAIPFacilitySummary
                 InfoPermitRevocationDateDisplay.Text = String.Format(DateStringFormat, .ShutdownDate)
             End With
 
-            'Compliance Status
-            Dim enforcementCount As Integer = DAL.Sscp.GetOpenEnforcementCountForFacility(AirsNumber)
-            If enforcementCount = 0 Then
-                ComplianceStatusDisplay.Text = "No open enforcement cases"
-            ElseIf enforcementCount = 1 Then
-                ComplianceStatusDisplay.Text = "One open enforcement case"
-            ElseIf enforcementCount > 1 Then
-                ComplianceStatusDisplay.Text = enforcementCount & " open enforcement cases"
-            End If
-            ColorCodeComplianceStatusDisplay(enforcementCount)
-
             'Offices
             DistrictOfficeDisplay.Text = .DistrictOfficeLocation
             ResponsibleOfficeDisplay.Text = If(.DistrictResponsible, "District Office", "Air Branch")
@@ -357,21 +336,6 @@ Public Class IAIPFacilitySummary
             EpaDateDisplay.Text = Nothing
             DataUpdateDateDisplay.Text = Nothing
         End If
-    End Sub
-
-    Private Sub ColorCodeComplianceStatusDisplay(num As Integer)
-        With ComplianceStatusDisplay
-            Select Case num
-                Case > 0
-                    .BackColor = IaipColors.WarningBackColor
-                    .ForeColor = IaipColors.WarningForeColor
-                    .BorderStyle = BorderStyle.None
-                Case Else
-                    .BackColor = SystemColors.ControlLightLight
-                    .ForeColor = Color.Empty
-                    .BorderStyle = BorderStyle.None
-            End Select
-        End With
     End Sub
 
     Private Sub ColorCodeCmsDisplay()
@@ -574,16 +538,6 @@ Public Class IAIPFacilitySummary
                 SetUpDataGridSource(ColocatedFacilitiesGrid, table)
                 SetUpColocatedFacilityUi()
 
-            ' Compliance
-            Case FacilityDataTable.ComplianceWork
-                SetUpDataGridSource(ComplianceWorkGrid, table)
-
-            Case FacilityDataTable.ComplianceFCE
-                SetUpDataGridSource(ComplianceFceGrid, table)
-
-            Case FacilityDataTable.ComplianceEnforcement
-                SetUpDataGridSource(ComplianceEnforcementGrid, table)
-
             ' Contacts
             Case FacilityDataTable.ContactsStaff
                 SetUpDataGridSource(ContactsStaffGrid, table)
@@ -666,14 +620,6 @@ Public Class IAIPFacilitySummary
     Private Sub OpenItem(dgv As IaipDataGridView, itemId As String)
         Select Case dgv.Name
 
-            ' Compliance
-            Case ComplianceEnforcementGrid.Name
-                OpenFormEnforcement(itemId)
-            Case ComplianceFceGrid.Name
-                OpenFormFce(AirsNumber, itemId)
-            Case ComplianceWorkGrid.Name
-                OpenFormSscpWorkItem(itemId)
-
                 ' Testing
             Case TestReportsGrid.Name
                 OpenFormTestReport(itemId, Me)
@@ -697,9 +643,6 @@ Public Class IAIPFacilitySummary
 
     Private Sub InitializeGridEvents()
         Dim gridsWithEvents As New List(Of IaipDataGridView) From {
-            ComplianceEnforcementGrid,
-            ComplianceFceGrid,
-            ComplianceWorkGrid,
             TestReportsGrid,
             TestNotificationsGrid,
             TestMemosGrid,
@@ -729,12 +672,6 @@ Public Class IAIPFacilitySummary
 
     Private Sub LoadFacilityColocationTable()
         LoadDataTable(FacilityDataTable.ColocatedFacilities)
-    End Sub
-
-    Private Sub LoadComplianceData()
-        LoadDataTable(FacilityDataTable.ComplianceWork)
-        LoadDataTable(FacilityDataTable.ComplianceFCE)
-        LoadDataTable(FacilityDataTable.ComplianceEnforcement)
     End Sub
 
     Private Sub LoadContactsData()
@@ -905,15 +842,19 @@ Public Class IAIPFacilitySummary
     ' " ICIS-Air Update "
 
     Private Sub UpdateEpaData()
-        If ThisFacility IsNot Nothing Then
-            If TriggerDataUpdateAtEPA(AirsNumber) Then
-                MessageBox.Show("Data for this facility will be sent to EPA the next time the database update procedures run.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
-            Else
-                MessageBox.Show("There was an error attempting to flag this facility to update. Contact EPD IT.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End If
-        Else
-            MessageBox.Show("The AIRS number is not valid.", "Invalid AIRS number", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-        End If
+        ' Currently disabled. See https://github.com/gaepdit/iaip/issues/1433
+        MessageBox.Show("This feature is currently disabled. Please contact EPD-IT for more info. (Ref #1433)")
+        Return
+
+        'If ThisFacility IsNot Nothing Then
+        '    If TriggerDataUpdateAtEPA(AirsNumber) Then
+        '        MessageBox.Show("Data for this facility will be sent to EPA the next time the database update procedures run.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        '    Else
+        '        MessageBox.Show("There was an error attempting to flag this facility to update. Contact EPD IT.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        '    End If
+        'Else
+        '    MessageBox.Show("The AIRS number is not valid.", "Invalid AIRS number", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+        'End If
     End Sub
 
     ' " Navigation Panel "
@@ -991,8 +932,6 @@ Public Class IAIPFacilitySummary
         AddBreadcrumb("Facility Summary: tab changed", data, Me)
 
         Select Case FSMainTabControl.SelectedTab.Name
-            Case FSCompliance.Name
-                LoadComplianceData()
             Case FSContacts.Name
                 LoadContactsData()
             Case FSEmissionInventory.Name
@@ -1019,7 +958,7 @@ Public Class IAIPFacilitySummary
     Private Sub DisplayEmptyTextBoxAsNA(sender As Object, e As EventArgs) _
     Handles InfoDescDisplay.TextChanged, LocationDisplay.TextChanged, LatLonDisplay.TextChanged,
         InfoDescDisplay.TextChanged, InfoClassDisplay.TextChanged, InfoOperStatusDisplay.TextChanged,
-        CmsDisplay.TextChanged, ComplianceStatusDisplay.TextChanged, DistrictOfficeDisplay.TextChanged,
+        CmsDisplay.TextChanged, DistrictOfficeDisplay.TextChanged,
         ResponsibleOfficeDisplay.TextChanged, InfoStartupDateDisplay.TextChanged,
         InfoPermitRevocationDateDisplay.TextChanged, CreatedDateDisplay.TextChanged, FisDateDisplay.TextChanged,
         EpaDateDisplay.TextChanged, DataUpdateDateDisplay.TextChanged,
@@ -1245,4 +1184,19 @@ Public Class IAIPFacilitySummary
         Cursor = Cursors.Default
     End Sub
 
+    Private Sub lnkWebFacility_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lnkWebFacility.LinkClicked
+        If AirsNumber IsNot Nothing Then OpenFacilityOnWeb(AirsNumber, Me)
+    End Sub
+
+    Private Sub lnkWebComplianceWork_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lnkWebComplianceWork.LinkClicked
+        If AirsNumber IsNot Nothing Then OpenComplianceWorkOnWeb(AirsNumber, Me)
+    End Sub
+
+    Private Sub lnkWebFce_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lnkWebFce.LinkClicked
+        If AirsNumber IsNot Nothing Then OpenFceOnWeb(AirsNumber, Me)
+    End Sub
+
+    Private Sub lnkWebEnforcement_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lnkWebEnforcement.LinkClicked
+        If AirsNumber IsNot Nothing Then OpenEnforcementOnWeb(AirsNumber, Me)
+    End Sub
 End Class

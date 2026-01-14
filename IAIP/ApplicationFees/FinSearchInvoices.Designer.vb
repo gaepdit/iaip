@@ -128,6 +128,8 @@ Partial Class FinSearchInvoices
         '
         'txtFacilityName
         '
+        Me.txtFacilityName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtFacilityName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtFacilityName.Location = New System.Drawing.Point(82, 58)
         Me.txtFacilityName.Name = "txtFacilityName"
         Me.txtFacilityName.Size = New System.Drawing.Size(103, 20)
@@ -340,6 +342,8 @@ Partial Class FinSearchInvoices
         '
         'txtSelectedItem
         '
+        Me.txtSelectedItem.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtSelectedItem.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtSelectedItem.Cue = "Invoice ID"
         Me.txtSelectedItem.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtSelectedItem.Location = New System.Drawing.Point(460, 30)

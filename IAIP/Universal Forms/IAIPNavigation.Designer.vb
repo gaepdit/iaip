@@ -50,19 +50,13 @@ Partial Class IAIPNavigation
         Me.btnOpenTestReport = New System.Windows.Forms.Button()
         Me.btnOpenApplication = New System.Windows.Forms.Button()
         Me.btnOpenTestLog = New System.Windows.Forms.Button()
-        Me.btnOpenSscpItem = New System.Windows.Forms.Button()
-        Me.btnOpenEnforcement = New System.Windows.Forms.Button()
         Me.btnOpenFacilitySummary = New System.Windows.Forms.Button()
         Me.txtOpenTestLog = New Iaip.CueTextBox()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.lblOpenFacilitySummary = New System.Windows.Forms.Label()
         Me.txtOpenFacilitySummary = New Iaip.AirsNumberEntryForm()
-        Me.txtOpenSscpItem = New Iaip.CueTextBox()
-        Me.lblOpenSscpItem = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.txtOpenApplication = New Iaip.CueTextBox()
-        Me.lblOpenEnforcement = New System.Windows.Forms.Label()
-        Me.txtOpenEnforcement = New Iaip.CueTextBox()
         Me.lblOpenTestReport = New System.Windows.Forms.Label()
         Me.txtOpenTestReport = New Iaip.CueTextBox()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
@@ -137,7 +131,7 @@ Partial Class IAIPNavigation
         '
         Me.mmiExit.MergeIndex = 0
         Me.mmiExit.Name = "mmiExit"
-        Me.mmiExit.Size = New System.Drawing.Size(117, 22)
+        Me.mmiExit.Size = New System.Drawing.Size(116, 22)
         Me.mmiExit.Text = "E&xit IAIP"
         '
         'mmiTools
@@ -145,14 +139,14 @@ Partial Class IAIPNavigation
         Me.mmiTools.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiExport})
         Me.mmiTools.MergeIndex = 1
         Me.mmiTools.Name = "mmiTools"
-        Me.mmiTools.Size = New System.Drawing.Size(46, 20)
+        Me.mmiTools.Size = New System.Drawing.Size(47, 20)
         Me.mmiTools.Text = "&Tools"
         '
         'mmiExport
         '
         Me.mmiExport.MergeIndex = 0
         Me.mmiExport.Name = "mmiExport"
-        Me.mmiExport.Size = New System.Drawing.Size(170, 22)
+        Me.mmiExport.Size = New System.Drawing.Size(168, 22)
         Me.mmiExport.Text = "&Export list to Excel"
         '
         'mmiAccount
@@ -243,7 +237,7 @@ Partial Class IAIPNavigation
         Me.TestingMenu.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.RunTest, Me.RunTest2})
         Me.TestingMenu.MergeIndex = 4
         Me.TestingMenu.Name = "TestingMenu"
-        Me.TestingMenu.Size = New System.Drawing.Size(56, 20)
+        Me.TestingMenu.Size = New System.Drawing.Size(57, 20)
         Me.TestingMenu.Text = "T&esting"
         Me.TestingMenu.Visible = False
         '
@@ -251,14 +245,14 @@ Partial Class IAIPNavigation
         '
         Me.RunTest.MergeIndex = 0
         Me.RunTest.Name = "RunTest"
-        Me.RunTest.Size = New System.Drawing.Size(187, 22)
+        Me.RunTest.Size = New System.Drawing.Size(186, 22)
         Me.RunTest.Text = "Handled Exception"
         '
         'RunTest2
         '
         Me.RunTest2.MergeIndex = 1
         Me.RunTest2.Name = "RunTest2"
-        Me.RunTest2.Size = New System.Drawing.Size(187, 22)
+        Me.RunTest2.Size = New System.Drawing.Size(186, 22)
         Me.RunTest2.Text = "Unhandled Exception"
         '
         'lblTitle
@@ -290,19 +284,13 @@ Partial Class IAIPNavigation
         Me.grpQuickAccess.Controls.Add(Me.btnOpenTestReport)
         Me.grpQuickAccess.Controls.Add(Me.btnOpenApplication)
         Me.grpQuickAccess.Controls.Add(Me.btnOpenTestLog)
-        Me.grpQuickAccess.Controls.Add(Me.btnOpenSscpItem)
-        Me.grpQuickAccess.Controls.Add(Me.btnOpenEnforcement)
         Me.grpQuickAccess.Controls.Add(Me.btnOpenFacilitySummary)
         Me.grpQuickAccess.Controls.Add(Me.txtOpenTestLog)
         Me.grpQuickAccess.Controls.Add(Me.Label8)
         Me.grpQuickAccess.Controls.Add(Me.lblOpenFacilitySummary)
         Me.grpQuickAccess.Controls.Add(Me.txtOpenFacilitySummary)
-        Me.grpQuickAccess.Controls.Add(Me.txtOpenSscpItem)
-        Me.grpQuickAccess.Controls.Add(Me.lblOpenSscpItem)
         Me.grpQuickAccess.Controls.Add(Me.Label6)
         Me.grpQuickAccess.Controls.Add(Me.txtOpenApplication)
-        Me.grpQuickAccess.Controls.Add(Me.lblOpenEnforcement)
-        Me.grpQuickAccess.Controls.Add(Me.txtOpenEnforcement)
         Me.grpQuickAccess.Controls.Add(Me.lblOpenTestReport)
         Me.grpQuickAccess.Controls.Add(Me.txtOpenTestReport)
         Me.grpQuickAccess.Dock = System.Windows.Forms.DockStyle.Bottom
@@ -319,7 +307,7 @@ Partial Class IAIPNavigation
         Me.btnOpenTestReport.FlatAppearance.BorderSize = 0
         Me.btnOpenTestReport.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnOpenTestReport.ForeColor = System.Drawing.SystemColors.GrayText
-        Me.btnOpenTestReport.Location = New System.Drawing.Point(425, 34)
+        Me.btnOpenTestReport.Location = New System.Drawing.Point(262, 34)
         Me.btnOpenTestReport.Name = "btnOpenTestReport"
         Me.btnOpenTestReport.Size = New System.Drawing.Size(43, 23)
         Me.btnOpenTestReport.TabIndex = 9
@@ -347,41 +335,13 @@ Partial Class IAIPNavigation
         Me.btnOpenTestLog.FlatAppearance.BorderSize = 0
         Me.btnOpenTestLog.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnOpenTestLog.ForeColor = System.Drawing.SystemColors.GrayText
-        Me.btnOpenTestLog.Location = New System.Drawing.Point(426, 86)
+        Me.btnOpenTestLog.Location = New System.Drawing.Point(263, 86)
         Me.btnOpenTestLog.Name = "btnOpenTestLog"
         Me.btnOpenTestLog.Size = New System.Drawing.Size(43, 23)
         Me.btnOpenTestLog.TabIndex = 11
         Me.btnOpenTestLog.TabStop = False
         Me.btnOpenTestLog.Text = "Open"
         Me.btnOpenTestLog.UseVisualStyleBackColor = True
-        '
-        'btnOpenSscpItem
-        '
-        Me.btnOpenSscpItem.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btnOpenSscpItem.FlatAppearance.BorderSize = 0
-        Me.btnOpenSscpItem.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnOpenSscpItem.ForeColor = System.Drawing.SystemColors.GrayText
-        Me.btnOpenSscpItem.Location = New System.Drawing.Point(265, 86)
-        Me.btnOpenSscpItem.Name = "btnOpenSscpItem"
-        Me.btnOpenSscpItem.Size = New System.Drawing.Size(43, 23)
-        Me.btnOpenSscpItem.TabIndex = 7
-        Me.btnOpenSscpItem.TabStop = False
-        Me.btnOpenSscpItem.Text = "Open"
-        Me.btnOpenSscpItem.UseVisualStyleBackColor = True
-        '
-        'btnOpenEnforcement
-        '
-        Me.btnOpenEnforcement.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btnOpenEnforcement.FlatAppearance.BorderSize = 0
-        Me.btnOpenEnforcement.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnOpenEnforcement.ForeColor = System.Drawing.SystemColors.GrayText
-        Me.btnOpenEnforcement.Location = New System.Drawing.Point(265, 34)
-        Me.btnOpenEnforcement.Name = "btnOpenEnforcement"
-        Me.btnOpenEnforcement.Size = New System.Drawing.Size(43, 23)
-        Me.btnOpenEnforcement.TabIndex = 5
-        Me.btnOpenEnforcement.TabStop = False
-        Me.btnOpenEnforcement.Text = "Open"
-        Me.btnOpenEnforcement.UseVisualStyleBackColor = True
         '
         'btnOpenFacilitySummary
         '
@@ -400,8 +360,10 @@ Partial Class IAIPNavigation
         'txtOpenTestLog
         '
         Me.txtOpenTestLog.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.txtOpenTestLog.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtOpenTestLog.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtOpenTestLog.Cue = "Notification #"
-        Me.txtOpenTestLog.Location = New System.Drawing.Point(331, 88)
+        Me.txtOpenTestLog.Location = New System.Drawing.Point(168, 88)
         Me.txtOpenTestLog.Margin = New System.Windows.Forms.Padding(2)
         Me.txtOpenTestLog.MaxLength = 10
         Me.txtOpenTestLog.Name = "txtOpenTestLog"
@@ -412,7 +374,7 @@ Partial Class IAIPNavigation
         '
         Me.Label8.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(328, 73)
+        Me.Label8.Location = New System.Drawing.Point(165, 73)
         Me.Label8.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(114, 13)
@@ -446,28 +408,6 @@ Partial Class IAIPNavigation
         Me.txtOpenFacilitySummary.TabIndex = 0
         Me.txtOpenFacilitySummary.TextBoxBackColor = System.Drawing.SystemColors.Window
         '
-        'txtOpenSscpItem
-        '
-        Me.txtOpenSscpItem.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.txtOpenSscpItem.Cue = "Item #"
-        Me.txtOpenSscpItem.Location = New System.Drawing.Point(170, 88)
-        Me.txtOpenSscpItem.Margin = New System.Windows.Forms.Padding(2)
-        Me.txtOpenSscpItem.MaxLength = 10
-        Me.txtOpenSscpItem.Name = "txtOpenSscpItem"
-        Me.txtOpenSscpItem.Size = New System.Drawing.Size(90, 20)
-        Me.txtOpenSscpItem.TabIndex = 6
-        '
-        'lblOpenSscpItem
-        '
-        Me.lblOpenSscpItem.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.lblOpenSscpItem.AutoSize = True
-        Me.lblOpenSscpItem.Location = New System.Drawing.Point(167, 73)
-        Me.lblOpenSscpItem.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.lblOpenSscpItem.Name = "lblOpenSscpItem"
-        Me.lblOpenSscpItem.Size = New System.Drawing.Size(87, 13)
-        Me.lblOpenSscpItem.TabIndex = 261
-        Me.lblOpenSscpItem.Text = "SSCP Work Item"
-        '
         'Label6
         '
         Me.Label6.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
@@ -482,6 +422,8 @@ Partial Class IAIPNavigation
         'txtOpenApplication
         '
         Me.txtOpenApplication.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.txtOpenApplication.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtOpenApplication.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtOpenApplication.Cue = "Application #"
         Me.txtOpenApplication.Location = New System.Drawing.Point(10, 88)
         Me.txtOpenApplication.Margin = New System.Windows.Forms.Padding(2)
@@ -490,33 +432,11 @@ Partial Class IAIPNavigation
         Me.txtOpenApplication.Size = New System.Drawing.Size(90, 20)
         Me.txtOpenApplication.TabIndex = 2
         '
-        'lblOpenEnforcement
-        '
-        Me.lblOpenEnforcement.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.lblOpenEnforcement.AutoSize = True
-        Me.lblOpenEnforcement.Location = New System.Drawing.Point(167, 21)
-        Me.lblOpenEnforcement.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.lblOpenEnforcement.Name = "lblOpenEnforcement"
-        Me.lblOpenEnforcement.Size = New System.Drawing.Size(98, 13)
-        Me.lblOpenEnforcement.TabIndex = 255
-        Me.lblOpenEnforcement.Text = "SSCP Enforcement"
-        '
-        'txtOpenEnforcement
-        '
-        Me.txtOpenEnforcement.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.txtOpenEnforcement.Cue = "Enforcement #"
-        Me.txtOpenEnforcement.Location = New System.Drawing.Point(170, 36)
-        Me.txtOpenEnforcement.Margin = New System.Windows.Forms.Padding(2)
-        Me.txtOpenEnforcement.MaxLength = 8
-        Me.txtOpenEnforcement.Name = "txtOpenEnforcement"
-        Me.txtOpenEnforcement.Size = New System.Drawing.Size(90, 20)
-        Me.txtOpenEnforcement.TabIndex = 4
-        '
         'lblOpenTestReport
         '
         Me.lblOpenTestReport.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.lblOpenTestReport.AutoSize = True
-        Me.lblOpenTestReport.Location = New System.Drawing.Point(328, 21)
+        Me.lblOpenTestReport.Location = New System.Drawing.Point(165, 21)
         Me.lblOpenTestReport.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblOpenTestReport.Name = "lblOpenTestReport"
         Me.lblOpenTestReport.Size = New System.Drawing.Size(93, 13)
@@ -526,8 +446,10 @@ Partial Class IAIPNavigation
         'txtOpenTestReport
         '
         Me.txtOpenTestReport.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.txtOpenTestReport.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtOpenTestReport.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtOpenTestReport.Cue = "Reference #"
-        Me.txtOpenTestReport.Location = New System.Drawing.Point(330, 36)
+        Me.txtOpenTestReport.Location = New System.Drawing.Point(167, 36)
         Me.txtOpenTestReport.Margin = New System.Windows.Forms.Padding(2)
         Me.txtOpenTestReport.MaxLength = 9
         Me.txtOpenTestReport.Name = "txtOpenTestReport"
@@ -942,9 +864,7 @@ Partial Class IAIPNavigation
     Friend WithEvents mmiAbout As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents lblTitle As System.Windows.Forms.Label
     Friend WithEvents grpQuickAccess As System.Windows.Forms.GroupBox
-    Friend WithEvents lblOpenSscpItem As System.Windows.Forms.Label
     Friend WithEvents Label6 As System.Windows.Forms.Label
-    Friend WithEvents lblOpenEnforcement As System.Windows.Forms.Label
     Friend WithEvents lblOpenTestReport As System.Windows.Forms.Label
     Friend WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
     Friend WithEvents pnlProgram As System.Windows.Forms.ToolStripStatusLabel
@@ -970,11 +890,7 @@ Partial Class IAIPNavigation
     Friend WithEvents btnOpenTestReport As System.Windows.Forms.Button
     Friend WithEvents btnOpenApplication As System.Windows.Forms.Button
     Friend WithEvents btnOpenTestLog As System.Windows.Forms.Button
-    Friend WithEvents btnOpenSscpItem As System.Windows.Forms.Button
-    Friend WithEvents btnOpenEnforcement As System.Windows.Forms.Button
-    Friend WithEvents txtOpenSscpItem As Iaip.CueTextBox
     Friend WithEvents txtOpenApplication As Iaip.CueTextBox
-    Friend WithEvents txtOpenEnforcement As Iaip.CueTextBox
     Friend WithEvents txtOpenTestReport As Iaip.CueTextBox
     Friend WithEvents txtOpenFacilitySummary As AirsNumberEntryForm
     Friend WithEvents txtOpenTestLog As Iaip.CueTextBox

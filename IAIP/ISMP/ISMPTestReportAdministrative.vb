@@ -519,78 +519,6 @@ Public Class ISMPTestReportAdministrative
 
                     Select Case ComplianceStatus
                         Case "00"
-                            query = ""
-                        Case "01"
-                            query = ""
-                        Case Else
-                            query = "Select strUpdateStatus " &
-                            "from AFSISMPRecords " &
-                            "where strReferenceNumber = @ref "
-
-                            Dim dr2 As DataRow = DB.GetDataRow(query, p)
-                            If dr2 IsNot Nothing Then
-                                UpdateCode = dr2.Item("strupdateStatus")
-                            Else
-                                UpdateCode = ""
-                            End If
-                            Select Case UpdateCode
-                                Case "A"
-                                    'Leave it alone
-                                Case "C"
-                                    'Leave it alone
-                                Case "N"
-                                    query = "Update AFSISMPRecords set " &
-                                    "strUpDateStatus = 'C' " &
-                                    "where strReferenceNumber = @ref "
-                                    DB.RunCommand(query, p)
-
-                                Case ""
-                                    query = "Select strAFSActionNumber " &
-                                    "from APBSupplamentalData " &
-                                    "where strAIRSNumber = @airs "
-
-                                    Dim p2 As New SqlParameter("@airs", "0413" & AIRSNumber)
-
-                                    Dim dr3 As DataRow = DB.GetDataRow(query, p2)
-                                    If dr3 IsNot Nothing Then
-                                        AFSActionNumber = dr3.Item("strAFSActionNumber")
-                                    End If
-
-                                    query = "Insert into AFSISMPRecords " &
-                                    "(strReferenceNumber, strAFSActionNumber, " &
-                                    "strUpDateStatus, strModifingPerson, " &
-                                    "datModifingDate) " &
-                                    "values " &
-                                    "(@strReferenceNumber, @strAFSActionNumber, " &
-                                    "'A', @strModifingPerson, " &
-                                    "getdate()) "
-
-                                    Dim p3 As SqlParameter() = {
-                                        New SqlParameter("@strReferenceNumber", RefNum),
-                                        New SqlParameter("@strAFSActionNumber", AFSActionNumber),
-                                        New SqlParameter("@strModifingPerson", CurrentUser.UserID)
-                                    }
-
-                                    DB.RunCommand(query, p3)
-
-                                    AFSActionNumber = CInt(AFSActionNumber) + 1
-
-                                    query = "Update APBSupplamentalData set " &
-                                    "strAFSActionNumber =@afs " &
-                                    "where strAIRSNumber = @airs "
-
-                                    Dim p4 As SqlParameter() = {
-                                        New SqlParameter("@afs", AFSActionNumber),
-                                        New SqlParameter("@airs", "0413" & AIRSNumber)
-                                    }
-
-                                    DB.RunCommand(query, p4)
-                                Case Else
-                                    'Leave it alone
-                            End Select
-                    End Select
-                    Select Case ComplianceStatus
-                        Case "00"
                             MsgBox("Reference Number " & RefNum.ToString & " does not exist in the system.",
                                    MsgBoxStyle.Exclamation, "ISMP Test Report Information")
                             Return
@@ -650,7 +578,7 @@ Public Class ISMPTestReportAdministrative
                                format(i.datTestDateEnd, 'dd-MMM-yyyy')               as forDatTestDateEnd,
                                format(i.datReviewedByUnitmanager, 'dd-MMM-yyyy')     as forDatReviewedByUnitManager,
                                format(i.datCompleteDate, 'dd-MMM-yyyy')              as forDateComplete,
-                               i.strClosed,
+                               convert(bit, i.STRCLOSED)                             as IsClosed,
                                t.strReportType,
                                concat(u2.strLastName, ', ', u2.strFirstName)         as ReviewingEngineer,
                                concat(u.strLastName, ', ', u.strFirstName)           as UnitManager,
@@ -659,8 +587,7 @@ Public Class ISMPTestReportAdministrative
                                p.strPollutantDescription,
                                e.strUnitDesc,
                                d.strDocumentType,
-                               l.strComplianceStatus,
-                               convert(bit, iif(a.STRAFSACTIONNUMBER is null, 0, 1)) as AfsActionNumberExists
+                               l.strComplianceStatus
                         from ISMPMASTER m
                             INNER JOIN ISMPREPORTINFORMATION i
                             ON m.strReferenceNumber = i.strReferenceNumber
@@ -680,15 +607,13 @@ Public Class ISMPTestReportAdministrative
                             ON i.strDocumentTYpe = d.strKEy
                             INNER JOIN LOOKUPISMPCOMPLIANCESTATUS l
                             ON i.strComplianceStatus = l.strComplianceKey
-                            left join AFSISMPRECORDS a
-                            on a.STRREFERENCENUMBER = m.STRREFERENCENUMBER
                         where m.strReferenceNumber = @ref"
 
                     Dim p1 As New SqlParameter("@ref", txtReferenceNumber.Text)
 
                     Dim dr2 As DataRow = DB.GetDataRow(query, p1)
                     If dr2 IsNot Nothing Then
-                        If dr2.Item("AfsActionNumberExists") Then
+                        If dr2.Item("IsClosed") Then
                             cboAIRSNumber.Enabled = False
                             btnSearchForAIRS.Enabled = False
                             btnLoadCombos.Enabled = False
@@ -711,7 +636,7 @@ Public Class ISMPTestReportAdministrative
                         Else
                             txtDaysInAPB.Text = DateDiff(DateInterval.Day, CDate(dr2.Item("forDatReceivedDate")), CDate(dr2.Item("forDateComplete")))
                         End If
-                        If dr2.Item("strClosed").ToString = "True" Then
+                        If dr2.Item("IsClosed") Then
                             rdbOpenReport.Checked = False
                             rdbCloseReport.Checked = True
                             SaveToolStripMenuItem.Enabled = False
@@ -797,57 +722,63 @@ Public Class ISMPTestReportAdministrative
     Private Sub OpenMemo()
         OpenFormTestMemo(Me.txtReferenceNumber.Text)
     End Sub
+
     Private Sub DeleteTestReport()
-        Try
-            If MessageBox.Show("Are you sure you want to delete these test reports?", "Confirm Delete",
-                               MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) _
-                               = DialogResult.No Then
-                Return
-            End If
+        ' Currently disabled. See https://github.com/gaepdit/iaip/issues/1431
+        MessageBox.Show("Test reports cannot currently be deleted. Please contact EPD-IT for more info. (Ref #1431)")
+        Return
 
-            For Each RefNum As String In clbReferenceNumbers.CheckedItems
-                Dim queryList As New List(Of String)
-                Dim paramList As New List(Of SqlParameter())
+        'Try
+        '    If MessageBox.Show("Are you sure you want to delete these test reports?", "Confirm Delete",
+        '                       MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) _
+        '                       = DialogResult.No Then
+        '        Return
+        '    End If
 
-                RefNum = Mid(RefNum, 1, (RefNum.IndexOf(" -")))
+        '    For Each RefNum As String In clbReferenceNumbers.CheckedItems
+        '        Dim queryList As New List(Of String)
+        '        Dim paramList As New List(Of SqlParameter())
 
-                If Not DAL.Ismp.StackTestExists(RefNum) Then
-                    MessageBox.Show("Stack test " & RefNum & " does not exist.", "No such thing", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                Else
-                    Dim parameter As New SqlParameter("@ref", RefNum)
+        '        RefNum = Mid(RefNum, 1, (RefNum.IndexOf(" -")))
 
-                    queryList.Add("Update ISMPReportInformation set " &
-                        " strDelete = 'DELETE' where strReferenceNumber = @ref")
-                    paramList.Add({parameter})
+        '        If Not DAL.Ismp.StackTestExists(RefNum) Then
+        '            MessageBox.Show("Stack test " & RefNum & " does not exist.", "No such thing", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        '        Else
+        '            Dim parameter As New SqlParameter("@ref", RefNum)
 
-                    queryList.Add("update a
-                        set a.STRDELETE = 'True'
-                        from SSCPITEMMASTER a
-                            inner join SSCPTESTREPORTS r
-                            on a.STRTRACKINGNUMBER = r.STRTRACKINGNUMBER
-                        where r.STRREFERENCENUMBER = @ref")
-                    paramList.Add({parameter})
+        '            queryList.Add("Update ISMPReportInformation set " &
+        '                " strDelete = 'DELETE' where strReferenceNumber = @ref")
+        '            paramList.Add({parameter})
 
-                    DB.RunCommand(queryList, paramList)
-                    MessageBox.Show("Test no. " & RefNum & " deleted.", "Success", MessageBoxButtons.OK, MessageBoxIcon.None)
-                End If
-            Next
+        '            queryList.Add("update a
+        '                set a.STRDELETE = 'True'
+        '                from xxxSSCPITEMMASTER a
+        '                    inner join xxxSSCPTESTREPORTS r
+        '                    on a.STRTRACKINGNUMBER = r.STRTRACKINGNUMBER
+        '                where r.STRREFERENCENUMBER = @ref")
+        '            paramList.Add({parameter})
 
-            bgw1.WorkerReportsProgress = True
-            bgw1.WorkerSupportsCancellation = True
-            bgw1.RunWorkerAsync()
+        '            DB.RunCommand(queryList, paramList)
+        '            MessageBox.Show("Test no. " & RefNum & " deleted.", "Success", MessageBoxButtons.OK, MessageBoxIcon.None)
+        '        End If
+        '    Next
 
-            Clear()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        '    bgw1.WorkerReportsProgress = True
+        '    bgw1.WorkerSupportsCancellation = True
+        '    bgw1.RunWorkerAsync()
+
+        '    Clear()
+        'Catch ex As Exception
+        '    ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+        'End Try
     End Sub
+
     Private Sub StartComplianceWork(ReferenceNumber As String)
         ' AIRS number required
         If cboAIRSNumber.Text = "" Then Return
 
-        ' Check if SSCP data already exists
-        Dim query As String = "select convert(bit, count(*)) from dbo.SSCPTESTREPORTS where STRREFERENCENUMBER = @ReferenceNumber "
+        ' Check if SSCP assignment data already exists
+        Dim query As String = "select convert(bit, count(*)) from dbo.ISMPREPORTINFORMATION where STRREFERENCENUMBER = @ReferenceNumber and ComplianceAssignment is null "
         Dim paramRefNum As New SqlParameter("@ReferenceNumber", ReferenceNumber)
         If DB.GetBoolean(query, paramRefNum) Then Return
 
@@ -855,29 +786,14 @@ Public Class ISMPTestReportAdministrative
         query = "select [Staff ID] from iaip_facility.VW_FacilityAssignments_Compliance where AIRS = @airs"
         Dim paramAirs As New SqlParameter("@airs", "0413" & cboAIRSNumber.Text)
         Dim StaffResponsible As String = DB.GetString(query, paramAirs)
-        If String.IsNullOrEmpty(StaffResponsible) Then StaffResponsible = "0"
-
-        ' Best guess at due date of current test (seems unlikely to be correct)
-        query = "select DATSSCPTESTREPORTDUE from dbo.APBSUPPLAMENTALDATA where STRAIRSNUMBER = @airs "
-        Dim TestDue As Date? = DB.GetSingleValue(Of Date?)(query, paramAirs)
-        If TestDue Is Nothing Then TestDue = DTPDateClosed.Value
-
-        Dim DateReceivedBySscp As Date = DTPDateClosed.Value
+        If String.IsNullOrEmpty(StaffResponsible) Then Return
 
         Dim params As SqlParameter() = {
             paramRefNum,
-            New SqlParameter("@StaffResponsible", StaffResponsible),
-            New SqlParameter("@UserId", CurrentUser.UserID),
-            SqlParameterAsNull("@CompleteDate", SqlDbType.DateTime2),
-            SqlParameterAsNull("@AckLetter", SqlDbType.DateTime2),
-            New SqlParameter("@TestDue", TestDue),
-            SqlParameterAsNull("@TestReportComments", SqlDbType.VarChar),
-            New SqlParameter("@FollowUp", Boolean.FalseString),
-            SqlParameterAsNull("@NextTest", SqlDbType.DateTime2),
-            New SqlParameter("@DateReceivedBySscp", DateReceivedBySscp)
+            New SqlParameter("@StaffResponsible", StaffResponsible)
         }
 
-        DB.SPRunCommand("dbo.SaveStackTestSccpData", params)
+        DB.SPRunCommand("dbo.SaveStackTestSscpData", params)
     End Sub
 
 #Region "Main Menu"
