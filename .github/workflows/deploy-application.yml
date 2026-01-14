@@ -39,7 +39,7 @@ jobs:
       
     steps:
       - name: Check out the current (deployment) branch
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
         with:
           path: ${{ env.CodeBranch }}
           sparse-checkout: |
@@ -101,7 +101,7 @@ jobs:
           }
 
       - name: Check out the `gh-pages` branch
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
         with:
           ref: ${{ env.GhPagesBranch }}
           path: ${{ env.GhPagesBranch }}

@@ -449,6 +449,8 @@ Partial Class SSCPManagersTools
         '
         'txtCMSAIRSNumber
         '
+        Me.txtCMSAIRSNumber.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtCMSAIRSNumber.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtCMSAIRSNumber.Location = New System.Drawing.Point(89, 106)
         Me.txtCMSAIRSNumber.MaxLength = 8
         Me.txtCMSAIRSNumber.Name = "txtCMSAIRSNumber"
@@ -2305,6 +2307,8 @@ Partial Class SSCPManagersTools
         '
         'txtRecordNumber
         '
+        Me.txtRecordNumber.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtRecordNumber.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtRecordNumber.Location = New System.Drawing.Point(199, 19)
         Me.txtRecordNumber.Name = "txtRecordNumber"
         Me.txtRecordNumber.Size = New System.Drawing.Size(100, 20)
@@ -2414,6 +2418,8 @@ Partial Class SSCPManagersTools
         '
         'txtUpdateName
         '
+        Me.txtUpdateName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtUpdateName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtUpdateName.Location = New System.Drawing.Point(3, 16)
         Me.txtUpdateName.Name = "txtUpdateName"
         Me.txtUpdateName.Size = New System.Drawing.Size(150, 20)
@@ -2448,6 +2454,8 @@ Partial Class SSCPManagersTools
         '
         'txtNewName
         '
+        Me.txtNewName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtNewName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtNewName.Location = New System.Drawing.Point(26, 37)
         Me.txtNewName.Name = "txtNewName"
         Me.txtNewName.Size = New System.Drawing.Size(150, 20)

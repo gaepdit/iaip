@@ -1,4 +1,4 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
+<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class SscpEnforcement
     Inherits BaseForm
 
@@ -1303,6 +1303,8 @@ Partial Class SscpEnforcement
         '
         'COPenaltyAmount
         '
+        Me.COPenaltyAmount.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.COPenaltyAmount.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.COPenaltyAmount.Location = New System.Drawing.Point(447, 133)
         Me.COPenaltyAmount.MaxLength = 20
         Me.COPenaltyAmount.Name = "COPenaltyAmount"
@@ -1351,6 +1353,8 @@ Partial Class SscpEnforcement
         '
         'StipulatedPenaltyAmount
         '
+        Me.StipulatedPenaltyAmount.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.StipulatedPenaltyAmount.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.StipulatedPenaltyAmount.Location = New System.Drawing.Point(58, 21)
         Me.StipulatedPenaltyAmount.Name = "StipulatedPenaltyAmount"
         Me.StipulatedPenaltyAmount.Size = New System.Drawing.Size(91, 20)
@@ -1811,6 +1815,8 @@ Partial Class SscpEnforcement
         '
         Me.txtDocumentDescription.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtDocumentDescription.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtDocumentDescription.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtDocumentDescription.Location = New System.Drawing.Point(0, 52)
         Me.txtDocumentDescription.Name = "txtDocumentDescription"
         Me.txtDocumentDescription.Size = New System.Drawing.Size(251, 20)

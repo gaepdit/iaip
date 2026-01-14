@@ -1581,6 +1581,8 @@ Partial Class ISMPManagersTools
         '
         'txtReferenceNumber
         '
+        Me.txtReferenceNumber.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtReferenceNumber.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtReferenceNumber.Location = New System.Drawing.Point(40, 112)
         Me.txtReferenceNumber.Name = "txtReferenceNumber"
         Me.txtReferenceNumber.Size = New System.Drawing.Size(100, 20)
@@ -1843,6 +1845,8 @@ Partial Class ISMPManagersTools
         '
         'txtTestWitnessed
         '
+        Me.txtTestWitnessed.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtTestWitnessed.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtTestWitnessed.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtTestWitnessed.Location = New System.Drawing.Point(200, 32)
         Me.txtTestWitnessed.Name = "txtTestWitnessed"
@@ -1861,6 +1865,8 @@ Partial Class ISMPManagersTools
         '
         'txtTestOutOfCompliance
         '
+        Me.txtTestOutOfCompliance.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtTestOutOfCompliance.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtTestOutOfCompliance.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtTestOutOfCompliance.Location = New System.Drawing.Point(448, 32)
         Me.txtTestOutOfCompliance.Name = "txtTestOutOfCompliance"
@@ -1879,6 +1885,8 @@ Partial Class ISMPManagersTools
         '
         'txtTestCompleted
         '
+        Me.txtTestCompleted.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtTestCompleted.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtTestCompleted.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtTestCompleted.Location = New System.Drawing.Point(448, 8)
         Me.txtTestCompleted.Name = "txtTestCompleted"
@@ -1897,6 +1905,8 @@ Partial Class ISMPManagersTools
         '
         'txtReceived
         '
+        Me.txtReceived.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtReceived.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtReceived.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtReceived.Location = New System.Drawing.Point(200, 8)
         Me.txtReceived.Name = "txtReceived"
@@ -1962,6 +1972,8 @@ Partial Class ISMPManagersTools
         '
         'txtMedianTimeToComplete
         '
+        Me.txtMedianTimeToComplete.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtMedianTimeToComplete.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtMedianTimeToComplete.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtMedianTimeToComplete.Location = New System.Drawing.Point(200, 56)
         Me.txtMedianTimeToComplete.Name = "txtMedianTimeToComplete"
@@ -1980,6 +1992,8 @@ Partial Class ISMPManagersTools
         '
         'txt80Percent
         '
+        Me.txt80Percent.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txt80Percent.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txt80Percent.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txt80Percent.Location = New System.Drawing.Point(200, 80)
         Me.txt80Percent.Name = "txt80Percent"
@@ -2205,6 +2219,8 @@ Partial Class ISMPManagersTools
         '
         'txtMethodNumber
         '
+        Me.txtMethodNumber.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtMethodNumber.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtMethodNumber.Location = New System.Drawing.Point(18, 28)
         Me.txtMethodNumber.Name = "txtMethodNumber"
         Me.txtMethodNumber.Size = New System.Drawing.Size(98, 20)
@@ -2291,6 +2307,8 @@ Partial Class ISMPManagersTools
         '
         'txtCloseTestReportRefNum
         '
+        Me.txtCloseTestReportRefNum.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtCloseTestReportRefNum.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtCloseTestReportRefNum.Location = New System.Drawing.Point(114, 13)
         Me.txtCloseTestReportRefNum.Name = "txtCloseTestReportRefNum"
         Me.txtCloseTestReportRefNum.Size = New System.Drawing.Size(136, 20)
@@ -2378,6 +2396,8 @@ Partial Class ISMPManagersTools
         '
         'txtAddTestReportCommissioner
         '
+        Me.txtAddTestReportCommissioner.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtAddTestReportCommissioner.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtAddTestReportCommissioner.Location = New System.Drawing.Point(124, 102)
         Me.txtAddTestReportCommissioner.Name = "txtAddTestReportCommissioner"
         Me.txtAddTestReportCommissioner.Size = New System.Drawing.Size(211, 20)
@@ -2385,6 +2405,8 @@ Partial Class ISMPManagersTools
         '
         'txtAddTestReportDirector
         '
+        Me.txtAddTestReportDirector.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtAddTestReportDirector.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtAddTestReportDirector.Location = New System.Drawing.Point(124, 127)
         Me.txtAddTestReportDirector.Name = "txtAddTestReportDirector"
         Me.txtAddTestReportDirector.Size = New System.Drawing.Size(211, 20)
@@ -2392,6 +2414,8 @@ Partial Class ISMPManagersTools
         '
         'txtAddTestReportProgramManager
         '
+        Me.txtAddTestReportProgramManager.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtAddTestReportProgramManager.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtAddTestReportProgramManager.Location = New System.Drawing.Point(124, 151)
         Me.txtAddTestReportProgramManager.Name = "txtAddTestReportProgramManager"
         Me.txtAddTestReportProgramManager.Size = New System.Drawing.Size(211, 20)
@@ -2444,6 +2468,8 @@ Partial Class ISMPManagersTools
         '
         'txtAddTestReportRefNum
         '
+        Me.txtAddTestReportRefNum.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtAddTestReportRefNum.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtAddTestReportRefNum.Location = New System.Drawing.Point(124, 51)
         Me.txtAddTestReportRefNum.Name = "txtAddTestReportRefNum"
         Me.txtAddTestReportRefNum.Size = New System.Drawing.Size(108, 20)

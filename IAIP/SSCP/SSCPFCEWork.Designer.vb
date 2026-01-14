@@ -194,6 +194,8 @@ Partial Class SSCPFCEWork
         '
         'txtInspectionTrackingNumber
         '
+        Me.txtInspectionTrackingNumber.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtInspectionTrackingNumber.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtInspectionTrackingNumber.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtInspectionTrackingNumber.Location = New System.Drawing.Point(104, 8)
         Me.txtInspectionTrackingNumber.Name = "txtInspectionTrackingNumber"
@@ -268,6 +270,8 @@ Partial Class SSCPFCEWork
         '
         'txtNotificationTrackingNumber
         '
+        Me.txtNotificationTrackingNumber.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtNotificationTrackingNumber.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtNotificationTrackingNumber.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtNotificationTrackingNumber.Location = New System.Drawing.Point(104, 8)
         Me.txtNotificationTrackingNumber.Name = "txtNotificationTrackingNumber"
@@ -335,6 +339,8 @@ Partial Class SSCPFCEWork
         '
         'txtACCTrackingNumber
         '
+        Me.txtACCTrackingNumber.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtACCTrackingNumber.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtACCTrackingNumber.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtACCTrackingNumber.Location = New System.Drawing.Point(104, 8)
         Me.txtACCTrackingNumber.Name = "txtACCTrackingNumber"
@@ -403,6 +409,8 @@ Partial Class SSCPFCEWork
         '
         'txtReportTrackingNumber
         '
+        Me.txtReportTrackingNumber.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtReportTrackingNumber.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtReportTrackingNumber.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtReportTrackingNumber.Location = New System.Drawing.Point(104, 8)
         Me.txtReportTrackingNumber.Name = "txtReportTrackingNumber"
@@ -469,6 +477,8 @@ Partial Class SSCPFCEWork
         '
         'txtISMPReferenceNumber
         '
+        Me.txtISMPReferenceNumber.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtISMPReferenceNumber.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtISMPReferenceNumber.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtISMPReferenceNumber.Location = New System.Drawing.Point(104, 8)
         Me.txtISMPReferenceNumber.Name = "txtISMPReferenceNumber"
@@ -536,6 +546,8 @@ Partial Class SSCPFCEWork
         '
         'txtPerformanceTests
         '
+        Me.txtPerformanceTests.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtPerformanceTests.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtPerformanceTests.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtPerformanceTests.Location = New System.Drawing.Point(104, 8)
         Me.txtPerformanceTests.Name = "txtPerformanceTests"
@@ -602,6 +614,8 @@ Partial Class SSCPFCEWork
         '
         'txtEnforcement
         '
+        Me.txtEnforcement.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtEnforcement.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtEnforcement.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtEnforcement.Location = New System.Drawing.Point(120, 8)
         Me.txtEnforcement.Name = "txtEnforcement"

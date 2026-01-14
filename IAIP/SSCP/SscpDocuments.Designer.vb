@@ -146,6 +146,8 @@ Partial Class SscpDocuments
         'txtNewDocumentDescription
         '
         Me.txtNewDocumentDescription.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtNewDocumentDescription.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtNewDocumentDescription.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtNewDocumentDescription.Location = New System.Drawing.Point(7, 50)
         Me.txtNewDocumentDescription.Name = "txtNewDocumentDescription"
         Me.txtNewDocumentDescription.Size = New System.Drawing.Size(233, 20)
@@ -241,6 +243,8 @@ Partial Class SscpDocuments
         '
         Me.txtDocumentDescription.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtDocumentDescription.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtDocumentDescription.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtDocumentDescription.Location = New System.Drawing.Point(0, 52)
         Me.txtDocumentDescription.Name = "txtDocumentDescription"
         Me.txtDocumentDescription.Size = New System.Drawing.Size(293, 20)
@@ -312,6 +316,8 @@ Partial Class SscpDocuments
         '
         'txtFindEnforcement
         '
+        Me.txtFindEnforcement.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtFindEnforcement.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtFindEnforcement.Location = New System.Drawing.Point(125, 12)
         Me.txtFindEnforcement.Name = "txtFindEnforcement"
         Me.txtFindEnforcement.Size = New System.Drawing.Size(67, 20)

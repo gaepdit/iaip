@@ -2913,12 +2913,12 @@ Public Class FeesAudit
 
             If EndCollections = "True" Then
                 SQL = "update FS_Admin set " &
-                "numCurrentStatus = '12' " &
-                "where numFeeYear = @AIRSNumber " &
-                "and strAIRSNumber = @FeeYear "
+                    "numCurrentStatus = '12' " &
+                    "where numFeeYear = @year " &
+                    "and strAIRSNumber = @airs "
                 Dim p6 As SqlParameter() = {
-                    New SqlParameter("@AIRSNumber", AirsNumber.DbFormattedString),
-                    New SqlParameter("@FeeYear", FeeYear)
+                    New SqlParameter("@year", FeeYear),
+                    New SqlParameter("@airs", AirsNumber.DbFormattedString)
                 }
                 DB.RunCommand(SQL, p6)
             End If
