@@ -255,6 +255,8 @@ Partial Class IAIPFacilityCreator
         '
         'txtCDSStreetAddress
         '
+        Me.txtCDSStreetAddress.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtCDSStreetAddress.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtCDSStreetAddress.Location = New System.Drawing.Point(104, 38)
         Me.txtCDSStreetAddress.MaxLength = 100
         Me.txtCDSStreetAddress.Name = "txtCDSStreetAddress"
@@ -281,6 +283,8 @@ Partial Class IAIPFacilityCreator
         '
         'txtCDSFacilityName
         '
+        Me.txtCDSFacilityName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtCDSFacilityName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtCDSFacilityName.Location = New System.Drawing.Point(104, 14)
         Me.txtCDSFacilityName.MaxLength = 100
         Me.txtCDSFacilityName.Name = "txtCDSFacilityName"
@@ -298,6 +302,8 @@ Partial Class IAIPFacilityCreator
         '
         'txtCDSCity
         '
+        Me.txtCDSCity.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtCDSCity.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtCDSCity.Location = New System.Drawing.Point(104, 61)
         Me.txtCDSCity.MaxLength = 50
         Me.txtCDSCity.Name = "txtCDSCity"
@@ -429,6 +435,8 @@ Partial Class IAIPFacilityCreator
         '
         'txtContactPhoneNumber
         '
+        Me.txtContactPhoneNumber.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtContactPhoneNumber.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtContactPhoneNumber.Location = New System.Drawing.Point(362, 40)
         Me.txtContactPhoneNumber.Name = "txtContactPhoneNumber"
         Me.txtContactPhoneNumber.Size = New System.Drawing.Size(189, 20)
@@ -445,6 +453,8 @@ Partial Class IAIPFacilityCreator
         '
         'txtFacilityComments
         '
+        Me.txtFacilityComments.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtFacilityComments.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtFacilityComments.Location = New System.Drawing.Point(76, 65)
         Me.txtFacilityComments.Multiline = True
         Me.txtFacilityComments.Name = "txtFacilityComments"
@@ -453,6 +463,8 @@ Partial Class IAIPFacilityCreator
         '
         'txtContactPedigree
         '
+        Me.txtContactPedigree.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtContactPedigree.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtContactPedigree.Location = New System.Drawing.Point(632, 17)
         Me.txtContactPedigree.Name = "txtContactPedigree"
         Me.txtContactPedigree.Size = New System.Drawing.Size(72, 20)
@@ -460,6 +472,8 @@ Partial Class IAIPFacilityCreator
         '
         'txtContactSocialTitle
         '
+        Me.txtContactSocialTitle.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtContactSocialTitle.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtContactSocialTitle.Location = New System.Drawing.Point(76, 17)
         Me.txtContactSocialTitle.Name = "txtContactSocialTitle"
         Me.txtContactSocialTitle.Size = New System.Drawing.Size(72, 20)
@@ -485,6 +499,8 @@ Partial Class IAIPFacilityCreator
         '
         'txtContactLastName
         '
+        Me.txtContactLastName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtContactLastName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtContactLastName.Location = New System.Drawing.Point(423, 17)
         Me.txtContactLastName.Name = "txtContactLastName"
         Me.txtContactLastName.Size = New System.Drawing.Size(151, 20)
@@ -501,6 +517,8 @@ Partial Class IAIPFacilityCreator
         '
         'txtContactFirstName
         '
+        Me.txtContactFirstName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtContactFirstName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtContactFirstName.Location = New System.Drawing.Point(212, 17)
         Me.txtContactFirstName.Name = "txtContactFirstName"
         Me.txtContactFirstName.Size = New System.Drawing.Size(151, 20)
@@ -535,6 +553,8 @@ Partial Class IAIPFacilityCreator
         '
         'txtContactTitle
         '
+        Me.txtContactTitle.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtContactTitle.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtContactTitle.Location = New System.Drawing.Point(76, 40)
         Me.txtContactTitle.Name = "txtContactTitle"
         Me.txtContactTitle.Size = New System.Drawing.Size(180, 20)
@@ -842,6 +862,8 @@ Partial Class IAIPFacilityCreator
         '
         'txtFacilityDescription
         '
+        Me.txtFacilityDescription.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtFacilityDescription.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtFacilityDescription.Location = New System.Drawing.Point(104, 66)
         Me.txtFacilityDescription.MaxLength = 4000
         Me.txtFacilityDescription.Name = "txtFacilityDescription"
@@ -913,6 +935,8 @@ Partial Class IAIPFacilityCreator
         '
         'txtMailingCity
         '
+        Me.txtMailingCity.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtMailingCity.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtMailingCity.Location = New System.Drawing.Point(104, 37)
         Me.txtMailingCity.Name = "txtMailingCity"
         Me.txtMailingCity.Size = New System.Drawing.Size(160, 20)
@@ -929,6 +953,8 @@ Partial Class IAIPFacilityCreator
         '
         'txtMailingAddress
         '
+        Me.txtMailingAddress.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtMailingAddress.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtMailingAddress.Location = New System.Drawing.Point(104, 14)
         Me.txtMailingAddress.Name = "txtMailingAddress"
         Me.txtMailingAddress.Size = New System.Drawing.Size(370, 20)
@@ -951,6 +977,8 @@ Partial Class IAIPFacilityCreator
         '
         'txtApplicationNumber
         '
+        Me.txtApplicationNumber.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtApplicationNumber.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtApplicationNumber.Cue = "App No."
         Me.txtApplicationNumber.Location = New System.Drawing.Point(543, 10)
         Me.txtApplicationNumber.Name = "txtApplicationNumber"
@@ -1178,6 +1206,8 @@ Partial Class IAIPFacilityCreator
         '
         'txtApprovialComments
         '
+        Me.txtApprovialComments.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtApprovialComments.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtApprovialComments.Location = New System.Drawing.Point(89, 61)
         Me.txtApprovialComments.MaxLength = 100
         Me.txtApprovialComments.Name = "txtApprovialComments"
@@ -1186,6 +1216,8 @@ Partial Class IAIPFacilityCreator
         '
         'txtStreetAddress
         '
+        Me.txtStreetAddress.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtStreetAddress.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtStreetAddress.Location = New System.Drawing.Point(534, 35)
         Me.txtStreetAddress.Name = "txtStreetAddress"
         Me.txtStreetAddress.Size = New System.Drawing.Size(31, 20)
@@ -1371,6 +1403,8 @@ Partial Class IAIPFacilityCreator
         '
         'txtNewFacilityName
         '
+        Me.txtNewFacilityName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtNewFacilityName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtNewFacilityName.Location = New System.Drawing.Point(263, 35)
         Me.txtNewFacilityName.MaxLength = 100
         Me.txtNewFacilityName.Name = "txtNewFacilityName"
@@ -1441,6 +1475,8 @@ Partial Class IAIPFacilityCreator
         '
         'AirsNumberToRemove
         '
+        Me.AirsNumberToRemove.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.AirsNumberToRemove.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.AirsNumberToRemove.Location = New System.Drawing.Point(37, 55)
         Me.AirsNumberToRemove.Name = "AirsNumberToRemove"
         Me.AirsNumberToRemove.Size = New System.Drawing.Size(100, 20)

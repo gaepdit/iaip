@@ -132,6 +132,8 @@ Partial Class IaipUserManagement
         '
         'ProfileOfficeNumber
         '
+        Me.ProfileOfficeNumber.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.ProfileOfficeNumber.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.ProfileOfficeNumber.Location = New System.Drawing.Point(110, 143)
         Me.ProfileOfficeNumber.Name = "ProfileOfficeNumber"
         Me.ProfileOfficeNumber.Size = New System.Drawing.Size(96, 20)
@@ -181,6 +183,8 @@ Partial Class IaipUserManagement
         '
         'ProfileEmailAddress
         '
+        Me.ProfileEmailAddress.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.ProfileEmailAddress.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.ProfileEmailAddress.Location = New System.Drawing.Point(110, 91)
         Me.ProfileEmailAddress.Name = "ProfileEmailAddress"
         Me.ProfileEmailAddress.Size = New System.Drawing.Size(140, 20)
@@ -188,6 +192,8 @@ Partial Class IaipUserManagement
         '
         'ProfileLastName
         '
+        Me.ProfileLastName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.ProfileLastName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.ProfileLastName.Location = New System.Drawing.Point(110, 39)
         Me.ProfileLastName.Name = "ProfileLastName"
         Me.ProfileLastName.Size = New System.Drawing.Size(140, 20)
@@ -195,6 +201,8 @@ Partial Class IaipUserManagement
         '
         'ProfileFirstName
         '
+        Me.ProfileFirstName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.ProfileFirstName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.ProfileFirstName.Location = New System.Drawing.Point(110, 65)
         Me.ProfileFirstName.Name = "ProfileFirstName"
         Me.ProfileFirstName.Size = New System.Drawing.Size(140, 20)
@@ -314,6 +322,8 @@ Partial Class IaipUserManagement
         '
         'ProfileUsername
         '
+        Me.ProfileUsername.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.ProfileUsername.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.ProfileUsername.Location = New System.Drawing.Point(110, 13)
         Me.ProfileUsername.Name = "ProfileUsername"
         Me.ProfileUsername.Size = New System.Drawing.Size(96, 20)
@@ -400,6 +410,8 @@ Partial Class IaipUserManagement
         '
         'SearchLastName
         '
+        Me.SearchLastName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.SearchLastName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.SearchLastName.Location = New System.Drawing.Point(110, 39)
         Me.SearchLastName.Name = "SearchLastName"
         Me.SearchLastName.Size = New System.Drawing.Size(140, 20)
@@ -407,6 +419,8 @@ Partial Class IaipUserManagement
         '
         'SearchFirstName
         '
+        Me.SearchFirstName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.SearchFirstName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.SearchFirstName.Location = New System.Drawing.Point(110, 65)
         Me.SearchFirstName.Name = "SearchFirstName"
         Me.SearchFirstName.Size = New System.Drawing.Size(140, 20)

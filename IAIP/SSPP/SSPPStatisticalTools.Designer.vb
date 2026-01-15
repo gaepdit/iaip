@@ -1818,6 +1818,8 @@ Partial Class SSPPStatisticalTools
         '
         'txtEPA6C
         '
+        Me.txtEPA6C.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtEPA6C.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtEPA6C.Location = New System.Drawing.Point(288, 854)
         Me.txtEPA6C.Name = "txtEPA6C"
         Me.txtEPA6C.Size = New System.Drawing.Size(52, 20)
@@ -1965,6 +1967,8 @@ Partial Class SSPPStatisticalTools
         '
         'txtEPA8a
         '
+        Me.txtEPA8a.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtEPA8a.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtEPA8a.Location = New System.Drawing.Point(288, 1109)
         Me.txtEPA8a.Name = "txtEPA8a"
         Me.txtEPA8a.Size = New System.Drawing.Size(52, 20)
@@ -1972,6 +1976,8 @@ Partial Class SSPPStatisticalTools
         '
         'txtEPA7c
         '
+        Me.txtEPA7c.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtEPA7c.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtEPA7c.Location = New System.Drawing.Point(288, 1038)
         Me.txtEPA7c.Name = "txtEPA7c"
         Me.txtEPA7c.Size = New System.Drawing.Size(52, 20)
@@ -1979,6 +1985,8 @@ Partial Class SSPPStatisticalTools
         '
         'txtEPA7b
         '
+        Me.txtEPA7b.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtEPA7b.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtEPA7b.Location = New System.Drawing.Point(288, 969)
         Me.txtEPA7b.Name = "txtEPA7b"
         Me.txtEPA7b.Size = New System.Drawing.Size(52, 20)
@@ -1986,6 +1994,8 @@ Partial Class SSPPStatisticalTools
         '
         'txtEPA7a
         '
+        Me.txtEPA7a.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtEPA7a.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtEPA7a.Location = New System.Drawing.Point(288, 912)
         Me.txtEPA7a.Name = "txtEPA7a"
         Me.txtEPA7a.Size = New System.Drawing.Size(52, 20)
@@ -1993,6 +2003,8 @@ Partial Class SSPPStatisticalTools
         '
         'txtEPA6b
         '
+        Me.txtEPA6b.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtEPA6b.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtEPA6b.Location = New System.Drawing.Point(288, 812)
         Me.txtEPA6b.Name = "txtEPA6b"
         Me.txtEPA6b.Size = New System.Drawing.Size(52, 20)
@@ -2000,6 +2012,8 @@ Partial Class SSPPStatisticalTools
         '
         'txtEPA6a
         '
+        Me.txtEPA6a.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtEPA6a.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtEPA6a.Location = New System.Drawing.Point(288, 766)
         Me.txtEPA6a.Name = "txtEPA6a"
         Me.txtEPA6a.Size = New System.Drawing.Size(52, 20)
@@ -2101,6 +2115,8 @@ Partial Class SSPPStatisticalTools
         '
         'txtEPA5a
         '
+        Me.txtEPA5a.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtEPA5a.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtEPA5a.Location = New System.Drawing.Point(288, 702)
         Me.txtEPA5a.Name = "txtEPA5a"
         Me.txtEPA5a.Size = New System.Drawing.Size(52, 20)
@@ -2127,6 +2143,8 @@ Partial Class SSPPStatisticalTools
         '
         'txtEPA4b
         '
+        Me.txtEPA4b.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtEPA4b.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtEPA4b.Location = New System.Drawing.Point(288, 629)
         Me.txtEPA4b.Name = "txtEPA4b"
         Me.txtEPA4b.Size = New System.Drawing.Size(52, 20)
@@ -2134,6 +2152,8 @@ Partial Class SSPPStatisticalTools
         '
         'txtEPA4a
         '
+        Me.txtEPA4a.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtEPA4a.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtEPA4a.Location = New System.Drawing.Point(288, 568)
         Me.txtEPA4a.Name = "txtEPA4a"
         Me.txtEPA4a.Size = New System.Drawing.Size(52, 20)
@@ -2170,6 +2190,8 @@ Partial Class SSPPStatisticalTools
         '
         'txtEPA3a
         '
+        Me.txtEPA3a.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtEPA3a.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtEPA3a.Location = New System.Drawing.Point(288, 519)
         Me.txtEPA3a.Name = "txtEPA3a"
         Me.txtEPA3a.Size = New System.Drawing.Size(52, 20)
@@ -2186,6 +2208,8 @@ Partial Class SSPPStatisticalTools
         '
         'txtEPA2d
         '
+        Me.txtEPA2d.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtEPA2d.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtEPA2d.Location = New System.Drawing.Point(288, 417)
         Me.txtEPA2d.Name = "txtEPA2d"
         Me.txtEPA2d.Size = New System.Drawing.Size(52, 20)
@@ -2193,6 +2217,8 @@ Partial Class SSPPStatisticalTools
         '
         'txtEPA2c
         '
+        Me.txtEPA2c.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtEPA2c.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtEPA2c.Location = New System.Drawing.Point(288, 387)
         Me.txtEPA2c.Name = "txtEPA2c"
         Me.txtEPA2c.Size = New System.Drawing.Size(52, 20)
@@ -2200,6 +2226,8 @@ Partial Class SSPPStatisticalTools
         '
         'txtEPA2b
         '
+        Me.txtEPA2b.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtEPA2b.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtEPA2b.Location = New System.Drawing.Point(288, 250)
         Me.txtEPA2b.Name = "txtEPA2b"
         Me.txtEPA2b.Size = New System.Drawing.Size(52, 20)
@@ -2207,6 +2235,8 @@ Partial Class SSPPStatisticalTools
         '
         'txtEPA2a
         '
+        Me.txtEPA2a.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtEPA2a.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtEPA2a.Location = New System.Drawing.Point(288, 152)
         Me.txtEPA2a.Name = "txtEPA2a"
         Me.txtEPA2a.Size = New System.Drawing.Size(52, 20)
@@ -2295,6 +2325,8 @@ Partial Class SSPPStatisticalTools
         '
         'txtEPA1c
         '
+        Me.txtEPA1c.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtEPA1c.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtEPA1c.Location = New System.Drawing.Point(288, 118)
         Me.txtEPA1c.Name = "txtEPA1c"
         Me.txtEPA1c.Size = New System.Drawing.Size(52, 20)
@@ -2311,6 +2343,8 @@ Partial Class SSPPStatisticalTools
         '
         'txtEPA1b
         '
+        Me.txtEPA1b.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtEPA1b.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtEPA1b.Location = New System.Drawing.Point(288, 89)
         Me.txtEPA1b.Name = "txtEPA1b"
         Me.txtEPA1b.Size = New System.Drawing.Size(52, 20)
@@ -2327,6 +2361,8 @@ Partial Class SSPPStatisticalTools
         '
         'txtEPA1a
         '
+        Me.txtEPA1a.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtEPA1a.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtEPA1a.Location = New System.Drawing.Point(288, 62)
         Me.txtEPA1a.Name = "txtEPA1a"
         Me.txtEPA1a.Size = New System.Drawing.Size(52, 20)
@@ -2473,6 +2509,8 @@ Partial Class SSPPStatisticalTools
         '
         'txtRecordNumber
         '
+        Me.txtRecordNumber.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtRecordNumber.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtRecordNumber.Location = New System.Drawing.Point(90, 23)
         Me.txtRecordNumber.Name = "txtRecordNumber"
         Me.txtRecordNumber.Size = New System.Drawing.Size(73, 20)

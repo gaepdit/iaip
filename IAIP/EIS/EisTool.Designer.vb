@@ -1,4 +1,4 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
+<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class EisTool
     Inherits BaseForm
 
@@ -921,6 +921,8 @@ Partial Class EisTool
         '
         'txtEIModifyMCity
         '
+        Me.txtEIModifyMCity.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtEIModifyMCity.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtEIModifyMCity.Location = New System.Drawing.Point(124, 254)
         Me.txtEIModifyMCity.Name = "txtEIModifyMCity"
         Me.txtEIModifyMCity.Size = New System.Drawing.Size(243, 20)
@@ -928,6 +930,8 @@ Partial Class EisTool
         '
         'txtEIModifyCity
         '
+        Me.txtEIModifyCity.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtEIModifyCity.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtEIModifyCity.Location = New System.Drawing.Point(124, 150)
         Me.txtEIModifyCity.Name = "txtEIModifyCity"
         Me.txtEIModifyCity.Size = New System.Drawing.Size(243, 20)
@@ -953,6 +957,8 @@ Partial Class EisTool
         '
         'txtEIModifyLocation
         '
+        Me.txtEIModifyLocation.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtEIModifyLocation.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtEIModifyLocation.Location = New System.Drawing.Point(124, 124)
         Me.txtEIModifyLocation.Name = "txtEIModifyLocation"
         Me.txtEIModifyLocation.Size = New System.Drawing.Size(322, 20)
@@ -960,6 +966,8 @@ Partial Class EisTool
         '
         'txtEIModifyMLocation
         '
+        Me.txtEIModifyMLocation.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtEIModifyMLocation.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtEIModifyMLocation.Location = New System.Drawing.Point(124, 228)
         Me.txtEIModifyMLocation.Name = "txtEIModifyMLocation"
         Me.txtEIModifyMLocation.Size = New System.Drawing.Size(322, 20)
@@ -994,6 +1002,8 @@ Partial Class EisTool
         '
         'txtEIModifyFacilityName
         '
+        Me.txtEIModifyFacilityName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtEIModifyFacilityName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtEIModifyFacilityName.Location = New System.Drawing.Point(124, 46)
         Me.txtEIModifyFacilityName.Name = "txtEIModifyFacilityName"
         Me.txtEIModifyFacilityName.Size = New System.Drawing.Size(322, 20)
@@ -1173,6 +1183,8 @@ Partial Class EisTool
         '
         'txtEISMailoutEditEmailAddress
         '
+        Me.txtEISMailoutEditEmailAddress.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtEISMailoutEditEmailAddress.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtEISMailoutEditEmailAddress.Location = New System.Drawing.Point(443, 247)
         Me.txtEISMailoutEditEmailAddress.Name = "txtEISMailoutEditEmailAddress"
         Me.txtEISMailoutEditEmailAddress.Size = New System.Drawing.Size(322, 20)
@@ -1197,6 +1209,8 @@ Partial Class EisTool
         '
         'txtEISMailoutEditCompanyName
         '
+        Me.txtEISMailoutEditCompanyName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtEISMailoutEditCompanyName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtEISMailoutEditCompanyName.Location = New System.Drawing.Point(443, 12)
         Me.txtEISMailoutEditCompanyName.Name = "txtEISMailoutEditCompanyName"
         Me.txtEISMailoutEditCompanyName.Size = New System.Drawing.Size(322, 20)
@@ -1204,6 +1218,8 @@ Partial Class EisTool
         '
         'txtEISMailoutEditLastName
         '
+        Me.txtEISMailoutEditLastName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtEISMailoutEditLastName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtEISMailoutEditLastName.Location = New System.Drawing.Point(443, 195)
         Me.txtEISMailoutEditLastName.Name = "txtEISMailoutEditLastName"
         Me.txtEISMailoutEditLastName.Size = New System.Drawing.Size(322, 20)
@@ -1245,6 +1261,8 @@ Partial Class EisTool
         '
         'txtEISMailoutEditAdress
         '
+        Me.txtEISMailoutEditAdress.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtEISMailoutEditAdress.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtEISMailoutEditAdress.Location = New System.Drawing.Point(443, 38)
         Me.txtEISMailoutEditAdress.Name = "txtEISMailoutEditAdress"
         Me.txtEISMailoutEditAdress.Size = New System.Drawing.Size(322, 20)
@@ -1252,6 +1270,8 @@ Partial Class EisTool
         '
         'txtEISMailoutEditPrefix
         '
+        Me.txtEISMailoutEditPrefix.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtEISMailoutEditPrefix.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtEISMailoutEditPrefix.Location = New System.Drawing.Point(443, 221)
         Me.txtEISMailoutEditPrefix.Name = "txtEISMailoutEditPrefix"
         Me.txtEISMailoutEditPrefix.Size = New System.Drawing.Size(322, 20)
@@ -1285,6 +1305,8 @@ Partial Class EisTool
         '
         'txtEISMailoutEditAddress2
         '
+        Me.txtEISMailoutEditAddress2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtEISMailoutEditAddress2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtEISMailoutEditAddress2.Location = New System.Drawing.Point(443, 64)
         Me.txtEISMailoutEditAddress2.Name = "txtEISMailoutEditAddress2"
         Me.txtEISMailoutEditAddress2.Size = New System.Drawing.Size(322, 20)
@@ -1309,6 +1331,8 @@ Partial Class EisTool
         '
         'txtEISMailoutEditCity
         '
+        Me.txtEISMailoutEditCity.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtEISMailoutEditCity.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtEISMailoutEditCity.Location = New System.Drawing.Point(443, 90)
         Me.txtEISMailoutEditCity.Name = "txtEISMailoutEditCity"
         Me.txtEISMailoutEditCity.Size = New System.Drawing.Size(322, 20)
@@ -1333,6 +1357,8 @@ Partial Class EisTool
         '
         'txtEISMailoutEditState
         '
+        Me.txtEISMailoutEditState.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtEISMailoutEditState.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtEISMailoutEditState.Location = New System.Drawing.Point(443, 116)
         Me.txtEISMailoutEditState.Name = "txtEISMailoutEditState"
         Me.txtEISMailoutEditState.Size = New System.Drawing.Size(322, 20)
@@ -1357,6 +1383,8 @@ Partial Class EisTool
         '
         'txtEISMailoutEditZipCode
         '
+        Me.txtEISMailoutEditZipCode.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtEISMailoutEditZipCode.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtEISMailoutEditZipCode.Location = New System.Drawing.Point(443, 142)
         Me.txtEISMailoutEditZipCode.Name = "txtEISMailoutEditZipCode"
         Me.txtEISMailoutEditZipCode.Size = New System.Drawing.Size(322, 20)
@@ -1389,6 +1417,8 @@ Partial Class EisTool
         '
         'txtEISMailoutEditFirstName
         '
+        Me.txtEISMailoutEditFirstName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtEISMailoutEditFirstName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtEISMailoutEditFirstName.Location = New System.Drawing.Point(443, 168)
         Me.txtEISMailoutEditFirstName.Name = "txtEISMailoutEditFirstName"
         Me.txtEISMailoutEditFirstName.Size = New System.Drawing.Size(322, 20)
@@ -1448,6 +1478,8 @@ Partial Class EisTool
         '
         'txtEISMailoutEditFacilityName
         '
+        Me.txtEISMailoutEditFacilityName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtEISMailoutEditFacilityName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtEISMailoutEditFacilityName.Location = New System.Drawing.Point(445, 21)
         Me.txtEISMailoutEditFacilityName.Name = "txtEISMailoutEditFacilityName"
         Me.txtEISMailoutEditFacilityName.Size = New System.Drawing.Size(322, 20)
@@ -2028,6 +2060,8 @@ Partial Class EisTool
         '
         'txtPointTrackingNumber
         '
+        Me.txtPointTrackingNumber.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtPointTrackingNumber.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtPointTrackingNumber.Location = New System.Drawing.Point(486, 148)
         Me.txtPointTrackingNumber.MaxLength = 100
         Me.txtPointTrackingNumber.Name = "txtPointTrackingNumber"
@@ -2065,6 +2099,8 @@ Partial Class EisTool
         '
         'txtFITrackingNumber
         '
+        Me.txtFITrackingNumber.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtFITrackingNumber.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtFITrackingNumber.Location = New System.Drawing.Point(486, 35)
         Me.txtFITrackingNumber.MaxLength = 100
         Me.txtFITrackingNumber.Name = "txtFITrackingNumber"

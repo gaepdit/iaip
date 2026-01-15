@@ -76,6 +76,8 @@ Partial Class IaipUserProfile
         '
         'OfficeNumber
         '
+        Me.OfficeNumber.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.OfficeNumber.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.OfficeNumber.Location = New System.Drawing.Point(111, 129)
         Me.OfficeNumber.MaxLength = 10
         Me.OfficeNumber.Name = "OfficeNumber"
@@ -84,6 +86,8 @@ Partial Class IaipUserProfile
         '
         'EmailAddress
         '
+        Me.EmailAddress.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.EmailAddress.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.EmailAddress.Location = New System.Drawing.Point(111, 77)
         Me.EmailAddress.MaxLength = 100
         Me.EmailAddress.Name = "EmailAddress"
@@ -92,6 +96,8 @@ Partial Class IaipUserProfile
         '
         'LastName
         '
+        Me.LastName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.LastName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.LastName.Location = New System.Drawing.Point(111, 51)
         Me.LastName.MaxLength = 100
         Me.LastName.Name = "LastName"
@@ -100,6 +106,8 @@ Partial Class IaipUserProfile
         '
         'FirstName
         '
+        Me.FirstName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.FirstName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.FirstName.Location = New System.Drawing.Point(111, 25)
         Me.FirstName.MaxLength = 100
         Me.FirstName.Name = "FirstName"

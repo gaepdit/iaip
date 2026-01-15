@@ -1,6 +1,7 @@
-% IAIP: What's New -- 2025
+% IAIP: What's New -- 2026
 
 *Previously:*
+[2025](changelog-2025.html) |
 [2024](changelog-2024.html) |
 [2023](changelog-2023.html) |
 [2022](changelog-2022.html) |
@@ -14,68 +15,7 @@
 [2014](changelog-2014.html) |
 [2013](changelog-2013.html)
 
-## Version 7.5.9 <span>(5-Nov-2025)</span>
+## Version 7.5.10 <span>(15-Jan-2026)</span>
 
-* Display CAERS users on the facility EIS page
-
-## Version 7.5.8 <span>(22-Oct-2025)</span>
-
-* Added additional cc recipients to permit application emails.
-
-## Version 7.5.7 <span>(9-Oct-2025)</span>
-
-* Fixed another bug in the permit application tracking log.
-* Fixed a bug in compliance notification entries.
-
-## Version 7.5.6 <span>(6-Oct-2025)</span>
-
-* Fixed a bug in the permit application tracking log.
-
-## Version 7.5.5 <span>(3-Oct-2025)</span>
-
-* Updated the PA/PN copy.
-
-## Version 7.5.4 <span>(15-Sep-2025)</span>
-
-* Changed how emails are sent from the permit application tracking log.
-* Made some minor improvements to the permit application tracking log performance.
-* Updated the app icon for hig-res screens.
-
-## Version 7.5.3 <span>(11-Aug-2025)</span>
-
-* Fixed the WPB and SBEAP contact info in the permit application acknowlegment email.
-
-## Version 7.5.2 <span>(29-Jul-2025)</span>
-
-* Org notifications are now displayed on the main navigation screen.
-
-## Version 7.5.1 <span>(24-Jul-2025)</span>
-
-* Added a link from the Permit Application Tracking Log to the Facility Summary.
-
-## Version 7.5.0 <span>(22-Jul-2025)</span>
-
-* The table that shows the status of the fees email notifications has been updated to include more info.
-* Some experimental code has been added to try to improve database connection resiliency.
-
-## Version 7.4.0.1 <span>(18-Jun-2025)</span>
-
-* Emergency bugfix release for the annual fees email notifications.
-
-## Version 7.4.0 <span>(12-Jun-2025)</span>
-
-* A new feature has been added to enable automatically sending the initial notification email for annual permit fees.
-* AIRS numbers can now be entered using a simpler format: try typing "51-7" instead of "051-00007" into an AIRS number field.
-* Some bugs were fixed.
-
-## Version 7.3.6 <span>(29-Apr-2025)</span>
-
-* This update includes a minor fix that attempts to provide a more stable database connection.
-
-## Version 7.3.5 <span>(25-Mar-2025)</span>
-
-* Updated the email address for permit comments.
-
-## Version 7.3.4 <span>(5-Feb-2025)</span>
-
-* Fixed searching by Notification Type in the Compliance Log.
+* Enabled the Ctrl-Backspace shortcut in most text boxes.
+* Fixed some bugs in the Fee Audit and Stack Test forms.

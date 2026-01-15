@@ -310,6 +310,8 @@ Partial Class SSPPPublicNoticesAndAdvisories
         '
         'txtApplicationNumberEditor
         '
+        Me.txtApplicationNumberEditor.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtApplicationNumberEditor.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtApplicationNumberEditor.Location = New System.Drawing.Point(13, 29)
         Me.txtApplicationNumberEditor.Name = "txtApplicationNumberEditor"
         Me.txtApplicationNumberEditor.Size = New System.Drawing.Size(119, 20)

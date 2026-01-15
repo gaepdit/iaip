@@ -1,4 +1,4 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
+<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class FeesLog
     Inherits BaseForm
 
@@ -265,6 +265,8 @@ Partial Class FeesLog
         '
         'mtbSearchAirsNumber
         '
+        Me.mtbSearchAirsNumber.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.mtbSearchAirsNumber.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.mtbSearchAirsNumber.Location = New System.Drawing.Point(80, 19)
         Me.mtbSearchAirsNumber.MaxLength = 8
         Me.mtbSearchAirsNumber.Name = "mtbSearchAirsNumber"
@@ -282,6 +284,8 @@ Partial Class FeesLog
         '
         'txtSearchFacilityName
         '
+        Me.txtSearchFacilityName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtSearchFacilityName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtSearchFacilityName.Location = New System.Drawing.Point(80, 45)
         Me.txtSearchFacilityName.Name = "txtSearchFacilityName"
         Me.txtSearchFacilityName.Size = New System.Drawing.Size(106, 20)

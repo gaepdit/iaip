@@ -120,6 +120,8 @@ Partial Class IAIPLookUpTables
         '
         'txtApbManagementName
         '
+        Me.txtApbManagementName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtApbManagementName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtApbManagementName.Location = New System.Drawing.Point(119, 32)
         Me.txtApbManagementName.Name = "txtApbManagementName"
         Me.txtApbManagementName.Size = New System.Drawing.Size(228, 20)
@@ -193,6 +195,8 @@ Partial Class IAIPLookUpTables
         '
         'txtNewAppType
         '
+        Me.txtNewAppType.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtNewAppType.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtNewAppType.Location = New System.Drawing.Point(101, 8)
         Me.txtNewAppType.Name = "txtNewAppType"
         Me.txtNewAppType.Size = New System.Drawing.Size(175, 20)

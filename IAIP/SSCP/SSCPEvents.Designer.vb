@@ -208,9 +208,6 @@ Partial Class SSCPEvents
     Friend WithEvents TPACC As System.Windows.Forms.TabPage
     Friend WithEvents TPNotifications As System.Windows.Forms.TabPage
     Friend WithEvents TPTestReports As System.Windows.Forms.TabPage
-    Friend WithEvents ListView1 As System.Windows.Forms.ListView
-    Friend WithEvents TextBox6 As System.Windows.Forms.TextBox
-    Friend WithEvents Button1 As System.Windows.Forms.Button
     Friend WithEvents TPReport As System.Windows.Forms.TabPage
     Friend WithEvents Label24 As System.Windows.Forms.Label
     Friend WithEvents Label22 As System.Windows.Forms.Label
@@ -423,9 +420,6 @@ Partial Class SSCPEvents
         Me.rdbACCConditionsYes = New System.Windows.Forms.RadioButton()
         Me.rdbACCConditionsNo = New System.Windows.Forms.RadioButton()
         Me.Label39 = New System.Windows.Forms.Label()
-        Me.Button1 = New System.Windows.Forms.Button()
-        Me.TextBox6 = New System.Windows.Forms.TextBox()
-        Me.ListView1 = New System.Windows.Forms.ListView()
         Me.Splitter3 = New System.Windows.Forms.Splitter()
         Me.PanelSSCPCompliance = New System.Windows.Forms.Panel()
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
@@ -522,6 +516,8 @@ Partial Class SSCPEvents
         '
         'txtRMPID
         '
+        Me.txtRMPID.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtRMPID.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtRMPID.Location = New System.Drawing.Point(622, 145)
         Me.txtRMPID.Name = "txtRMPID"
         Me.txtRMPID.ReadOnly = True
@@ -1043,6 +1039,8 @@ Partial Class SSCPEvents
         '
         'txtPollutantTested
         '
+        Me.txtPollutantTested.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtPollutantTested.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtPollutantTested.Location = New System.Drawing.Point(208, 104)
         Me.txtPollutantTested.Name = "txtPollutantTested"
         Me.txtPollutantTested.ReadOnly = True
@@ -1051,6 +1049,8 @@ Partial Class SSCPEvents
         '
         'txtUnitTested
         '
+        Me.txtUnitTested.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtUnitTested.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtUnitTested.Location = New System.Drawing.Point(208, 80)
         Me.txtUnitTested.Name = "txtUnitTested"
         Me.txtUnitTested.ReadOnly = True
@@ -1096,6 +1096,8 @@ Partial Class SSCPEvents
         '
         'txtTestReportReceivedbySSCPDate
         '
+        Me.txtTestReportReceivedbySSCPDate.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtTestReportReceivedbySSCPDate.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtTestReportReceivedbySSCPDate.Location = New System.Drawing.Point(208, 128)
         Me.txtTestReportReceivedbySSCPDate.Name = "txtTestReportReceivedbySSCPDate"
         Me.txtTestReportReceivedbySSCPDate.ReadOnly = True
@@ -1113,6 +1115,8 @@ Partial Class SSCPEvents
         '
         'txtTestReportISMPCompleteDate
         '
+        Me.txtTestReportISMPCompleteDate.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtTestReportISMPCompleteDate.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtTestReportISMPCompleteDate.Location = New System.Drawing.Point(208, 56)
         Me.txtTestReportISMPCompleteDate.Name = "txtTestReportISMPCompleteDate"
         Me.txtTestReportISMPCompleteDate.ReadOnly = True
@@ -1202,6 +1206,8 @@ Partial Class SSCPEvents
         '
         'txtISMPReferenceNumber
         '
+        Me.txtISMPReferenceNumber.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtISMPReferenceNumber.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtISMPReferenceNumber.Location = New System.Drawing.Point(208, 8)
         Me.txtISMPReferenceNumber.MaxLength = 9
         Me.txtISMPReferenceNumber.Name = "txtISMPReferenceNumber"
@@ -1249,6 +1255,8 @@ Partial Class SSCPEvents
         '
         'txtTestReportDueDate
         '
+        Me.txtTestReportDueDate.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtTestReportDueDate.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtTestReportDueDate.Location = New System.Drawing.Point(472, 32)
         Me.txtTestReportDueDate.Name = "txtTestReportDueDate"
         Me.txtTestReportDueDate.ReadOnly = True
@@ -1388,6 +1396,8 @@ Partial Class SSCPEvents
         '
         'txtWeatherConditions
         '
+        Me.txtWeatherConditions.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtWeatherConditions.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtWeatherConditions.Location = New System.Drawing.Point(160, 96)
         Me.txtWeatherConditions.MaxLength = 100
         Me.txtWeatherConditions.Name = "txtWeatherConditions"
@@ -1521,6 +1531,8 @@ Partial Class SSCPEvents
         '
         'txtInspectionGuide
         '
+        Me.txtInspectionGuide.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtInspectionGuide.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtInspectionGuide.Location = New System.Drawing.Point(160, 120)
         Me.txtInspectionGuide.MaxLength = 100
         Me.txtInspectionGuide.Name = "txtInspectionGuide"
@@ -1707,6 +1719,8 @@ Partial Class SSCPEvents
         '
         'txtNotificationTypeOther
         '
+        Me.txtNotificationTypeOther.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtNotificationTypeOther.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtNotificationTypeOther.Location = New System.Drawing.Point(568, 64)
         Me.txtNotificationTypeOther.Name = "txtNotificationTypeOther"
         Me.txtNotificationTypeOther.Size = New System.Drawing.Size(192, 20)
@@ -2446,32 +2460,6 @@ Partial Class SSCPEvents
         Me.Label39.Size = New System.Drawing.Size(132, 13)
         Me.Label39.TabIndex = 95
         Me.Label39.Text = "All Title V conditions listed:"
-        '
-        'Button1
-        '
-        Me.Button1.Location = New System.Drawing.Point(192, 144)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(75, 23)
-        Me.Button1.TabIndex = 0
-        Me.Button1.Text = "Button1"
-        '
-        'TextBox6
-        '
-        Me.TextBox6.Location = New System.Drawing.Point(152, 32)
-        Me.TextBox6.Name = "TextBox6"
-        Me.TextBox6.Size = New System.Drawing.Size(100, 20)
-        Me.TextBox6.TabIndex = 1
-        Me.TextBox6.Text = "TextBox6"
-        '
-        'ListView1
-        '
-        Me.ListView1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.ListView1.HideSelection = False
-        Me.ListView1.Location = New System.Drawing.Point(0, 0)
-        Me.ListView1.Name = "ListView1"
-        Me.ListView1.Size = New System.Drawing.Size(200, 350)
-        Me.ListView1.TabIndex = 0
-        Me.ListView1.UseCompatibleStateImageBehavior = False
         '
         'Splitter3
         '

@@ -217,6 +217,8 @@ Partial Class SSPPPermitUploader
         '
         'txtApplicationNumber
         '
+        Me.txtApplicationNumber.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtApplicationNumber.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtApplicationNumber.Location = New System.Drawing.Point(132, 14)
         Me.txtApplicationNumber.Name = "txtApplicationNumber"
         Me.txtApplicationNumber.Size = New System.Drawing.Size(100, 20)

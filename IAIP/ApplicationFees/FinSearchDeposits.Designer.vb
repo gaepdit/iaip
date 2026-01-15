@@ -1,4 +1,4 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
+<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class FinSearchDeposits
     Inherits BaseForm
 
@@ -274,6 +274,8 @@ Partial Class FinSearchDeposits
         '
         'txtDepositNo
         '
+        Me.txtDepositNo.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtDepositNo.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtDepositNo.Location = New System.Drawing.Point(87, 19)
         Me.txtDepositNo.Name = "txtDepositNo"
         Me.txtDepositNo.Size = New System.Drawing.Size(103, 20)
@@ -281,6 +283,8 @@ Partial Class FinSearchDeposits
         '
         'txtCreditConf
         '
+        Me.txtCreditConf.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtCreditConf.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtCreditConf.Location = New System.Drawing.Point(87, 97)
         Me.txtCreditConf.Name = "txtCreditConf"
         Me.txtCreditConf.Size = New System.Drawing.Size(103, 20)
@@ -288,6 +292,8 @@ Partial Class FinSearchDeposits
         '
         'txtBatch
         '
+        Me.txtBatch.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtBatch.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtBatch.Location = New System.Drawing.Point(87, 45)
         Me.txtBatch.Name = "txtBatch"
         Me.txtBatch.Size = New System.Drawing.Size(103, 20)
@@ -295,6 +301,8 @@ Partial Class FinSearchDeposits
         '
         'txtCheckNo
         '
+        Me.txtCheckNo.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtCheckNo.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtCheckNo.Location = New System.Drawing.Point(87, 71)
         Me.txtCheckNo.Name = "txtCheckNo"
         Me.txtCheckNo.Size = New System.Drawing.Size(103, 20)

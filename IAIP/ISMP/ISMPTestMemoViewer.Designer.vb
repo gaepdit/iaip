@@ -245,6 +245,8 @@ Partial Class ISMPTestMemoViewer
         '
         'txtReferenceNumber2
         '
+        Me.txtReferenceNumber2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtReferenceNumber2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtReferenceNumber2.Location = New System.Drawing.Point(24, 40)
         Me.txtReferenceNumber2.Name = "txtReferenceNumber2"
         Me.txtReferenceNumber2.Size = New System.Drawing.Size(100, 20)
@@ -283,6 +285,8 @@ Partial Class ISMPTestMemoViewer
         '
         'txtReferenceNumber
         '
+        Me.txtReferenceNumber.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtReferenceNumber.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtReferenceNumber.Location = New System.Drawing.Point(24, 40)
         Me.txtReferenceNumber.Name = "txtReferenceNumber"
         Me.txtReferenceNumber.Size = New System.Drawing.Size(100, 20)
@@ -309,6 +313,8 @@ Partial Class ISMPTestMemoViewer
         '
         'txtFilterText1
         '
+        Me.txtFilterText1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtFilterText1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtFilterText1.Location = New System.Drawing.Point(48, 40)
         Me.txtFilterText1.Name = "txtFilterText1"
         Me.txtFilterText1.Size = New System.Drawing.Size(248, 20)
