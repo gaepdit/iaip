@@ -201,7 +201,7 @@ Namespace DAL
         ''' <param name="airsnumber">The AIRS number of the facility to update.</param>
         ''' <returns>True if successful; otherwise false</returns>
         Public Function TriggerDataUpdateAtEPA(airsnumber As ApbFacilityId) As Boolean
-            Dim spName As String = "iaip_facility.TriggerDataUpdateAtEPA"
+            Dim spName As String = "etl.TriggerDataUpdateAtEPA"
             Dim parameter As New SqlParameter("@AirsNumber", airsnumber.DbFormattedString)
             Return DB.SPRunCommand(spName, parameter)
         End Function
