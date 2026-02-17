@@ -249,13 +249,15 @@ Public Class IAIPNavigation
 
     Private Sub AssociateQuickNavButtons()
         txtOpenApplication.Tag = btnOpenApplication
+        txtOpenEnforcement.Tag = btnOpenEnforcement
         txtOpenFacilitySummary.Tag = btnOpenFacilitySummary
+        txtOpenSscpItem.Tag = btnOpenSscpItem
         txtOpenTestLog.Tag = btnOpenTestLog
         txtOpenTestReport.Tag = btnOpenTestReport
     End Sub
 
     Private Sub QuickAccessButton_Click(sender As Object, e As EventArgs) _
-    Handles btnOpenFacilitySummary.Click, btnOpenTestReport.Click, btnOpenTestLog.Click, btnOpenApplication.Click
+    Handles btnOpenFacilitySummary.Click, btnOpenTestReport.Click, btnOpenTestLog.Click, btnOpenSscpItem.Click, btnOpenEnforcement.Click, btnOpenApplication.Click
         Cursor = Cursors.WaitCursor
 
         Dim thisButton As Button = CType(sender, Button)
@@ -264,8 +266,12 @@ Public Class IAIPNavigation
             Select Case thisButton.Name
                 Case btnOpenApplication.Name
                     OpenApplication()
+                Case btnOpenEnforcement.Name
+                    OpenEnforcement()
                 Case btnOpenFacilitySummary.Name
                     OpenFacilitySummary()
+                Case btnOpenSscpItem.Name
+                    OpenSscpItem()
                 Case btnOpenTestLog.Name
                     OpenTestLog()
                 Case btnOpenTestReport.Name
@@ -273,7 +279,9 @@ Public Class IAIPNavigation
             End Select
         Catch ex As Exception
             ex.Data.AddAsUniqueIfExists("txtOpenApplication", txtOpenApplication.Text)
+            ex.Data.AddAsUniqueIfExists("txtOpenEnforcement", txtOpenEnforcement.Text)
             ex.Data.AddAsUniqueIfExists("txtOpenFacilitySummary", txtOpenFacilitySummary.Text)
+            ex.Data.AddAsUniqueIfExists("txtOpenSscpItem", txtOpenSscpItem.Text)
             ex.Data.AddAsUniqueIfExists("txtOpenTestLog", txtOpenTestLog.Text)
             ex.Data.AddAsUniqueIfExists("txtOpenTestReport", txtOpenTestReport.Text)
             Throw
@@ -283,7 +291,7 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub QuickAccessTextbox_Enter(sender As Object, e As EventArgs) _
-    Handles txtOpenApplication.Enter, txtOpenFacilitySummary.AirsTextEnter, txtOpenTestLog.Enter, txtOpenTestReport.Enter
+    Handles txtOpenApplication.Enter, txtOpenEnforcement.Enter, txtOpenFacilitySummary.AirsTextEnter, txtOpenSscpItem.Enter, txtOpenTestLog.Enter, txtOpenTestReport.Enter
         Dim thisButton As Button = CType(CType(sender, TextBox).Tag, Button)
         Me.AcceptButton = thisButton
         thisButton.FlatStyle = FlatStyle.Standard
@@ -291,7 +299,7 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub QuickAccessTextbox_Leave(sender As Object, e As EventArgs) _
-    Handles txtOpenApplication.Leave, txtOpenFacilitySummary.AirsTextLeave, txtOpenTestLog.Leave, txtOpenTestReport.Leave
+    Handles txtOpenApplication.Leave, txtOpenEnforcement.Leave, txtOpenFacilitySummary.AirsTextLeave, txtOpenSscpItem.Leave, txtOpenTestLog.Leave, txtOpenTestReport.Leave
         Dim thisButton As Button = CType(CType(sender, TextBox).Tag, Button)
         Me.AcceptButton = Nothing
         If Not CBool(thisButton.Tag) Then
@@ -301,7 +309,7 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub QuickAccessTextbox_TextChanged(sender As Object, e As EventArgs) _
-    Handles txtOpenApplication.TextChanged, txtOpenFacilitySummary.AirsTextChanged, txtOpenTestLog.TextChanged, txtOpenTestReport.TextChanged
+    Handles txtOpenApplication.TextChanged, txtOpenEnforcement.TextChanged, txtOpenFacilitySummary.AirsTextChanged, txtOpenSscpItem.TextChanged, txtOpenTestLog.TextChanged, txtOpenTestReport.TextChanged
         Dim thisTextbox As TextBox = CType(sender, TextBox)
         Dim thisButton As Button = CType(thisTextbox.Tag, Button)
         If thisTextbox.TextLength > 0 Then
@@ -318,7 +326,7 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub QuickAccessButton_Enter(sender As Object, e As EventArgs) _
-    Handles btnOpenApplication.Enter, btnOpenFacilitySummary.Enter, btnOpenTestLog.Enter, btnOpenTestReport.Enter
+    Handles btnOpenApplication.Enter, btnOpenEnforcement.Enter, btnOpenFacilitySummary.Enter, btnOpenSscpItem.Enter, btnOpenTestLog.Enter, btnOpenTestReport.Enter
         Dim thisButton As Button = CType(sender, Button)
         If CBool(thisButton.Tag) Then
             thisButton.FlatStyle = FlatStyle.Standard
@@ -327,7 +335,7 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub QuickAccessButton_Leave(sender As Object, e As EventArgs) _
-    Handles btnOpenApplication.Leave, btnOpenFacilitySummary.Leave, btnOpenTestLog.Leave, btnOpenTestReport.Leave
+    Handles btnOpenApplication.Leave, btnOpenEnforcement.Leave, btnOpenFacilitySummary.Leave, btnOpenSscpItem.Leave, btnOpenTestLog.Leave, btnOpenTestReport.Leave
         Dim thisButton As Button = CType(sender, Button)
         If AcceptButton IsNot thisButton AndAlso Not CBool(thisButton.Tag) Then
             thisButton.FlatStyle = FlatStyle.Flat
@@ -345,6 +353,22 @@ Public Class IAIPNavigation
 
     Private Sub OpenTestReport()
         OpenFormTestReport(txtOpenTestReport.Text, Me)
+    End Sub
+
+    Private Sub OpenEnforcement()
+        If Not IsNumeric(txtOpenEnforcement.Text) Then
+            MessageBox.Show("Enforcement number must be numeric.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return
+        End If
+        OpenEnforcementOnWeb(txtOpenEnforcement.Text)
+    End Sub
+
+    Private Sub OpenSscpItem()
+        If Not IsNumeric(txtOpenSscpItem.Text) Then
+            MessageBox.Show("Tracking number must be numeric.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return
+        End If
+        OpenComplianceWorkOnWeb(txtOpenSscpItem.Text)
     End Sub
 
     Private Sub OpenFacilitySummary()
@@ -379,8 +403,10 @@ Public Class IAIPNavigation
 
     Private Sub ClearQuickAccessTool()
         txtOpenFacilitySummary.Clear()
+        txtOpenEnforcement.Clear()
         txtOpenApplication.Clear()
         txtOpenTestReport.Clear()
+        txtOpenSscpItem.Clear()
         txtOpenTestLog.Clear()
     End Sub
 
