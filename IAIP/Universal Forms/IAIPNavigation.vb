@@ -517,7 +517,8 @@ Public Class IAIPNavigation
 
     Private Sub dgvWorkViewer_CellFormatting(sender As Object, e As DataGridViewCellFormattingEventArgs) Handles dgvWorkViewer.CellFormatting
         If e IsNot Nothing AndAlso e.Value IsNot Nothing AndAlso Not IsDBNull(e.Value) Then
-            If dgvWorkViewer.Columns(e.ColumnIndex).HeaderText.ToUpper = "AIRS #" AndAlso Apb.ApbFacilityId.IsValidAirsNumberFormat(e.Value.ToString()) Then
+            If dgvWorkViewer.Columns(e.ColumnIndex).HeaderText.Equals("AIRS #", StringComparison.OrdinalIgnoreCase) AndAlso
+                Apb.ApbFacilityId.IsValidAirsNumberFormat(e.Value.ToString()) Then
                 e.Value = New Apb.ApbFacilityId(e.Value.ToString).FormattedString
             ElseIf TypeOf e.Value Is Date Then
                 e.CellStyle.Format = DateFormat
@@ -739,8 +740,9 @@ Public Class IAIPNavigation
             AllTheNavButtonCategories.Add(New NavButtonCategory(category, category.ToString))
         End If
 
-        If AllTheNavButtons.ContainsKey(category) Then
-            AllTheNavButtons(category).Add(New NavButton(buttonText, formName))
+        Dim value As List(Of NavButton) = Nothing
+        If AllTheNavButtons.TryGetValue(category, value) Then
+            value.Add(New NavButton(buttonText, formName))
         Else
             Dim navButtonList As New List(Of NavButton) From {
                 New NavButton(buttonText, formName)
@@ -802,7 +804,10 @@ Public Class IAIPNavigation
         Dim buttonWidth As Integer = 90
 
         For Each newCategory As NavButtonCategory In AllTheNavButtonCategories
-            If AllTheNavButtons.ContainsKey(newCategory.Category) Then
+
+            Dim value As List(Of NavButton) = Nothing
+
+            If AllTheNavButtons.TryGetValue(newCategory.Category, value) Then
 
                 Dim categoryHeader As New Label
                 With categoryHeader
@@ -814,7 +819,7 @@ Public Class IAIPNavigation
                 End With
                 flpNavButtons.Controls.Add(categoryHeader)
 
-                For Each newNavButton As NavButton In AllTheNavButtons(newCategory.Category)
+                For Each newNavButton As NavButton In value
                     Dim newButton As New Button
                     With newButton
                         .Text = newNavButton.ButtonText

@@ -70,8 +70,10 @@ Public Class ISMPTestReports
     End Sub
 
     Private Sub ParseParameters()
-        If Parameters IsNot Nothing AndAlso Parameters.ContainsKey(FormParameter.ReferenceNumber) Then
-            ReferenceNumber = Parameters(FormParameter.ReferenceNumber)
+        Dim value As String = Nothing
+
+        If Parameters IsNot Nothing AndAlso Parameters.TryGetValue(FormParameter.ReferenceNumber, value) Then
+            ReferenceNumber = value
         Else
             ReferenceNumber = ""
         End If

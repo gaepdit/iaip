@@ -241,7 +241,8 @@ Public Module SharedData
             _dictDictionary = New Dictionary(Of SharedLookupDictionary, Dictionary(Of Integer, String))
         End If
 
-        If Not _dictDictionary.ContainsKey(lookupDictionary) OrElse _dictDictionary(lookupDictionary) Is Nothing Then
+        Dim value As Dictionary(Of Integer, String) = Nothing
+        If Not _dictDictionary.TryGetValue(lookupDictionary, value) OrElse value Is Nothing Then
             InitializeData(lookupDictionary)
         End If
 
@@ -254,18 +255,19 @@ Public Module SharedData
     ''' time it is used when the IAIP is run.
     ''' </summary>
     ''' <typeparam name="T">The Type of value to return</typeparam>
-    ''' <param name="value">The shared value to return.</param>
+    ''' <param name="sharedValue">The shared value to return.</param>
     ''' <returns>Object of Type T from the shared data service.</returns>
-    Public Function GetSharedObject(Of T)(value As SharedObject) As T
+    Public Function GetSharedObject(Of T)(sharedValue As SharedObject) As T
         If _objDictionary Is Nothing Then
             _objDictionary = New Dictionary(Of SharedObject, Object)
         End If
 
-        If Not _objDictionary.ContainsKey(value) OrElse _objDictionary(value) Is Nothing Then
-            InitializeData(value)
+        Dim value As Object = Nothing
+        If Not _objDictionary.TryGetValue(sharedValue, value) OrElse value Is Nothing Then
+            InitializeData(sharedValue)
         End If
 
-        Return _objDictionary(value)
+        Return _objDictionary(sharedValue)
     End Function
 
 

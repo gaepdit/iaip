@@ -4,7 +4,6 @@ on:
   pull_request:
     branches: 
       - main
-      - epic/air-web
     types: [ opened, synchronize, reopened ]
 
 permissions:
