@@ -482,8 +482,6 @@ Public Class ISMPTestReportAdministrative
     End Sub
     Private Sub CloseTestReport()
         Try
-            Dim AFSActionNumber As String = ""
-            Dim UpdateCode As String
             Dim ComplianceStatus As String
             Dim AIRSNumber As String = ""
 

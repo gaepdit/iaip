@@ -415,7 +415,7 @@ Public Class SSCPManagersTools
         End Try
     End Sub
 
-    Private Sub llbViewRecord_Click(sender As Object, e As EventArgs) Handles llbViewRecord.LinkClicked
+    Private Sub llbViewRecord_Click(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewRecord.LinkClicked
         Try
             If txtRecordNumber.Text <> "" AndAlso txtRecordNumber.Text.Length = 8 Then
                 OpenFacilitySummary()
@@ -1376,10 +1376,6 @@ Public Class SSCPManagersTools
 
     Private Sub btnExportSelected_Click(sender As Object, e As EventArgs) Handles btnExportSelected.Click
         dgvSelectedFacilityList.ExportToExcel(Me)
-    End Sub
-
-    Private Sub llbViewRecord_Click(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewRecord.LinkClicked
-
     End Sub
 
 #End Region
