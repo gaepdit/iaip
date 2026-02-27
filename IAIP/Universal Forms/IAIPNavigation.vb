@@ -214,7 +214,12 @@ Public Class IAIPNavigation
         Next
         cboNavWorkListContext.BindToDictionary(NavWorkListContextDictionary)
         AddHandler cboNavWorkListContext.SelectedValueChanged, AddressOf cboNavWorkListContext_SelectedValueChanged
-        cboNavWorkListContext.SelectedValue = [Enum].Parse(GetType(NavWorkListContext), GetUserSetting(UserSetting.SelectedNavWorkListContext))
+
+        Dim selectedNavWorkListContext As NavWorkListContext
+
+        If [Enum].TryParse(GetUserSetting(UserSetting.SelectedNavWorkListContext), selectedNavWorkListContext) Then
+            cboNavWorkListContext.SelectedValue = selectedNavWorkListContext
+        End If
     End Sub
 
     Private Sub EnableConnectionEnvironmentOptions()
@@ -351,11 +356,19 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub OpenEnforcement()
-        OpenFormEnforcement(txtOpenEnforcement.Text)
+        If Not IsNumeric(txtOpenEnforcement.Text) Then
+            MessageBox.Show("Enforcement number must be numeric.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return
+        End If
+        OpenEnforcementOnWeb(txtOpenEnforcement.Text)
     End Sub
 
     Private Sub OpenSscpItem()
-        OpenFormSscpWorkItem(txtOpenSscpItem.Text)
+        If Not IsNumeric(txtOpenSscpItem.Text) Then
+            MessageBox.Show("Tracking number must be numeric.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return
+        End If
+        OpenComplianceWorkOnWeb(txtOpenSscpItem.Text)
     End Sub
 
     Private Sub OpenFacilitySummary()
@@ -387,6 +400,7 @@ Public Class IAIPNavigation
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub ClearQuickAccessTool()
         txtOpenFacilitySummary.Clear()
         txtOpenEnforcement.Clear()
@@ -404,9 +418,6 @@ Public Class IAIPNavigation
     ''' Enumeration of the various work list types (contexts) available on the main Navigation Screen
     ''' </summary>
     Public Enum NavWorkListContext
-        <Description("Compliance Work")> ComplianceWork
-        <Description("Late FCEs")> LateFce
-        <Description("Enforcement")> Enforcement
         <Description("Facilities Missing Subparts")> FacilitiesMissingSubparts
         <Description("Monitoring Test Reports")> MonitoringTestReports
         <Description("Monitoring Test Notifications")> MonitoringTestNotifications
@@ -452,9 +463,9 @@ Public Class IAIPNavigation
     Private Sub cboNavWorkListContext_SelectedValueChanged(sender As Object, e As EventArgs)
         Dim c As NavWorkListContext = CType(cboNavWorkListContext.SelectedValue, NavWorkListContext)
         Select Case c
-            Case NavWorkListContext.ComplianceWork, NavWorkListContext.Enforcement, NavWorkListContext.MonitoringTestReports, NavWorkListContext.PermitApplications
+            Case NavWorkListContext.MonitoringTestReports, NavWorkListContext.PermitApplications
                 NavWorkListScopePanel.Visible = True
-            Case NavWorkListContext.LateFce, NavWorkListContext.FacilitiesMissingSubparts, NavWorkListContext.MonitoringTestNotifications
+            Case NavWorkListContext.FacilitiesMissingSubparts, NavWorkListContext.MonitoringTestNotifications
                 NavWorkListScopePanel.Visible = False
         End Select
     End Sub
@@ -506,7 +517,8 @@ Public Class IAIPNavigation
 
     Private Sub dgvWorkViewer_CellFormatting(sender As Object, e As DataGridViewCellFormattingEventArgs) Handles dgvWorkViewer.CellFormatting
         If e IsNot Nothing AndAlso e.Value IsNot Nothing AndAlso Not IsDBNull(e.Value) Then
-            If dgvWorkViewer.Columns(e.ColumnIndex).HeaderText.ToUpper = "AIRS #" AndAlso Apb.ApbFacilityId.IsValidAirsNumberFormat(e.Value.ToString()) Then
+            If dgvWorkViewer.Columns(e.ColumnIndex).HeaderText.Equals("AIRS #", StringComparison.OrdinalIgnoreCase) AndAlso
+                Apb.ApbFacilityId.IsValidAirsNumberFormat(e.Value.ToString()) Then
                 e.Value = New Apb.ApbFacilityId(e.Value.ToString).FormattedString
             ElseIf TypeOf e.Value Is Date Then
                 e.CellStyle.Format = DateFormat
@@ -611,10 +623,6 @@ Public Class IAIPNavigation
         Select Case dgvWorkViewer.Columns(0).HeaderText
             Case "AIRS #" ' Compliance facilities assigned; delinquent FCEs; facility subparts
                 OpenFacilitySummary()
-            Case "Tracking #" ' Compliance work
-                OpenSscpItem()
-            Case "Enforcement #" 'Enforcement
-                OpenEnforcement()
             Case "Reference #" ' ISMP Test Reports
                 OpenTestReport()
             Case "Test Log #" ' ISMP Test Notifications
@@ -630,12 +638,6 @@ Public Class IAIPNavigation
         Select Case dgvWorkViewer.Columns(0).HeaderText
             Case "AIRS #" ' Compliance facilities assigned; delinquent FCEs; facility subparts
                 txtOpenFacilitySummary.AirsNumber = If(Apb.ApbFacilityId.IsValidAirsNumberFormat(dgvWorkViewer(0, row).Value.ToString), New Apb.ApbFacilityId(dgvWorkViewer(0, row).Value.ToString), Nothing)
-            Case "Tracking #" ' Compliance work
-                txtOpenSscpItem.Text = dgvWorkViewer(0, row).FormattedValue.ToString
-                txtOpenFacilitySummary.AirsNumber = If(Apb.ApbFacilityId.IsValidAirsNumberFormat(dgvWorkViewer(1, row).Value.ToString), New Apb.ApbFacilityId(dgvWorkViewer(1, row).Value.ToString), Nothing)
-            Case "Enforcement #" ' Enforcement
-                txtOpenEnforcement.Text = dgvWorkViewer(0, row).FormattedValue.ToString
-                txtOpenFacilitySummary.AirsNumber = If(Apb.ApbFacilityId.IsValidAirsNumberFormat(dgvWorkViewer(1, row).Value.ToString), New Apb.ApbFacilityId(dgvWorkViewer(1, row).Value.ToString), Nothing)
             Case "Reference #" ' ISMP Test Reports
                 txtOpenTestReport.Text = dgvWorkViewer(0, row).FormattedValue.ToString
                 txtOpenFacilitySummary.AirsNumber = If(Apb.ApbFacilityId.IsValidAirsNumberFormat(dgvWorkViewer(1, row).Value.ToString), New Apb.ApbFacilityId(dgvWorkViewer(1, row).Value.ToString), Nothing)
@@ -659,7 +661,7 @@ Public Class IAIPNavigation
         End If
     End Sub
 
-
+    Private Shared ReadOnly separator As Char() = {"("c, ")"c}
     Private Sub bgrUserPermissions_DoWork(sender As Object, e As DoWorkEventArgs) Handles bgrUserPermissions.DoWork
         Dim AccountFormAccessLookup As DataTable = GetSharedData(SharedTable.IaipAccountRoles)
         Dim accountFormAccessString As String
@@ -670,7 +672,7 @@ Public Class IAIPNavigation
                 accountFormAccessString = accountInfo("FormAccess").ToString
 
                 If accountFormAccessString.Length > 0 Then
-                    Dim formAccessArray As String() = accountFormAccessString.Split({"("c, ")"c}, StringSplitOptions.RemoveEmptyEntries)
+                    Dim formAccessArray As String() = accountFormAccessString.Split(separator, StringSplitOptions.RemoveEmptyEntries)
 
                     For Each formAccessString As String In formAccessArray
                         Dim formAccessSplit As String() = formAccessString.Split("-"c, ","c)
@@ -738,8 +740,9 @@ Public Class IAIPNavigation
             AllTheNavButtonCategories.Add(New NavButtonCategory(category, category.ToString))
         End If
 
-        If AllTheNavButtons.ContainsKey(category) Then
-            AllTheNavButtons(category).Add(New NavButton(buttonText, formName))
+        Dim value As List(Of NavButton) = Nothing
+        If AllTheNavButtons.TryGetValue(category, value) Then
+            value.Add(New NavButton(buttonText, formName))
         Else
             Dim navButtonList As New List(Of NavButton) From {
                 New NavButton(buttonText, formName)
@@ -801,7 +804,10 @@ Public Class IAIPNavigation
         Dim buttonWidth As Integer = 90
 
         For Each newCategory As NavButtonCategory In AllTheNavButtonCategories
-            If AllTheNavButtons.ContainsKey(newCategory.Category) Then
+
+            Dim value As List(Of NavButton) = Nothing
+
+            If AllTheNavButtons.TryGetValue(newCategory.Category, value) Then
 
                 Dim categoryHeader As New Label
                 With categoryHeader
@@ -813,7 +819,7 @@ Public Class IAIPNavigation
                 End With
                 flpNavButtons.Controls.Add(categoryHeader)
 
-                For Each newNavButton As NavButton In AllTheNavButtons(newCategory.Category)
+                For Each newNavButton As NavButton In value
                     Dim newButton As New Button
                     With newButton
                         .Text = newNavButton.ButtonText
@@ -856,6 +862,9 @@ Public Class IAIPNavigation
         AddNavButtonCategory(NavButtonCategories.EIS, "Emissions and Control Strategies", "EI/ES")
     End Sub
 
+    Private Shared ReadOnly feeManagementPermissions As Integer() = {123, 124, 125}
+    Private Shared ReadOnly feeAdminPermissions As Integer() = {124, 28}
+
     Private Sub CreateNavButtonsList()
 
         ' General
@@ -875,7 +884,6 @@ Public Class IAIPNavigation
         ' SSCP
         AddNavButton("Compliance Log", NameOf(SSCPComplianceLog), NavButtonCategories.SSCP)
         AddNavButtonIfAccountHasFormAccess(22, "Compliance Management", NameOf(SSCPManagersTools), NavButtonCategories.SSCP)
-        AddNavButtonIfUserHasPermission({19, 20, 21, 23, 25, 114}, "Enforcement Documents", NameOf(SscpDocuments), NavButtonCategories.SSCP)
 
         ' ISMP
         AddNavButton("Monitoring Log", NameOf(ISMPMonitoringLog), NavButtonCategories.ISMP)
@@ -890,11 +898,11 @@ Public Class IAIPNavigation
         AddNavButtonIfUserCan(UserCan.EditAnnualFeesDeposits, "Deposits", NameOf(FeesDeposits), NavButtonCategories.AnnualFees)
 
         ' Application Fees
-        AddNavButtonIfUserHasPermission({123, 124, 125}, "New Deposit", NameOf(FinDepositView), NavButtonCategories.ApplicationFees)
-        AddNavButtonIfUserHasPermission({123, 124, 125}, "Search Deposits", NameOf(FinSearchDeposits), NavButtonCategories.ApplicationFees)
+        AddNavButtonIfUserHasPermission(feeManagementPermissions, "New Deposit", NameOf(FinDepositView), NavButtonCategories.ApplicationFees)
+        AddNavButtonIfUserHasPermission(feeManagementPermissions, "Search Deposits", NameOf(FinSearchDeposits), NavButtonCategories.ApplicationFees)
         AddNavButton("Search Invoices", NameOf(FinSearchInvoices), NavButtonCategories.ApplicationFees)
         AddNavButton("Search Facilities", NameOf(FinSearchFacilities), NavButtonCategories.ApplicationFees)
-        AddNavButtonIfUserHasPermission({124, 28}, "Manage Fee Rates", NameOf(FinFeeRateManagement), NavButtonCategories.ApplicationFees)
+        AddNavButtonIfUserHasPermission(feeAdminPermissions, "Manage Fee Rates", NameOf(FinFeeRateManagement), NavButtonCategories.ApplicationFees)
         AddNavButton("Statistics && Reports", NameOf(FinStatistics), NavButtonCategories.ApplicationFees)
 
         ' MASP
@@ -1066,14 +1074,10 @@ Public Class IAIPNavigation
 
         Select Case sharedDataCounter
             Case 1
-                GetSharedData(SharedTable.AllComplianceStaff)
-            Case 2
                 GetSharedData(SharedDataSet.RuleSubparts)
-            Case 3
+            Case 2
                 GetSharedData(SharedTable.Counties)
-            Case 4
-                GetSharedData(SharedTable.SscpNotificationTypes)
-            Case 5
+            Case 3
                 dataPreloadTimer.Enabled = False
                 GetSharedData(SharedTable.FacilityOwnershipTypes)
 
