@@ -1,4 +1,4 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
+<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class SSPPTitleVTools
     Inherits BaseForm
 
@@ -360,6 +360,8 @@ Partial Class SSPPTitleVTools
         '
         'txtWebPublisherApplicationNumber
         '
+        Me.txtWebPublisherApplicationNumber.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtWebPublisherApplicationNumber.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtWebPublisherApplicationNumber.Location = New System.Drawing.Point(122, 11)
         Me.txtWebPublisherApplicationNumber.Name = "txtWebPublisherApplicationNumber"
         Me.txtWebPublisherApplicationNumber.Size = New System.Drawing.Size(83, 20)
@@ -690,6 +692,8 @@ Partial Class SSPPTitleVTools
         'txtApplicationNumberToAdd
         '
         Me.txtApplicationNumberToAdd.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtApplicationNumberToAdd.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtApplicationNumberToAdd.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtApplicationNumberToAdd.Location = New System.Drawing.Point(694, 24)
         Me.txtApplicationNumberToAdd.Name = "txtApplicationNumberToAdd"
         Me.txtApplicationNumberToAdd.Size = New System.Drawing.Size(113, 20)

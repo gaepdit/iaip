@@ -287,6 +287,8 @@ Partial Class IAIPEditContacts
         '
         'txtNewCity
         '
+        Me.txtNewCity.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtNewCity.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtNewCity.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtNewCity.Location = New System.Drawing.Point(112, 180)
         Me.txtNewCity.Name = "txtNewCity"
@@ -305,6 +307,8 @@ Partial Class IAIPEditContacts
         '
         'txtNewState
         '
+        Me.txtNewState.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtNewState.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtNewState.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtNewState.Location = New System.Drawing.Point(263, 180)
         Me.txtNewState.MaxLength = 2
@@ -334,6 +338,8 @@ Partial Class IAIPEditContacts
         '
         'txtNewAddress
         '
+        Me.txtNewAddress.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtNewAddress.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtNewAddress.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtNewAddress.Location = New System.Drawing.Point(112, 157)
         Me.txtNewAddress.Name = "txtNewAddress"
@@ -372,6 +378,8 @@ Partial Class IAIPEditContacts
         '
         'txtNewFirstName
         '
+        Me.txtNewFirstName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtNewFirstName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtNewFirstName.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtNewFirstName.Location = New System.Drawing.Point(112, 35)
         Me.txtNewFirstName.Name = "txtNewFirstName"
@@ -380,6 +388,8 @@ Partial Class IAIPEditContacts
         '
         'txtNewCompany
         '
+        Me.txtNewCompany.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtNewCompany.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtNewCompany.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtNewCompany.Location = New System.Drawing.Point(112, 131)
         Me.txtNewCompany.Name = "txtNewCompany"
@@ -388,6 +398,8 @@ Partial Class IAIPEditContacts
         '
         'txtNewEmail
         '
+        Me.txtNewEmail.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtNewEmail.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtNewEmail.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtNewEmail.Location = New System.Drawing.Point(488, 83)
         Me.txtNewEmail.Name = "txtNewEmail"
@@ -446,6 +458,8 @@ Partial Class IAIPEditContacts
         '
         'txtNewTitle
         '
+        Me.txtNewTitle.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtNewTitle.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtNewTitle.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtNewTitle.Location = New System.Drawing.Point(112, 107)
         Me.txtNewTitle.Name = "txtNewTitle"
@@ -474,6 +488,8 @@ Partial Class IAIPEditContacts
         '
         'txtNewSuffix
         '
+        Me.txtNewSuffix.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtNewSuffix.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtNewSuffix.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtNewSuffix.Location = New System.Drawing.Point(112, 83)
         Me.txtNewSuffix.Name = "txtNewSuffix"
@@ -482,6 +498,8 @@ Partial Class IAIPEditContacts
         '
         'txtNewPrefix
         '
+        Me.txtNewPrefix.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtNewPrefix.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtNewPrefix.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtNewPrefix.Location = New System.Drawing.Point(112, 11)
         Me.txtNewPrefix.Name = "txtNewPrefix"
@@ -490,6 +508,8 @@ Partial Class IAIPEditContacts
         '
         'txtNewLastName
         '
+        Me.txtNewLastName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtNewLastName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtNewLastName.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtNewLastName.Location = New System.Drawing.Point(112, 59)
         Me.txtNewLastName.Name = "txtNewLastName"

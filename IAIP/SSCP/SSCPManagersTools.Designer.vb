@@ -38,21 +38,6 @@ Partial Class SSCPManagersTools
         Me.txtCMSAIRSNumber = New System.Windows.Forms.TextBox()
         Me.TPUniverse = New System.Windows.Forms.TabPage()
         Me.dgvCMSUniverse = New System.Windows.Forms.DataGridView()
-        Me.lblCMSWarning = New System.Windows.Forms.LinkLabel()
-        Me.FceSearchFilters = New System.Windows.Forms.GroupBox()
-        Me.rdbFCEOverdue = New System.Windows.Forms.RadioButton()
-        Me.rdbNextYear = New System.Windows.Forms.RadioButton()
-        Me.rdbNext120Days = New System.Windows.Forms.RadioButton()
-        Me.rdbNext90Days = New System.Windows.Forms.RadioButton()
-        Me.rdbNext60Days = New System.Windows.Forms.RadioButton()
-        Me.chbNoFCE = New System.Windows.Forms.CheckBox()
-        Me.Label30 = New System.Windows.Forms.Label()
-        Me.PanelCMSWarning = New System.Windows.Forms.Panel()
-        Me.btnExportCmsWarningToExcel = New System.Windows.Forms.Button()
-        Me.txtCMSWarningCount = New System.Windows.Forms.TextBox()
-        Me.dgvCMSWarning = New System.Windows.Forms.DataGridView()
-        Me.TPCMSWarning = New System.Windows.Forms.TabPage()
-        Me.Splitter3 = New System.Windows.Forms.Splitter()
         Me.TCManagerTools = New System.Windows.Forms.TabControl()
         Me.TPFacilityAssignments = New System.Windows.Forms.TabPage()
         Me.FacilityAssignmentPanel = New System.Windows.Forms.Panel()
@@ -152,58 +137,6 @@ Partial Class SSCPManagersTools
         Me.Label62 = New System.Windows.Forms.Label()
         Me.TPStatisticalPage = New System.Windows.Forms.TabPage()
         Me.SCStatisticalReports = New System.Windows.Forms.SplitContainer()
-        Me.TCStatisticalTools = New System.Windows.Forms.TabControl()
-        Me.TPACCStats = New System.Windows.Forms.TabPage()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.TCComplianceStaff = New System.Windows.Forms.TabControl()
-        Me.TPAirToxics = New System.Windows.Forms.TabPage()
-        Me.clbAirToxicUnit = New System.Windows.Forms.CheckedListBox()
-        Me.TPChemicals = New System.Windows.Forms.TabPage()
-        Me.clbChemicalsMinerals = New System.Windows.Forms.CheckedListBox()
-        Me.TPVOC = New System.Windows.Forms.TabPage()
-        Me.clbVOCCombustion = New System.Windows.Forms.CheckedListBox()
-        Me.TPDistricts = New System.Windows.Forms.TabPage()
-        Me.clbDistricts = New System.Windows.Forms.CheckedListBox()
-        Me.llbACCLONTaken = New System.Windows.Forms.LinkLabel()
-        Me.llbACCNOVTaken = New System.Windows.Forms.LinkLabel()
-        Me.btnRunStatisticalReport = New System.Windows.Forms.Button()
-        Me.llbACCCOTaken = New System.Windows.Forms.LinkLabel()
-        Me.llbACCEnforcementTaken = New System.Windows.Forms.LinkLabel()
-        Me.DTPSearchDateStart = New System.Windows.Forms.DateTimePicker()
-        Me.DTPSearchDateEnd = New System.Windows.Forms.DateTimePicker()
-        Me.llbACCDeviationsNotReported = New System.Windows.Forms.LinkLabel()
-        Me.llbACCDeviationsInFinal = New System.Windows.Forms.LinkLabel()
-        Me.llbACCDeviationsIncorrectlyReported = New System.Windows.Forms.LinkLabel()
-        Me.llbACCDeviationsReportedCorrectly = New System.Windows.Forms.LinkLabel()
-        Me.llbACCDeviationsReported = New System.Windows.Forms.LinkLabel()
-        Me.llbACCSubmittedLate = New System.Windows.Forms.LinkLabel()
-        Me.llbACCReporting = New System.Windows.Forms.LinkLabel()
-        Me.llbViewACCTotalAssigned = New System.Windows.Forms.LinkLabel()
-        Me.txtLONTaken = New System.Windows.Forms.TextBox()
-        Me.Label44 = New System.Windows.Forms.Label()
-        Me.txtNOVTaken = New System.Windows.Forms.TextBox()
-        Me.Label43 = New System.Windows.Forms.Label()
-        Me.txtCOTaken = New System.Windows.Forms.TextBox()
-        Me.Label42 = New System.Windows.Forms.Label()
-        Me.txtEnforcementActionTaken = New System.Windows.Forms.TextBox()
-        Me.Label41 = New System.Windows.Forms.Label()
-        Me.txtDeviationsNotPreviouslyReported = New System.Windows.Forms.TextBox()
-        Me.Label40 = New System.Windows.Forms.Label()
-        Me.txtDeviationsReportedInFinal = New System.Windows.Forms.TextBox()
-        Me.Label38 = New System.Windows.Forms.Label()
-        Me.txtDeviationsIncorrectlyReported = New System.Windows.Forms.TextBox()
-        Me.txtDeviationsCorrectlyReported = New System.Windows.Forms.TextBox()
-        Me.Label37 = New System.Windows.Forms.Label()
-        Me.txtDeviationsReportedInOrigional = New System.Windows.Forms.TextBox()
-        Me.Label36 = New System.Windows.Forms.Label()
-        Me.txtSubmittedLate = New System.Windows.Forms.TextBox()
-        Me.Label35 = New System.Windows.Forms.Label()
-        Me.txtFacilitiesReporting = New System.Windows.Forms.TextBox()
-        Me.Label32 = New System.Windows.Forms.Label()
-        Me.txtTotalFacilities = New System.Windows.Forms.TextBox()
-        Me.Label31 = New System.Windows.Forms.Label()
-        Me.TPTitleVRenewals = New System.Windows.Forms.TabPage()
         Me.Label66 = New System.Windows.Forms.Label()
         Me.btnRunTitleVSearch = New System.Windows.Forms.Button()
         Me.llbViewRecord = New System.Windows.Forms.LinkLabel()
@@ -213,29 +146,10 @@ Partial Class SSCPManagersTools
         Me.txtRecordNumber = New System.Windows.Forms.TextBox()
         Me.btnExportToExcel = New System.Windows.Forms.Button()
         Me.dgvStatisticalReports = New System.Windows.Forms.DataGridView()
-        Me.TPDocuments = New System.Windows.Forms.TabPage()
-        Me.lblAddNewEnfDocType = New System.Windows.Forms.Label()
-        Me.pnlUpdateDocumentType = New System.Windows.Forms.Panel()
-        Me.btnUpdateDocumentType = New System.Windows.Forms.Button()
-        Me.lblUpdateEnfDocType = New System.Windows.Forms.Label()
-        Me.chkUpdateActive = New System.Windows.Forms.CheckBox()
-        Me.mtxtUpdatePosition = New System.Windows.Forms.MaskedTextBox()
-        Me.txtUpdateName = New System.Windows.Forms.TextBox()
-        Me.lblUpdatePosition = New System.Windows.Forms.Label()
-        Me.btnAddDocumentType = New System.Windows.Forms.Button()
-        Me.mtxtNewPosition = New System.Windows.Forms.MaskedTextBox()
-        Me.txtNewName = New System.Windows.Forms.TextBox()
-        Me.lblNewPosition = New System.Windows.Forms.Label()
-        Me.lblEnfDocumentTypes = New System.Windows.Forms.Label()
-        Me.dgvEnfDocumentTypes = New System.Windows.Forms.DataGridView()
         Me.CmsClassSelectionPanel.SuspendLayout()
         Me.PanelCMSUniverse.SuspendLayout()
         Me.TPUniverse.SuspendLayout()
         CType(Me.dgvCMSUniverse, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.FceSearchFilters.SuspendLayout()
-        Me.PanelCMSWarning.SuspendLayout()
-        CType(Me.dgvCMSWarning, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.TPCMSWarning.SuspendLayout()
         Me.TCManagerTools.SuspendLayout()
         Me.TPFacilityAssignments.SuspendLayout()
         Me.FacilityAssignmentPanel.SuspendLayout()
@@ -270,18 +184,7 @@ Partial Class SSCPManagersTools
         Me.SCStatisticalReports.Panel1.SuspendLayout()
         Me.SCStatisticalReports.Panel2.SuspendLayout()
         Me.SCStatisticalReports.SuspendLayout()
-        Me.TCStatisticalTools.SuspendLayout()
-        Me.TPACCStats.SuspendLayout()
-        Me.TCComplianceStaff.SuspendLayout()
-        Me.TPAirToxics.SuspendLayout()
-        Me.TPChemicals.SuspendLayout()
-        Me.TPVOC.SuspendLayout()
-        Me.TPDistricts.SuspendLayout()
-        Me.TPTitleVRenewals.SuspendLayout()
         CType(Me.dgvStatisticalReports, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.TPDocuments.SuspendLayout()
-        Me.pnlUpdateDocumentType.SuspendLayout()
-        CType(Me.dgvEnfDocumentTypes, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'CmsClassSelectionPanel
@@ -449,6 +352,8 @@ Partial Class SSCPManagersTools
         '
         'txtCMSAIRSNumber
         '
+        Me.txtCMSAIRSNumber.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtCMSAIRSNumber.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtCMSAIRSNumber.Location = New System.Drawing.Point(89, 106)
         Me.txtCMSAIRSNumber.MaxLength = 8
         Me.txtCMSAIRSNumber.Name = "txtCMSAIRSNumber"
@@ -477,169 +382,11 @@ Partial Class SSCPManagersTools
         Me.dgvCMSUniverse.Size = New System.Drawing.Size(760, 631)
         Me.dgvCMSUniverse.TabIndex = 20
         '
-        'lblCMSWarning
-        '
-        Me.lblCMSWarning.AutoSize = True
-        Me.lblCMSWarning.Location = New System.Drawing.Point(8, 8)
-        Me.lblCMSWarning.Name = "lblCMSWarning"
-        Me.lblCMSWarning.Size = New System.Drawing.Size(88, 13)
-        Me.lblCMSWarning.TabIndex = 1
-        Me.lblCMSWarning.TabStop = True
-        Me.lblCMSWarning.Text = "Run CMS Report"
-        '
-        'FceSearchFilters
-        '
-        Me.FceSearchFilters.Controls.Add(Me.rdbFCEOverdue)
-        Me.FceSearchFilters.Controls.Add(Me.rdbNextYear)
-        Me.FceSearchFilters.Controls.Add(Me.rdbNext120Days)
-        Me.FceSearchFilters.Controls.Add(Me.rdbNext90Days)
-        Me.FceSearchFilters.Controls.Add(Me.rdbNext60Days)
-        Me.FceSearchFilters.Location = New System.Drawing.Point(8, 75)
-        Me.FceSearchFilters.Name = "FceSearchFilters"
-        Me.FceSearchFilters.Size = New System.Drawing.Size(225, 140)
-        Me.FceSearchFilters.TabIndex = 14
-        Me.FceSearchFilters.TabStop = False
-        Me.FceSearchFilters.Text = "FCEs required based on last FCE"
-        '
-        'rdbFCEOverdue
-        '
-        Me.rdbFCEOverdue.AutoSize = True
-        Me.rdbFCEOverdue.Checked = True
-        Me.rdbFCEOverdue.Location = New System.Drawing.Point(10, 19)
-        Me.rdbFCEOverdue.Name = "rdbFCEOverdue"
-        Me.rdbFCEOverdue.Size = New System.Drawing.Size(89, 17)
-        Me.rdbFCEOverdue.TabIndex = 32
-        Me.rdbFCEOverdue.TabStop = True
-        Me.rdbFCEOverdue.Text = "FCE Overdue"
-        '
-        'rdbNextYear
-        '
-        Me.rdbNextYear.AutoSize = True
-        Me.rdbNextYear.Location = New System.Drawing.Point(10, 111)
-        Me.rdbNextYear.Name = "rdbNextYear"
-        Me.rdbNextYear.Size = New System.Drawing.Size(189, 17)
-        Me.rdbNextYear.TabIndex = 4
-        Me.rdbNextYear.Text = "FCE Needed in the upcoming Year"
-        '
-        'rdbNext120Days
-        '
-        Me.rdbNext120Days.AutoSize = True
-        Me.rdbNext120Days.Location = New System.Drawing.Point(10, 88)
-        Me.rdbNext120Days.Name = "rdbNext120Days"
-        Me.rdbNext120Days.Size = New System.Drawing.Size(166, 17)
-        Me.rdbNext120Days.TabIndex = 3
-        Me.rdbNext120Days.Text = "FCE Needed in next 120 days"
-        '
-        'rdbNext90Days
-        '
-        Me.rdbNext90Days.AutoSize = True
-        Me.rdbNext90Days.Location = New System.Drawing.Point(10, 65)
-        Me.rdbNext90Days.Name = "rdbNext90Days"
-        Me.rdbNext90Days.Size = New System.Drawing.Size(160, 17)
-        Me.rdbNext90Days.TabIndex = 2
-        Me.rdbNext90Days.Text = "FCE Needed in next 90 days"
-        '
-        'rdbNext60Days
-        '
-        Me.rdbNext60Days.AutoSize = True
-        Me.rdbNext60Days.Location = New System.Drawing.Point(10, 42)
-        Me.rdbNext60Days.Name = "rdbNext60Days"
-        Me.rdbNext60Days.Size = New System.Drawing.Size(160, 17)
-        Me.rdbNext60Days.TabIndex = 1
-        Me.rdbNext60Days.Text = "FCE Needed in next 60 days"
-        '
-        'chbNoFCE
-        '
-        Me.chbNoFCE.AutoSize = True
-        Me.chbNoFCE.Location = New System.Drawing.Point(18, 50)
-        Me.chbNoFCE.Name = "chbNoFCE"
-        Me.chbNoFCE.Size = New System.Drawing.Size(111, 17)
-        Me.chbNoFCE.TabIndex = 34
-        Me.chbNoFCE.Text = "No FCE on record"
-        Me.chbNoFCE.UseVisualStyleBackColor = True
-        '
-        'Label30
-        '
-        Me.Label30.AutoSize = True
-        Me.Label30.Location = New System.Drawing.Point(127, 8)
-        Me.Label30.Name = "Label30"
-        Me.Label30.Size = New System.Drawing.Size(64, 13)
-        Me.Label30.TabIndex = 30
-        Me.Label30.Text = "CMS Count:"
-        '
-        'PanelCMSWarning
-        '
-        Me.PanelCMSWarning.Controls.Add(Me.chbNoFCE)
-        Me.PanelCMSWarning.Controls.Add(Me.btnExportCmsWarningToExcel)
-        Me.PanelCMSWarning.Controls.Add(Me.lblCMSWarning)
-        Me.PanelCMSWarning.Controls.Add(Me.FceSearchFilters)
-        Me.PanelCMSWarning.Controls.Add(Me.Label30)
-        Me.PanelCMSWarning.Controls.Add(Me.txtCMSWarningCount)
-        Me.PanelCMSWarning.Dock = System.Windows.Forms.DockStyle.Right
-        Me.PanelCMSWarning.Location = New System.Drawing.Point(813, 0)
-        Me.PanelCMSWarning.Name = "PanelCMSWarning"
-        Me.PanelCMSWarning.Size = New System.Drawing.Size(296, 631)
-        Me.PanelCMSWarning.TabIndex = 16
-        '
-        'btnExportCmsWarningToExcel
-        '
-        Me.btnExportCmsWarningToExcel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnExportCmsWarningToExcel.AutoSize = True
-        Me.btnExportCmsWarningToExcel.Image = Global.Iaip.My.Resources.Resources.SpreadsheetIcon
-        Me.btnExportCmsWarningToExcel.Location = New System.Drawing.Point(11, 600)
-        Me.btnExportCmsWarningToExcel.Name = "btnExportCmsWarningToExcel"
-        Me.btnExportCmsWarningToExcel.Size = New System.Drawing.Size(104, 23)
-        Me.btnExportCmsWarningToExcel.TabIndex = 33
-        Me.btnExportCmsWarningToExcel.Text = "Export to Excel"
-        Me.btnExportCmsWarningToExcel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
-        Me.btnExportCmsWarningToExcel.UseVisualStyleBackColor = True
-        '
-        'txtCMSWarningCount
-        '
-        Me.txtCMSWarningCount.Location = New System.Drawing.Point(193, 6)
-        Me.txtCMSWarningCount.Name = "txtCMSWarningCount"
-        Me.txtCMSWarningCount.ReadOnly = True
-        Me.txtCMSWarningCount.Size = New System.Drawing.Size(57, 20)
-        Me.txtCMSWarningCount.TabIndex = 31
-        '
-        'dgvCMSWarning
-        '
-        Me.dgvCMSWarning.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvCMSWarning.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgvCMSWarning.Location = New System.Drawing.Point(0, 0)
-        Me.dgvCMSWarning.Name = "dgvCMSWarning"
-        Me.dgvCMSWarning.Size = New System.Drawing.Size(809, 631)
-        Me.dgvCMSWarning.TabIndex = 33
-        '
-        'TPCMSWarning
-        '
-        Me.TPCMSWarning.Controls.Add(Me.dgvCMSWarning)
-        Me.TPCMSWarning.Controls.Add(Me.Splitter3)
-        Me.TPCMSWarning.Controls.Add(Me.PanelCMSWarning)
-        Me.TPCMSWarning.Location = New System.Drawing.Point(4, 22)
-        Me.TPCMSWarning.Name = "TPCMSWarning"
-        Me.TPCMSWarning.Size = New System.Drawing.Size(1109, 631)
-        Me.TPCMSWarning.TabIndex = 4
-        Me.TPCMSWarning.Text = "CMS Warning"
-        Me.TPCMSWarning.UseVisualStyleBackColor = True
-        '
-        'Splitter3
-        '
-        Me.Splitter3.BackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.Splitter3.Dock = System.Windows.Forms.DockStyle.Right
-        Me.Splitter3.Location = New System.Drawing.Point(809, 0)
-        Me.Splitter3.Name = "Splitter3"
-        Me.Splitter3.Size = New System.Drawing.Size(4, 631)
-        Me.Splitter3.TabIndex = 17
-        Me.Splitter3.TabStop = False
-        '
         'TCManagerTools
         '
         Me.TCManagerTools.Controls.Add(Me.TPFacilityAssignments)
         Me.TCManagerTools.Controls.Add(Me.TPUniverse)
-        Me.TCManagerTools.Controls.Add(Me.TPCMSWarning)
         Me.TCManagerTools.Controls.Add(Me.TPStatisticalPage)
-        Me.TCManagerTools.Controls.Add(Me.TPDocuments)
         Me.TCManagerTools.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TCManagerTools.Location = New System.Drawing.Point(0, 0)
         Me.TCManagerTools.Name = "TCManagerTools"
@@ -1647,7 +1394,7 @@ Partial Class SSCPManagersTools
         Me.TPStatisticalPage.Name = "TPStatisticalPage"
         Me.TPStatisticalPage.Size = New System.Drawing.Size(1109, 631)
         Me.TPStatisticalPage.TabIndex = 6
-        Me.TPStatisticalPage.Text = "Statistical Reports"
+        Me.TPStatisticalPage.Text = "Title V Renewals"
         Me.TPStatisticalPage.UseVisualStyleBackColor = True
         '
         'SCStatisticalReports
@@ -1658,7 +1405,8 @@ Partial Class SSCPManagersTools
         '
         'SCStatisticalReports.Panel1
         '
-        Me.SCStatisticalReports.Panel1.Controls.Add(Me.TCStatisticalTools)
+        Me.SCStatisticalReports.Panel1.Controls.Add(Me.Label66)
+        Me.SCStatisticalReports.Panel1.Controls.Add(Me.btnRunTitleVSearch)
         '
         'SCStatisticalReports.Panel2
         '
@@ -1673,585 +1421,9 @@ Partial Class SSCPManagersTools
         Me.SCStatisticalReports.SplitterDistance = 485
         Me.SCStatisticalReports.TabIndex = 15
         '
-        'TCStatisticalTools
-        '
-        Me.TCStatisticalTools.Controls.Add(Me.TPACCStats)
-        Me.TCStatisticalTools.Controls.Add(Me.TPTitleVRenewals)
-        Me.TCStatisticalTools.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TCStatisticalTools.Location = New System.Drawing.Point(0, 0)
-        Me.TCStatisticalTools.Name = "TCStatisticalTools"
-        Me.TCStatisticalTools.SelectedIndex = 0
-        Me.TCStatisticalTools.Size = New System.Drawing.Size(485, 631)
-        Me.TCStatisticalTools.TabIndex = 14
-        '
-        'TPACCStats
-        '
-        Me.TPACCStats.Controls.Add(Me.Label2)
-        Me.TPACCStats.Controls.Add(Me.Label1)
-        Me.TPACCStats.Controls.Add(Me.TCComplianceStaff)
-        Me.TPACCStats.Controls.Add(Me.llbACCLONTaken)
-        Me.TPACCStats.Controls.Add(Me.llbACCNOVTaken)
-        Me.TPACCStats.Controls.Add(Me.btnRunStatisticalReport)
-        Me.TPACCStats.Controls.Add(Me.llbACCCOTaken)
-        Me.TPACCStats.Controls.Add(Me.llbACCEnforcementTaken)
-        Me.TPACCStats.Controls.Add(Me.DTPSearchDateStart)
-        Me.TPACCStats.Controls.Add(Me.DTPSearchDateEnd)
-        Me.TPACCStats.Controls.Add(Me.llbACCDeviationsNotReported)
-        Me.TPACCStats.Controls.Add(Me.llbACCDeviationsInFinal)
-        Me.TPACCStats.Controls.Add(Me.llbACCDeviationsIncorrectlyReported)
-        Me.TPACCStats.Controls.Add(Me.llbACCDeviationsReportedCorrectly)
-        Me.TPACCStats.Controls.Add(Me.llbACCDeviationsReported)
-        Me.TPACCStats.Controls.Add(Me.llbACCSubmittedLate)
-        Me.TPACCStats.Controls.Add(Me.llbACCReporting)
-        Me.TPACCStats.Controls.Add(Me.llbViewACCTotalAssigned)
-        Me.TPACCStats.Controls.Add(Me.txtLONTaken)
-        Me.TPACCStats.Controls.Add(Me.Label44)
-        Me.TPACCStats.Controls.Add(Me.txtNOVTaken)
-        Me.TPACCStats.Controls.Add(Me.Label43)
-        Me.TPACCStats.Controls.Add(Me.txtCOTaken)
-        Me.TPACCStats.Controls.Add(Me.Label42)
-        Me.TPACCStats.Controls.Add(Me.txtEnforcementActionTaken)
-        Me.TPACCStats.Controls.Add(Me.Label41)
-        Me.TPACCStats.Controls.Add(Me.txtDeviationsNotPreviouslyReported)
-        Me.TPACCStats.Controls.Add(Me.Label40)
-        Me.TPACCStats.Controls.Add(Me.txtDeviationsReportedInFinal)
-        Me.TPACCStats.Controls.Add(Me.Label38)
-        Me.TPACCStats.Controls.Add(Me.txtDeviationsIncorrectlyReported)
-        Me.TPACCStats.Controls.Add(Me.txtDeviationsCorrectlyReported)
-        Me.TPACCStats.Controls.Add(Me.Label37)
-        Me.TPACCStats.Controls.Add(Me.txtDeviationsReportedInOrigional)
-        Me.TPACCStats.Controls.Add(Me.Label36)
-        Me.TPACCStats.Controls.Add(Me.txtSubmittedLate)
-        Me.TPACCStats.Controls.Add(Me.Label35)
-        Me.TPACCStats.Controls.Add(Me.txtFacilitiesReporting)
-        Me.TPACCStats.Controls.Add(Me.Label32)
-        Me.TPACCStats.Controls.Add(Me.txtTotalFacilities)
-        Me.TPACCStats.Controls.Add(Me.Label31)
-        Me.TPACCStats.Location = New System.Drawing.Point(4, 22)
-        Me.TPACCStats.Name = "TPACCStats"
-        Me.TPACCStats.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPACCStats.Size = New System.Drawing.Size(477, 605)
-        Me.TPACCStats.TabIndex = 0
-        Me.TPACCStats.Text = "ACC Stats"
-        Me.TPACCStats.UseVisualStyleBackColor = True
-        '
-        'Label2
-        '
-        Me.Label2.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(148, 266)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(43, 13)
-        Me.Label2.TabIndex = 38
-        Me.Label2.Text = "through"
-        '
-        'Label1
-        '
-        Me.Label1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(6, 266)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(30, 13)
-        Me.Label1.TabIndex = 38
-        Me.Label1.Text = "From"
-        '
-        'TCComplianceStaff
-        '
-        Me.TCComplianceStaff.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.TCComplianceStaff.Controls.Add(Me.TPAirToxics)
-        Me.TCComplianceStaff.Controls.Add(Me.TPChemicals)
-        Me.TCComplianceStaff.Controls.Add(Me.TPVOC)
-        Me.TCComplianceStaff.Controls.Add(Me.TPDistricts)
-        Me.TCComplianceStaff.Location = New System.Drawing.Point(6, 6)
-        Me.TCComplianceStaff.Multiline = True
-        Me.TCComplianceStaff.Name = "TCComplianceStaff"
-        Me.TCComplianceStaff.SelectedIndex = 0
-        Me.TCComplianceStaff.Size = New System.Drawing.Size(322, 248)
-        Me.TCComplianceStaff.TabIndex = 13
-        '
-        'TPAirToxics
-        '
-        Me.TPAirToxics.Controls.Add(Me.clbAirToxicUnit)
-        Me.TPAirToxics.Location = New System.Drawing.Point(4, 22)
-        Me.TPAirToxics.Name = "TPAirToxics"
-        Me.TPAirToxics.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPAirToxics.Size = New System.Drawing.Size(314, 222)
-        Me.TPAirToxics.TabIndex = 1
-        Me.TPAirToxics.Text = "Air Toxics"
-        Me.TPAirToxics.UseVisualStyleBackColor = True
-        '
-        'clbAirToxicUnit
-        '
-        Me.clbAirToxicUnit.CheckOnClick = True
-        Me.clbAirToxicUnit.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.clbAirToxicUnit.FormattingEnabled = True
-        Me.clbAirToxicUnit.Location = New System.Drawing.Point(3, 3)
-        Me.clbAirToxicUnit.Name = "clbAirToxicUnit"
-        Me.clbAirToxicUnit.ScrollAlwaysVisible = True
-        Me.clbAirToxicUnit.Size = New System.Drawing.Size(308, 216)
-        Me.clbAirToxicUnit.TabIndex = 1
-        '
-        'TPChemicals
-        '
-        Me.TPChemicals.Controls.Add(Me.clbChemicalsMinerals)
-        Me.TPChemicals.Location = New System.Drawing.Point(4, 22)
-        Me.TPChemicals.Name = "TPChemicals"
-        Me.TPChemicals.Size = New System.Drawing.Size(314, 222)
-        Me.TPChemicals.TabIndex = 2
-        Me.TPChemicals.Text = "Chemicals/Minerals"
-        Me.TPChemicals.UseVisualStyleBackColor = True
-        '
-        'clbChemicalsMinerals
-        '
-        Me.clbChemicalsMinerals.CheckOnClick = True
-        Me.clbChemicalsMinerals.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.clbChemicalsMinerals.FormattingEnabled = True
-        Me.clbChemicalsMinerals.Location = New System.Drawing.Point(0, 0)
-        Me.clbChemicalsMinerals.Name = "clbChemicalsMinerals"
-        Me.clbChemicalsMinerals.ScrollAlwaysVisible = True
-        Me.clbChemicalsMinerals.Size = New System.Drawing.Size(314, 222)
-        Me.clbChemicalsMinerals.TabIndex = 1
-        '
-        'TPVOC
-        '
-        Me.TPVOC.Controls.Add(Me.clbVOCCombustion)
-        Me.TPVOC.Location = New System.Drawing.Point(4, 22)
-        Me.TPVOC.Name = "TPVOC"
-        Me.TPVOC.Size = New System.Drawing.Size(314, 222)
-        Me.TPVOC.TabIndex = 3
-        Me.TPVOC.Text = "VOC/Combustion"
-        Me.TPVOC.UseVisualStyleBackColor = True
-        '
-        'clbVOCCombustion
-        '
-        Me.clbVOCCombustion.CheckOnClick = True
-        Me.clbVOCCombustion.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.clbVOCCombustion.FormattingEnabled = True
-        Me.clbVOCCombustion.Location = New System.Drawing.Point(0, 0)
-        Me.clbVOCCombustion.Name = "clbVOCCombustion"
-        Me.clbVOCCombustion.ScrollAlwaysVisible = True
-        Me.clbVOCCombustion.Size = New System.Drawing.Size(314, 222)
-        Me.clbVOCCombustion.TabIndex = 1
-        '
-        'TPDistricts
-        '
-        Me.TPDistricts.Controls.Add(Me.clbDistricts)
-        Me.TPDistricts.Location = New System.Drawing.Point(4, 22)
-        Me.TPDistricts.Name = "TPDistricts"
-        Me.TPDistricts.Size = New System.Drawing.Size(314, 222)
-        Me.TPDistricts.TabIndex = 4
-        Me.TPDistricts.Text = "Districts"
-        Me.TPDistricts.UseVisualStyleBackColor = True
-        '
-        'clbDistricts
-        '
-        Me.clbDistricts.CheckOnClick = True
-        Me.clbDistricts.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.clbDistricts.FormattingEnabled = True
-        Me.clbDistricts.Location = New System.Drawing.Point(0, 0)
-        Me.clbDistricts.Name = "clbDistricts"
-        Me.clbDistricts.ScrollAlwaysVisible = True
-        Me.clbDistricts.Size = New System.Drawing.Size(314, 222)
-        Me.clbDistricts.TabIndex = 2
-        '
-        'llbACCLONTaken
-        '
-        Me.llbACCLONTaken.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.llbACCLONTaken.AutoSize = True
-        Me.llbACCLONTaken.Location = New System.Drawing.Point(260, 581)
-        Me.llbACCLONTaken.Name = "llbACCLONTaken"
-        Me.llbACCLONTaken.Size = New System.Drawing.Size(30, 13)
-        Me.llbACCLONTaken.TabIndex = 37
-        Me.llbACCLONTaken.TabStop = True
-        Me.llbACCLONTaken.Text = "View"
-        '
-        'llbACCNOVTaken
-        '
-        Me.llbACCNOVTaken.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.llbACCNOVTaken.AutoSize = True
-        Me.llbACCNOVTaken.Location = New System.Drawing.Point(260, 560)
-        Me.llbACCNOVTaken.Name = "llbACCNOVTaken"
-        Me.llbACCNOVTaken.Size = New System.Drawing.Size(30, 13)
-        Me.llbACCNOVTaken.TabIndex = 36
-        Me.llbACCNOVTaken.TabStop = True
-        Me.llbACCNOVTaken.Text = "View"
-        '
-        'btnRunStatisticalReport
-        '
-        Me.btnRunStatisticalReport.AutoSize = True
-        Me.btnRunStatisticalReport.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnRunStatisticalReport.Location = New System.Drawing.Point(352, 28)
-        Me.btnRunStatisticalReport.Name = "btnRunStatisticalReport"
-        Me.btnRunStatisticalReport.Size = New System.Drawing.Size(74, 23)
-        Me.btnRunStatisticalReport.TabIndex = 3
-        Me.btnRunStatisticalReport.Text = "Run Search"
-        Me.btnRunStatisticalReport.UseVisualStyleBackColor = True
-        '
-        'llbACCCOTaken
-        '
-        Me.llbACCCOTaken.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.llbACCCOTaken.AutoSize = True
-        Me.llbACCCOTaken.Location = New System.Drawing.Point(260, 539)
-        Me.llbACCCOTaken.Name = "llbACCCOTaken"
-        Me.llbACCCOTaken.Size = New System.Drawing.Size(30, 13)
-        Me.llbACCCOTaken.TabIndex = 35
-        Me.llbACCCOTaken.TabStop = True
-        Me.llbACCCOTaken.Text = "View"
-        '
-        'llbACCEnforcementTaken
-        '
-        Me.llbACCEnforcementTaken.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.llbACCEnforcementTaken.AutoSize = True
-        Me.llbACCEnforcementTaken.Location = New System.Drawing.Point(260, 518)
-        Me.llbACCEnforcementTaken.Name = "llbACCEnforcementTaken"
-        Me.llbACCEnforcementTaken.Size = New System.Drawing.Size(30, 13)
-        Me.llbACCEnforcementTaken.TabIndex = 34
-        Me.llbACCEnforcementTaken.TabStop = True
-        Me.llbACCEnforcementTaken.Text = "View"
-        '
-        'DTPSearchDateStart
-        '
-        Me.DTPSearchDateStart.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.DTPSearchDateStart.CustomFormat = "dd-MMM-yyyy"
-        Me.DTPSearchDateStart.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPSearchDateStart.Location = New System.Drawing.Point(42, 263)
-        Me.DTPSearchDateStart.Name = "DTPSearchDateStart"
-        Me.DTPSearchDateStart.Size = New System.Drawing.Size(100, 20)
-        Me.DTPSearchDateStart.TabIndex = 6
-        Me.DTPSearchDateStart.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
-        '
-        'DTPSearchDateEnd
-        '
-        Me.DTPSearchDateEnd.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.DTPSearchDateEnd.CustomFormat = "dd-MMM-yyyy"
-        Me.DTPSearchDateEnd.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPSearchDateEnd.Location = New System.Drawing.Point(197, 263)
-        Me.DTPSearchDateEnd.Name = "DTPSearchDateEnd"
-        Me.DTPSearchDateEnd.Size = New System.Drawing.Size(100, 20)
-        Me.DTPSearchDateEnd.TabIndex = 7
-        Me.DTPSearchDateEnd.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
-        '
-        'llbACCDeviationsNotReported
-        '
-        Me.llbACCDeviationsNotReported.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.llbACCDeviationsNotReported.AutoSize = True
-        Me.llbACCDeviationsNotReported.Location = New System.Drawing.Point(260, 497)
-        Me.llbACCDeviationsNotReported.Name = "llbACCDeviationsNotReported"
-        Me.llbACCDeviationsNotReported.Size = New System.Drawing.Size(30, 13)
-        Me.llbACCDeviationsNotReported.TabIndex = 33
-        Me.llbACCDeviationsNotReported.TabStop = True
-        Me.llbACCDeviationsNotReported.Text = "View"
-        '
-        'llbACCDeviationsInFinal
-        '
-        Me.llbACCDeviationsInFinal.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.llbACCDeviationsInFinal.AutoSize = True
-        Me.llbACCDeviationsInFinal.Location = New System.Drawing.Point(260, 476)
-        Me.llbACCDeviationsInFinal.Name = "llbACCDeviationsInFinal"
-        Me.llbACCDeviationsInFinal.Size = New System.Drawing.Size(30, 13)
-        Me.llbACCDeviationsInFinal.TabIndex = 32
-        Me.llbACCDeviationsInFinal.TabStop = True
-        Me.llbACCDeviationsInFinal.Text = "View"
-        '
-        'llbACCDeviationsIncorrectlyReported
-        '
-        Me.llbACCDeviationsIncorrectlyReported.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.llbACCDeviationsIncorrectlyReported.AutoSize = True
-        Me.llbACCDeviationsIncorrectlyReported.Location = New System.Drawing.Point(260, 445)
-        Me.llbACCDeviationsIncorrectlyReported.Name = "llbACCDeviationsIncorrectlyReported"
-        Me.llbACCDeviationsIncorrectlyReported.Size = New System.Drawing.Size(30, 13)
-        Me.llbACCDeviationsIncorrectlyReported.TabIndex = 31
-        Me.llbACCDeviationsIncorrectlyReported.TabStop = True
-        Me.llbACCDeviationsIncorrectlyReported.Text = "View"
-        '
-        'llbACCDeviationsReportedCorrectly
-        '
-        Me.llbACCDeviationsReportedCorrectly.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.llbACCDeviationsReportedCorrectly.AutoSize = True
-        Me.llbACCDeviationsReportedCorrectly.Location = New System.Drawing.Point(260, 426)
-        Me.llbACCDeviationsReportedCorrectly.Name = "llbACCDeviationsReportedCorrectly"
-        Me.llbACCDeviationsReportedCorrectly.Size = New System.Drawing.Size(30, 13)
-        Me.llbACCDeviationsReportedCorrectly.TabIndex = 30
-        Me.llbACCDeviationsReportedCorrectly.TabStop = True
-        Me.llbACCDeviationsReportedCorrectly.Text = "View"
-        '
-        'llbACCDeviationsReported
-        '
-        Me.llbACCDeviationsReported.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.llbACCDeviationsReported.AutoSize = True
-        Me.llbACCDeviationsReported.Location = New System.Drawing.Point(260, 384)
-        Me.llbACCDeviationsReported.Name = "llbACCDeviationsReported"
-        Me.llbACCDeviationsReported.Size = New System.Drawing.Size(30, 13)
-        Me.llbACCDeviationsReported.TabIndex = 29
-        Me.llbACCDeviationsReported.TabStop = True
-        Me.llbACCDeviationsReported.Text = "View"
-        '
-        'llbACCSubmittedLate
-        '
-        Me.llbACCSubmittedLate.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.llbACCSubmittedLate.AutoSize = True
-        Me.llbACCSubmittedLate.Location = New System.Drawing.Point(260, 363)
-        Me.llbACCSubmittedLate.Name = "llbACCSubmittedLate"
-        Me.llbACCSubmittedLate.Size = New System.Drawing.Size(30, 13)
-        Me.llbACCSubmittedLate.TabIndex = 28
-        Me.llbACCSubmittedLate.TabStop = True
-        Me.llbACCSubmittedLate.Text = "View"
-        '
-        'llbACCReporting
-        '
-        Me.llbACCReporting.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.llbACCReporting.AutoSize = True
-        Me.llbACCReporting.Location = New System.Drawing.Point(260, 321)
-        Me.llbACCReporting.Name = "llbACCReporting"
-        Me.llbACCReporting.Size = New System.Drawing.Size(30, 13)
-        Me.llbACCReporting.TabIndex = 26
-        Me.llbACCReporting.TabStop = True
-        Me.llbACCReporting.Text = "View"
-        '
-        'llbViewACCTotalAssigned
-        '
-        Me.llbViewACCTotalAssigned.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.llbViewACCTotalAssigned.AutoSize = True
-        Me.llbViewACCTotalAssigned.Location = New System.Drawing.Point(260, 300)
-        Me.llbViewACCTotalAssigned.Name = "llbViewACCTotalAssigned"
-        Me.llbViewACCTotalAssigned.Size = New System.Drawing.Size(30, 13)
-        Me.llbViewACCTotalAssigned.TabIndex = 25
-        Me.llbViewACCTotalAssigned.TabStop = True
-        Me.llbViewACCTotalAssigned.Text = "View"
-        '
-        'txtLONTaken
-        '
-        Me.txtLONTaken.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.txtLONTaken.Location = New System.Drawing.Point(185, 577)
-        Me.txtLONTaken.Name = "txtLONTaken"
-        Me.txtLONTaken.ReadOnly = True
-        Me.txtLONTaken.Size = New System.Drawing.Size(59, 20)
-        Me.txtLONTaken.TabIndex = 24
-        '
-        'Label44
-        '
-        Me.Label44.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.Label44.AutoSize = True
-        Me.Label44.Location = New System.Drawing.Point(6, 581)
-        Me.Label44.Name = "Label44"
-        Me.Label44.Size = New System.Drawing.Size(29, 13)
-        Me.Label44.TabIndex = 23
-        Me.Label44.Text = "LON"
-        '
-        'txtNOVTaken
-        '
-        Me.txtNOVTaken.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.txtNOVTaken.Location = New System.Drawing.Point(185, 556)
-        Me.txtNOVTaken.Name = "txtNOVTaken"
-        Me.txtNOVTaken.ReadOnly = True
-        Me.txtNOVTaken.Size = New System.Drawing.Size(59, 20)
-        Me.txtNOVTaken.TabIndex = 22
-        '
-        'Label43
-        '
-        Me.Label43.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.Label43.AutoSize = True
-        Me.Label43.Location = New System.Drawing.Point(6, 560)
-        Me.Label43.Name = "Label43"
-        Me.Label43.Size = New System.Drawing.Size(30, 13)
-        Me.Label43.TabIndex = 21
-        Me.Label43.Text = "NOV"
-        '
-        'txtCOTaken
-        '
-        Me.txtCOTaken.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.txtCOTaken.Location = New System.Drawing.Point(185, 535)
-        Me.txtCOTaken.Name = "txtCOTaken"
-        Me.txtCOTaken.ReadOnly = True
-        Me.txtCOTaken.Size = New System.Drawing.Size(59, 20)
-        Me.txtCOTaken.TabIndex = 20
-        '
-        'Label42
-        '
-        Me.Label42.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.Label42.AutoSize = True
-        Me.Label42.Location = New System.Drawing.Point(6, 539)
-        Me.Label42.Name = "Label42"
-        Me.Label42.Size = New System.Drawing.Size(22, 13)
-        Me.Label42.TabIndex = 19
-        Me.Label42.Text = "CO"
-        '
-        'txtEnforcementActionTaken
-        '
-        Me.txtEnforcementActionTaken.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.txtEnforcementActionTaken.Location = New System.Drawing.Point(185, 514)
-        Me.txtEnforcementActionTaken.Name = "txtEnforcementActionTaken"
-        Me.txtEnforcementActionTaken.ReadOnly = True
-        Me.txtEnforcementActionTaken.Size = New System.Drawing.Size(59, 20)
-        Me.txtEnforcementActionTaken.TabIndex = 18
-        '
-        'Label41
-        '
-        Me.Label41.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.Label41.AutoSize = True
-        Me.Label41.Location = New System.Drawing.Point(6, 518)
-        Me.Label41.Name = "Label41"
-        Me.Label41.Size = New System.Drawing.Size(129, 13)
-        Me.Label41.TabIndex = 17
-        Me.Label41.Text = "Enforcement action taken"
-        '
-        'txtDeviationsNotPreviouslyReported
-        '
-        Me.txtDeviationsNotPreviouslyReported.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.txtDeviationsNotPreviouslyReported.Location = New System.Drawing.Point(185, 493)
-        Me.txtDeviationsNotPreviouslyReported.Name = "txtDeviationsNotPreviouslyReported"
-        Me.txtDeviationsNotPreviouslyReported.ReadOnly = True
-        Me.txtDeviationsNotPreviouslyReported.Size = New System.Drawing.Size(59, 20)
-        Me.txtDeviationsNotPreviouslyReported.TabIndex = 16
-        '
-        'Label40
-        '
-        Me.Label40.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.Label40.AutoSize = True
-        Me.Label40.Location = New System.Drawing.Point(6, 497)
-        Me.Label40.Name = "Label40"
-        Me.Label40.Size = New System.Drawing.Size(167, 13)
-        Me.Label40.TabIndex = 15
-        Me.Label40.Text = "Deviations not previously reported"
-        '
-        'txtDeviationsReportedInFinal
-        '
-        Me.txtDeviationsReportedInFinal.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.txtDeviationsReportedInFinal.Location = New System.Drawing.Point(185, 472)
-        Me.txtDeviationsReportedInFinal.Name = "txtDeviationsReportedInFinal"
-        Me.txtDeviationsReportedInFinal.ReadOnly = True
-        Me.txtDeviationsReportedInFinal.Size = New System.Drawing.Size(59, 20)
-        Me.txtDeviationsReportedInFinal.TabIndex = 14
-        '
-        'Label38
-        '
-        Me.Label38.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.Label38.AutoSize = True
-        Me.Label38.Location = New System.Drawing.Point(6, 476)
-        Me.Label38.Name = "Label38"
-        Me.Label38.Size = New System.Drawing.Size(132, 13)
-        Me.Label38.TabIndex = 13
-        Me.Label38.Text = "Deviations reported in final"
-        '
-        'txtDeviationsIncorrectlyReported
-        '
-        Me.txtDeviationsIncorrectlyReported.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.txtDeviationsIncorrectlyReported.Location = New System.Drawing.Point(185, 441)
-        Me.txtDeviationsIncorrectlyReported.Name = "txtDeviationsIncorrectlyReported"
-        Me.txtDeviationsIncorrectlyReported.ReadOnly = True
-        Me.txtDeviationsIncorrectlyReported.Size = New System.Drawing.Size(59, 20)
-        Me.txtDeviationsIncorrectlyReported.TabIndex = 12
-        '
-        'txtDeviationsCorrectlyReported
-        '
-        Me.txtDeviationsCorrectlyReported.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.txtDeviationsCorrectlyReported.Location = New System.Drawing.Point(185, 422)
-        Me.txtDeviationsCorrectlyReported.Name = "txtDeviationsCorrectlyReported"
-        Me.txtDeviationsCorrectlyReported.ReadOnly = True
-        Me.txtDeviationsCorrectlyReported.Size = New System.Drawing.Size(59, 20)
-        Me.txtDeviationsCorrectlyReported.TabIndex = 11
-        '
-        'Label37
-        '
-        Me.Label37.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.Label37.AutoSize = True
-        Me.Label37.Location = New System.Drawing.Point(6, 414)
-        Me.Label37.Name = "Label37"
-        Me.Label37.Size = New System.Drawing.Size(168, 39)
-        Me.Label37.TabIndex = 10
-        Me.Label37.Text = "No Deviations Reported in original" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "    - Correctly" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "     - Incorrectly"
-        '
-        'txtDeviationsReportedInOrigional
-        '
-        Me.txtDeviationsReportedInOrigional.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.txtDeviationsReportedInOrigional.Location = New System.Drawing.Point(185, 380)
-        Me.txtDeviationsReportedInOrigional.Name = "txtDeviationsReportedInOrigional"
-        Me.txtDeviationsReportedInOrigional.ReadOnly = True
-        Me.txtDeviationsReportedInOrigional.Size = New System.Drawing.Size(59, 20)
-        Me.txtDeviationsReportedInOrigional.TabIndex = 9
-        '
-        'Label36
-        '
-        Me.Label36.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.Label36.AutoSize = True
-        Me.Label36.Location = New System.Drawing.Point(6, 384)
-        Me.Label36.Name = "Label36"
-        Me.Label36.Size = New System.Drawing.Size(151, 13)
-        Me.Label36.TabIndex = 8
-        Me.Label36.Text = "Deviations Reported in original"
-        '
-        'txtSubmittedLate
-        '
-        Me.txtSubmittedLate.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.txtSubmittedLate.Location = New System.Drawing.Point(185, 359)
-        Me.txtSubmittedLate.Name = "txtSubmittedLate"
-        Me.txtSubmittedLate.ReadOnly = True
-        Me.txtSubmittedLate.Size = New System.Drawing.Size(59, 20)
-        Me.txtSubmittedLate.TabIndex = 7
-        '
-        'Label35
-        '
-        Me.Label35.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.Label35.AutoSize = True
-        Me.Label35.Location = New System.Drawing.Point(6, 363)
-        Me.Label35.Name = "Label35"
-        Me.Label35.Size = New System.Drawing.Size(121, 13)
-        Me.Label35.TabIndex = 6
-        Me.Label35.Text = "Facilities Submitted Late"
-        '
-        'txtFacilitiesReporting
-        '
-        Me.txtFacilitiesReporting.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.txtFacilitiesReporting.Location = New System.Drawing.Point(185, 317)
-        Me.txtFacilitiesReporting.Name = "txtFacilitiesReporting"
-        Me.txtFacilitiesReporting.ReadOnly = True
-        Me.txtFacilitiesReporting.Size = New System.Drawing.Size(59, 20)
-        Me.txtFacilitiesReporting.TabIndex = 3
-        '
-        'Label32
-        '
-        Me.Label32.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.Label32.AutoSize = True
-        Me.Label32.Location = New System.Drawing.Point(6, 321)
-        Me.Label32.Name = "Label32"
-        Me.Label32.Size = New System.Drawing.Size(96, 13)
-        Me.Label32.TabIndex = 2
-        Me.Label32.Text = "Facilities Reporting"
-        '
-        'txtTotalFacilities
-        '
-        Me.txtTotalFacilities.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.txtTotalFacilities.Location = New System.Drawing.Point(185, 296)
-        Me.txtTotalFacilities.Name = "txtTotalFacilities"
-        Me.txtTotalFacilities.ReadOnly = True
-        Me.txtTotalFacilities.Size = New System.Drawing.Size(59, 20)
-        Me.txtTotalFacilities.TabIndex = 1
-        '
-        'Label31
-        '
-        Me.Label31.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.Label31.AutoSize = True
-        Me.Label31.Location = New System.Drawing.Point(6, 300)
-        Me.Label31.Name = "Label31"
-        Me.Label31.Size = New System.Drawing.Size(157, 13)
-        Me.Label31.TabIndex = 0
-        Me.Label31.Text = "Total Facilities Assigned to Staff"
-        '
-        'TPTitleVRenewals
-        '
-        Me.TPTitleVRenewals.Controls.Add(Me.Label66)
-        Me.TPTitleVRenewals.Controls.Add(Me.btnRunTitleVSearch)
-        Me.TPTitleVRenewals.Location = New System.Drawing.Point(4, 22)
-        Me.TPTitleVRenewals.Name = "TPTitleVRenewals"
-        Me.TPTitleVRenewals.Size = New System.Drawing.Size(477, 605)
-        Me.TPTitleVRenewals.TabIndex = 2
-        Me.TPTitleVRenewals.Text = "Title V Renewals"
-        Me.TPTitleVRenewals.UseVisualStyleBackColor = True
-        '
         'Label66
         '
-        Me.Label66.Location = New System.Drawing.Point(107, 23)
+        Me.Label66.Location = New System.Drawing.Point(102, 22)
         Me.Label66.Name = "Label66"
         Me.Label66.Size = New System.Drawing.Size(350, 47)
         Me.Label66.TabIndex = 42
@@ -2261,7 +1433,7 @@ Partial Class SSCPManagersTools
         'btnRunTitleVSearch
         '
         Me.btnRunTitleVSearch.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnRunTitleVSearch.Location = New System.Drawing.Point(15, 23)
+        Me.btnRunTitleVSearch.Location = New System.Drawing.Point(10, 22)
         Me.btnRunTitleVSearch.Name = "btnRunTitleVSearch"
         Me.btnRunTitleVSearch.Size = New System.Drawing.Size(86, 39)
         Me.btnRunTitleVSearch.TabIndex = 41
@@ -2283,8 +1455,9 @@ Partial Class SSCPManagersTools
         Me.lblStatisticalRecords.AutoSize = True
         Me.lblStatisticalRecords.Location = New System.Drawing.Point(110, 22)
         Me.lblStatisticalRecords.Name = "lblStatisticalRecords"
-        Me.lblStatisticalRecords.Size = New System.Drawing.Size(0, 13)
+        Me.lblStatisticalRecords.Size = New System.Drawing.Size(42, 13)
         Me.lblStatisticalRecords.TabIndex = 19
+        Me.lblStatisticalRecords.Text = "AIRS #"
         '
         'txtStatisticalCount
         '
@@ -2305,6 +1478,8 @@ Partial Class SSCPManagersTools
         '
         'txtRecordNumber
         '
+        Me.txtRecordNumber.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtRecordNumber.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtRecordNumber.Location = New System.Drawing.Point(199, 19)
         Me.txtRecordNumber.Name = "txtRecordNumber"
         Me.txtRecordNumber.Size = New System.Drawing.Size(100, 20)
@@ -2335,158 +1510,6 @@ Partial Class SSCPManagersTools
         Me.dgvStatisticalReports.Size = New System.Drawing.Size(620, 584)
         Me.dgvStatisticalReports.TabIndex = 14
         '
-        'TPDocuments
-        '
-        Me.TPDocuments.Controls.Add(Me.lblAddNewEnfDocType)
-        Me.TPDocuments.Controls.Add(Me.pnlUpdateDocumentType)
-        Me.TPDocuments.Controls.Add(Me.btnAddDocumentType)
-        Me.TPDocuments.Controls.Add(Me.mtxtNewPosition)
-        Me.TPDocuments.Controls.Add(Me.txtNewName)
-        Me.TPDocuments.Controls.Add(Me.lblNewPosition)
-        Me.TPDocuments.Controls.Add(Me.lblEnfDocumentTypes)
-        Me.TPDocuments.Controls.Add(Me.dgvEnfDocumentTypes)
-        Me.TPDocuments.Location = New System.Drawing.Point(4, 22)
-        Me.TPDocuments.Name = "TPDocuments"
-        Me.TPDocuments.Size = New System.Drawing.Size(1109, 631)
-        Me.TPDocuments.TabIndex = 10
-        Me.TPDocuments.Text = "Documents"
-        Me.TPDocuments.UseVisualStyleBackColor = True
-        '
-        'lblAddNewEnfDocType
-        '
-        Me.lblAddNewEnfDocType.AutoSize = True
-        Me.lblAddNewEnfDocType.Location = New System.Drawing.Point(23, 21)
-        Me.lblAddNewEnfDocType.Name = "lblAddNewEnfDocType"
-        Me.lblAddNewEnfDocType.Size = New System.Drawing.Size(51, 13)
-        Me.lblAddNewEnfDocType.TabIndex = 11
-        Me.lblAddNewEnfDocType.Text = "Add New"
-        '
-        'pnlUpdateDocumentType
-        '
-        Me.pnlUpdateDocumentType.Controls.Add(Me.btnUpdateDocumentType)
-        Me.pnlUpdateDocumentType.Controls.Add(Me.lblUpdateEnfDocType)
-        Me.pnlUpdateDocumentType.Controls.Add(Me.chkUpdateActive)
-        Me.pnlUpdateDocumentType.Controls.Add(Me.mtxtUpdatePosition)
-        Me.pnlUpdateDocumentType.Controls.Add(Me.txtUpdateName)
-        Me.pnlUpdateDocumentType.Controls.Add(Me.lblUpdatePosition)
-        Me.pnlUpdateDocumentType.Enabled = False
-        Me.pnlUpdateDocumentType.Location = New System.Drawing.Point(522, 21)
-        Me.pnlUpdateDocumentType.Name = "pnlUpdateDocumentType"
-        Me.pnlUpdateDocumentType.Size = New System.Drawing.Size(160, 173)
-        Me.pnlUpdateDocumentType.TabIndex = 9
-        Me.pnlUpdateDocumentType.Visible = False
-        '
-        'btnUpdateDocumentType
-        '
-        Me.btnUpdateDocumentType.Location = New System.Drawing.Point(3, 95)
-        Me.btnUpdateDocumentType.Name = "btnUpdateDocumentType"
-        Me.btnUpdateDocumentType.Size = New System.Drawing.Size(121, 23)
-        Me.btnUpdateDocumentType.TabIndex = 8
-        Me.btnUpdateDocumentType.Text = "Update"
-        Me.btnUpdateDocumentType.UseVisualStyleBackColor = True
-        '
-        'lblUpdateEnfDocType
-        '
-        Me.lblUpdateEnfDocType.AutoSize = True
-        Me.lblUpdateEnfDocType.Location = New System.Drawing.Point(0, 0)
-        Me.lblUpdateEnfDocType.Name = "lblUpdateEnfDocType"
-        Me.lblUpdateEnfDocType.Size = New System.Drawing.Size(42, 13)
-        Me.lblUpdateEnfDocType.TabIndex = 10
-        Me.lblUpdateEnfDocType.Text = "Update"
-        '
-        'chkUpdateActive
-        '
-        Me.chkUpdateActive.AutoSize = True
-        Me.chkUpdateActive.Location = New System.Drawing.Point(3, 72)
-        Me.chkUpdateActive.Name = "chkUpdateActive"
-        Me.chkUpdateActive.Size = New System.Drawing.Size(56, 17)
-        Me.chkUpdateActive.TabIndex = 7
-        Me.chkUpdateActive.Text = "Active"
-        Me.chkUpdateActive.UseVisualStyleBackColor = True
-        '
-        'mtxtUpdatePosition
-        '
-        Me.mtxtUpdatePosition.Location = New System.Drawing.Point(99, 42)
-        Me.mtxtUpdatePosition.Mask = "##0"
-        Me.mtxtUpdatePosition.Name = "mtxtUpdatePosition"
-        Me.mtxtUpdatePosition.Size = New System.Drawing.Size(25, 20)
-        Me.mtxtUpdatePosition.TabIndex = 5
-        '
-        'txtUpdateName
-        '
-        Me.txtUpdateName.Location = New System.Drawing.Point(3, 16)
-        Me.txtUpdateName.Name = "txtUpdateName"
-        Me.txtUpdateName.Size = New System.Drawing.Size(150, 20)
-        Me.txtUpdateName.TabIndex = 4
-        '
-        'lblUpdatePosition
-        '
-        Me.lblUpdatePosition.AutoSize = True
-        Me.lblUpdatePosition.Location = New System.Drawing.Point(0, 45)
-        Me.lblUpdatePosition.Name = "lblUpdatePosition"
-        Me.lblUpdatePosition.Size = New System.Drawing.Size(93, 13)
-        Me.lblUpdatePosition.TabIndex = 3
-        Me.lblUpdatePosition.Text = "Position (optional):"
-        '
-        'btnAddDocumentType
-        '
-        Me.btnAddDocumentType.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnAddDocumentType.Location = New System.Drawing.Point(26, 116)
-        Me.btnAddDocumentType.Name = "btnAddDocumentType"
-        Me.btnAddDocumentType.Size = New System.Drawing.Size(121, 23)
-        Me.btnAddDocumentType.TabIndex = 8
-        Me.btnAddDocumentType.Text = "Add"
-        Me.btnAddDocumentType.UseVisualStyleBackColor = True
-        '
-        'mtxtNewPosition
-        '
-        Me.mtxtNewPosition.Location = New System.Drawing.Point(122, 63)
-        Me.mtxtNewPosition.Mask = "##0"
-        Me.mtxtNewPosition.Name = "mtxtNewPosition"
-        Me.mtxtNewPosition.Size = New System.Drawing.Size(25, 20)
-        Me.mtxtNewPosition.TabIndex = 5
-        '
-        'txtNewName
-        '
-        Me.txtNewName.Location = New System.Drawing.Point(26, 37)
-        Me.txtNewName.Name = "txtNewName"
-        Me.txtNewName.Size = New System.Drawing.Size(150, 20)
-        Me.txtNewName.TabIndex = 4
-        '
-        'lblNewPosition
-        '
-        Me.lblNewPosition.AutoSize = True
-        Me.lblNewPosition.Location = New System.Drawing.Point(23, 66)
-        Me.lblNewPosition.Name = "lblNewPosition"
-        Me.lblNewPosition.Size = New System.Drawing.Size(93, 13)
-        Me.lblNewPosition.TabIndex = 3
-        Me.lblNewPosition.Text = "Position (optional):"
-        '
-        'lblEnfDocumentTypes
-        '
-        Me.lblEnfDocumentTypes.AutoSize = True
-        Me.lblEnfDocumentTypes.Location = New System.Drawing.Point(190, 21)
-        Me.lblEnfDocumentTypes.Name = "lblEnfDocumentTypes"
-        Me.lblEnfDocumentTypes.Size = New System.Drawing.Size(151, 13)
-        Me.lblEnfDocumentTypes.TabIndex = 1
-        Me.lblEnfDocumentTypes.Text = "Enforcement Document Types"
-        '
-        'dgvEnfDocumentTypes
-        '
-        Me.dgvEnfDocumentTypes.AllowUserToAddRows = False
-        Me.dgvEnfDocumentTypes.AllowUserToDeleteRows = False
-        Me.dgvEnfDocumentTypes.AllowUserToOrderColumns = True
-        Me.dgvEnfDocumentTypes.AllowUserToResizeRows = False
-        Me.dgvEnfDocumentTypes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvEnfDocumentTypes.Location = New System.Drawing.Point(193, 37)
-        Me.dgvEnfDocumentTypes.MultiSelect = False
-        Me.dgvEnfDocumentTypes.Name = "dgvEnfDocumentTypes"
-        Me.dgvEnfDocumentTypes.ReadOnly = True
-        Me.dgvEnfDocumentTypes.RowHeadersVisible = False
-        Me.dgvEnfDocumentTypes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvEnfDocumentTypes.Size = New System.Drawing.Size(311, 312)
-        Me.dgvEnfDocumentTypes.TabIndex = 0
-        '
         'SSCPManagersTools
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -2503,12 +1526,6 @@ Partial Class SSCPManagersTools
         Me.PanelCMSUniverse.PerformLayout()
         Me.TPUniverse.ResumeLayout(False)
         CType(Me.dgvCMSUniverse, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.FceSearchFilters.ResumeLayout(False)
-        Me.FceSearchFilters.PerformLayout()
-        Me.PanelCMSWarning.ResumeLayout(False)
-        Me.PanelCMSWarning.PerformLayout()
-        CType(Me.dgvCMSWarning, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.TPCMSWarning.ResumeLayout(False)
         Me.TCManagerTools.ResumeLayout(False)
         Me.TPFacilityAssignments.ResumeLayout(False)
         Me.FacilityAssignmentPanel.ResumeLayout(False)
@@ -2559,21 +1576,7 @@ Partial Class SSCPManagersTools
         Me.SCStatisticalReports.Panel2.PerformLayout()
         CType(Me.SCStatisticalReports, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SCStatisticalReports.ResumeLayout(False)
-        Me.TCStatisticalTools.ResumeLayout(False)
-        Me.TPACCStats.ResumeLayout(False)
-        Me.TPACCStats.PerformLayout()
-        Me.TCComplianceStaff.ResumeLayout(False)
-        Me.TPAirToxics.ResumeLayout(False)
-        Me.TPChemicals.ResumeLayout(False)
-        Me.TPVOC.ResumeLayout(False)
-        Me.TPDistricts.ResumeLayout(False)
-        Me.TPTitleVRenewals.ResumeLayout(False)
         CType(Me.dgvStatisticalReports, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.TPDocuments.ResumeLayout(False)
-        Me.TPDocuments.PerformLayout()
-        Me.pnlUpdateDocumentType.ResumeLayout(False)
-        Me.pnlUpdateDocumentType.PerformLayout()
-        CType(Me.dgvEnfDocumentTypes, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -2591,76 +1594,14 @@ Partial Class SSCPManagersTools
     Friend WithEvents Label9 As System.Windows.Forms.Label
     Friend WithEvents txtCMSAIRSNumber As System.Windows.Forms.TextBox
     Friend WithEvents TPUniverse As System.Windows.Forms.TabPage
-    Friend WithEvents lblCMSWarning As System.Windows.Forms.LinkLabel
-    Friend WithEvents FceSearchFilters As System.Windows.Forms.GroupBox
-    Friend WithEvents rdbFCEOverdue As System.Windows.Forms.RadioButton
-    Friend WithEvents rdbNextYear As System.Windows.Forms.RadioButton
-    Friend WithEvents rdbNext120Days As System.Windows.Forms.RadioButton
-    Friend WithEvents rdbNext90Days As System.Windows.Forms.RadioButton
-    Friend WithEvents rdbNext60Days As System.Windows.Forms.RadioButton
-    Friend WithEvents Label30 As System.Windows.Forms.Label
-    Friend WithEvents PanelCMSWarning As System.Windows.Forms.Panel
-    Friend WithEvents txtCMSWarningCount As System.Windows.Forms.TextBox
-    Friend WithEvents TPCMSWarning As System.Windows.Forms.TabPage
-    Friend WithEvents Splitter3 As System.Windows.Forms.Splitter
     Friend WithEvents TCManagerTools As System.Windows.Forms.TabControl
     Friend WithEvents TPStatisticalPage As System.Windows.Forms.TabPage
-    Friend WithEvents btnRunStatisticalReport As System.Windows.Forms.Button
-    Friend WithEvents DTPSearchDateEnd As System.Windows.Forms.DateTimePicker
-    Friend WithEvents DTPSearchDateStart As System.Windows.Forms.DateTimePicker
-    Friend WithEvents clbVOCCombustion As System.Windows.Forms.CheckedListBox
-    Friend WithEvents clbChemicalsMinerals As System.Windows.Forms.CheckedListBox
-    Friend WithEvents clbAirToxicUnit As System.Windows.Forms.CheckedListBox
-    Friend WithEvents TCStatisticalTools As System.Windows.Forms.TabControl
-    Friend WithEvents TPACCStats As System.Windows.Forms.TabPage
-    Friend WithEvents TCComplianceStaff As System.Windows.Forms.TabControl
-    Friend WithEvents TPAirToxics As System.Windows.Forms.TabPage
-    Friend WithEvents TPChemicals As System.Windows.Forms.TabPage
-    Friend WithEvents TPVOC As System.Windows.Forms.TabPage
-    Friend WithEvents TPDistricts As System.Windows.Forms.TabPage
-    Friend WithEvents clbDistricts As System.Windows.Forms.CheckedListBox
-    Friend WithEvents Label31 As System.Windows.Forms.Label
-    Friend WithEvents txtDeviationsCorrectlyReported As System.Windows.Forms.TextBox
-    Friend WithEvents Label37 As System.Windows.Forms.Label
-    Friend WithEvents txtDeviationsReportedInOrigional As System.Windows.Forms.TextBox
-    Friend WithEvents Label36 As System.Windows.Forms.Label
-    Friend WithEvents txtSubmittedLate As System.Windows.Forms.TextBox
-    Friend WithEvents Label35 As System.Windows.Forms.Label
-    Friend WithEvents txtFacilitiesReporting As System.Windows.Forms.TextBox
-    Friend WithEvents Label32 As System.Windows.Forms.Label
-    Friend WithEvents txtTotalFacilities As System.Windows.Forms.TextBox
-    Friend WithEvents txtDeviationsReportedInFinal As System.Windows.Forms.TextBox
-    Friend WithEvents Label38 As System.Windows.Forms.Label
-    Friend WithEvents txtDeviationsIncorrectlyReported As System.Windows.Forms.TextBox
-    Friend WithEvents txtLONTaken As System.Windows.Forms.TextBox
-    Friend WithEvents Label44 As System.Windows.Forms.Label
-    Friend WithEvents txtNOVTaken As System.Windows.Forms.TextBox
-    Friend WithEvents Label43 As System.Windows.Forms.Label
-    Friend WithEvents txtCOTaken As System.Windows.Forms.TextBox
-    Friend WithEvents Label42 As System.Windows.Forms.Label
-    Friend WithEvents txtEnforcementActionTaken As System.Windows.Forms.TextBox
-    Friend WithEvents Label41 As System.Windows.Forms.Label
-    Friend WithEvents txtDeviationsNotPreviouslyReported As System.Windows.Forms.TextBox
-    Friend WithEvents Label40 As System.Windows.Forms.Label
-    Friend WithEvents llbViewACCTotalAssigned As System.Windows.Forms.LinkLabel
-    Friend WithEvents llbACCLONTaken As System.Windows.Forms.LinkLabel
-    Friend WithEvents llbACCNOVTaken As System.Windows.Forms.LinkLabel
-    Friend WithEvents llbACCCOTaken As System.Windows.Forms.LinkLabel
-    Friend WithEvents llbACCEnforcementTaken As System.Windows.Forms.LinkLabel
-    Friend WithEvents llbACCDeviationsNotReported As System.Windows.Forms.LinkLabel
-    Friend WithEvents llbACCDeviationsInFinal As System.Windows.Forms.LinkLabel
-    Friend WithEvents llbACCDeviationsIncorrectlyReported As System.Windows.Forms.LinkLabel
-    Friend WithEvents llbACCDeviationsReportedCorrectly As System.Windows.Forms.LinkLabel
-    Friend WithEvents llbACCDeviationsReported As System.Windows.Forms.LinkLabel
-    Friend WithEvents llbACCSubmittedLate As System.Windows.Forms.LinkLabel
-    Friend WithEvents llbACCReporting As System.Windows.Forms.LinkLabel
     Friend WithEvents SCStatisticalReports As System.Windows.Forms.SplitContainer
     Friend WithEvents dgvStatisticalReports As System.Windows.Forms.DataGridView
     Friend WithEvents txtStatisticalCount As System.Windows.Forms.TextBox
     Friend WithEvents Label45 As System.Windows.Forms.Label
     Friend WithEvents txtRecordNumber As System.Windows.Forms.TextBox
     Friend WithEvents lblStatisticalRecords As System.Windows.Forms.Label
-    Friend WithEvents chbNoFCE As System.Windows.Forms.CheckBox
     Friend WithEvents dgvCMSUniverse As System.Windows.Forms.DataGridView
     Friend WithEvents TPFacilityAssignments As System.Windows.Forms.TabPage
     Friend WithEvents btnSelectFacility As System.Windows.Forms.Button
@@ -2750,30 +1691,12 @@ Partial Class SSCPManagersTools
     Friend WithEvents cboFiscalYear As System.Windows.Forms.ComboBox
     Friend WithEvents Label62 As System.Windows.Forms.Label
     Friend WithEvents chbIgnoreFiscalYear As System.Windows.Forms.CheckBox
-    Friend WithEvents dgvCMSWarning As System.Windows.Forms.DataGridView
-    Friend WithEvents TPTitleVRenewals As System.Windows.Forms.TabPage
     Friend WithEvents btnRunTitleVSearch As System.Windows.Forms.Button
     Friend WithEvents Label66 As System.Windows.Forms.Label
     Friend WithEvents btnExportToExcel As System.Windows.Forms.Button
-    Friend WithEvents btnExportCmsWarningToExcel As System.Windows.Forms.Button
     Friend WithEvents btnExportCmsUniverseToExcel As System.Windows.Forms.Button
     Friend WithEvents btnAddToCmsUniverse As System.Windows.Forms.Button
     Friend WithEvents llbViewRecord As System.Windows.Forms.LinkLabel
-    Friend WithEvents TPDocuments As System.Windows.Forms.TabPage
-    Friend WithEvents lblEnfDocumentTypes As System.Windows.Forms.Label
-    Friend WithEvents dgvEnfDocumentTypes As System.Windows.Forms.DataGridView
-    Friend WithEvents mtxtNewPosition As System.Windows.Forms.MaskedTextBox
-    Friend WithEvents txtNewName As System.Windows.Forms.TextBox
-    Friend WithEvents lblNewPosition As System.Windows.Forms.Label
-    Friend WithEvents chkUpdateActive As System.Windows.Forms.CheckBox
-    Friend WithEvents btnAddDocumentType As System.Windows.Forms.Button
-    Friend WithEvents btnUpdateDocumentType As System.Windows.Forms.Button
-    Friend WithEvents mtxtUpdatePosition As System.Windows.Forms.MaskedTextBox
-    Friend WithEvents txtUpdateName As System.Windows.Forms.TextBox
-    Friend WithEvents lblUpdatePosition As System.Windows.Forms.Label
-    Friend WithEvents pnlUpdateDocumentType As System.Windows.Forms.Panel
-    Friend WithEvents lblAddNewEnfDocType As System.Windows.Forms.Label
-    Friend WithEvents lblUpdateEnfDocType As System.Windows.Forms.Label
     Friend WithEvents TPCopyYear As System.Windows.Forms.TabPage
     Friend WithEvents chbClearExistingData As System.Windows.Forms.CheckBox
     Friend WithEvents btnCopyYear As System.Windows.Forms.Button
@@ -2781,8 +1704,6 @@ Partial Class SSCPManagersTools
     Friend WithEvents Label64 As System.Windows.Forms.Label
     Friend WithEvents cboExistingYears As System.Windows.Forms.ComboBox
     Friend WithEvents Label63 As System.Windows.Forms.Label
-    Friend WithEvents Label2 As Label
-    Friend WithEvents Label1 As Label
     Friend WithEvents rdbCMSClassM As RadioButton
     Friend WithEvents rdbCMSClassNone As RadioButton
     Friend WithEvents rdbCmsMega As RadioButton

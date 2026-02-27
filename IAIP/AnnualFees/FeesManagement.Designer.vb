@@ -1,4 +1,4 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
+<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class FeesManagement
     Inherits BaseForm
 
@@ -280,6 +280,8 @@ Partial Class FeesManagement
         'txtNonAttainmentThreshold
         '
         Me.txtNonAttainmentThreshold.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtNonAttainmentThreshold.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtNonAttainmentThreshold.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtNonAttainmentThreshold.Location = New System.Drawing.Point(695, 479)
         Me.txtNonAttainmentThreshold.Name = "txtNonAttainmentThreshold"
         Me.txtNonAttainmentThreshold.Size = New System.Drawing.Size(100, 20)
@@ -299,6 +301,8 @@ Partial Class FeesManagement
         'txtAttainmentThreshold
         '
         Me.txtAttainmentThreshold.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtAttainmentThreshold.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtAttainmentThreshold.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtAttainmentThreshold.Location = New System.Drawing.Point(695, 455)
         Me.txtAttainmentThreshold.Name = "txtAttainmentThreshold"
         Me.txtAttainmentThreshold.Size = New System.Drawing.Size(100, 20)
@@ -506,6 +510,8 @@ Partial Class FeesManagement
         'txtAdminFeePercent
         '
         Me.txtAdminFeePercent.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtAdminFeePercent.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtAdminFeePercent.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtAdminFeePercent.Location = New System.Drawing.Point(695, 430)
         Me.txtAdminFeePercent.Name = "txtAdminFeePercent"
         Me.txtAdminFeePercent.Size = New System.Drawing.Size(79, 20)
@@ -555,6 +561,8 @@ Partial Class FeesManagement
         'txtPerTonRate
         '
         Me.txtPerTonRate.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtPerTonRate.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtPerTonRate.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtPerTonRate.Location = New System.Drawing.Point(695, 182)
         Me.txtPerTonRate.Name = "txtPerTonRate"
         Me.txtPerTonRate.Size = New System.Drawing.Size(100, 20)
@@ -584,6 +592,8 @@ Partial Class FeesManagement
         'txtPart70MaintenanceFee
         '
         Me.txtPart70MaintenanceFee.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtPart70MaintenanceFee.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtPart70MaintenanceFee.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtPart70MaintenanceFee.Location = New System.Drawing.Point(695, 109)
         Me.txtPart70MaintenanceFee.Name = "txtPart70MaintenanceFee"
         Me.txtPart70MaintenanceFee.Size = New System.Drawing.Size(100, 20)
@@ -603,6 +613,8 @@ Partial Class FeesManagement
         'txtPart70Fee
         '
         Me.txtPart70Fee.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtPart70Fee.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtPart70Fee.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtPart70Fee.Location = New System.Drawing.Point(695, 85)
         Me.txtPart70Fee.Name = "txtPart70Fee"
         Me.txtPart70Fee.Size = New System.Drawing.Size(100, 20)
@@ -642,6 +654,8 @@ Partial Class FeesManagement
         'txtAnnualNSPSFee
         '
         Me.txtAnnualNSPSFee.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtAnnualNSPSFee.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtAnnualNSPSFee.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtAnnualNSPSFee.Location = New System.Drawing.Point(695, 158)
         Me.txtAnnualNSPSFee.Name = "txtAnnualNSPSFee"
         Me.txtAnnualNSPSFee.Size = New System.Drawing.Size(100, 20)
@@ -661,6 +675,8 @@ Partial Class FeesManagement
         'txtAnnualSMFee
         '
         Me.txtAnnualSMFee.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtAnnualSMFee.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtAnnualSMFee.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtAnnualSMFee.Location = New System.Drawing.Point(695, 134)
         Me.txtAnnualSMFee.Name = "txtAnnualSMFee"
         Me.txtAnnualSMFee.Size = New System.Drawing.Size(100, 20)

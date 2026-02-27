@@ -254,6 +254,8 @@ Partial Class IAIPLogIn
         '
         'txtUserPassword
         '
+        Me.txtUserPassword.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtUserPassword.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtUserPassword.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtUserPassword.Location = New System.Drawing.Point(418, 182)
         Me.txtUserPassword.Margin = New System.Windows.Forms.Padding(2)
@@ -265,6 +267,8 @@ Partial Class IAIPLogIn
         '
         'txtUserID
         '
+        Me.txtUserID.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtUserID.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtUserID.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtUserID.Location = New System.Drawing.Point(418, 143)
         Me.txtUserID.Margin = New System.Windows.Forms.Padding(2)

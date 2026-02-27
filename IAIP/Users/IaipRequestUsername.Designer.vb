@@ -52,6 +52,8 @@ Partial Class IaipRequestUsername
         '
         'EmailAddress
         '
+        Me.EmailAddress.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.EmailAddress.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.EmailAddress.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.EmailAddress.Location = New System.Drawing.Point(25, 38)
         Me.EmailAddress.Name = "EmailAddress"

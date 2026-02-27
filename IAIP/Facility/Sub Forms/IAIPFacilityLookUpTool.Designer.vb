@@ -131,6 +131,8 @@ Partial Class IAIPFacilityLookUpTool
         '
         'txtFacilityNameSearch
         '
+        Me.txtFacilityNameSearch.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtFacilityNameSearch.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtFacilityNameSearch.Location = New System.Drawing.Point(11, 27)
         Me.txtFacilityNameSearch.Name = "txtFacilityNameSearch"
         Me.txtFacilityNameSearch.Size = New System.Drawing.Size(160, 20)
@@ -167,6 +169,8 @@ Partial Class IAIPFacilityLookUpTool
         '
         'txtAIRSNumberSearch
         '
+        Me.txtAIRSNumberSearch.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtAIRSNumberSearch.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtAIRSNumberSearch.Location = New System.Drawing.Point(11, 27)
         Me.txtAIRSNumberSearch.Name = "txtAIRSNumberSearch"
         Me.txtAIRSNumberSearch.Size = New System.Drawing.Size(160, 20)
@@ -203,6 +207,8 @@ Partial Class IAIPFacilityLookUpTool
         '
         'txtComplianceEngineer
         '
+        Me.txtComplianceEngineer.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtComplianceEngineer.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtComplianceEngineer.Location = New System.Drawing.Point(11, 27)
         Me.txtComplianceEngineer.Name = "txtComplianceEngineer"
         Me.txtComplianceEngineer.Size = New System.Drawing.Size(160, 20)
@@ -239,6 +245,8 @@ Partial Class IAIPFacilityLookUpTool
         '
         'txtCityNameSearch
         '
+        Me.txtCityNameSearch.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtCityNameSearch.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtCityNameSearch.Location = New System.Drawing.Point(11, 27)
         Me.txtCityNameSearch.Name = "txtCityNameSearch"
         Me.txtCityNameSearch.Size = New System.Drawing.Size(160, 20)
@@ -275,6 +283,8 @@ Partial Class IAIPFacilityLookUpTool
         '
         'txtZipCodeSearch
         '
+        Me.txtZipCodeSearch.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtZipCodeSearch.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtZipCodeSearch.Location = New System.Drawing.Point(11, 27)
         Me.txtZipCodeSearch.Name = "txtZipCodeSearch"
         Me.txtZipCodeSearch.Size = New System.Drawing.Size(160, 20)
@@ -311,6 +321,8 @@ Partial Class IAIPFacilityLookUpTool
         '
         'txtSICCodeSearch
         '
+        Me.txtSICCodeSearch.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtSICCodeSearch.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtSICCodeSearch.Location = New System.Drawing.Point(11, 27)
         Me.txtSICCodeSearch.Name = "txtSICCodeSearch"
         Me.txtSICCodeSearch.Size = New System.Drawing.Size(160, 20)
@@ -339,6 +351,8 @@ Partial Class IAIPFacilityLookUpTool
         '
         'txtCountyNameSearch
         '
+        Me.txtCountyNameSearch.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtCountyNameSearch.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtCountyNameSearch.Location = New System.Drawing.Point(11, 27)
         Me.txtCountyNameSearch.Name = "txtCountyNameSearch"
         Me.txtCountyNameSearch.Size = New System.Drawing.Size(160, 20)
@@ -422,6 +436,8 @@ Partial Class IAIPFacilityLookUpTool
         '
         'txtSubpartSearch
         '
+        Me.txtSubpartSearch.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtSubpartSearch.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtSubpartSearch.Location = New System.Drawing.Point(11, 27)
         Me.txtSubpartSearch.Name = "txtSubpartSearch"
         Me.txtSubpartSearch.Size = New System.Drawing.Size(160, 20)

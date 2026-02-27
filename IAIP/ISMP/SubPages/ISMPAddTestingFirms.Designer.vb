@@ -139,6 +139,8 @@ Partial Class ISMPAddTestingFirms
         '
         'txtTestingFirmEmail
         '
+        Me.txtTestingFirmEmail.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtTestingFirmEmail.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtTestingFirmEmail.Location = New System.Drawing.Point(448, 108)
         Me.txtTestingFirmEmail.MaxLength = 100
         Me.txtTestingFirmEmail.Name = "txtTestingFirmEmail"
@@ -147,6 +149,8 @@ Partial Class ISMPAddTestingFirms
         '
         'txtTestingFirmFaxNumber
         '
+        Me.txtTestingFirmFaxNumber.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtTestingFirmFaxNumber.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtTestingFirmFaxNumber.Location = New System.Drawing.Point(488, 86)
         Me.txtTestingFirmFaxNumber.Name = "txtTestingFirmFaxNumber"
         Me.txtTestingFirmFaxNumber.Size = New System.Drawing.Size(96, 20)
@@ -154,6 +158,8 @@ Partial Class ISMPAddTestingFirms
         '
         'txtTestingFirmPhoneNumber2
         '
+        Me.txtTestingFirmPhoneNumber2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtTestingFirmPhoneNumber2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtTestingFirmPhoneNumber2.Location = New System.Drawing.Point(488, 66)
         Me.txtTestingFirmPhoneNumber2.Name = "txtTestingFirmPhoneNumber2"
         Me.txtTestingFirmPhoneNumber2.Size = New System.Drawing.Size(96, 20)
@@ -161,6 +167,8 @@ Partial Class ISMPAddTestingFirms
         '
         'txtTestingFirmPhoneNumber1
         '
+        Me.txtTestingFirmPhoneNumber1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtTestingFirmPhoneNumber1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtTestingFirmPhoneNumber1.Location = New System.Drawing.Point(488, 44)
         Me.txtTestingFirmPhoneNumber1.Name = "txtTestingFirmPhoneNumber1"
         Me.txtTestingFirmPhoneNumber1.Size = New System.Drawing.Size(96, 20)
@@ -168,6 +176,8 @@ Partial Class ISMPAddTestingFirms
         '
         'txtTestingFirmAreaCode3
         '
+        Me.txtTestingFirmAreaCode3.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtTestingFirmAreaCode3.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtTestingFirmAreaCode3.Location = New System.Drawing.Point(448, 86)
         Me.txtTestingFirmAreaCode3.MaxLength = 3
         Me.txtTestingFirmAreaCode3.Name = "txtTestingFirmAreaCode3"
@@ -176,6 +186,8 @@ Partial Class ISMPAddTestingFirms
         '
         'txtTestingFirmAreaCode2
         '
+        Me.txtTestingFirmAreaCode2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtTestingFirmAreaCode2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtTestingFirmAreaCode2.Location = New System.Drawing.Point(448, 66)
         Me.txtTestingFirmAreaCode2.MaxLength = 3
         Me.txtTestingFirmAreaCode2.Name = "txtTestingFirmAreaCode2"
@@ -184,6 +196,8 @@ Partial Class ISMPAddTestingFirms
         '
         'txtTestingFirmAreaCode1
         '
+        Me.txtTestingFirmAreaCode1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtTestingFirmAreaCode1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtTestingFirmAreaCode1.Location = New System.Drawing.Point(448, 44)
         Me.txtTestingFirmAreaCode1.MaxLength = 3
         Me.txtTestingFirmAreaCode1.Name = "txtTestingFirmAreaCode1"
@@ -228,6 +242,8 @@ Partial Class ISMPAddTestingFirms
         '
         'txtTestingFirmZipCode
         '
+        Me.txtTestingFirmZipCode.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtTestingFirmZipCode.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtTestingFirmZipCode.Location = New System.Drawing.Point(256, 108)
         Me.txtTestingFirmZipCode.MaxLength = 10
         Me.txtTestingFirmZipCode.Name = "txtTestingFirmZipCode"
@@ -236,6 +252,8 @@ Partial Class ISMPAddTestingFirms
         '
         'txtTestingFirmState
         '
+        Me.txtTestingFirmState.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtTestingFirmState.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtTestingFirmState.Location = New System.Drawing.Point(224, 108)
         Me.txtTestingFirmState.MaxLength = 2
         Me.txtTestingFirmState.Name = "txtTestingFirmState"
@@ -244,6 +262,8 @@ Partial Class ISMPAddTestingFirms
         '
         'txtTestingFirmCity
         '
+        Me.txtTestingFirmCity.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtTestingFirmCity.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtTestingFirmCity.Location = New System.Drawing.Point(128, 108)
         Me.txtTestingFirmCity.MaxLength = 50
         Me.txtTestingFirmCity.Name = "txtTestingFirmCity"
@@ -261,6 +281,8 @@ Partial Class ISMPAddTestingFirms
         '
         'txtTestingFirmAddress2
         '
+        Me.txtTestingFirmAddress2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtTestingFirmAddress2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtTestingFirmAddress2.Location = New System.Drawing.Point(128, 86)
         Me.txtTestingFirmAddress2.MaxLength = 100
         Me.txtTestingFirmAddress2.Name = "txtTestingFirmAddress2"
@@ -269,6 +291,8 @@ Partial Class ISMPAddTestingFirms
         '
         'txtTestingFirmAddress1
         '
+        Me.txtTestingFirmAddress1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtTestingFirmAddress1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtTestingFirmAddress1.Location = New System.Drawing.Point(128, 66)
         Me.txtTestingFirmAddress1.MaxLength = 100
         Me.txtTestingFirmAddress1.Name = "txtTestingFirmAddress1"
@@ -286,6 +310,8 @@ Partial Class ISMPAddTestingFirms
         '
         'txtTestingFirm
         '
+        Me.txtTestingFirm.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtTestingFirm.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtTestingFirm.Location = New System.Drawing.Point(128, 44)
         Me.txtTestingFirm.MaxLength = 100
         Me.txtTestingFirm.Name = "txtTestingFirm"

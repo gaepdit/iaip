@@ -54,12 +54,12 @@ Partial Class IAIPNavigation
         Me.btnOpenEnforcement = New System.Windows.Forms.Button()
         Me.btnOpenFacilitySummary = New System.Windows.Forms.Button()
         Me.txtOpenTestLog = New Iaip.CueTextBox()
-        Me.Label8 = New System.Windows.Forms.Label()
+        Me.lblOpenTestLog = New System.Windows.Forms.Label()
         Me.lblOpenFacilitySummary = New System.Windows.Forms.Label()
         Me.txtOpenFacilitySummary = New Iaip.AirsNumberEntryForm()
         Me.txtOpenSscpItem = New Iaip.CueTextBox()
         Me.lblOpenSscpItem = New System.Windows.Forms.Label()
-        Me.Label6 = New System.Windows.Forms.Label()
+        Me.lblOpenApplication = New System.Windows.Forms.Label()
         Me.txtOpenApplication = New Iaip.CueTextBox()
         Me.lblOpenEnforcement = New System.Windows.Forms.Label()
         Me.txtOpenEnforcement = New Iaip.CueTextBox()
@@ -137,7 +137,7 @@ Partial Class IAIPNavigation
         '
         Me.mmiExit.MergeIndex = 0
         Me.mmiExit.Name = "mmiExit"
-        Me.mmiExit.Size = New System.Drawing.Size(117, 22)
+        Me.mmiExit.Size = New System.Drawing.Size(116, 22)
         Me.mmiExit.Text = "E&xit IAIP"
         '
         'mmiTools
@@ -145,14 +145,14 @@ Partial Class IAIPNavigation
         Me.mmiTools.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiExport})
         Me.mmiTools.MergeIndex = 1
         Me.mmiTools.Name = "mmiTools"
-        Me.mmiTools.Size = New System.Drawing.Size(46, 20)
+        Me.mmiTools.Size = New System.Drawing.Size(47, 20)
         Me.mmiTools.Text = "&Tools"
         '
         'mmiExport
         '
         Me.mmiExport.MergeIndex = 0
         Me.mmiExport.Name = "mmiExport"
-        Me.mmiExport.Size = New System.Drawing.Size(170, 22)
+        Me.mmiExport.Size = New System.Drawing.Size(168, 22)
         Me.mmiExport.Text = "&Export list to Excel"
         '
         'mmiAccount
@@ -243,7 +243,7 @@ Partial Class IAIPNavigation
         Me.TestingMenu.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.RunTest, Me.RunTest2})
         Me.TestingMenu.MergeIndex = 4
         Me.TestingMenu.Name = "TestingMenu"
-        Me.TestingMenu.Size = New System.Drawing.Size(56, 20)
+        Me.TestingMenu.Size = New System.Drawing.Size(57, 20)
         Me.TestingMenu.Text = "T&esting"
         Me.TestingMenu.Visible = False
         '
@@ -251,14 +251,14 @@ Partial Class IAIPNavigation
         '
         Me.RunTest.MergeIndex = 0
         Me.RunTest.Name = "RunTest"
-        Me.RunTest.Size = New System.Drawing.Size(187, 22)
+        Me.RunTest.Size = New System.Drawing.Size(186, 22)
         Me.RunTest.Text = "Handled Exception"
         '
         'RunTest2
         '
         Me.RunTest2.MergeIndex = 1
         Me.RunTest2.Name = "RunTest2"
-        Me.RunTest2.Size = New System.Drawing.Size(187, 22)
+        Me.RunTest2.Size = New System.Drawing.Size(186, 22)
         Me.RunTest2.Text = "Unhandled Exception"
         '
         'lblTitle
@@ -294,12 +294,12 @@ Partial Class IAIPNavigation
         Me.grpQuickAccess.Controls.Add(Me.btnOpenEnforcement)
         Me.grpQuickAccess.Controls.Add(Me.btnOpenFacilitySummary)
         Me.grpQuickAccess.Controls.Add(Me.txtOpenTestLog)
-        Me.grpQuickAccess.Controls.Add(Me.Label8)
+        Me.grpQuickAccess.Controls.Add(Me.lblOpenTestLog)
         Me.grpQuickAccess.Controls.Add(Me.lblOpenFacilitySummary)
         Me.grpQuickAccess.Controls.Add(Me.txtOpenFacilitySummary)
         Me.grpQuickAccess.Controls.Add(Me.txtOpenSscpItem)
         Me.grpQuickAccess.Controls.Add(Me.lblOpenSscpItem)
-        Me.grpQuickAccess.Controls.Add(Me.Label6)
+        Me.grpQuickAccess.Controls.Add(Me.lblOpenApplication)
         Me.grpQuickAccess.Controls.Add(Me.txtOpenApplication)
         Me.grpQuickAccess.Controls.Add(Me.lblOpenEnforcement)
         Me.grpQuickAccess.Controls.Add(Me.txtOpenEnforcement)
@@ -322,7 +322,7 @@ Partial Class IAIPNavigation
         Me.btnOpenTestReport.Location = New System.Drawing.Point(425, 34)
         Me.btnOpenTestReport.Name = "btnOpenTestReport"
         Me.btnOpenTestReport.Size = New System.Drawing.Size(43, 23)
-        Me.btnOpenTestReport.TabIndex = 9
+        Me.btnOpenTestReport.TabIndex = 10
         Me.btnOpenTestReport.TabStop = False
         Me.btnOpenTestReport.Text = "Open"
         Me.btnOpenTestReport.UseVisualStyleBackColor = True
@@ -350,7 +350,7 @@ Partial Class IAIPNavigation
         Me.btnOpenTestLog.Location = New System.Drawing.Point(426, 86)
         Me.btnOpenTestLog.Name = "btnOpenTestLog"
         Me.btnOpenTestLog.Size = New System.Drawing.Size(43, 23)
-        Me.btnOpenTestLog.TabIndex = 11
+        Me.btnOpenTestLog.TabIndex = 12
         Me.btnOpenTestLog.TabStop = False
         Me.btnOpenTestLog.Text = "Open"
         Me.btnOpenTestLog.UseVisualStyleBackColor = True
@@ -400,24 +400,26 @@ Partial Class IAIPNavigation
         'txtOpenTestLog
         '
         Me.txtOpenTestLog.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.txtOpenTestLog.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtOpenTestLog.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtOpenTestLog.Cue = "Notification #"
         Me.txtOpenTestLog.Location = New System.Drawing.Point(331, 88)
         Me.txtOpenTestLog.Margin = New System.Windows.Forms.Padding(2)
         Me.txtOpenTestLog.MaxLength = 10
         Me.txtOpenTestLog.Name = "txtOpenTestLog"
         Me.txtOpenTestLog.Size = New System.Drawing.Size(90, 20)
-        Me.txtOpenTestLog.TabIndex = 10
+        Me.txtOpenTestLog.TabIndex = 11
         '
-        'Label8
+        'lblOpenTestLog
         '
-        Me.Label8.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(328, 73)
-        Me.Label8.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(114, 13)
-        Me.Label8.TabIndex = 268
-        Me.Label8.Text = "ISMU Test Notification"
+        Me.lblOpenTestLog.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.lblOpenTestLog.AutoSize = True
+        Me.lblOpenTestLog.Location = New System.Drawing.Point(328, 73)
+        Me.lblOpenTestLog.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.lblOpenTestLog.Name = "lblOpenTestLog"
+        Me.lblOpenTestLog.Size = New System.Drawing.Size(114, 13)
+        Me.lblOpenTestLog.TabIndex = 268
+        Me.lblOpenTestLog.Text = "ISMU Test Notification"
         '
         'lblOpenFacilitySummary
         '
@@ -468,20 +470,22 @@ Partial Class IAIPNavigation
         Me.lblOpenSscpItem.TabIndex = 261
         Me.lblOpenSscpItem.Text = "SSCP Work Item"
         '
-        'Label6
+        'lblOpenApplication
         '
-        Me.Label6.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(7, 73)
-        Me.Label6.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(122, 13)
-        Me.Label6.TabIndex = 259
-        Me.Label6.Text = "SSPP Permit Application"
+        Me.lblOpenApplication.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.lblOpenApplication.AutoSize = True
+        Me.lblOpenApplication.Location = New System.Drawing.Point(7, 73)
+        Me.lblOpenApplication.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.lblOpenApplication.Name = "lblOpenApplication"
+        Me.lblOpenApplication.Size = New System.Drawing.Size(122, 13)
+        Me.lblOpenApplication.TabIndex = 259
+        Me.lblOpenApplication.Text = "SSPP Permit Application"
         '
         'txtOpenApplication
         '
         Me.txtOpenApplication.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.txtOpenApplication.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtOpenApplication.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtOpenApplication.Cue = "Application #"
         Me.txtOpenApplication.Location = New System.Drawing.Point(10, 88)
         Me.txtOpenApplication.Margin = New System.Windows.Forms.Padding(2)
@@ -526,6 +530,8 @@ Partial Class IAIPNavigation
         'txtOpenTestReport
         '
         Me.txtOpenTestReport.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.txtOpenTestReport.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtOpenTestReport.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtOpenTestReport.Cue = "Reference #"
         Me.txtOpenTestReport.Location = New System.Drawing.Point(330, 36)
         Me.txtOpenTestReport.Margin = New System.Windows.Forms.Padding(2)
@@ -943,7 +949,7 @@ Partial Class IAIPNavigation
     Friend WithEvents lblTitle As System.Windows.Forms.Label
     Friend WithEvents grpQuickAccess As System.Windows.Forms.GroupBox
     Friend WithEvents lblOpenSscpItem As System.Windows.Forms.Label
-    Friend WithEvents Label6 As System.Windows.Forms.Label
+    Friend WithEvents lblOpenApplication As System.Windows.Forms.Label
     Friend WithEvents lblOpenEnforcement As System.Windows.Forms.Label
     Friend WithEvents lblOpenTestReport As System.Windows.Forms.Label
     Friend WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
@@ -954,7 +960,7 @@ Partial Class IAIPNavigation
     Friend WithEvents pnlDbEnv As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents lblMessageLabel As System.Windows.Forms.Label
     Friend WithEvents mmiOnlineHelp As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents Label8 As System.Windows.Forms.Label
+    Friend WithEvents lblOpenTestLog As System.Windows.Forms.Label
     Friend WithEvents btnLoadNavWorkList As System.Windows.Forms.Button
     Friend WithEvents lblWorkViewerContext As System.Windows.Forms.Label
     Friend WithEvents rdbAllView As System.Windows.Forms.RadioButton

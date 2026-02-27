@@ -52,6 +52,8 @@ Partial Class IaipRequestPasswordReset
         '
         'Username
         '
+        Me.Username.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.Username.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.Username.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Username.Location = New System.Drawing.Point(25, 38)
         Me.Username.Name = "Username"

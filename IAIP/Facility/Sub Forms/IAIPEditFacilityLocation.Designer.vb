@@ -70,6 +70,8 @@ Partial Class IAIPEditFacilityLocation
         'txtComments
         '
         Me.txtComments.AcceptsReturn = True
+        Me.txtComments.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtComments.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtComments.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtComments.Location = New System.Drawing.Point(87, 185)
         Me.txtComments.MaxLength = 4000
@@ -102,6 +104,8 @@ Partial Class IAIPEditFacilityLocation
         '
         'txtFacilityName
         '
+        Me.txtFacilityName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtFacilityName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtFacilityName.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtFacilityName.Location = New System.Drawing.Point(87, 55)
         Me.txtFacilityName.Name = "txtFacilityName"
@@ -121,6 +125,8 @@ Partial Class IAIPEditFacilityLocation
         '
         'txtStreetAddress
         '
+        Me.txtStreetAddress.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtStreetAddress.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtStreetAddress.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtStreetAddress.Location = New System.Drawing.Point(87, 81)
         Me.txtStreetAddress.MaxLength = 250
@@ -130,6 +136,8 @@ Partial Class IAIPEditFacilityLocation
         '
         'txtStreetAddress2
         '
+        Me.txtStreetAddress2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtStreetAddress2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtStreetAddress2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtStreetAddress2.Location = New System.Drawing.Point(87, 107)
         Me.txtStreetAddress2.MaxLength = 250
@@ -191,6 +199,8 @@ Partial Class IAIPEditFacilityLocation
         '
         'txtFacilityCity
         '
+        Me.txtFacilityCity.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtFacilityCity.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtFacilityCity.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtFacilityCity.Location = New System.Drawing.Point(87, 133)
         Me.txtFacilityCity.Name = "txtFacilityCity"
@@ -199,6 +209,8 @@ Partial Class IAIPEditFacilityLocation
         '
         'txtFacilityLatitude
         '
+        Me.txtFacilityLatitude.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtFacilityLatitude.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtFacilityLatitude.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtFacilityLatitude.Location = New System.Drawing.Point(87, 159)
         Me.txtFacilityLatitude.MaxLength = 20
@@ -208,6 +220,8 @@ Partial Class IAIPEditFacilityLocation
         '
         'txtFacilityLongitude
         '
+        Me.txtFacilityLongitude.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtFacilityLongitude.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtFacilityLongitude.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtFacilityLongitude.Location = New System.Drawing.Point(254, 159)
         Me.txtFacilityLongitude.MaxLength = 20
@@ -217,6 +231,8 @@ Partial Class IAIPEditFacilityLocation
         '
         'txtFacilityState
         '
+        Me.txtFacilityState.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtFacilityState.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtFacilityState.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtFacilityState.Location = New System.Drawing.Point(232, 133)
         Me.txtFacilityState.MaxLength = 2

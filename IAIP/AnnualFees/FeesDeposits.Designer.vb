@@ -121,6 +121,8 @@ Partial Class FeesDeposits
         '
         'txtCreditCardNo
         '
+        Me.txtCreditCardNo.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtCreditCardNo.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtCreditCardNo.Location = New System.Drawing.Point(487, 92)
         Me.txtCreditCardNo.Name = "txtCreditCardNo"
         Me.txtCreditCardNo.Size = New System.Drawing.Size(100, 20)
@@ -180,6 +182,8 @@ Partial Class FeesDeposits
         '
         'txtCheckNumberField
         '
+        Me.txtCheckNumberField.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtCheckNumberField.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtCheckNumberField.Location = New System.Drawing.Point(239, 92)
         Me.txtCheckNumberField.Name = "txtCheckNumberField"
         Me.txtCheckNumberField.Size = New System.Drawing.Size(100, 20)
@@ -187,6 +191,8 @@ Partial Class FeesDeposits
         '
         'txtBatchNoField
         '
+        Me.txtBatchNoField.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtBatchNoField.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtBatchNoField.Location = New System.Drawing.Point(368, 62)
         Me.txtBatchNoField.Name = "txtBatchNoField"
         Me.txtBatchNoField.Size = New System.Drawing.Size(100, 20)
@@ -194,6 +200,8 @@ Partial Class FeesDeposits
         '
         'txtDepositNumberField
         '
+        Me.txtDepositNumberField.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtDepositNumberField.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtDepositNumberField.Location = New System.Drawing.Point(205, 62)
         Me.txtDepositNumberField.MaxLength = 20
         Me.txtDepositNumberField.Name = "txtDepositNumberField"
@@ -273,6 +281,8 @@ Partial Class FeesDeposits
         '
         'txtDepositAmount
         '
+        Me.txtDepositAmount.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtDepositAmount.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtDepositAmount.Location = New System.Drawing.Point(74, 92)
         Me.txtDepositAmount.Name = "txtDepositAmount"
         Me.txtDepositAmount.Size = New System.Drawing.Size(100, 20)
@@ -496,6 +506,8 @@ Partial Class FeesDeposits
         'txtSearchInvoice
         '
         Me.txtSearchInvoice.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.txtSearchInvoice.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtSearchInvoice.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtSearchInvoice.Location = New System.Drawing.Point(378, 41)
         Me.txtSearchInvoice.Name = "txtSearchInvoice"
         Me.txtSearchInvoice.Size = New System.Drawing.Size(100, 20)
@@ -554,6 +566,8 @@ Partial Class FeesDeposits
         'txtCheckNumber
         '
         Me.txtCheckNumber.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.txtCheckNumber.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtCheckNumber.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtCheckNumber.Location = New System.Drawing.Point(66, 41)
         Me.txtCheckNumber.Name = "txtCheckNumber"
         Me.txtCheckNumber.Size = New System.Drawing.Size(100, 20)

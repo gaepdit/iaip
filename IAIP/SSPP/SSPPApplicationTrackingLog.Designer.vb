@@ -770,6 +770,8 @@ Partial Class SSPPApplicationTrackingLog
         '
         'txtOutstandingApplication
         '
+        Me.txtOutstandingApplication.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtOutstandingApplication.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtOutstandingApplication.Location = New System.Drawing.Point(109, 57)
         Me.txtOutstandingApplication.Name = "txtOutstandingApplication"
         Me.txtOutstandingApplication.ReadOnly = True
@@ -2157,6 +2159,8 @@ Partial Class SSPPApplicationTrackingLog
         '
         'txtTVFinalPDF
         '
+        Me.txtTVFinalPDF.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtTVFinalPDF.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtTVFinalPDF.Location = New System.Drawing.Point(380, 169)
         Me.txtTVFinalPDF.Name = "txtTVFinalPDF"
         Me.txtTVFinalPDF.ReadOnly = True
@@ -2166,6 +2170,8 @@ Partial Class SSPPApplicationTrackingLog
         '
         'txtTVPublicNoticePDF
         '
+        Me.txtTVPublicNoticePDF.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtTVPublicNoticePDF.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtTVPublicNoticePDF.Location = New System.Drawing.Point(376, 114)
         Me.txtTVPublicNoticePDF.Name = "txtTVPublicNoticePDF"
         Me.txtTVPublicNoticePDF.ReadOnly = True
@@ -2175,6 +2181,8 @@ Partial Class SSPPApplicationTrackingLog
         '
         'txtTVDraftPDF
         '
+        Me.txtTVDraftPDF.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtTVDraftPDF.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtTVDraftPDF.Location = New System.Drawing.Point(376, 60)
         Me.txtTVDraftPDF.Name = "txtTVDraftPDF"
         Me.txtTVDraftPDF.ReadOnly = True
@@ -2184,6 +2192,8 @@ Partial Class SSPPApplicationTrackingLog
         '
         'txtTVNarrativePDF
         '
+        Me.txtTVNarrativePDF.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtTVNarrativePDF.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtTVNarrativePDF.Location = New System.Drawing.Point(376, 5)
         Me.txtTVNarrativePDF.Name = "txtTVNarrativePDF"
         Me.txtTVNarrativePDF.ReadOnly = True
@@ -2193,6 +2203,8 @@ Partial Class SSPPApplicationTrackingLog
         '
         'txtTVFinalDoc
         '
+        Me.txtTVFinalDoc.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtTVFinalDoc.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtTVFinalDoc.Location = New System.Drawing.Point(129, 169)
         Me.txtTVFinalDoc.Name = "txtTVFinalDoc"
         Me.txtTVFinalDoc.ReadOnly = True
@@ -2202,6 +2214,8 @@ Partial Class SSPPApplicationTrackingLog
         '
         'txtTVPublicNoticeDoc
         '
+        Me.txtTVPublicNoticeDoc.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtTVPublicNoticeDoc.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtTVPublicNoticeDoc.Location = New System.Drawing.Point(129, 114)
         Me.txtTVPublicNoticeDoc.Name = "txtTVPublicNoticeDoc"
         Me.txtTVPublicNoticeDoc.ReadOnly = True
@@ -2211,6 +2225,8 @@ Partial Class SSPPApplicationTrackingLog
         '
         'txtTVDraftDoc
         '
+        Me.txtTVDraftDoc.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtTVDraftDoc.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtTVDraftDoc.Location = New System.Drawing.Point(129, 58)
         Me.txtTVDraftDoc.Name = "txtTVDraftDoc"
         Me.txtTVDraftDoc.ReadOnly = True
@@ -2220,6 +2236,8 @@ Partial Class SSPPApplicationTrackingLog
         '
         'txtTVNarrativeDoc
         '
+        Me.txtTVNarrativeDoc.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtTVNarrativeDoc.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtTVNarrativeDoc.Location = New System.Drawing.Point(129, 5)
         Me.txtTVNarrativeDoc.Name = "txtTVNarrativeDoc"
         Me.txtTVNarrativeDoc.ReadOnly = True
@@ -2374,6 +2392,8 @@ Partial Class SSPPApplicationTrackingLog
         '
         'txtPSDNarrativePDF
         '
+        Me.txtPSDNarrativePDF.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtPSDNarrativePDF.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtPSDNarrativePDF.Location = New System.Drawing.Point(376, 115)
         Me.txtPSDNarrativePDF.Name = "txtPSDNarrativePDF"
         Me.txtPSDNarrativePDF.ReadOnly = True
@@ -2383,6 +2403,8 @@ Partial Class SSPPApplicationTrackingLog
         '
         'txtPSDNarrativeDoc
         '
+        Me.txtPSDNarrativeDoc.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtPSDNarrativeDoc.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtPSDNarrativeDoc.Location = New System.Drawing.Point(129, 115)
         Me.txtPSDNarrativeDoc.Name = "txtPSDNarrativeDoc"
         Me.txtPSDNarrativeDoc.ReadOnly = True
@@ -2772,6 +2794,8 @@ Partial Class SSPPApplicationTrackingLog
         '
         'txtPSDPrelimDetPDF
         '
+        Me.txtPSDPrelimDetPDF.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtPSDPrelimDetPDF.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtPSDPrelimDetPDF.Location = New System.Drawing.Point(376, 59)
         Me.txtPSDPrelimDetPDF.Name = "txtPSDPrelimDetPDF"
         Me.txtPSDPrelimDetPDF.ReadOnly = True
@@ -2781,6 +2805,8 @@ Partial Class SSPPApplicationTrackingLog
         '
         'txtPSDDraftPermitPDF
         '
+        Me.txtPSDDraftPermitPDF.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtPSDDraftPermitPDF.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtPSDDraftPermitPDF.Location = New System.Drawing.Point(376, 172)
         Me.txtPSDDraftPermitPDF.Name = "txtPSDDraftPermitPDF"
         Me.txtPSDDraftPermitPDF.ReadOnly = True
@@ -2790,6 +2816,8 @@ Partial Class SSPPApplicationTrackingLog
         '
         'txtPSDPublicNoticePDF
         '
+        Me.txtPSDPublicNoticePDF.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtPSDPublicNoticePDF.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtPSDPublicNoticePDF.Location = New System.Drawing.Point(376, 226)
         Me.txtPSDPublicNoticePDF.Name = "txtPSDPublicNoticePDF"
         Me.txtPSDPublicNoticePDF.ReadOnly = True
@@ -2799,6 +2827,8 @@ Partial Class SSPPApplicationTrackingLog
         '
         'txtPSDHearingNoticePDF
         '
+        Me.txtPSDHearingNoticePDF.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtPSDHearingNoticePDF.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtPSDHearingNoticePDF.Location = New System.Drawing.Point(376, 282)
         Me.txtPSDHearingNoticePDF.Name = "txtPSDHearingNoticePDF"
         Me.txtPSDHearingNoticePDF.ReadOnly = True
@@ -2808,6 +2838,8 @@ Partial Class SSPPApplicationTrackingLog
         '
         'txtPSDFinalDetPDF
         '
+        Me.txtPSDFinalDetPDF.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtPSDFinalDetPDF.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtPSDFinalDetPDF.Location = New System.Drawing.Point(376, 334)
         Me.txtPSDFinalDetPDF.Name = "txtPSDFinalDetPDF"
         Me.txtPSDFinalDetPDF.ReadOnly = True
@@ -2817,6 +2849,8 @@ Partial Class SSPPApplicationTrackingLog
         '
         'txtPSDAppSummaryPDF
         '
+        Me.txtPSDAppSummaryPDF.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtPSDAppSummaryPDF.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtPSDAppSummaryPDF.Location = New System.Drawing.Point(376, 5)
         Me.txtPSDAppSummaryPDF.Name = "txtPSDAppSummaryPDF"
         Me.txtPSDAppSummaryPDF.ReadOnly = True
@@ -2826,6 +2860,8 @@ Partial Class SSPPApplicationTrackingLog
         '
         'txtPSDFinalPermitPDF
         '
+        Me.txtPSDFinalPermitPDF.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtPSDFinalPermitPDF.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtPSDFinalPermitPDF.Location = New System.Drawing.Point(376, 387)
         Me.txtPSDFinalPermitPDF.Name = "txtPSDFinalPermitPDF"
         Me.txtPSDFinalPermitPDF.ReadOnly = True
@@ -2835,6 +2871,8 @@ Partial Class SSPPApplicationTrackingLog
         '
         'txtPSDFinalPermitDoc
         '
+        Me.txtPSDFinalPermitDoc.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtPSDFinalPermitDoc.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtPSDFinalPermitDoc.Location = New System.Drawing.Point(129, 387)
         Me.txtPSDFinalPermitDoc.Name = "txtPSDFinalPermitDoc"
         Me.txtPSDFinalPermitDoc.ReadOnly = True
@@ -2854,6 +2892,8 @@ Partial Class SSPPApplicationTrackingLog
         '
         'txtPSDFinalDetDoc
         '
+        Me.txtPSDFinalDetDoc.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtPSDFinalDetDoc.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtPSDFinalDetDoc.Location = New System.Drawing.Point(129, 334)
         Me.txtPSDFinalDetDoc.Name = "txtPSDFinalDetDoc"
         Me.txtPSDFinalDetDoc.ReadOnly = True
@@ -2873,6 +2913,8 @@ Partial Class SSPPApplicationTrackingLog
         '
         'txtPSDHearingNoticeDoc
         '
+        Me.txtPSDHearingNoticeDoc.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtPSDHearingNoticeDoc.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtPSDHearingNoticeDoc.Location = New System.Drawing.Point(129, 282)
         Me.txtPSDHearingNoticeDoc.Name = "txtPSDHearingNoticeDoc"
         Me.txtPSDHearingNoticeDoc.ReadOnly = True
@@ -2892,6 +2934,8 @@ Partial Class SSPPApplicationTrackingLog
         '
         'txtPSDPublicNoticeDoc
         '
+        Me.txtPSDPublicNoticeDoc.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtPSDPublicNoticeDoc.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtPSDPublicNoticeDoc.Location = New System.Drawing.Point(129, 227)
         Me.txtPSDPublicNoticeDoc.Name = "txtPSDPublicNoticeDoc"
         Me.txtPSDPublicNoticeDoc.ReadOnly = True
@@ -2901,6 +2945,8 @@ Partial Class SSPPApplicationTrackingLog
         '
         'txtPSDDraftPermitDoc
         '
+        Me.txtPSDDraftPermitDoc.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtPSDDraftPermitDoc.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtPSDDraftPermitDoc.Location = New System.Drawing.Point(129, 173)
         Me.txtPSDDraftPermitDoc.Name = "txtPSDDraftPermitDoc"
         Me.txtPSDDraftPermitDoc.ReadOnly = True
@@ -2910,6 +2956,8 @@ Partial Class SSPPApplicationTrackingLog
         '
         'txtPSDPrelimDetDoc
         '
+        Me.txtPSDPrelimDetDoc.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtPSDPrelimDetDoc.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtPSDPrelimDetDoc.Location = New System.Drawing.Point(129, 59)
         Me.txtPSDPrelimDetDoc.Name = "txtPSDPrelimDetDoc"
         Me.txtPSDPrelimDetDoc.ReadOnly = True
@@ -2919,6 +2967,8 @@ Partial Class SSPPApplicationTrackingLog
         '
         'txtPSDAppSummaryDoc
         '
+        Me.txtPSDAppSummaryDoc.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtPSDAppSummaryDoc.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtPSDAppSummaryDoc.Location = New System.Drawing.Point(129, 5)
         Me.txtPSDAppSummaryDoc.Name = "txtPSDAppSummaryDoc"
         Me.txtPSDAppSummaryDoc.ReadOnly = True
@@ -3168,6 +3218,8 @@ Partial Class SSPPApplicationTrackingLog
         '
         'txtOtherNarrativePDF
         '
+        Me.txtOtherNarrativePDF.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtOtherNarrativePDF.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtOtherNarrativePDF.Location = New System.Drawing.Point(376, 5)
         Me.txtOtherNarrativePDF.Name = "txtOtherNarrativePDF"
         Me.txtOtherNarrativePDF.ReadOnly = True
@@ -3177,6 +3229,8 @@ Partial Class SSPPApplicationTrackingLog
         '
         'txtOtherPermitPDF
         '
+        Me.txtOtherPermitPDF.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtOtherPermitPDF.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtOtherPermitPDF.Location = New System.Drawing.Point(376, 62)
         Me.txtOtherPermitPDF.Name = "txtOtherPermitPDF"
         Me.txtOtherPermitPDF.ReadOnly = True
@@ -3186,6 +3240,8 @@ Partial Class SSPPApplicationTrackingLog
         '
         'txtOtherNarrativeDoc
         '
+        Me.txtOtherNarrativeDoc.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtOtherNarrativeDoc.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtOtherNarrativeDoc.Location = New System.Drawing.Point(129, 6)
         Me.txtOtherNarrativeDoc.Name = "txtOtherNarrativeDoc"
         Me.txtOtherNarrativeDoc.ReadOnly = True
@@ -3205,6 +3261,8 @@ Partial Class SSPPApplicationTrackingLog
         '
         'txtOtherPermitDoc
         '
+        Me.txtOtherPermitDoc.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtOtherPermitDoc.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtOtherPermitDoc.Location = New System.Drawing.Point(129, 62)
         Me.txtOtherPermitDoc.Name = "txtOtherPermitDoc"
         Me.txtOtherPermitDoc.ReadOnly = True
@@ -3263,6 +3321,8 @@ Partial Class SSPPApplicationTrackingLog
         '
         'txtContactPhoneNumber
         '
+        Me.txtContactPhoneNumber.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtContactPhoneNumber.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtContactPhoneNumber.Location = New System.Drawing.Point(92, 151)
         Me.txtContactPhoneNumber.Name = "txtContactPhoneNumber"
         Me.txtContactPhoneNumber.Size = New System.Drawing.Size(149, 20)
@@ -3319,6 +3379,8 @@ Partial Class SSPPApplicationTrackingLog
         '
         'txtContactEmailAddress
         '
+        Me.txtContactEmailAddress.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtContactEmailAddress.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtContactEmailAddress.Location = New System.Drawing.Point(92, 207)
         Me.txtContactEmailAddress.MaxLength = 100
         Me.txtContactEmailAddress.Name = "txtContactEmailAddress"
@@ -3327,6 +3389,8 @@ Partial Class SSPPApplicationTrackingLog
         '
         'txtContactState
         '
+        Me.txtContactState.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtContactState.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtContactState.Location = New System.Drawing.Point(550, 116)
         Me.txtContactState.MaxLength = 2
         Me.txtContactState.Name = "txtContactState"
@@ -3335,6 +3399,8 @@ Partial Class SSPPApplicationTrackingLog
         '
         'txtContactCity
         '
+        Me.txtContactCity.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtContactCity.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtContactCity.Location = New System.Drawing.Point(335, 116)
         Me.txtContactCity.MaxLength = 50
         Me.txtContactCity.Name = "txtContactCity"
@@ -3343,6 +3409,8 @@ Partial Class SSPPApplicationTrackingLog
         '
         'txtContactStreetAddress
         '
+        Me.txtContactStreetAddress.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtContactStreetAddress.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtContactStreetAddress.Location = New System.Drawing.Point(335, 88)
         Me.txtContactStreetAddress.MaxLength = 100
         Me.txtContactStreetAddress.Name = "txtContactStreetAddress"
@@ -3351,6 +3419,8 @@ Partial Class SSPPApplicationTrackingLog
         '
         'txtContactTitle
         '
+        Me.txtContactTitle.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtContactTitle.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtContactTitle.Location = New System.Drawing.Point(335, 60)
         Me.txtContactTitle.MaxLength = 100
         Me.txtContactTitle.Name = "txtContactTitle"
@@ -3359,6 +3429,8 @@ Partial Class SSPPApplicationTrackingLog
         '
         'txtContactCompanyName
         '
+        Me.txtContactCompanyName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtContactCompanyName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtContactCompanyName.Location = New System.Drawing.Point(335, 34)
         Me.txtContactCompanyName.MaxLength = 100
         Me.txtContactCompanyName.Name = "txtContactCompanyName"
@@ -3367,6 +3439,8 @@ Partial Class SSPPApplicationTrackingLog
         '
         'txtContactPedigree
         '
+        Me.txtContactPedigree.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtContactPedigree.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtContactPedigree.Location = New System.Drawing.Point(71, 116)
         Me.txtContactPedigree.MaxLength = 15
         Me.txtContactPedigree.Name = "txtContactPedigree"
@@ -3375,6 +3449,8 @@ Partial Class SSPPApplicationTrackingLog
         '
         'txtContactSocialTitle
         '
+        Me.txtContactSocialTitle.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtContactSocialTitle.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtContactSocialTitle.Location = New System.Drawing.Point(71, 34)
         Me.txtContactSocialTitle.MaxLength = 15
         Me.txtContactSocialTitle.Name = "txtContactSocialTitle"
@@ -3383,6 +3459,8 @@ Partial Class SSPPApplicationTrackingLog
         '
         'txtContactLastName
         '
+        Me.txtContactLastName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtContactLastName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtContactLastName.Location = New System.Drawing.Point(71, 88)
         Me.txtContactLastName.MaxLength = 35
         Me.txtContactLastName.Name = "txtContactLastName"
@@ -3391,6 +3469,8 @@ Partial Class SSPPApplicationTrackingLog
         '
         'txtContactFirstName
         '
+        Me.txtContactFirstName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtContactFirstName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtContactFirstName.Location = New System.Drawing.Point(71, 60)
         Me.txtContactFirstName.MaxLength = 35
         Me.txtContactFirstName.Name = "txtContactFirstName"
@@ -3846,6 +3926,8 @@ Partial Class SSPPApplicationTrackingLog
         '
         'txtInformationRequestedKey
         '
+        Me.txtInformationRequestedKey.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtInformationRequestedKey.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtInformationRequestedKey.Location = New System.Drawing.Point(620, 157)
         Me.txtInformationRequestedKey.Name = "txtInformationRequestedKey"
         Me.txtInformationRequestedKey.Size = New System.Drawing.Size(33, 20)
@@ -4000,6 +4082,8 @@ Partial Class SSPPApplicationTrackingLog
         '
         'txtApplicationCount
         '
+        Me.txtApplicationCount.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtApplicationCount.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtApplicationCount.Location = New System.Drawing.Point(507, 173)
         Me.txtApplicationCount.Name = "txtApplicationCount"
         Me.txtApplicationCount.ReadOnly = True
@@ -4009,6 +4093,8 @@ Partial Class SSPPApplicationTrackingLog
         '
         'txtMasterAppLock
         '
+        Me.txtMasterAppLock.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtMasterAppLock.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtMasterAppLock.Location = New System.Drawing.Point(500, 173)
         Me.txtMasterAppLock.Name = "txtMasterAppLock"
         Me.txtMasterAppLock.ReadOnly = True
@@ -4052,6 +4138,8 @@ Partial Class SSPPApplicationTrackingLog
         '
         'txtMasterApp
         '
+        Me.txtMasterApp.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtMasterApp.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtMasterApp.Location = New System.Drawing.Point(520, 175)
         Me.txtMasterApp.Name = "txtMasterApp"
         Me.txtMasterApp.ReadOnly = True
@@ -4061,6 +4149,8 @@ Partial Class SSPPApplicationTrackingLog
         '
         'txtEngineerHistory
         '
+        Me.txtEngineerHistory.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtEngineerHistory.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtEngineerHistory.Location = New System.Drawing.Point(296, 59)
         Me.txtEngineerHistory.Name = "txtEngineerHistory"
         Me.txtEngineerHistory.ReadOnly = True
@@ -4069,6 +4159,8 @@ Partial Class SSPPApplicationTrackingLog
         '
         'txtApplicationDatedHistory
         '
+        Me.txtApplicationDatedHistory.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtApplicationDatedHistory.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtApplicationDatedHistory.Location = New System.Drawing.Point(88, 83)
         Me.txtApplicationDatedHistory.Name = "txtApplicationDatedHistory"
         Me.txtApplicationDatedHistory.ReadOnly = True
@@ -4077,6 +4169,8 @@ Partial Class SSPPApplicationTrackingLog
         '
         'txtApplicationTypeHistory
         '
+        Me.txtApplicationTypeHistory.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtApplicationTypeHistory.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtApplicationTypeHistory.Location = New System.Drawing.Point(88, 59)
         Me.txtApplicationTypeHistory.Name = "txtApplicationTypeHistory"
         Me.txtApplicationTypeHistory.ReadOnly = True
@@ -4085,6 +4179,8 @@ Partial Class SSPPApplicationTrackingLog
         '
         'txtApplicationUnitHistory
         '
+        Me.txtApplicationUnitHistory.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtApplicationUnitHistory.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtApplicationUnitHistory.Location = New System.Drawing.Point(296, 35)
         Me.txtApplicationUnitHistory.Name = "txtApplicationUnitHistory"
         Me.txtApplicationUnitHistory.ReadOnly = True
@@ -4093,6 +4189,8 @@ Partial Class SSPPApplicationTrackingLog
         '
         'txtApplicationNumberHistory
         '
+        Me.txtApplicationNumberHistory.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtApplicationNumberHistory.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtApplicationNumberHistory.Location = New System.Drawing.Point(88, 35)
         Me.txtApplicationNumberHistory.Name = "txtApplicationNumberHistory"
         Me.txtApplicationNumberHistory.ReadOnly = True
@@ -4775,6 +4873,8 @@ Partial Class SSPPApplicationTrackingLog
         '
         'txtNAICSCode
         '
+        Me.txtNAICSCode.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtNAICSCode.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtNAICSCode.Location = New System.Drawing.Point(575, 25)
         Me.txtNAICSCode.MaxLength = 10
         Me.txtNAICSCode.Name = "txtNAICSCode"
@@ -4793,6 +4893,8 @@ Partial Class SSPPApplicationTrackingLog
         '
         'txtFacilityName
         '
+        Me.txtFacilityName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtFacilityName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtFacilityName.Location = New System.Drawing.Point(3, 25)
         Me.txtFacilityName.MaxLength = 100
         Me.txtFacilityName.Name = "txtFacilityName"
@@ -4813,6 +4915,8 @@ Partial Class SSPPApplicationTrackingLog
         '
         'txtDistrict
         '
+        Me.txtDistrict.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtDistrict.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtDistrict.Location = New System.Drawing.Point(255, 49)
         Me.txtDistrict.Name = "txtDistrict"
         Me.txtDistrict.ReadOnly = True
@@ -4912,6 +5016,8 @@ Partial Class SSPPApplicationTrackingLog
         '
         'txt1HourOzone
         '
+        Me.txt1HourOzone.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txt1HourOzone.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txt1HourOzone.BackColor = System.Drawing.SystemColors.Control
         Me.txt1HourOzone.Location = New System.Drawing.Point(66, 16)
         Me.txt1HourOzone.Name = "txt1HourOzone"
@@ -4931,6 +5037,8 @@ Partial Class SSPPApplicationTrackingLog
         '
         'txtPM
         '
+        Me.txtPM.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtPM.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtPM.BackColor = System.Drawing.SystemColors.Control
         Me.txtPM.Location = New System.Drawing.Point(66, 58)
         Me.txtPM.Name = "txtPM"
@@ -4940,6 +5048,8 @@ Partial Class SSPPApplicationTrackingLog
         '
         'txt8HROzone
         '
+        Me.txt8HROzone.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txt8HROzone.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txt8HROzone.BackColor = System.Drawing.SystemColors.Control
         Me.txt8HROzone.Location = New System.Drawing.Point(66, 37)
         Me.txt8HROzone.Name = "txt8HROzone"
@@ -5504,6 +5614,8 @@ Partial Class SSPPApplicationTrackingLog
         '
         'txtPermitNumber
         '
+        Me.txtPermitNumber.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtPermitNumber.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtPermitNumber.Location = New System.Drawing.Point(508, 247)
         Me.txtPermitNumber.MaxLength = 20
         Me.txtPermitNumber.Name = "txtPermitNumber"
@@ -5553,6 +5665,8 @@ Partial Class SSPPApplicationTrackingLog
         '
         'txtFacilityZipCode
         '
+        Me.txtFacilityZipCode.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtFacilityZipCode.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtFacilityZipCode.Location = New System.Drawing.Point(137, 73)
         Me.txtFacilityZipCode.MaxLength = 10
         Me.txtFacilityZipCode.Name = "txtFacilityZipCode"
@@ -5574,6 +5688,8 @@ Partial Class SSPPApplicationTrackingLog
         '
         'txtFacilityStreetAddress
         '
+        Me.txtFacilityStreetAddress.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtFacilityStreetAddress.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtFacilityStreetAddress.Location = New System.Drawing.Point(3, 49)
         Me.txtFacilityStreetAddress.MaxLength = 100
         Me.txtFacilityStreetAddress.Name = "txtFacilityStreetAddress"
@@ -5595,6 +5711,8 @@ Partial Class SSPPApplicationTrackingLog
         '
         'txtSICCode
         '
+        Me.txtSICCode.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtSICCode.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtSICCode.Location = New System.Drawing.Point(456, 25)
         Me.txtSICCode.MaxLength = 4
         Me.txtSICCode.Name = "txtSICCode"
@@ -5802,6 +5920,8 @@ Partial Class SSPPApplicationTrackingLog
         '
         'txtFeeTotalInvoiced
         '
+        Me.txtFeeTotalInvoiced.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtFeeTotalInvoiced.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtFeeTotalInvoiced.Amount = New Decimal(New Integer() {0, 0, 0, 0})
         Me.txtFeeTotalInvoiced.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtFeeTotalInvoiced.BackColor = System.Drawing.SystemColors.ControlLightLight
@@ -5874,6 +5994,8 @@ Partial Class SSPPApplicationTrackingLog
         '
         'txtFeeTotalPaid
         '
+        Me.txtFeeTotalPaid.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtFeeTotalPaid.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtFeeTotalPaid.Amount = New Decimal(New Integer() {999999, 0, 0, 0})
         Me.txtFeeTotalPaid.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtFeeTotalPaid.BackColor = System.Drawing.SystemColors.ControlLightLight
@@ -5921,6 +6043,8 @@ Partial Class SSPPApplicationTrackingLog
         '
         'txtAppFeeAmount
         '
+        Me.txtAppFeeAmount.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtAppFeeAmount.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtAppFeeAmount.Amount = New Decimal(New Integer() {0, 0, 0, 0})
         Me.txtAppFeeAmount.Cue = "$ 0"
         Me.txtAppFeeAmount.Location = New System.Drawing.Point(214, 71)
@@ -5935,6 +6059,8 @@ Partial Class SSPPApplicationTrackingLog
         '
         'txtExpFeeAmount
         '
+        Me.txtExpFeeAmount.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtExpFeeAmount.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtExpFeeAmount.Amount = New Decimal(New Integer() {0, 0, 0, 0})
         Me.txtExpFeeAmount.Cue = "$ 0"
         Me.txtExpFeeAmount.Location = New System.Drawing.Point(214, 162)
@@ -6017,6 +6143,8 @@ Partial Class SSPPApplicationTrackingLog
         '
         'txtFeeTotal
         '
+        Me.txtFeeTotal.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtFeeTotal.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtFeeTotal.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.txtFeeTotal.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtFeeTotal.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -6271,6 +6399,8 @@ Partial Class SSPPApplicationTrackingLog
         '
         'txtNewApplicationNumber
         '
+        Me.txtNewApplicationNumber.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtNewApplicationNumber.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtNewApplicationNumber.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtNewApplicationNumber.Location = New System.Drawing.Point(146, 3)
         Me.txtNewApplicationNumber.Name = "txtNewApplicationNumber"

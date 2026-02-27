@@ -1510,6 +1510,8 @@ Partial Class FeesAudit
         '
         'txtTotalFee
         '
+        Me.txtTotalFee.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtTotalFee.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtTotalFee.Location = New System.Drawing.Point(70, 242)
         Me.txtTotalFee.Name = "txtTotalFee"
         Me.txtTotalFee.Size = New System.Drawing.Size(66, 20)
@@ -1734,6 +1736,8 @@ Partial Class FeesAudit
         '
         'txtAmount
         '
+        Me.txtAmount.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtAmount.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtAmount.Location = New System.Drawing.Point(70, 82)
         Me.txtAmount.Name = "txtAmount"
         Me.txtAmount.Size = New System.Drawing.Size(104, 20)
@@ -2022,6 +2026,8 @@ Partial Class FeesAudit
         '
         'txtBatchNo
         '
+        Me.txtBatchNo.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtBatchNo.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtBatchNo.Location = New System.Drawing.Point(564, 34)
         Me.txtBatchNo.Name = "txtBatchNo"
         Me.txtBatchNo.Size = New System.Drawing.Size(72, 20)
@@ -2038,6 +2044,8 @@ Partial Class FeesAudit
         '
         'txtDepositNo
         '
+        Me.txtDepositNo.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtDepositNo.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtDepositNo.Location = New System.Drawing.Point(373, 34)
         Me.txtDepositNo.Name = "txtDepositNo"
         Me.txtDepositNo.Size = New System.Drawing.Size(106, 20)
@@ -2054,6 +2062,8 @@ Partial Class FeesAudit
         '
         'txtTransactionCreditCardNo
         '
+        Me.txtTransactionCreditCardNo.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtTransactionCreditCardNo.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtTransactionCreditCardNo.Location = New System.Drawing.Point(564, 84)
         Me.txtTransactionCreditCardNo.Name = "txtTransactionCreditCardNo"
         Me.txtTransactionCreditCardNo.Size = New System.Drawing.Size(72, 20)
@@ -2096,6 +2106,8 @@ Partial Class FeesAudit
         '
         'txtTransactionAmount
         '
+        Me.txtTransactionAmount.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtTransactionAmount.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtTransactionAmount.Location = New System.Drawing.Point(564, 59)
         Me.txtTransactionAmount.Name = "txtTransactionAmount"
         Me.txtTransactionAmount.Size = New System.Drawing.Size(72, 20)
@@ -2148,6 +2160,8 @@ Partial Class FeesAudit
         '
         'txtTransactionCheckNo
         '
+        Me.txtTransactionCheckNo.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtTransactionCheckNo.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtTransactionCheckNo.Location = New System.Drawing.Point(363, 84)
         Me.txtTransactionCheckNo.Name = "txtTransactionCheckNo"
         Me.txtTransactionCheckNo.Size = New System.Drawing.Size(72, 20)
@@ -2358,6 +2372,8 @@ Partial Class FeesAudit
         '
         'txtEditCalculatedFee
         '
+        Me.txtEditCalculatedFee.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtEditCalculatedFee.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtEditCalculatedFee.Location = New System.Drawing.Point(342, 223)
         Me.txtEditCalculatedFee.Name = "txtEditCalculatedFee"
         Me.txtEditCalculatedFee.Size = New System.Drawing.Size(102, 20)
@@ -2440,6 +2456,8 @@ Partial Class FeesAudit
         '
         'txtEditNOxTons
         '
+        Me.txtEditNOxTons.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtEditNOxTons.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtEditNOxTons.Location = New System.Drawing.Point(342, 173)
         Me.txtEditNOxTons.Name = "txtEditNOxTons"
         Me.txtEditNOxTons.Size = New System.Drawing.Size(102, 20)
@@ -2447,6 +2465,8 @@ Partial Class FeesAudit
         '
         'txtEditSO2Tons
         '
+        Me.txtEditSO2Tons.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtEditSO2Tons.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtEditSO2Tons.Location = New System.Drawing.Point(342, 148)
         Me.txtEditSO2Tons.Name = "txtEditSO2Tons"
         Me.txtEditSO2Tons.Size = New System.Drawing.Size(102, 20)
@@ -2454,6 +2474,8 @@ Partial Class FeesAudit
         '
         'txtEditPMTons
         '
+        Me.txtEditPMTons.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtEditPMTons.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtEditPMTons.Location = New System.Drawing.Point(342, 123)
         Me.txtEditPMTons.Name = "txtEditPMTons"
         Me.txtEditPMTons.Size = New System.Drawing.Size(102, 20)
@@ -2461,6 +2483,8 @@ Partial Class FeesAudit
         '
         'txtEditAdminFee
         '
+        Me.txtEditAdminFee.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtEditAdminFee.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtEditAdminFee.Location = New System.Drawing.Point(342, 348)
         Me.txtEditAdminFee.Name = "txtEditAdminFee"
         Me.txtEditAdminFee.Size = New System.Drawing.Size(102, 20)
@@ -2468,6 +2492,8 @@ Partial Class FeesAudit
         '
         'txtEditTotalFees
         '
+        Me.txtEditTotalFees.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtEditTotalFees.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtEditTotalFees.Location = New System.Drawing.Point(342, 373)
         Me.txtEditTotalFees.Name = "txtEditTotalFees"
         Me.txtEditTotalFees.Size = New System.Drawing.Size(102, 20)
@@ -2475,6 +2501,8 @@ Partial Class FeesAudit
         '
         'txtEditNSPSFee
         '
+        Me.txtEditNSPSFee.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtEditNSPSFee.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtEditNSPSFee.Location = New System.Drawing.Point(342, 323)
         Me.txtEditNSPSFee.Name = "txtEditNSPSFee"
         Me.txtEditNSPSFee.Size = New System.Drawing.Size(102, 20)
@@ -2482,6 +2510,8 @@ Partial Class FeesAudit
         '
         'txtEditMaintenanceFee
         '
+        Me.txtEditMaintenanceFee.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtEditMaintenanceFee.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtEditMaintenanceFee.Location = New System.Drawing.Point(342, 273)
         Me.txtEditMaintenanceFee.Name = "txtEditMaintenanceFee"
         Me.txtEditMaintenanceFee.Size = New System.Drawing.Size(102, 20)
@@ -2489,6 +2519,8 @@ Partial Class FeesAudit
         '
         'txtEditSMFee
         '
+        Me.txtEditSMFee.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtEditSMFee.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtEditSMFee.Location = New System.Drawing.Point(342, 298)
         Me.txtEditSMFee.Name = "txtEditSMFee"
         Me.txtEditSMFee.Size = New System.Drawing.Size(102, 20)
@@ -2496,6 +2528,8 @@ Partial Class FeesAudit
         '
         'txtEditPart70Fee
         '
+        Me.txtEditPart70Fee.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtEditPart70Fee.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtEditPart70Fee.Location = New System.Drawing.Point(342, 248)
         Me.txtEditPart70Fee.Name = "txtEditPart70Fee"
         Me.txtEditPart70Fee.Size = New System.Drawing.Size(102, 20)
@@ -2503,6 +2537,8 @@ Partial Class FeesAudit
         '
         'txtEditFeeRate
         '
+        Me.txtEditFeeRate.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtEditFeeRate.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtEditFeeRate.Location = New System.Drawing.Point(342, 198)
         Me.txtEditFeeRate.Name = "txtEditFeeRate"
         Me.txtEditFeeRate.Size = New System.Drawing.Size(102, 20)
@@ -2510,6 +2546,8 @@ Partial Class FeesAudit
         '
         'txtEditVOCTons
         '
+        Me.txtEditVOCTons.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtEditVOCTons.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtEditVOCTons.Location = New System.Drawing.Point(342, 98)
         Me.txtEditVOCTons.Name = "txtEditVOCTons"
         Me.txtEditVOCTons.Size = New System.Drawing.Size(102, 20)
@@ -3629,6 +3667,8 @@ Partial Class FeesAudit
         '
         'txtAuditEnforcementNumber
         '
+        Me.txtAuditEnforcementNumber.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtAuditEnforcementNumber.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtAuditEnforcementNumber.Location = New System.Drawing.Point(19, 298)
         Me.txtAuditEnforcementNumber.Name = "txtAuditEnforcementNumber"
         Me.txtAuditEnforcementNumber.Size = New System.Drawing.Size(66, 20)
@@ -3821,6 +3861,8 @@ Partial Class FeesAudit
         '
         'txtContactState
         '
+        Me.txtContactState.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtContactState.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtContactState.Location = New System.Drawing.Point(255, 149)
         Me.txtContactState.Name = "txtContactState"
         Me.txtContactState.Size = New System.Drawing.Size(29, 20)
@@ -3837,6 +3879,8 @@ Partial Class FeesAudit
         '
         'txtContactCity
         '
+        Me.txtContactCity.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtContactCity.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtContactCity.Location = New System.Drawing.Point(94, 149)
         Me.txtContactCity.Name = "txtContactCity"
         Me.txtContactCity.Size = New System.Drawing.Size(117, 20)
@@ -3844,6 +3888,8 @@ Partial Class FeesAudit
         '
         'txtContactAddress2
         '
+        Me.txtContactAddress2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtContactAddress2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtContactAddress2.Location = New System.Drawing.Point(94, 123)
         Me.txtContactAddress2.Name = "txtContactAddress2"
         Me.txtContactAddress2.Size = New System.Drawing.Size(283, 20)
@@ -3860,6 +3906,8 @@ Partial Class FeesAudit
         '
         'txtContactAddress
         '
+        Me.txtContactAddress.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtContactAddress.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtContactAddress.Location = New System.Drawing.Point(94, 97)
         Me.txtContactAddress.Name = "txtContactAddress"
         Me.txtContactAddress.Size = New System.Drawing.Size(283, 20)
@@ -3876,6 +3924,8 @@ Partial Class FeesAudit
         '
         'txtContactCoName
         '
+        Me.txtContactCoName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtContactCoName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtContactCoName.Location = New System.Drawing.Point(94, 71)
         Me.txtContactCoName.Name = "txtContactCoName"
         Me.txtContactCoName.Size = New System.Drawing.Size(283, 20)
@@ -3892,6 +3942,8 @@ Partial Class FeesAudit
         '
         'txtContactTitle
         '
+        Me.txtContactTitle.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtContactTitle.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtContactTitle.Location = New System.Drawing.Point(94, 45)
         Me.txtContactTitle.Name = "txtContactTitle"
         Me.txtContactTitle.Size = New System.Drawing.Size(283, 20)
@@ -3917,6 +3969,8 @@ Partial Class FeesAudit
         '
         'txtContactSuffix
         '
+        Me.txtContactSuffix.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtContactSuffix.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtContactSuffix.Location = New System.Drawing.Point(659, 19)
         Me.txtContactSuffix.Name = "txtContactSuffix"
         Me.txtContactSuffix.Size = New System.Drawing.Size(38, 20)
@@ -3940,6 +3994,8 @@ Partial Class FeesAudit
         '
         'txtContactLastName
         '
+        Me.txtContactLastName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtContactLastName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtContactLastName.Location = New System.Drawing.Point(447, 19)
         Me.txtContactLastName.Name = "txtContactLastName"
         Me.txtContactLastName.Size = New System.Drawing.Size(167, 20)
@@ -3956,6 +4012,8 @@ Partial Class FeesAudit
         '
         'txtContactFirstName
         '
+        Me.txtContactFirstName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtContactFirstName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtContactFirstName.Location = New System.Drawing.Point(201, 19)
         Me.txtContactFirstName.Name = "txtContactFirstName"
         Me.txtContactFirstName.Size = New System.Drawing.Size(176, 20)
@@ -3963,6 +4021,8 @@ Partial Class FeesAudit
         '
         'txtContactEmail
         '
+        Me.txtContactEmail.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtContactEmail.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtContactEmail.Location = New System.Drawing.Point(94, 175)
         Me.txtContactEmail.Name = "txtContactEmail"
         Me.txtContactEmail.Size = New System.Drawing.Size(283, 20)
@@ -4197,6 +4257,8 @@ Partial Class FeesAudit
         '
         'txtInitialFacilityName
         '
+        Me.txtInitialFacilityName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtInitialFacilityName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtInitialFacilityName.Location = New System.Drawing.Point(94, 19)
         Me.txtInitialFacilityName.Name = "txtInitialFacilityName"
         Me.txtInitialFacilityName.Size = New System.Drawing.Size(282, 20)
@@ -4213,6 +4275,8 @@ Partial Class FeesAudit
         '
         'txtInitailFacilityAddress
         '
+        Me.txtInitailFacilityAddress.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtInitailFacilityAddress.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtInitailFacilityAddress.Location = New System.Drawing.Point(94, 45)
         Me.txtInitailFacilityAddress.Name = "txtInitailFacilityAddress"
         Me.txtInitailFacilityAddress.Size = New System.Drawing.Size(282, 20)
@@ -4229,6 +4293,8 @@ Partial Class FeesAudit
         '
         'txtInitialAddressLine2
         '
+        Me.txtInitialAddressLine2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtInitialAddressLine2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtInitialAddressLine2.Location = New System.Drawing.Point(94, 71)
         Me.txtInitialAddressLine2.Name = "txtInitialAddressLine2"
         Me.txtInitialAddressLine2.Size = New System.Drawing.Size(282, 20)
@@ -4236,6 +4302,8 @@ Partial Class FeesAudit
         '
         'txtInitialCity
         '
+        Me.txtInitialCity.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtInitialCity.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtInitialCity.Location = New System.Drawing.Point(93, 97)
         Me.txtInitialCity.Name = "txtInitialCity"
         Me.txtInitialCity.Size = New System.Drawing.Size(146, 20)

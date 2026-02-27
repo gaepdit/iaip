@@ -4,7 +4,7 @@ name: Raygun Deployment Tracking
 
 on:
   push:
-    tags: [v7/*]
+    tags: [v8/*]
 
 permissions:
   contents: read
@@ -19,7 +19,7 @@ jobs:
 
       - name: Send to the Raygun Deployments API
         id: send_deployment
-        uses: fjogeleit/http-request-action@1297c6fc63a79b147d1676540a3fd9d2e37817c5
+        uses: fjogeleit/http-request-action@551353b829c3646756b2ec2b3694f819d7957495
         with:
           url: https://api.raygun.com/v3/applications/api-key/${{ secrets.RAYGUN_APIKEY }}/deployments
           method: POST

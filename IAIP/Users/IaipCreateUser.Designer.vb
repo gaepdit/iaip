@@ -84,6 +84,8 @@ Partial Class IaipCreateUser
         '
         'OfficeNumber
         '
+        Me.OfficeNumber.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.OfficeNumber.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.OfficeNumber.Location = New System.Drawing.Point(113, 153)
         Me.OfficeNumber.MaxLength = 10
         Me.OfficeNumber.Name = "OfficeNumber"
@@ -92,6 +94,8 @@ Partial Class IaipCreateUser
         '
         'EmailAddress
         '
+        Me.EmailAddress.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.EmailAddress.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.EmailAddress.Location = New System.Drawing.Point(113, 101)
         Me.EmailAddress.MaxLength = 100
         Me.EmailAddress.Name = "EmailAddress"
@@ -100,6 +104,8 @@ Partial Class IaipCreateUser
         '
         'LastName
         '
+        Me.LastName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.LastName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.LastName.Location = New System.Drawing.Point(113, 75)
         Me.LastName.MaxLength = 100
         Me.LastName.Name = "LastName"
@@ -108,6 +114,8 @@ Partial Class IaipCreateUser
         '
         'FirstName
         '
+        Me.FirstName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.FirstName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.FirstName.Location = New System.Drawing.Point(113, 49)
         Me.FirstName.MaxLength = 100
         Me.FirstName.Name = "FirstName"
@@ -244,6 +252,8 @@ Partial Class IaipCreateUser
         '
         'Username
         '
+        Me.Username.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.Username.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.Username.Location = New System.Drawing.Point(111, 23)
         Me.Username.MaxLength = 50
         Me.Username.Name = "Username"
@@ -252,6 +262,8 @@ Partial Class IaipCreateUser
         '
         'PhoneNumber
         '
+        Me.PhoneNumber.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.PhoneNumber.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.PhoneNumber.Location = New System.Drawing.Point(113, 127)
         Me.PhoneNumber.MaxLength = 15
         Me.PhoneNumber.Name = "PhoneNumber"

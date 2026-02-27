@@ -419,6 +419,8 @@ Partial Class ISMPMonitoringLog
         '
         'txtTestingFirm
         '
+        Me.txtTestingFirm.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtTestingFirm.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtTestingFirm.Location = New System.Drawing.Point(136, 230)
         Me.txtTestingFirm.MaxLength = 100
         Me.txtTestingFirm.Name = "txtTestingFirm"
@@ -436,6 +438,8 @@ Partial Class ISMPMonitoringLog
         '
         'txtPollutantFilter
         '
+        Me.txtPollutantFilter.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtPollutantFilter.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtPollutantFilter.Location = New System.Drawing.Point(136, 205)
         Me.txtPollutantFilter.MaxLength = 100
         Me.txtPollutantFilter.Name = "txtPollutantFilter"
@@ -453,6 +457,8 @@ Partial Class ISMPMonitoringLog
         '
         'txtCommentFieldFilter
         '
+        Me.txtCommentFieldFilter.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtCommentFieldFilter.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtCommentFieldFilter.Location = New System.Drawing.Point(136, 181)
         Me.txtCommentFieldFilter.MaxLength = 1000
         Me.txtCommentFieldFilter.Name = "txtCommentFieldFilter"
@@ -470,6 +476,8 @@ Partial Class ISMPMonitoringLog
         '
         'txtEmissionSourceTestedFilter
         '
+        Me.txtEmissionSourceTestedFilter.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtEmissionSourceTestedFilter.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtEmissionSourceTestedFilter.Location = New System.Drawing.Point(136, 157)
         Me.txtEmissionSourceTestedFilter.MaxLength = 1000
         Me.txtEmissionSourceTestedFilter.Name = "txtEmissionSourceTestedFilter"
@@ -487,6 +495,8 @@ Partial Class ISMPMonitoringLog
         '
         'txtCountyFilter
         '
+        Me.txtCountyFilter.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtCountyFilter.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtCountyFilter.Location = New System.Drawing.Point(136, 133)
         Me.txtCountyFilter.MaxLength = 1000
         Me.txtCountyFilter.Name = "txtCountyFilter"
@@ -504,6 +514,8 @@ Partial Class ISMPMonitoringLog
         '
         'txtFacilityNameFilter
         '
+        Me.txtFacilityNameFilter.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtFacilityNameFilter.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtFacilityNameFilter.Location = New System.Drawing.Point(136, 37)
         Me.txtFacilityNameFilter.MaxLength = 1000
         Me.txtFacilityNameFilter.Name = "txtFacilityNameFilter"
@@ -521,6 +533,8 @@ Partial Class ISMPMonitoringLog
         '
         'txtCityFilter
         '
+        Me.txtCityFilter.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtCityFilter.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtCityFilter.Location = New System.Drawing.Point(136, 109)
         Me.txtCityFilter.MaxLength = 1000
         Me.txtCityFilter.Name = "txtCityFilter"
@@ -538,6 +552,8 @@ Partial Class ISMPMonitoringLog
         '
         'txtNotificationNumberFilter
         '
+        Me.txtNotificationNumberFilter.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtNotificationNumberFilter.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtNotificationNumberFilter.Location = New System.Drawing.Point(136, 85)
         Me.txtNotificationNumberFilter.MaxLength = 1000
         Me.txtNotificationNumberFilter.Name = "txtNotificationNumberFilter"
@@ -564,6 +580,8 @@ Partial Class ISMPMonitoringLog
         '
         'txtReferenceNumberFilter
         '
+        Me.txtReferenceNumberFilter.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtReferenceNumberFilter.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtReferenceNumberFilter.Location = New System.Drawing.Point(136, 61)
         Me.txtReferenceNumberFilter.MaxLength = 1000
         Me.txtReferenceNumberFilter.Name = "txtReferenceNumberFilter"
@@ -572,6 +590,8 @@ Partial Class ISMPMonitoringLog
         '
         'txtAIRSNumberFilter
         '
+        Me.txtAIRSNumberFilter.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtAIRSNumberFilter.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtAIRSNumberFilter.Location = New System.Drawing.Point(136, 13)
         Me.txtAIRSNumberFilter.MaxLength = 8
         Me.txtAIRSNumberFilter.Name = "txtAIRSNumberFilter"
@@ -847,6 +867,8 @@ Partial Class ISMPMonitoringLog
         '
         'txtReferenceNumber
         '
+        Me.txtReferenceNumber.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtReferenceNumber.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtReferenceNumber.Location = New System.Drawing.Point(24, 40)
         Me.txtReferenceNumber.Name = "txtReferenceNumber"
         Me.txtReferenceNumber.Size = New System.Drawing.Size(100, 20)
@@ -1000,6 +1022,8 @@ Partial Class ISMPMonitoringLog
         '
         'txtTestLogNumber
         '
+        Me.txtTestLogNumber.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtTestLogNumber.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtTestLogNumber.Location = New System.Drawing.Point(22, 26)
         Me.txtTestLogNumber.Name = "txtTestLogNumber"
         Me.txtTestLogNumber.Size = New System.Drawing.Size(100, 20)

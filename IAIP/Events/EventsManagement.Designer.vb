@@ -224,6 +224,8 @@ Partial Class EventsManagement
         '
         'txtEventTitle
         '
+        Me.txtEventTitle.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtEventTitle.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtEventTitle.Location = New System.Drawing.Point(85, 29)
         Me.txtEventTitle.MaxLength = 1000
         Me.txtEventTitle.Name = "txtEventTitle"
@@ -232,6 +234,8 @@ Partial Class EventsManagement
         '
         'txtWebPhone
         '
+        Me.txtWebPhone.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtWebPhone.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtWebPhone.Enabled = False
         Me.txtWebPhone.Location = New System.Drawing.Point(717, 108)
         Me.txtWebPhone.Name = "txtWebPhone"
@@ -240,6 +244,8 @@ Partial Class EventsManagement
         '
         'txtEventEndTime
         '
+        Me.txtEventEndTime.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtEventEndTime.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtEventEndTime.Location = New System.Drawing.Point(252, 186)
         Me.txtEventEndTime.MaxLength = 200
         Me.txtEventEndTime.Name = "txtEventEndTime"
@@ -294,6 +300,8 @@ Partial Class EventsManagement
         '
         'txtEventVenue
         '
+        Me.txtEventVenue.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtEventVenue.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtEventVenue.Location = New System.Drawing.Point(505, 29)
         Me.txtEventVenue.MaxLength = 250
         Me.txtEventVenue.Name = "txtEventVenue"
@@ -396,6 +404,8 @@ Partial Class EventsManagement
         '
         'txtEventTime
         '
+        Me.txtEventTime.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtEventTime.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtEventTime.Location = New System.Drawing.Point(85, 186)
         Me.txtEventTime.MaxLength = 200
         Me.txtEventTime.Name = "txtEventTime"
@@ -461,6 +471,8 @@ Partial Class EventsManagement
         '
         'txtEventAddress
         '
+        Me.txtEventAddress.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtEventAddress.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtEventAddress.Location = New System.Drawing.Point(505, 55)
         Me.txtEventAddress.MaxLength = 2000
         Me.txtEventAddress.Name = "txtEventAddress"
@@ -478,6 +490,8 @@ Partial Class EventsManagement
         '
         'txtState
         '
+        Me.txtState.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtState.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtState.Location = New System.Drawing.Point(623, 81)
         Me.txtState.MaxLength = 2
         Me.txtState.Name = "txtState"
@@ -486,6 +500,8 @@ Partial Class EventsManagement
         '
         'txtZip
         '
+        Me.txtZip.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtZip.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtZip.Location = New System.Drawing.Point(653, 81)
         Me.txtZip.MaxLength = 10
         Me.txtZip.Name = "txtZip"
@@ -494,6 +510,8 @@ Partial Class EventsManagement
         '
         'txtEventCity
         '
+        Me.txtEventCity.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtEventCity.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtEventCity.Location = New System.Drawing.Point(505, 81)
         Me.txtEventCity.MaxLength = 2000
         Me.txtEventCity.Name = "txtEventCity"

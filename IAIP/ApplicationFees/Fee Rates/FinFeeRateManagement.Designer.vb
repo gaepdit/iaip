@@ -1,4 +1,4 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
+<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class FinFeeRateManagement
     Inherits BaseForm
 
@@ -235,6 +235,8 @@ Partial Class FinFeeRateManagement
         '
         Me.txtRateItemName.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtRateItemName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtRateItemName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtRateItemName.Location = New System.Drawing.Point(71, 276)
         Me.txtRateItemName.Name = "txtRateItemName"
         Me.txtRateItemName.Size = New System.Drawing.Size(327, 20)
