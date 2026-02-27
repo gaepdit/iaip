@@ -4,7 +4,7 @@ name: Raygun Deployment Tracking
 
 on:
   push:
-    tags: [v7/*]
+    tags: [v8/*]
 
 permissions:
   contents: read
