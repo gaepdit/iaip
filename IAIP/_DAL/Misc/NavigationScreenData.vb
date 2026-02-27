@@ -23,97 +23,6 @@ Namespace DAL
 
             Select Case context
 
-                Case NavWorkListContext.ComplianceWork
-                    query = "SELECT convert(int, i.STRTRACKINGNUMBER)     AS [Tracking #],
-                               i.STRAIRSNUMBER                       AS [AIRS #],
-                               f.STRFACILITYNAME                     AS Facility,
-                               f.STRFACILITYCITY                     AS City,
-                               la.STRACTIVITYNAME                    AS Type,
-                               i.DATRECEIVEDDATE                     AS [Date Received],
-                               u.STRLASTNAME + ', ' + u.STRFIRSTNAME AS [Staff Responsible]
-                        FROM SSCPITEMMASTER AS i
-                             INNER JOIN LOOKUPCOMPLIANCEACTIVITIES AS la
-                                        ON la.STRACTIVITYTYPE = i.STREVENTTYPE
-                             INNER JOIN EPDUSERPROFILES AS u
-                                        ON i.STRRESPONSIBLESTAFF = u.NUMUSERID
-                             INNER JOIN APBFACILITYINFORMATION AS f
-                                        ON f.STRAIRSNUMBER = i.STRAIRSNUMBER
-                        WHERE i.DATCOMPLETEDATE IS NULL
-                          AND i.STRDELETE IS NULL "
-
-                    Select Case scope
-                        Case NavWorkListScope.StaffView
-                            query = query & " AND i.STRRESPONSIBLESTAFF = @pid "
-                        Case NavWorkListScope.UnitView
-                            query = query & " AND u.NUMUNIT = @pid "
-                    End Select
-
-                Case NavWorkListContext.LateFce
-                    query = "SELECT t.STRAIRSNUMBER        AS [AIRS #],
-                               t.STRFACILITYNAME      AS Facility,
-                               t.STRFACILITYCITY      AS City,
-                               t.LASTFCE              AS [Most recent FCE],
-                               t.STRCLASS             AS Class,
-                               t.STRCMSMEMBER         AS [CMS Class],
-                               t.STROPERATIONALSTATUS AS [Operating Status]
-                        FROM (SELECT m.STRAIRSNUMBER,
-                                     i.STRFACILITYNAME,
-                                     i.STRFACILITYCITY,
-                                     MAX(f.DATFCECOMPLETED) AS LASTFCE,
-                                     d.STRCLASS,
-                                     s.STRCMSMEMBER,
-                                     d.STROPERATIONALSTATUS
-                              FROM SSCPFCE AS f
-                                   INNER JOIN SSCPFCEMASTER AS m
-                                              ON f.STRFCENUMBER = m.STRFCENUMBER
-                                   INNER JOIN APBFACILITYINFORMATION AS i
-                                              ON m.STRAIRSNUMBER = i.STRAIRSNUMBER
-                                   INNER JOIN APBSUPPLAMENTALDATA AS s
-                                              ON m.STRAIRSNUMBER = s.STRAIRSNUMBER
-                                   INNER JOIN APBHEADERDATA AS d
-                                              ON m.STRAIRSNUMBER = d.STRAIRSNUMBER
-                              WHERE (m.IsDeleted is null or m.IsDeleted = 0)
-                              GROUP BY m.STRAIRSNUMBER, i.STRFACILITYNAME, i.STRFACILITYCITY,
-                                       s.STRCMSMEMBER, d.STRCLASS,d.STROPERATIONALSTATUS
-                             ) AS t
-                            WHERE (t.STRCMSMEMBER = 'A' AND t.LASTFCE < DATEADD(yy, -" & MIN_FCE_SPAN_CLASS_A & ", GETDATE()))
-                            OR (t.STRCMSMEMBER = 'S' AND t.LASTFCE < DATEADD(yy, -" & MIN_FCE_SPAN_CLASS_SM & ", GETDATE()))
-                            OR (t.STRCMSMEMBER = 'M' AND t.LASTFCE < DATEADD(yy, -" & MIN_FCE_SPAN_CLASS_M & ", GETDATE())) "
-
-                Case NavWorkListContext.Enforcement
-                    query = "SELECT convert(int, e.STRENFORCEMENTNUMBER)  AS [Enforcement #],
-                               e.STRAIRSNUMBER                       AS [AIRS #],
-                               i.STRFACILITYNAME                     AS Facility,
-                               i.STRFACILITYCITY                     AS City,
-                               e.DATDISCOVERYDATE                    AS [Discovery Date],
-                               CASE
-                                   WHEN e.STRAFSKEYACTIONNUMBER IS NOT NULL
-                                       THEN 'Submitted to EPA'
-                                   WHEN e.STRSTATUS = 'UC'
-                                       THEN 'Submitted to UC'
-                                   ELSE 'At staff'
-                               END                                   AS Status,
-                               CASE
-                                   WHEN e.STRACTIONTYPE = 'CASEFILE'
-                                       THEN 'Case File'
-                                   ELSE e.STRACTIONTYPE
-                               END                                   AS Type,
-                               u.STRLASTNAME + ', ' + u.STRFIRSTNAME AS [Staff Responsible]
-                        FROM SSCP_AUDITEDENFORCEMENT AS e
-                             INNER JOIN APBFACILITYINFORMATION AS i
-                                        ON e.STRAIRSNUMBER = i.STRAIRSNUMBER
-                             INNER JOIN EPDUSERPROFILES AS u
-                                        ON e.NUMSTAFFRESPONSIBLE = u.NUMUSERID
-                        WHERE e.STRENFORCEMENTFINALIZED = 'False'
-                          and (e.IsDeleted = 0 or e.IsDeleted is null) "
-
-                    Select Case scope
-                        Case NavWorkListScope.StaffView
-                            query = query & " AND e.NUMSTAFFRESPONSIBLE = @pid "
-                        Case NavWorkListScope.UnitView
-                            query = query & " AND u.NUMUNIT = @pid "
-                    End Select
-
                 Case NavWorkListContext.FacilitiesMissingSubparts
                     query = "SELECT convert(varchar(max), h.STRAIRSNUMBER) as [AIRS #],
                                f.STRFACILITYNAME                      as Facility,
@@ -208,9 +117,9 @@ Namespace DAL
 
                     Select Case scope
                         Case NavWorkListScope.StaffView
-                            query = query & "AND r.STRREVIEWINGENGINEER = @pid "
+                            query &= "AND r.STRREVIEWINGENGINEER = @pid "
                         Case NavWorkListScope.UnitView
-                            query = query & " AND u.NUMUNIT = @pid "
+                            query &= " AND u.NUMUNIT = @pid "
                     End Select
 
                 Case NavWorkListContext.PermitApplications
@@ -286,9 +195,9 @@ Namespace DAL
 
                     Select Case scope
                         Case NavWorkListScope.StaffView
-                            query = query & " AND a.STRSTAFFRESPONSIBLE = @pid "
+                            query &= " AND a.STRSTAFFRESPONSIBLE = @pid "
                         Case NavWorkListScope.UnitView
-                            query = query & " AND (u.NUMUNIT = @pid or a.APBUNIT = @pid) "
+                            query &= " AND (u.NUMUNIT = @pid or a.APBUNIT = @pid) "
                     End Select
 
             End Select

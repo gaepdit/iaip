@@ -16,11 +16,8 @@ Public Module SharedData
     ''' </summary>
     Public Enum SharedTable
         Pollutants
-        ViolationTypes
-        AllComplianceStaff
         IaipAccountRoles
         EpdManagers
-        SscpNotificationTypes
         Counties
         DistrictOffices
         FacilityOwnershipTypes
@@ -64,12 +61,6 @@ Public Module SharedData
 
             Select Case table
 
-                Case SharedTable.ViolationTypes
-                    dt = Sscp.GetViolationTypes()
-
-                Case SharedTable.AllComplianceStaff
-                    dt = GetComplianceStaff()
-
                 Case SharedTable.Pollutants
                     dt = GetPollutantsTable()
 
@@ -78,9 +69,6 @@ Public Module SharedData
 
                 Case SharedTable.EpdManagers
                     dt = GetEpdManagersAsDataTable()
-
-                Case SharedTable.SscpNotificationTypes
-                    dt = Sscp.GetSscpNotificationTypes()
 
                 Case SharedTable.Counties
                     dt = GetCountiesAsDataTable()
@@ -253,7 +241,8 @@ Public Module SharedData
             _dictDictionary = New Dictionary(Of SharedLookupDictionary, Dictionary(Of Integer, String))
         End If
 
-        If Not _dictDictionary.ContainsKey(lookupDictionary) OrElse _dictDictionary(lookupDictionary) Is Nothing Then
+        Dim value As Dictionary(Of Integer, String) = Nothing
+        If Not _dictDictionary.TryGetValue(lookupDictionary, value) OrElse value Is Nothing Then
             InitializeData(lookupDictionary)
         End If
 
@@ -266,18 +255,19 @@ Public Module SharedData
     ''' time it is used when the IAIP is run.
     ''' </summary>
     ''' <typeparam name="T">The Type of value to return</typeparam>
-    ''' <param name="value">The shared value to return.</param>
+    ''' <param name="sharedValue">The shared value to return.</param>
     ''' <returns>Object of Type T from the shared data service.</returns>
-    Public Function GetSharedObject(Of T)(value As SharedObject) As T
+    Public Function GetSharedObject(Of T)(sharedValue As SharedObject) As T
         If _objDictionary Is Nothing Then
             _objDictionary = New Dictionary(Of SharedObject, Object)
         End If
 
-        If Not _objDictionary.ContainsKey(value) OrElse _objDictionary(value) Is Nothing Then
-            InitializeData(value)
+        Dim value As Object = Nothing
+        If Not _objDictionary.TryGetValue(sharedValue, value) OrElse value Is Nothing Then
+            InitializeData(sharedValue)
         End If
 
-        Return _objDictionary(value)
+        Return _objDictionary(sharedValue)
     End Function
 
 
@@ -299,24 +289,6 @@ Public Module SharedData
     Public Sub ClearSharedObject(value As SharedObject)
         _objDictionary?.Remove(value)
     End Sub
-
-    ' Public functions for reloading shared data
-    ' Clears then returns fresh copy of data
-
-    Public Function ReloadSharedData(table As SharedTable) As DataTable
-        ClearSharedData(table)
-        Return GetSharedData(table)
-    End Function
-
-    Public Function ReloadSharedData(dataSet As SharedDataSet) As DataSet
-        ClearSharedData(dataSet)
-        Return GetSharedData(dataSet)
-    End Function
-
-    Public Function ReloadSharedData(lookupDictionary As SharedLookupDictionary) As Dictionary(Of Integer, String)
-        ClearSharedData(lookupDictionary)
-        Return GetSharedData(lookupDictionary)
-    End Function
 
     Public Function ReloadSharedObject(Of T)(value As SharedObject) As T
         ClearSharedObject(value)

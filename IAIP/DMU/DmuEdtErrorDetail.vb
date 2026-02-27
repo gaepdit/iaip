@@ -1,4 +1,5 @@
-﻿Imports System.Collections.Generic
+﻿Imports Iaip.UrlHelpers
+Imports System.Collections.Generic
 
 Public Class DmuEdtErrorDetail
 
@@ -177,11 +178,11 @@ Public Class DmuEdtErrorDetail
             Case Dmu.EdtIdCategory.AIRFACILITY
                 OpenFormFacilitySummary(IaipId.Text)
             Case Dmu.EdtIdCategory.COMPLIANCEMONITORING
-                OpenFormSscpWorkItem(IaipId.Text)
+                OpenComplianceWorkOnWeb(IaipId.Text, Me)
             Case Dmu.EdtIdCategory.COMPLIANCEMONITORINGFCE
-                OpenFormFce(IaipId.Text)
+                OpenFceOnWeb(IaipId.Text, Me)
             Case Dmu.EdtIdCategory.CASEFILE, Dmu.EdtIdCategory.ENFORCEMENTACTION
-                OpenFormEnforcement(IaipId.Text)
+                OpenEnforcementOnWeb(IaipId.Text, Me)
         End Select
     End Sub
     Private Sub IaipForeignId_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles IaipForeignId.LinkClicked
@@ -189,11 +190,11 @@ Public Class DmuEdtErrorDetail
             Case Dmu.EdtIdCategory.AIRFACILITY
                 OpenFormFacilitySummary(IaipForeignId.Text)
             Case Dmu.EdtIdCategory.COMPLIANCEMONITORING
-                OpenFormSscpWorkItem(IaipForeignId.Text)
+                OpenComplianceWorkOnWeb(IaipForeignId.Text, Me)
             Case Dmu.EdtIdCategory.COMPLIANCEMONITORINGFCE
-                OpenFormFce(IaipForeignId.Text)
+                OpenFceOnWeb(IaipForeignId.Text, Me)
             Case Dmu.EdtIdCategory.CASEFILE, Dmu.EdtIdCategory.ENFORCEMENTACTION
-                OpenFormEnforcement(IaipForeignId.Text)
+                OpenEnforcementOnWeb(IaipForeignId.Text, Me)
         End Select
     End Sub
 
