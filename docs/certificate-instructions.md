@@ -16,7 +16,7 @@ The ClickOnce signing certificate expires after one year, and a new one must be 
 
 6. Select File → Save All (<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>S</kbd>).
 
-This will create a new certificate named "IAIP_TemporaryKey.pfx" and add several entries in the "IAIP.vbproj" file. *Don't commit these changes.* Once the entire procedure is finished, these changes will be discarded.
+This will create a new certificate named `IAIP_TemporaryKey.pfx` and add several entries in the `IAIP.vbproj` file. ***Don't commit these changes.*** Once the entire procedure is finished, these changes will be discarded.
 
 ## Add the new certificate values to the GitHub repository
 
@@ -25,16 +25,18 @@ This will create a new certificate named "IAIP_TemporaryKey.pfx" and add several
 1. Open PowerShell to the "IAIP" folder and Base64-encode the ".pfx" file by running the following Powershell commands:
 
     ```powershell
-    [System.Convert]::ToBase64String([System.IO.File]::ReadAllBytes("IAIP_Key.pfx")) | Out-File "BASE64_ENCODED_PFX.txt"
+    [System.Convert]::ToBase64String([System.IO.File]::ReadAllBytes("$PWD\IAIP_TemporaryKey.pfx")) | Out-File "BASE64_ENCODED_PFX.txt"
+    ```
 
-    (Get-PfxCertificate -Filepath 'IAIP_Key.pfx').Thumbprint | Out-File "PFX_THUMBPRINT.txt"
+    ```powershell
+    (Get-PfxCertificate -Filepath 'IAIP_TemporaryKey.pfx').Thumbprint | Out-File "PFX_THUMBPRINT.txt"
     ```
 
     These two commands generate text files to be used in the following steps.
 
 2. In GitHub, go to [Actions secrets and variables](https://github.com/gaepdit/iaip/settings/secrets/actions) in the IAIP repository.
 
-    1. Add or update the value of the `BASE64_ENCODED_PFX` secret with the text of the `BASE64_ENCODED_PFX.txt` file.
+    1. Add or update the value of the `BASE64_ENCODED_PFX` GitHub repository secret with the text of the `BASE64_ENCODED_PFX.txt` file.
     2. Add or update the value of the `PFX_THUMBPRINT` secret with the text of the `PFX_THUMBPRINT.txt` file.
 
 5. Discard changes from the IAIP git repository. This should delete the files generated above and remove the additions to the "IAIP.vbproj" file.
