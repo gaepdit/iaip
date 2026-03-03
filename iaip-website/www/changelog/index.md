@@ -15,6 +15,10 @@
 [2014](changelog-2014.html) |
 [2013](changelog-2013.html)
 
+## Version 8.0.1 <span>(3-Mar-2026)</span>
+
+* Fixed a bug when closing stack tests
+
 ## Version 8.0.0 <span>(28-Feb-2026)</span>
 
 8️⃣: All compliance monitoring and enforcement functionality (except stack tests) has been moved to the new [Air Web App](https://air.gaepd.org).
