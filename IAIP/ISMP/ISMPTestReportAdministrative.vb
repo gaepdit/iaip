@@ -775,8 +775,10 @@ Public Class ISMPTestReportAdministrative
         ' AIRS number required
         If cboAIRSNumber.Text = "" Then Return
 
-        ' Check if SSCP assignment data already exists
-        Dim query As String = "select convert(bit, count(*)) from dbo.ISMPREPORTINFORMATION where STRREFERENCENUMBER = @ReferenceNumber and ComplianceAssignment is null "
+        ' Check if SSCP assignment already exists
+        Dim query As String = "select convert(bit, count(*)) from dbo.ISMPREPORTINFORMATION 
+            where STRREFERENCENUMBER = @ReferenceNumber 
+            and ComplianceAssignment is not null "
         Dim paramRefNum As New SqlParameter("@ReferenceNumber", ReferenceNumber)
         If DB.GetBoolean(query, paramRefNum) Then Return
 

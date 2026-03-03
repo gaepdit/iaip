@@ -2,9 +2,9 @@ Imports System.Resources
 Imports System.Reflection
 Imports System.Runtime.InteropServices
 
-<Assembly: AssemblyVersion("7.9.9.9")>
+<Assembly: AssemblyVersion("8.0.0.0")>
 <Assembly: AssemblyCompany("State of Georgia")>
-<Assembly: AssemblyCopyright("Copyright © 2025")>
+<Assembly: AssemblyCopyright("Copyright © 2026")>
 <Assembly: CLSCompliant(True)>
 <Assembly: ComVisible(False)>
 <Assembly: NeutralResourcesLanguage("en-US")>
