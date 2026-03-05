@@ -15,9 +15,13 @@
 [2014](changelog-2014.html) |
 [2013](changelog-2013.html)
 
+## Version 8.0.2 <span>(5-Mar-2026)</span>
+
+* Fixed a bug in the Compliance Managers Tool.
+
 ## Version 8.0.1 <span>(3-Mar-2026)</span>
 
-* Fixed a bug when closing stack tests
+* Fixed a bug when closing stack tests.
 
 ## Version 8.0.0 <span>(28-Feb-2026)</span>
 
