@@ -243,15 +243,6 @@ Public Class SSCPManagersTools
     End Sub
 
     Private Sub LoadSelectedFacilitesGrid()
-        dgvSelectedFacilityList.RowHeadersVisible = False
-        dgvSelectedFacilityList.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-        dgvSelectedFacilityList.AllowUserToResizeColumns = True
-        dgvSelectedFacilityList.AllowUserToAddRows = False
-        dgvSelectedFacilityList.AllowUserToDeleteRows = False
-        dgvSelectedFacilityList.AllowUserToOrderColumns = True
-        dgvSelectedFacilityList.AllowUserToResizeRows = True
-        dgvSelectedFacilityList.ColumnHeadersHeight = 35
-
         dgvSelectedFacilityList.Columns.Add("AIRSNumber", "AIRS #")
         dgvSelectedFacilityList.Columns("AIRSNumber").DisplayIndex = 0
         dgvSelectedFacilityList.Columns("AIRSNumber").Width = 75
@@ -582,14 +573,6 @@ Public Class SSCPManagersTools
             End If
 
             dgvFilteredFacilityList.DataSource = DB.GetDataTable(SQL, ParamList.ToArray)
-
-            dgvFilteredFacilityList.RowHeadersVisible = False
-            dgvFilteredFacilityList.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvFilteredFacilityList.AllowUserToResizeColumns = True
-            dgvFilteredFacilityList.AllowUserToAddRows = False
-            dgvFilteredFacilityList.AllowUserToDeleteRows = False
-            dgvFilteredFacilityList.AllowUserToOrderColumns = True
-            dgvFilteredFacilityList.AllowUserToResizeRows = True
 
             If chbIgnoreFiscalYear.Checked Then
                 dgvFilteredFacilityList.Columns("AIRSNumber").HeaderText = "AIRS #"
@@ -1177,12 +1160,10 @@ Public Class SSCPManagersTools
 
                 If DB.RunCommand(SQL, parameters) Then
                     row.Cells(7).Value = CMSStatus
-                    MessageBox.Show("CMS status saved", "Success")
-                Else
-                    MessageBox.Show("There was an error saving the CMS status", "Error")
                 End If
             Next
 
+            MsgBox("CMS status saved", MsgBoxStyle.Information, "Success")
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
