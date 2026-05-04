@@ -14289,7 +14289,7 @@ Public Class SSPPApplicationTrackingLog
     Private Sub btnOpenFacility_Click(sender As Object, e As EventArgs) Handles btnOpenFacility.Click
         If txtAIRSNumber.AirsNumber IsNot Nothing Then
             Dim facSummary As IAIPFacilitySummary = OpenFormFacilitySummary(txtAIRSNumber.AirsNumber)
-            facSummary.FSMainTabControl.SelectedTab = facSummary.FSPermitting
+            If facSummary IsNot Nothing Then facSummary.FSMainTabControl.SelectedTab = facSummary.FSPermitting
         End If
     End Sub
 
