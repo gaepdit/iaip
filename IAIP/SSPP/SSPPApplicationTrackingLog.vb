@@ -427,6 +427,8 @@ Public Class SSPPApplicationTrackingLog
         Cursor = Nothing
     End Sub
 
+    Private Shared ReadOnly permissionToEditComplianceReviewTab As Integer() = {28, 113, 116, 121, 122}
+
     Private Sub LoadPermissions()
         Try
             'DMU developers and DMU Manager  - VALIDATED 
@@ -1831,13 +1833,9 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'DTPISMPReview
-            If (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") OrElse
-               AccountFormAccess(67, 2) = "1" Then
-                DTPISMPReview.Enabled = True
-            End If
-
             'DTPSSCPReview
-            If CurrentUser.HasRole({28, 112, 113, 121, 122}) Then
+            If CurrentUser.HasRole(permissionToEditComplianceReviewTab) Then
+                DTPISMPReview.Enabled = True
                 DTPSSCPReview.Enabled = True
             End If
 
