@@ -206,12 +206,12 @@ Public Class IAIPFacilityCreator
                 Return
             End If
             If Not DAL.NaicsCodeIsValid(mtbCDSNAICSCode.Text, False) Then
-                MsgBox("The NAICS Code is not valid and must be fixed before proceeding." &
+                MsgBox("The NAICS Code is not valid and must be fixed before proceeding. " &
                   "No Data saved.", MsgBoxStyle.Information, Me.Name)
                 Return
             End If
             If Not DAL.SicCodeIsValid(mtbCDSSICCode.Text) Then
-                MsgBox("The SIC Code is not valid and must be fixed before proceeding." &
+                MsgBox("The SIC Code is not valid and must be fixed before proceeding. " &
                 "No Data saved.", MsgBoxStyle.Information, Me.Name)
                 Return
             End If
