@@ -427,8 +427,6 @@ Public Class SSPPApplicationTrackingLog
         Cursor = Nothing
     End Sub
 
-    Private Shared ReadOnly permissionToEditComplianceReviewTab As Integer() = {28, 113, 116, 121, 122}
-
     Private Sub LoadPermissions()
         Try
             'DMU developers and DMU Manager  - VALIDATED 
@@ -1834,7 +1832,7 @@ Public Class SSPPApplicationTrackingLog
 
             'DTPISMPReview
             'DTPSSCPReview
-            If CurrentUser.HasRole(permissionToEditComplianceReviewTab) Then
+            If UserCanAccessReviewsTab() Then
                 DTPISMPReview.Enabled = True
                 DTPSSCPReview.Enabled = True
             End If
@@ -2424,14 +2422,25 @@ Public Class SSPPApplicationTrackingLog
         End Try
     End Sub
 
-    Private Function UserCanAccessReviewsTab() As Boolean
-        Return CurrentUser.HasRole(118) OrElse
-                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse
-                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse
-                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse
-                 AccountFormAccess(67, 2) = "1" OrElse
-                (AccountFormAccess(48, 2) = "1" AndAlso AccountFormAccess(48, 3) = "0" AndAlso AccountFormAccess(48, 4) = "0") OrElse
-                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0")
+    '28,SSPP Program Manager
+    '112,RMP Specialist
+    '113,SSCP Engineer
+    '116,ISMP Engineer
+    '117,ISMP Specialist
+    '118,DMU Management
+    '121,SSPP Unit Manager
+    '122,SSPP Engineer
+    Private Shared ReadOnly CanAccessReviewsTab As Integer() = {28, 112, 113, 116, 117, 121, 122, 118}
+
+    Private Shared Function UserCanAccessReviewsTab() As Boolean
+        Return CurrentUser.HasRole(CanAccessReviewsTab)
+        'Return CurrentUser.HasRole(118) OrElse
+        '        (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
+        '        (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
+        '        (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse ' nothing
+        '         AccountFormAccess(67, 2) = "1" OrElse ' 116, N'ISMP Engineer', 117, N'ISMP Specialist'
+        '        (AccountFormAccess(48, 2) = "1" AndAlso AccountFormAccess(48, 3) = "0" AndAlso AccountFormAccess(48, 4) = "0") OrElse ' 112, N'RMP Specialist', 113, N'SSCP Engineer'
+        '        (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") ' 122, N'SSPP Engineer'
     End Function
 
     Private Function UserCanAccessHistoryTab() As Boolean
