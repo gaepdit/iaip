@@ -969,8 +969,9 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub ClearTimersAndBackgroundWorkers()
-        dataPreloadTimer.Enabled = False
-        networkCheckTimer.Enabled = False
+        If dataPreloadTimer IsNot Nothing Then dataPreloadTimer.Enabled = False
+        If networkCheckTimer IsNot Nothing Then networkCheckTimer.Enabled = False
+
         bgrDataPreloader.CancelAsync()
         bgrLoadWorkViewer.CancelAsync()
         bgrOrgNotifications.CancelAsync()
@@ -1071,18 +1072,17 @@ Public Class IAIPNavigation
 
     Private sharedDataCounter As Integer = 1
     Private Sub bgrDataPreloader_DoWork(sender As Object, e As DoWorkEventArgs) Handles bgrDataPreloader.DoWork
-
         Select Case sharedDataCounter
             Case 1
                 GetSharedData(SharedDataSet.RuleSubparts)
             Case 2
                 GetSharedData(SharedTable.Counties)
             Case 3
-                dataPreloadTimer.Enabled = False
                 GetSharedData(SharedTable.FacilityOwnershipTypes)
 
-            Case Else ' Should never be hit
+            Case Else
                 dataPreloadTimer.Enabled = False
+                dataPreloadTimer.Dispose()
         End Select
 
         sharedDataCounter += 1

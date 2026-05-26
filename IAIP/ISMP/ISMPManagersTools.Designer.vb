@@ -489,34 +489,34 @@ Partial Class ISMPManagersTools
         '
         Me.MmiViewTestReports.MergeIndex = 0
         Me.MmiViewTestReports.Name = "MmiViewTestReports"
-        Me.MmiViewTestReports.Size = New System.Drawing.Size(229, 22)
+        Me.MmiViewTestReports.Size = New System.Drawing.Size(230, 22)
         Me.MmiViewTestReports.Text = "View All Test Reports"
         '
         'MmiUnassignedTestReports
         '
         Me.MmiUnassignedTestReports.MergeIndex = 1
         Me.MmiUnassignedTestReports.Name = "MmiUnassignedTestReports"
-        Me.MmiUnassignedTestReports.Size = New System.Drawing.Size(229, 22)
+        Me.MmiUnassignedTestReports.Size = New System.Drawing.Size(230, 22)
         Me.MmiUnassignedTestReports.Text = "View Unassigned Test Reports"
         '
         'MmiAssignedTestReports
         '
         Me.MmiAssignedTestReports.MergeIndex = 2
         Me.MmiAssignedTestReports.Name = "MmiAssignedTestReports"
-        Me.MmiAssignedTestReports.Size = New System.Drawing.Size(229, 22)
+        Me.MmiAssignedTestReports.Size = New System.Drawing.Size(230, 22)
         Me.MmiAssignedTestReports.Text = "View Assigned Test Reports"
         '
         'ToolStripSeparator1
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(226, 6)
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(227, 6)
         '
         'MmiViewByTestType
         '
         Me.MmiViewByTestType.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MenuItem15, Me.MenuItem17, Me.MmiAllDocument})
         Me.MmiViewByTestType.MergeIndex = 4
         Me.MmiViewByTestType.Name = "MmiViewByTestType"
-        Me.MmiViewByTestType.Size = New System.Drawing.Size(229, 22)
+        Me.MmiViewByTestType.Size = New System.Drawing.Size(230, 22)
         Me.MmiViewByTestType.Text = "View By Test Type"
         '
         'MenuItem15
@@ -524,161 +524,161 @@ Partial Class ISMPManagersTools
         Me.MenuItem15.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MmiUnassigned, Me.ToolStripSeparator3, Me.MmiOneStackTwoRun, Me.MmiOneStackThreeRun, Me.MmiOneStackFourRun, Me.ToolStripSeparator4, Me.MmiTwoStackStandard, Me.MmiTwoStackDRE, Me.ToolStripSeparator5, Me.MmiLoadingRack, Me.MmiFlare, Me.ToolStripSeparator6, Me.MmiPondTreatment, Me.MmiGasConcentration, Me.ToolStripSeparator7, Me.MmiRata, Me.ToolStripSeparator8, Me.MmiMemoStandard, Me.MmiMemoToFile, Me.MmiMemoPTE, Me.ToolStripSeparator9, Me.MmiMethod9Single, Me.MmiMethod9Multi, Me.MmiMethod22})
         Me.MenuItem15.MergeIndex = 0
         Me.MenuItem15.Name = "MenuItem15"
-        Me.MenuItem15.Size = New System.Drawing.Size(201, 22)
+        Me.MenuItem15.Size = New System.Drawing.Size(202, 22)
         Me.MenuItem15.Text = "Unassigned Test Reports"
         '
         'MmiUnassigned
         '
         Me.MmiUnassigned.MergeIndex = 0
         Me.MmiUnassigned.Name = "MmiUnassigned"
-        Me.MmiUnassigned.Size = New System.Drawing.Size(240, 22)
+        Me.MmiUnassigned.Size = New System.Drawing.Size(242, 22)
         Me.MmiUnassigned.Text = "Unassigned (Document Type)"
         '
         'ToolStripSeparator3
         '
         Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
-        Me.ToolStripSeparator3.Size = New System.Drawing.Size(237, 6)
+        Me.ToolStripSeparator3.Size = New System.Drawing.Size(239, 6)
         '
         'MmiOneStackTwoRun
         '
         Me.MmiOneStackTwoRun.MergeIndex = 2
         Me.MmiOneStackTwoRun.Name = "MmiOneStackTwoRun"
-        Me.MmiOneStackTwoRun.Size = New System.Drawing.Size(240, 22)
+        Me.MmiOneStackTwoRun.Size = New System.Drawing.Size(242, 22)
         Me.MmiOneStackTwoRun.Text = "One Stack (Two Runs)"
         '
         'MmiOneStackThreeRun
         '
         Me.MmiOneStackThreeRun.MergeIndex = 3
         Me.MmiOneStackThreeRun.Name = "MmiOneStackThreeRun"
-        Me.MmiOneStackThreeRun.Size = New System.Drawing.Size(240, 22)
+        Me.MmiOneStackThreeRun.Size = New System.Drawing.Size(242, 22)
         Me.MmiOneStackThreeRun.Text = "One Stack (Three Runs)"
         '
         'MmiOneStackFourRun
         '
         Me.MmiOneStackFourRun.MergeIndex = 4
         Me.MmiOneStackFourRun.Name = "MmiOneStackFourRun"
-        Me.MmiOneStackFourRun.Size = New System.Drawing.Size(240, 22)
+        Me.MmiOneStackFourRun.Size = New System.Drawing.Size(242, 22)
         Me.MmiOneStackFourRun.Text = "One Stack (Four Runs)"
         '
         'ToolStripSeparator4
         '
         Me.ToolStripSeparator4.Name = "ToolStripSeparator4"
-        Me.ToolStripSeparator4.Size = New System.Drawing.Size(237, 6)
+        Me.ToolStripSeparator4.Size = New System.Drawing.Size(239, 6)
         '
         'MmiTwoStackStandard
         '
         Me.MmiTwoStackStandard.MergeIndex = 6
         Me.MmiTwoStackStandard.Name = "MmiTwoStackStandard"
-        Me.MmiTwoStackStandard.Size = New System.Drawing.Size(240, 22)
+        Me.MmiTwoStackStandard.Size = New System.Drawing.Size(242, 22)
         Me.MmiTwoStackStandard.Text = "Two Stack (Standard)"
         '
         'MmiTwoStackDRE
         '
         Me.MmiTwoStackDRE.MergeIndex = 7
         Me.MmiTwoStackDRE.Name = "MmiTwoStackDRE"
-        Me.MmiTwoStackDRE.Size = New System.Drawing.Size(240, 22)
+        Me.MmiTwoStackDRE.Size = New System.Drawing.Size(242, 22)
         Me.MmiTwoStackDRE.Text = "Two Stack (DRE)"
         '
         'ToolStripSeparator5
         '
         Me.ToolStripSeparator5.Name = "ToolStripSeparator5"
-        Me.ToolStripSeparator5.Size = New System.Drawing.Size(237, 6)
+        Me.ToolStripSeparator5.Size = New System.Drawing.Size(239, 6)
         '
         'MmiLoadingRack
         '
         Me.MmiLoadingRack.MergeIndex = 9
         Me.MmiLoadingRack.Name = "MmiLoadingRack"
-        Me.MmiLoadingRack.Size = New System.Drawing.Size(240, 22)
+        Me.MmiLoadingRack.Size = New System.Drawing.Size(242, 22)
         Me.MmiLoadingRack.Text = "Loading Rack"
         '
         'MmiFlare
         '
         Me.MmiFlare.MergeIndex = 10
         Me.MmiFlare.Name = "MmiFlare"
-        Me.MmiFlare.Size = New System.Drawing.Size(240, 22)
+        Me.MmiFlare.Size = New System.Drawing.Size(242, 22)
         Me.MmiFlare.Text = "Flare"
         '
         'ToolStripSeparator6
         '
         Me.ToolStripSeparator6.Name = "ToolStripSeparator6"
-        Me.ToolStripSeparator6.Size = New System.Drawing.Size(237, 6)
+        Me.ToolStripSeparator6.Size = New System.Drawing.Size(239, 6)
         '
         'MmiPondTreatment
         '
         Me.MmiPondTreatment.MergeIndex = 12
         Me.MmiPondTreatment.Name = "MmiPondTreatment"
-        Me.MmiPondTreatment.Size = New System.Drawing.Size(240, 22)
+        Me.MmiPondTreatment.Size = New System.Drawing.Size(242, 22)
         Me.MmiPondTreatment.Text = "Pond Treatment"
         '
         'MmiGasConcentration
         '
         Me.MmiGasConcentration.MergeIndex = 13
         Me.MmiGasConcentration.Name = "MmiGasConcentration"
-        Me.MmiGasConcentration.Size = New System.Drawing.Size(240, 22)
+        Me.MmiGasConcentration.Size = New System.Drawing.Size(242, 22)
         Me.MmiGasConcentration.Text = "Gas Concentration"
         '
         'ToolStripSeparator7
         '
         Me.ToolStripSeparator7.Name = "ToolStripSeparator7"
-        Me.ToolStripSeparator7.Size = New System.Drawing.Size(237, 6)
+        Me.ToolStripSeparator7.Size = New System.Drawing.Size(239, 6)
         '
         'MmiRata
         '
         Me.MmiRata.MergeIndex = 15
         Me.MmiRata.Name = "MmiRata"
-        Me.MmiRata.Size = New System.Drawing.Size(240, 22)
+        Me.MmiRata.Size = New System.Drawing.Size(242, 22)
         Me.MmiRata.Text = "Rata"
         '
         'ToolStripSeparator8
         '
         Me.ToolStripSeparator8.Name = "ToolStripSeparator8"
-        Me.ToolStripSeparator8.Size = New System.Drawing.Size(237, 6)
+        Me.ToolStripSeparator8.Size = New System.Drawing.Size(239, 6)
         '
         'MmiMemoStandard
         '
         Me.MmiMemoStandard.MergeIndex = 18
         Me.MmiMemoStandard.Name = "MmiMemoStandard"
-        Me.MmiMemoStandard.Size = New System.Drawing.Size(240, 22)
+        Me.MmiMemoStandard.Size = New System.Drawing.Size(242, 22)
         Me.MmiMemoStandard.Text = "Memorandum (Standard)"
         '
         'MmiMemoToFile
         '
         Me.MmiMemoToFile.MergeIndex = 19
         Me.MmiMemoToFile.Name = "MmiMemoToFile"
-        Me.MmiMemoToFile.Size = New System.Drawing.Size(240, 22)
+        Me.MmiMemoToFile.Size = New System.Drawing.Size(242, 22)
         Me.MmiMemoToFile.Text = "Memorandum (To File)"
         '
         'MmiMemoPTE
         '
         Me.MmiMemoPTE.MergeIndex = 20
         Me.MmiMemoPTE.Name = "MmiMemoPTE"
-        Me.MmiMemoPTE.Size = New System.Drawing.Size(240, 22)
+        Me.MmiMemoPTE.Size = New System.Drawing.Size(242, 22)
         Me.MmiMemoPTE.Text = "PTE (Perminate Total Enclosure)"
         '
         'ToolStripSeparator9
         '
         Me.ToolStripSeparator9.Name = "ToolStripSeparator9"
-        Me.ToolStripSeparator9.Size = New System.Drawing.Size(237, 6)
+        Me.ToolStripSeparator9.Size = New System.Drawing.Size(239, 6)
         '
         'MmiMethod9Single
         '
         Me.MmiMethod9Single.MergeIndex = 22
         Me.MmiMethod9Single.Name = "MmiMethod9Single"
-        Me.MmiMethod9Single.Size = New System.Drawing.Size(240, 22)
+        Me.MmiMethod9Single.Size = New System.Drawing.Size(242, 22)
         Me.MmiMethod9Single.Text = "Method 9 (Single)"
         '
         'MmiMethod9Multi
         '
         Me.MmiMethod9Multi.MergeIndex = 23
         Me.MmiMethod9Multi.Name = "MmiMethod9Multi"
-        Me.MmiMethod9Multi.Size = New System.Drawing.Size(240, 22)
+        Me.MmiMethod9Multi.Size = New System.Drawing.Size(242, 22)
         Me.MmiMethod9Multi.Text = "Method9 (Multi.)"
         '
         'MmiMethod22
         '
         Me.MmiMethod22.MergeIndex = 24
         Me.MmiMethod22.Name = "MmiMethod22"
-        Me.MmiMethod22.Size = New System.Drawing.Size(240, 22)
+        Me.MmiMethod22.Size = New System.Drawing.Size(242, 22)
         Me.MmiMethod22.Text = "Method 22"
         '
         'MenuItem17
@@ -686,161 +686,161 @@ Partial Class ISMPManagersTools
         Me.MenuItem17.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MmiAssignedNoDocument, Me.ToolStripSeparator10, Me.MmiAssignedOneStackTwoRuns, Me.MmiAssignedOneStackThreeRuns, Me.MmiAssignedOneStackFourRuns, Me.ToolStripSeparator11, Me.MmiAssignedTwoStackStandard, Me.MmiAssignedTwoStackDRE, Me.ToolStripSeparator12, Me.MmiAssignedLoadingRack, Me.MmiAssignedFlare, Me.ToolStripSeparator13, Me.MmiAssignedPondTreatment, Me.MmiAssignedGasConcentration, Me.ToolStripSeparator14, Me.MmiAssignedRata, Me.ToolStripSeparator15, Me.MmiAssignedMemoStandard, Me.MmiAssignedMemoToFile, Me.MmiAssignedMemoPTE, Me.ToolStripSeparator16, Me.MmiAssignedMethod9Single, Me.MmiAssignedMethod9Multi, Me.MmiAssignedMethod22})
         Me.MenuItem17.MergeIndex = 1
         Me.MenuItem17.Name = "MenuItem17"
-        Me.MenuItem17.Size = New System.Drawing.Size(201, 22)
+        Me.MenuItem17.Size = New System.Drawing.Size(202, 22)
         Me.MenuItem17.Text = "Assigned Test Reports "
         '
         'MmiAssignedNoDocument
         '
         Me.MmiAssignedNoDocument.MergeIndex = 0
         Me.MmiAssignedNoDocument.Name = "MmiAssignedNoDocument"
-        Me.MmiAssignedNoDocument.Size = New System.Drawing.Size(240, 22)
+        Me.MmiAssignedNoDocument.Size = New System.Drawing.Size(242, 22)
         Me.MmiAssignedNoDocument.Text = "Unassigned (Document Type)"
         '
         'ToolStripSeparator10
         '
         Me.ToolStripSeparator10.Name = "ToolStripSeparator10"
-        Me.ToolStripSeparator10.Size = New System.Drawing.Size(237, 6)
+        Me.ToolStripSeparator10.Size = New System.Drawing.Size(239, 6)
         '
         'MmiAssignedOneStackTwoRuns
         '
         Me.MmiAssignedOneStackTwoRuns.MergeIndex = 2
         Me.MmiAssignedOneStackTwoRuns.Name = "MmiAssignedOneStackTwoRuns"
-        Me.MmiAssignedOneStackTwoRuns.Size = New System.Drawing.Size(240, 22)
+        Me.MmiAssignedOneStackTwoRuns.Size = New System.Drawing.Size(242, 22)
         Me.MmiAssignedOneStackTwoRuns.Text = "One Stack (Two Runs)"
         '
         'MmiAssignedOneStackThreeRuns
         '
         Me.MmiAssignedOneStackThreeRuns.MergeIndex = 3
         Me.MmiAssignedOneStackThreeRuns.Name = "MmiAssignedOneStackThreeRuns"
-        Me.MmiAssignedOneStackThreeRuns.Size = New System.Drawing.Size(240, 22)
+        Me.MmiAssignedOneStackThreeRuns.Size = New System.Drawing.Size(242, 22)
         Me.MmiAssignedOneStackThreeRuns.Text = "One Stack (Three Runs)"
         '
         'MmiAssignedOneStackFourRuns
         '
         Me.MmiAssignedOneStackFourRuns.MergeIndex = 4
         Me.MmiAssignedOneStackFourRuns.Name = "MmiAssignedOneStackFourRuns"
-        Me.MmiAssignedOneStackFourRuns.Size = New System.Drawing.Size(240, 22)
+        Me.MmiAssignedOneStackFourRuns.Size = New System.Drawing.Size(242, 22)
         Me.MmiAssignedOneStackFourRuns.Text = "One Stack (Four Runs)"
         '
         'ToolStripSeparator11
         '
         Me.ToolStripSeparator11.Name = "ToolStripSeparator11"
-        Me.ToolStripSeparator11.Size = New System.Drawing.Size(237, 6)
+        Me.ToolStripSeparator11.Size = New System.Drawing.Size(239, 6)
         '
         'MmiAssignedTwoStackStandard
         '
         Me.MmiAssignedTwoStackStandard.MergeIndex = 6
         Me.MmiAssignedTwoStackStandard.Name = "MmiAssignedTwoStackStandard"
-        Me.MmiAssignedTwoStackStandard.Size = New System.Drawing.Size(240, 22)
+        Me.MmiAssignedTwoStackStandard.Size = New System.Drawing.Size(242, 22)
         Me.MmiAssignedTwoStackStandard.Text = "Two Stack (Standard)"
         '
         'MmiAssignedTwoStackDRE
         '
         Me.MmiAssignedTwoStackDRE.MergeIndex = 7
         Me.MmiAssignedTwoStackDRE.Name = "MmiAssignedTwoStackDRE"
-        Me.MmiAssignedTwoStackDRE.Size = New System.Drawing.Size(240, 22)
+        Me.MmiAssignedTwoStackDRE.Size = New System.Drawing.Size(242, 22)
         Me.MmiAssignedTwoStackDRE.Text = "Two Stack (DRE)"
         '
         'ToolStripSeparator12
         '
         Me.ToolStripSeparator12.Name = "ToolStripSeparator12"
-        Me.ToolStripSeparator12.Size = New System.Drawing.Size(237, 6)
+        Me.ToolStripSeparator12.Size = New System.Drawing.Size(239, 6)
         '
         'MmiAssignedLoadingRack
         '
         Me.MmiAssignedLoadingRack.MergeIndex = 9
         Me.MmiAssignedLoadingRack.Name = "MmiAssignedLoadingRack"
-        Me.MmiAssignedLoadingRack.Size = New System.Drawing.Size(240, 22)
+        Me.MmiAssignedLoadingRack.Size = New System.Drawing.Size(242, 22)
         Me.MmiAssignedLoadingRack.Text = "Loading Rack"
         '
         'MmiAssignedFlare
         '
         Me.MmiAssignedFlare.MergeIndex = 10
         Me.MmiAssignedFlare.Name = "MmiAssignedFlare"
-        Me.MmiAssignedFlare.Size = New System.Drawing.Size(240, 22)
+        Me.MmiAssignedFlare.Size = New System.Drawing.Size(242, 22)
         Me.MmiAssignedFlare.Text = "Flare"
         '
         'ToolStripSeparator13
         '
         Me.ToolStripSeparator13.Name = "ToolStripSeparator13"
-        Me.ToolStripSeparator13.Size = New System.Drawing.Size(237, 6)
+        Me.ToolStripSeparator13.Size = New System.Drawing.Size(239, 6)
         '
         'MmiAssignedPondTreatment
         '
         Me.MmiAssignedPondTreatment.MergeIndex = 12
         Me.MmiAssignedPondTreatment.Name = "MmiAssignedPondTreatment"
-        Me.MmiAssignedPondTreatment.Size = New System.Drawing.Size(240, 22)
+        Me.MmiAssignedPondTreatment.Size = New System.Drawing.Size(242, 22)
         Me.MmiAssignedPondTreatment.Text = "Pond Treatment"
         '
         'MmiAssignedGasConcentration
         '
         Me.MmiAssignedGasConcentration.MergeIndex = 13
         Me.MmiAssignedGasConcentration.Name = "MmiAssignedGasConcentration"
-        Me.MmiAssignedGasConcentration.Size = New System.Drawing.Size(240, 22)
+        Me.MmiAssignedGasConcentration.Size = New System.Drawing.Size(242, 22)
         Me.MmiAssignedGasConcentration.Text = "Gas Concentration"
         '
         'ToolStripSeparator14
         '
         Me.ToolStripSeparator14.Name = "ToolStripSeparator14"
-        Me.ToolStripSeparator14.Size = New System.Drawing.Size(237, 6)
+        Me.ToolStripSeparator14.Size = New System.Drawing.Size(239, 6)
         '
         'MmiAssignedRata
         '
         Me.MmiAssignedRata.MergeIndex = 15
         Me.MmiAssignedRata.Name = "MmiAssignedRata"
-        Me.MmiAssignedRata.Size = New System.Drawing.Size(240, 22)
+        Me.MmiAssignedRata.Size = New System.Drawing.Size(242, 22)
         Me.MmiAssignedRata.Text = "Rata"
         '
         'ToolStripSeparator15
         '
         Me.ToolStripSeparator15.Name = "ToolStripSeparator15"
-        Me.ToolStripSeparator15.Size = New System.Drawing.Size(237, 6)
+        Me.ToolStripSeparator15.Size = New System.Drawing.Size(239, 6)
         '
         'MmiAssignedMemoStandard
         '
         Me.MmiAssignedMemoStandard.MergeIndex = 18
         Me.MmiAssignedMemoStandard.Name = "MmiAssignedMemoStandard"
-        Me.MmiAssignedMemoStandard.Size = New System.Drawing.Size(240, 22)
+        Me.MmiAssignedMemoStandard.Size = New System.Drawing.Size(242, 22)
         Me.MmiAssignedMemoStandard.Text = "Memorandum (Standard)"
         '
         'MmiAssignedMemoToFile
         '
         Me.MmiAssignedMemoToFile.MergeIndex = 19
         Me.MmiAssignedMemoToFile.Name = "MmiAssignedMemoToFile"
-        Me.MmiAssignedMemoToFile.Size = New System.Drawing.Size(240, 22)
+        Me.MmiAssignedMemoToFile.Size = New System.Drawing.Size(242, 22)
         Me.MmiAssignedMemoToFile.Text = "Memorandum (To File)"
         '
         'MmiAssignedMemoPTE
         '
         Me.MmiAssignedMemoPTE.MergeIndex = 20
         Me.MmiAssignedMemoPTE.Name = "MmiAssignedMemoPTE"
-        Me.MmiAssignedMemoPTE.Size = New System.Drawing.Size(240, 22)
+        Me.MmiAssignedMemoPTE.Size = New System.Drawing.Size(242, 22)
         Me.MmiAssignedMemoPTE.Text = "PTE (Perminate Total Enclosure)"
         '
         'ToolStripSeparator16
         '
         Me.ToolStripSeparator16.Name = "ToolStripSeparator16"
-        Me.ToolStripSeparator16.Size = New System.Drawing.Size(237, 6)
+        Me.ToolStripSeparator16.Size = New System.Drawing.Size(239, 6)
         '
         'MmiAssignedMethod9Single
         '
         Me.MmiAssignedMethod9Single.MergeIndex = 22
         Me.MmiAssignedMethod9Single.Name = "MmiAssignedMethod9Single"
-        Me.MmiAssignedMethod9Single.Size = New System.Drawing.Size(240, 22)
+        Me.MmiAssignedMethod9Single.Size = New System.Drawing.Size(242, 22)
         Me.MmiAssignedMethod9Single.Text = "Method 9 (Single)"
         '
         'MmiAssignedMethod9Multi
         '
         Me.MmiAssignedMethod9Multi.MergeIndex = 23
         Me.MmiAssignedMethod9Multi.Name = "MmiAssignedMethod9Multi"
-        Me.MmiAssignedMethod9Multi.Size = New System.Drawing.Size(240, 22)
+        Me.MmiAssignedMethod9Multi.Size = New System.Drawing.Size(242, 22)
         Me.MmiAssignedMethod9Multi.Text = "Method9 (Multi.)"
         '
         'MmiAssignedMethod22
         '
         Me.MmiAssignedMethod22.MergeIndex = 24
         Me.MmiAssignedMethod22.Name = "MmiAssignedMethod22"
-        Me.MmiAssignedMethod22.Size = New System.Drawing.Size(240, 22)
+        Me.MmiAssignedMethod22.Size = New System.Drawing.Size(242, 22)
         Me.MmiAssignedMethod22.Text = "Method 22"
         '
         'MmiAllDocument
@@ -848,173 +848,173 @@ Partial Class ISMPManagersTools
         Me.MmiAllDocument.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MmiAllNoDoc, Me.ToolStripSeparator17, Me.MmiAllOneStackTwoRuns, Me.MmiAllOneStackThreeRuns, Me.MmiAllOneStackFourRuns, Me.ToolStripSeparator18, Me.MmiAllTwoStackStandard, Me.MmiAllTwoStackDRE, Me.ToolStripSeparator19, Me.MmiAllLoadingRack, Me.MmiAllFlare, Me.ToolStripSeparator23, Me.MmiAllPondTreatment, Me.MmiAllGasConcentration, Me.ToolStripSeparator22, Me.MmiAllRata, Me.ToolStripSeparator21, Me.MmiAllMemoStandard, Me.MmiAllMemoToFile, Me.MmiAllMemoPTE, Me.ToolStripSeparator20, Me.MmiAllMethod9Single, Me.MmiAllMethod9Multi, Me.MmiAllMethod22})
         Me.MmiAllDocument.MergeIndex = 2
         Me.MmiAllDocument.Name = "MmiAllDocument"
-        Me.MmiAllDocument.Size = New System.Drawing.Size(201, 22)
+        Me.MmiAllDocument.Size = New System.Drawing.Size(202, 22)
         Me.MmiAllDocument.Text = "All Test Reports"
         '
         'MmiAllNoDoc
         '
         Me.MmiAllNoDoc.MergeIndex = 0
         Me.MmiAllNoDoc.Name = "MmiAllNoDoc"
-        Me.MmiAllNoDoc.Size = New System.Drawing.Size(240, 22)
+        Me.MmiAllNoDoc.Size = New System.Drawing.Size(242, 22)
         Me.MmiAllNoDoc.Text = "Unassigned (Document Type)"
         '
         'ToolStripSeparator17
         '
         Me.ToolStripSeparator17.Name = "ToolStripSeparator17"
-        Me.ToolStripSeparator17.Size = New System.Drawing.Size(237, 6)
+        Me.ToolStripSeparator17.Size = New System.Drawing.Size(239, 6)
         '
         'MmiAllOneStackTwoRuns
         '
         Me.MmiAllOneStackTwoRuns.MergeIndex = 2
         Me.MmiAllOneStackTwoRuns.Name = "MmiAllOneStackTwoRuns"
-        Me.MmiAllOneStackTwoRuns.Size = New System.Drawing.Size(240, 22)
+        Me.MmiAllOneStackTwoRuns.Size = New System.Drawing.Size(242, 22)
         Me.MmiAllOneStackTwoRuns.Text = "One Stack (Two Runs)"
         '
         'MmiAllOneStackThreeRuns
         '
         Me.MmiAllOneStackThreeRuns.MergeIndex = 3
         Me.MmiAllOneStackThreeRuns.Name = "MmiAllOneStackThreeRuns"
-        Me.MmiAllOneStackThreeRuns.Size = New System.Drawing.Size(240, 22)
+        Me.MmiAllOneStackThreeRuns.Size = New System.Drawing.Size(242, 22)
         Me.MmiAllOneStackThreeRuns.Text = "One Stack (Three Runs)"
         '
         'MmiAllOneStackFourRuns
         '
         Me.MmiAllOneStackFourRuns.MergeIndex = 4
         Me.MmiAllOneStackFourRuns.Name = "MmiAllOneStackFourRuns"
-        Me.MmiAllOneStackFourRuns.Size = New System.Drawing.Size(240, 22)
+        Me.MmiAllOneStackFourRuns.Size = New System.Drawing.Size(242, 22)
         Me.MmiAllOneStackFourRuns.Text = "One Stack (Four Runs)"
         '
         'ToolStripSeparator18
         '
         Me.ToolStripSeparator18.Name = "ToolStripSeparator18"
-        Me.ToolStripSeparator18.Size = New System.Drawing.Size(237, 6)
+        Me.ToolStripSeparator18.Size = New System.Drawing.Size(239, 6)
         '
         'MmiAllTwoStackStandard
         '
         Me.MmiAllTwoStackStandard.MergeIndex = 6
         Me.MmiAllTwoStackStandard.Name = "MmiAllTwoStackStandard"
-        Me.MmiAllTwoStackStandard.Size = New System.Drawing.Size(240, 22)
+        Me.MmiAllTwoStackStandard.Size = New System.Drawing.Size(242, 22)
         Me.MmiAllTwoStackStandard.Text = "Two Stack (Standard)"
         '
         'MmiAllTwoStackDRE
         '
         Me.MmiAllTwoStackDRE.MergeIndex = 7
         Me.MmiAllTwoStackDRE.Name = "MmiAllTwoStackDRE"
-        Me.MmiAllTwoStackDRE.Size = New System.Drawing.Size(240, 22)
+        Me.MmiAllTwoStackDRE.Size = New System.Drawing.Size(242, 22)
         Me.MmiAllTwoStackDRE.Text = "Two Stack (DRE)"
         '
         'ToolStripSeparator19
         '
         Me.ToolStripSeparator19.Name = "ToolStripSeparator19"
-        Me.ToolStripSeparator19.Size = New System.Drawing.Size(237, 6)
+        Me.ToolStripSeparator19.Size = New System.Drawing.Size(239, 6)
         '
         'MmiAllLoadingRack
         '
         Me.MmiAllLoadingRack.MergeIndex = 9
         Me.MmiAllLoadingRack.Name = "MmiAllLoadingRack"
-        Me.MmiAllLoadingRack.Size = New System.Drawing.Size(240, 22)
+        Me.MmiAllLoadingRack.Size = New System.Drawing.Size(242, 22)
         Me.MmiAllLoadingRack.Text = "Loading Rack"
         '
         'MmiAllFlare
         '
         Me.MmiAllFlare.MergeIndex = 10
         Me.MmiAllFlare.Name = "MmiAllFlare"
-        Me.MmiAllFlare.Size = New System.Drawing.Size(240, 22)
+        Me.MmiAllFlare.Size = New System.Drawing.Size(242, 22)
         Me.MmiAllFlare.Text = "Flare"
         '
         'ToolStripSeparator23
         '
         Me.ToolStripSeparator23.Name = "ToolStripSeparator23"
-        Me.ToolStripSeparator23.Size = New System.Drawing.Size(237, 6)
+        Me.ToolStripSeparator23.Size = New System.Drawing.Size(239, 6)
         '
         'MmiAllPondTreatment
         '
         Me.MmiAllPondTreatment.MergeIndex = 12
         Me.MmiAllPondTreatment.Name = "MmiAllPondTreatment"
-        Me.MmiAllPondTreatment.Size = New System.Drawing.Size(240, 22)
+        Me.MmiAllPondTreatment.Size = New System.Drawing.Size(242, 22)
         Me.MmiAllPondTreatment.Text = "Pond Treatment"
         '
         'MmiAllGasConcentration
         '
         Me.MmiAllGasConcentration.MergeIndex = 13
         Me.MmiAllGasConcentration.Name = "MmiAllGasConcentration"
-        Me.MmiAllGasConcentration.Size = New System.Drawing.Size(240, 22)
+        Me.MmiAllGasConcentration.Size = New System.Drawing.Size(242, 22)
         Me.MmiAllGasConcentration.Text = "Gas Concentration"
         '
         'ToolStripSeparator22
         '
         Me.ToolStripSeparator22.Name = "ToolStripSeparator22"
-        Me.ToolStripSeparator22.Size = New System.Drawing.Size(237, 6)
+        Me.ToolStripSeparator22.Size = New System.Drawing.Size(239, 6)
         '
         'MmiAllRata
         '
         Me.MmiAllRata.MergeIndex = 15
         Me.MmiAllRata.Name = "MmiAllRata"
-        Me.MmiAllRata.Size = New System.Drawing.Size(240, 22)
+        Me.MmiAllRata.Size = New System.Drawing.Size(242, 22)
         Me.MmiAllRata.Text = "Rata"
         '
         'ToolStripSeparator21
         '
         Me.ToolStripSeparator21.Name = "ToolStripSeparator21"
-        Me.ToolStripSeparator21.Size = New System.Drawing.Size(237, 6)
+        Me.ToolStripSeparator21.Size = New System.Drawing.Size(239, 6)
         '
         'MmiAllMemoStandard
         '
         Me.MmiAllMemoStandard.MergeIndex = 18
         Me.MmiAllMemoStandard.Name = "MmiAllMemoStandard"
-        Me.MmiAllMemoStandard.Size = New System.Drawing.Size(240, 22)
+        Me.MmiAllMemoStandard.Size = New System.Drawing.Size(242, 22)
         Me.MmiAllMemoStandard.Text = "Memorandum (Standard)"
         '
         'MmiAllMemoToFile
         '
         Me.MmiAllMemoToFile.MergeIndex = 19
         Me.MmiAllMemoToFile.Name = "MmiAllMemoToFile"
-        Me.MmiAllMemoToFile.Size = New System.Drawing.Size(240, 22)
+        Me.MmiAllMemoToFile.Size = New System.Drawing.Size(242, 22)
         Me.MmiAllMemoToFile.Text = "Memorandum (To File)"
         '
         'MmiAllMemoPTE
         '
         Me.MmiAllMemoPTE.MergeIndex = 20
         Me.MmiAllMemoPTE.Name = "MmiAllMemoPTE"
-        Me.MmiAllMemoPTE.Size = New System.Drawing.Size(240, 22)
+        Me.MmiAllMemoPTE.Size = New System.Drawing.Size(242, 22)
         Me.MmiAllMemoPTE.Text = "PTE (Perminate Total Enclosure)"
         '
         'ToolStripSeparator20
         '
         Me.ToolStripSeparator20.Name = "ToolStripSeparator20"
-        Me.ToolStripSeparator20.Size = New System.Drawing.Size(237, 6)
+        Me.ToolStripSeparator20.Size = New System.Drawing.Size(239, 6)
         '
         'MmiAllMethod9Single
         '
         Me.MmiAllMethod9Single.MergeIndex = 22
         Me.MmiAllMethod9Single.Name = "MmiAllMethod9Single"
-        Me.MmiAllMethod9Single.Size = New System.Drawing.Size(240, 22)
+        Me.MmiAllMethod9Single.Size = New System.Drawing.Size(242, 22)
         Me.MmiAllMethod9Single.Text = "Method 9 (Single)"
         '
         'MmiAllMethod9Multi
         '
         Me.MmiAllMethod9Multi.MergeIndex = 23
         Me.MmiAllMethod9Multi.Name = "MmiAllMethod9Multi"
-        Me.MmiAllMethod9Multi.Size = New System.Drawing.Size(240, 22)
+        Me.MmiAllMethod9Multi.Size = New System.Drawing.Size(242, 22)
         Me.MmiAllMethod9Multi.Text = "Method9 (Multi.)"
         '
         'MmiAllMethod22
         '
         Me.MmiAllMethod22.MergeIndex = 24
         Me.MmiAllMethod22.Name = "MmiAllMethod22"
-        Me.MmiAllMethod22.Size = New System.Drawing.Size(240, 22)
+        Me.MmiAllMethod22.Size = New System.Drawing.Size(242, 22)
         Me.MmiAllMethod22.Text = "Method 22"
         '
         'ToolStripSeparator2
         '
         Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(226, 6)
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(227, 6)
         '
         'MmiShowDeletedRecords
         '
         Me.MmiShowDeletedRecords.MergeIndex = 6
         Me.MmiShowDeletedRecords.Name = "MmiShowDeletedRecords"
-        Me.MmiShowDeletedRecords.Size = New System.Drawing.Size(229, 22)
+        Me.MmiShowDeletedRecords.Size = New System.Drawing.Size(230, 22)
         Me.MmiShowDeletedRecords.Text = "View Deleted Records"
         '
         'PanelManagersTools
@@ -2278,6 +2278,7 @@ Partial Class ISMPManagersTools
         Me.Panel12.Controls.Add(Me.btnCloseHistoricTestReport)
         Me.Panel12.Controls.Add(Me.txtCloseTestReportRefNum)
         Me.Panel12.Controls.Add(Me.Label78)
+        Me.Panel12.Enabled = False
         Me.Panel12.Location = New System.Drawing.Point(23, 285)
         Me.Panel12.Name = "Panel12"
         Me.Panel12.Size = New System.Drawing.Size(372, 100)
@@ -2326,6 +2327,7 @@ Partial Class ISMPManagersTools
         'Label77
         '
         Me.Label77.AutoSize = True
+        Me.Label77.Enabled = False
         Me.Label77.Location = New System.Drawing.Point(383, 102)
         Me.Label77.Name = "Label77"
         Me.Label77.Size = New System.Drawing.Size(233, 52)
@@ -2346,6 +2348,7 @@ Partial Class ISMPManagersTools
         'DTPAddTestReportDateCompleted
         '
         Me.DTPAddTestReportDateCompleted.CustomFormat = "dd-MMM-yyyy"
+        Me.DTPAddTestReportDateCompleted.Enabled = False
         Me.DTPAddTestReportDateCompleted.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DTPAddTestReportDateCompleted.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPAddTestReportDateCompleted.Location = New System.Drawing.Point(345, 176)
@@ -2357,6 +2360,7 @@ Partial Class ISMPManagersTools
         'Label67
         '
         Me.Label67.AutoSize = True
+        Me.Label67.Enabled = False
         Me.Label67.Location = New System.Drawing.Point(256, 181)
         Me.Label67.Name = "Label67"
         Me.Label67.Size = New System.Drawing.Size(83, 13)
@@ -2367,6 +2371,7 @@ Partial Class ISMPManagersTools
         '
         Me.btnClearAddTestReport.AutoSize = True
         Me.btnClearAddTestReport.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.btnClearAddTestReport.Enabled = False
         Me.btnClearAddTestReport.Location = New System.Drawing.Point(259, 218)
         Me.btnClearAddTestReport.Name = "btnClearAddTestReport"
         Me.btnClearAddTestReport.Size = New System.Drawing.Size(67, 23)
@@ -2376,6 +2381,7 @@ Partial Class ISMPManagersTools
         '
         'mtbAddTestReportAIRSNumber
         '
+        Me.mtbAddTestReportAIRSNumber.Enabled = False
         Me.mtbAddTestReportAIRSNumber.Location = New System.Drawing.Point(124, 76)
         Me.mtbAddTestReportAIRSNumber.Mask = "000-00000"
         Me.mtbAddTestReportAIRSNumber.Name = "mtbAddTestReportAIRSNumber"
@@ -2386,6 +2392,7 @@ Partial Class ISMPManagersTools
         'dtpAddTestReportDateReceived
         '
         Me.dtpAddTestReportDateReceived.CustomFormat = "dd-MMM-yyyy"
+        Me.dtpAddTestReportDateReceived.Enabled = False
         Me.dtpAddTestReportDateReceived.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.dtpAddTestReportDateReceived.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.dtpAddTestReportDateReceived.Location = New System.Drawing.Point(124, 176)
@@ -2398,6 +2405,7 @@ Partial Class ISMPManagersTools
         '
         Me.txtAddTestReportCommissioner.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
         Me.txtAddTestReportCommissioner.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
+        Me.txtAddTestReportCommissioner.Enabled = False
         Me.txtAddTestReportCommissioner.Location = New System.Drawing.Point(124, 102)
         Me.txtAddTestReportCommissioner.Name = "txtAddTestReportCommissioner"
         Me.txtAddTestReportCommissioner.Size = New System.Drawing.Size(211, 20)
@@ -2407,6 +2415,7 @@ Partial Class ISMPManagersTools
         '
         Me.txtAddTestReportDirector.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
         Me.txtAddTestReportDirector.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
+        Me.txtAddTestReportDirector.Enabled = False
         Me.txtAddTestReportDirector.Location = New System.Drawing.Point(124, 127)
         Me.txtAddTestReportDirector.Name = "txtAddTestReportDirector"
         Me.txtAddTestReportDirector.Size = New System.Drawing.Size(211, 20)
@@ -2416,6 +2425,7 @@ Partial Class ISMPManagersTools
         '
         Me.txtAddTestReportProgramManager.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
         Me.txtAddTestReportProgramManager.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
+        Me.txtAddTestReportProgramManager.Enabled = False
         Me.txtAddTestReportProgramManager.Location = New System.Drawing.Point(124, 151)
         Me.txtAddTestReportProgramManager.Name = "txtAddTestReportProgramManager"
         Me.txtAddTestReportProgramManager.Size = New System.Drawing.Size(211, 20)
@@ -2424,6 +2434,7 @@ Partial Class ISMPManagersTools
         'Label74
         '
         Me.Label74.AutoSize = True
+        Me.Label74.Enabled = False
         Me.Label74.Location = New System.Drawing.Point(20, 181)
         Me.Label74.Name = "Label74"
         Me.Label74.Size = New System.Drawing.Size(79, 13)
@@ -2433,6 +2444,7 @@ Partial Class ISMPManagersTools
         'Label75
         '
         Me.Label75.AutoSize = True
+        Me.Label75.Enabled = False
         Me.Label75.Location = New System.Drawing.Point(20, 155)
         Me.Label75.Name = "Label75"
         Me.Label75.Size = New System.Drawing.Size(91, 13)
@@ -2442,6 +2454,7 @@ Partial Class ISMPManagersTools
         'Label66
         '
         Me.Label66.AutoSize = True
+        Me.Label66.Enabled = False
         Me.Label66.Location = New System.Drawing.Point(20, 131)
         Me.Label66.Name = "Label66"
         Me.Label66.Size = New System.Drawing.Size(44, 13)
@@ -2451,6 +2464,7 @@ Partial Class ISMPManagersTools
         'Label63
         '
         Me.Label63.AutoSize = True
+        Me.Label63.Enabled = False
         Me.Label63.Location = New System.Drawing.Point(20, 106)
         Me.Label63.Name = "Label63"
         Me.Label63.Size = New System.Drawing.Size(74, 13)
@@ -2460,6 +2474,7 @@ Partial Class ISMPManagersTools
         'Label62
         '
         Me.Label62.AutoSize = True
+        Me.Label62.Enabled = False
         Me.Label62.Location = New System.Drawing.Point(20, 80)
         Me.Label62.Name = "Label62"
         Me.Label62.Size = New System.Drawing.Size(72, 13)
@@ -2470,6 +2485,7 @@ Partial Class ISMPManagersTools
         '
         Me.txtAddTestReportRefNum.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
         Me.txtAddTestReportRefNum.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
+        Me.txtAddTestReportRefNum.Enabled = False
         Me.txtAddTestReportRefNum.Location = New System.Drawing.Point(124, 51)
         Me.txtAddTestReportRefNum.Name = "txtAddTestReportRefNum"
         Me.txtAddTestReportRefNum.Size = New System.Drawing.Size(108, 20)
@@ -2479,6 +2495,7 @@ Partial Class ISMPManagersTools
         '
         Me.btnAddTestReport.AutoSize = True
         Me.btnAddTestReport.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.btnAddTestReport.Enabled = False
         Me.btnAddTestReport.Location = New System.Drawing.Point(124, 218)
         Me.btnAddTestReport.Name = "btnAddTestReport"
         Me.btnAddTestReport.Size = New System.Drawing.Size(95, 23)
@@ -2489,6 +2506,7 @@ Partial Class ISMPManagersTools
         'Label61
         '
         Me.Label61.AutoSize = True
+        Me.Label61.Enabled = False
         Me.Label61.Location = New System.Drawing.Point(20, 55)
         Me.Label61.Name = "Label61"
         Me.Label61.Size = New System.Drawing.Size(97, 13)
