@@ -11,6 +11,10 @@ Public Class ISMPTestReportAdministrative
 
         Try
 
+            ' "Historical test reports" tab hidden on 2026-05-26. I don't think this tab is used anymore, and I want to make sure before removing it. -- DW
+            TCTestReports.TabPages.Remove(TPHistoricalReports)
+
+
             DTPDateReceived.Value = Today
             DTPTestDateStart.Value = Today
             DTPTestDateEnd.Value = Today

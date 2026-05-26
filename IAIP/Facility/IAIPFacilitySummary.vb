@@ -366,7 +366,7 @@ Public Class IAIPFacilitySummary
     End Sub
 
     Private Sub DisplayMap()
-        ' Blank map: https://maps.googleapis.com/maps/api/staticmap?key=AIzaSyAOMeyIrtZeEJb1Pci5jgtn_Uh3wr0NP14&size=230x280&zoom=6&center=32.9,-83.3&style=feature:all|element:labels|visibility:off&style=feature:road|visibility:off
+        ' Blank map: https://maps.googleapis.com/maps/api/staticmap?key={API_KEY}&size=230x280&zoom=6&center=32.9,-83.3&style=feature:all|element:labels|visibility:off&style=feature:road|visibility:off
 
         MapPictureBox.Visible = False
 

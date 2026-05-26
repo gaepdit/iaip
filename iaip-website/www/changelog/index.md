@@ -15,6 +15,11 @@
 [2014](changelog-2014.html) |
 [2013](changelog-2013.html)
 
+## Version 8.0.4 <span>(26-May-2026)</span>
+
+* Fixed a crashing bug when logging out of the Navigation screen.
+* Hide and disable the ISMU historical reports tools
+
 ## Version 8.0.3 <span>(5-May-2026)</span>
 
 * Fixed a permissions issue on the SSPP Application Tracking Log reviews tab
