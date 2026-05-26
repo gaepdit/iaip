@@ -14,6 +14,9 @@ Public Class ISMPManagersTools
     Private Sub ISMPManagersTools_Load(sender As Object, e As EventArgs) Handles Me.Load
 
         Try
+            ' "Historical test reports" tab hidden on 2026-05-26. I don't think this tab is used anymore, and I want to make sure before removing it. -- DW
+            TCManagersTools.TabPages.Remove(TPTestReportAdd)
+
             LoadComboBoxDataSets()
             LoadComboBoxes()
             LoadTestReportAssignmentDataSet()
