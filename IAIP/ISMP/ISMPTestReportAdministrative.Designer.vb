@@ -250,166 +250,166 @@ Partial Class ISMPTestReportAdministrative
         '
         Me.MmiAllTestReports.MergeIndex = 0
         Me.MmiAllTestReports.Name = "MmiAllTestReports"
-        Me.MmiAllTestReports.Size = New System.Drawing.Size(240, 22)
+        Me.MmiAllTestReports.Size = New System.Drawing.Size(242, 22)
         Me.MmiAllTestReports.Text = "All Test Reports"
         '
         'ToolStripSeparator13
         '
         Me.ToolStripSeparator13.Name = "ToolStripSeparator13"
-        Me.ToolStripSeparator13.Size = New System.Drawing.Size(237, 6)
+        Me.ToolStripSeparator13.Size = New System.Drawing.Size(239, 6)
         '
         'MmiUnassigned
         '
         Me.MmiUnassigned.MergeIndex = 2
         Me.MmiUnassigned.Name = "MmiUnassigned"
-        Me.MmiUnassigned.Size = New System.Drawing.Size(240, 22)
+        Me.MmiUnassigned.Size = New System.Drawing.Size(242, 22)
         Me.MmiUnassigned.Text = "Unassigned"
         '
         'ToolStripSeparator12
         '
         Me.ToolStripSeparator12.Name = "ToolStripSeparator12"
-        Me.ToolStripSeparator12.Size = New System.Drawing.Size(237, 6)
+        Me.ToolStripSeparator12.Size = New System.Drawing.Size(239, 6)
         '
         'MmiOneStackTwoRun
         '
         Me.MmiOneStackTwoRun.MergeIndex = 4
         Me.MmiOneStackTwoRun.Name = "MmiOneStackTwoRun"
-        Me.MmiOneStackTwoRun.Size = New System.Drawing.Size(240, 22)
+        Me.MmiOneStackTwoRun.Size = New System.Drawing.Size(242, 22)
         Me.MmiOneStackTwoRun.Text = "One Stack (Two Runs)"
         '
         'MmiOneStackThreeRun
         '
         Me.MmiOneStackThreeRun.MergeIndex = 5
         Me.MmiOneStackThreeRun.Name = "MmiOneStackThreeRun"
-        Me.MmiOneStackThreeRun.Size = New System.Drawing.Size(240, 22)
+        Me.MmiOneStackThreeRun.Size = New System.Drawing.Size(242, 22)
         Me.MmiOneStackThreeRun.Text = "One Stack (Three Runs)"
         '
         'MmiOneStackFourRun
         '
         Me.MmiOneStackFourRun.MergeIndex = 6
         Me.MmiOneStackFourRun.Name = "MmiOneStackFourRun"
-        Me.MmiOneStackFourRun.Size = New System.Drawing.Size(240, 22)
+        Me.MmiOneStackFourRun.Size = New System.Drawing.Size(242, 22)
         Me.MmiOneStackFourRun.Text = "One Stack (Four Runs)"
         '
         'ToolStripSeparator11
         '
         Me.ToolStripSeparator11.Name = "ToolStripSeparator11"
-        Me.ToolStripSeparator11.Size = New System.Drawing.Size(237, 6)
+        Me.ToolStripSeparator11.Size = New System.Drawing.Size(239, 6)
         '
         'MmiTwoStackStandard
         '
         Me.MmiTwoStackStandard.MergeIndex = 8
         Me.MmiTwoStackStandard.Name = "MmiTwoStackStandard"
-        Me.MmiTwoStackStandard.Size = New System.Drawing.Size(240, 22)
+        Me.MmiTwoStackStandard.Size = New System.Drawing.Size(242, 22)
         Me.MmiTwoStackStandard.Text = "Two Stack (Standard)"
         '
         'MmiTwoStackDRE
         '
         Me.MmiTwoStackDRE.MergeIndex = 9
         Me.MmiTwoStackDRE.Name = "MmiTwoStackDRE"
-        Me.MmiTwoStackDRE.Size = New System.Drawing.Size(240, 22)
+        Me.MmiTwoStackDRE.Size = New System.Drawing.Size(242, 22)
         Me.MmiTwoStackDRE.Text = "Two Stack (DRE)"
         '
         'ToolStripSeparator10
         '
         Me.ToolStripSeparator10.Name = "ToolStripSeparator10"
-        Me.ToolStripSeparator10.Size = New System.Drawing.Size(237, 6)
+        Me.ToolStripSeparator10.Size = New System.Drawing.Size(239, 6)
         '
         'MmiLoadingRack
         '
         Me.MmiLoadingRack.MergeIndex = 11
         Me.MmiLoadingRack.Name = "MmiLoadingRack"
-        Me.MmiLoadingRack.Size = New System.Drawing.Size(240, 22)
+        Me.MmiLoadingRack.Size = New System.Drawing.Size(242, 22)
         Me.MmiLoadingRack.Text = "Loading Rack"
         '
         'MmiFlare
         '
         Me.MmiFlare.MergeIndex = 12
         Me.MmiFlare.Name = "MmiFlare"
-        Me.MmiFlare.Size = New System.Drawing.Size(240, 22)
+        Me.MmiFlare.Size = New System.Drawing.Size(242, 22)
         Me.MmiFlare.Text = "Flare"
         '
         'ToolStripSeparator9
         '
         Me.ToolStripSeparator9.Name = "ToolStripSeparator9"
-        Me.ToolStripSeparator9.Size = New System.Drawing.Size(237, 6)
+        Me.ToolStripSeparator9.Size = New System.Drawing.Size(239, 6)
         '
         'MmiPondTreatment
         '
         Me.MmiPondTreatment.MergeIndex = 14
         Me.MmiPondTreatment.Name = "MmiPondTreatment"
-        Me.MmiPondTreatment.Size = New System.Drawing.Size(240, 22)
+        Me.MmiPondTreatment.Size = New System.Drawing.Size(242, 22)
         Me.MmiPondTreatment.Text = "Pond Treatment"
         '
         'MmiGasConcentration
         '
         Me.MmiGasConcentration.MergeIndex = 15
         Me.MmiGasConcentration.Name = "MmiGasConcentration"
-        Me.MmiGasConcentration.Size = New System.Drawing.Size(240, 22)
+        Me.MmiGasConcentration.Size = New System.Drawing.Size(242, 22)
         Me.MmiGasConcentration.Text = "Gas Concentration"
         '
         'ToolStripSeparator8
         '
         Me.ToolStripSeparator8.Name = "ToolStripSeparator8"
-        Me.ToolStripSeparator8.Size = New System.Drawing.Size(237, 6)
+        Me.ToolStripSeparator8.Size = New System.Drawing.Size(239, 6)
         '
         'MmiRata
         '
         Me.MmiRata.MergeIndex = 17
         Me.MmiRata.Name = "MmiRata"
-        Me.MmiRata.Size = New System.Drawing.Size(240, 22)
+        Me.MmiRata.Size = New System.Drawing.Size(242, 22)
         Me.MmiRata.Text = "Rata"
         '
         'ToolStripSeparator7
         '
         Me.ToolStripSeparator7.Name = "ToolStripSeparator7"
-        Me.ToolStripSeparator7.Size = New System.Drawing.Size(237, 6)
+        Me.ToolStripSeparator7.Size = New System.Drawing.Size(239, 6)
         '
         'MmiMemoStandard
         '
         Me.MmiMemoStandard.MergeIndex = 20
         Me.MmiMemoStandard.Name = "MmiMemoStandard"
-        Me.MmiMemoStandard.Size = New System.Drawing.Size(240, 22)
+        Me.MmiMemoStandard.Size = New System.Drawing.Size(242, 22)
         Me.MmiMemoStandard.Text = "Memorandum (Standard)"
         '
         'MmiMemoToFile
         '
         Me.MmiMemoToFile.MergeIndex = 21
         Me.MmiMemoToFile.Name = "MmiMemoToFile"
-        Me.MmiMemoToFile.Size = New System.Drawing.Size(240, 22)
+        Me.MmiMemoToFile.Size = New System.Drawing.Size(242, 22)
         Me.MmiMemoToFile.Text = "Memorandum (To File)"
         '
         'MmiMemoPTE
         '
         Me.MmiMemoPTE.MergeIndex = 22
         Me.MmiMemoPTE.Name = "MmiMemoPTE"
-        Me.MmiMemoPTE.Size = New System.Drawing.Size(240, 22)
+        Me.MmiMemoPTE.Size = New System.Drawing.Size(242, 22)
         Me.MmiMemoPTE.Text = "PTE (Perminate Total Enclosure)"
         '
         'ToolStripSeparator6
         '
         Me.ToolStripSeparator6.Name = "ToolStripSeparator6"
-        Me.ToolStripSeparator6.Size = New System.Drawing.Size(237, 6)
+        Me.ToolStripSeparator6.Size = New System.Drawing.Size(239, 6)
         '
         'MmiMethod9Single
         '
         Me.MmiMethod9Single.MergeIndex = 24
         Me.MmiMethod9Single.Name = "MmiMethod9Single"
-        Me.MmiMethod9Single.Size = New System.Drawing.Size(240, 22)
+        Me.MmiMethod9Single.Size = New System.Drawing.Size(242, 22)
         Me.MmiMethod9Single.Text = "Method 9 (Single)"
         '
         'MmiMethod9Multi
         '
         Me.MmiMethod9Multi.MergeIndex = 25
         Me.MmiMethod9Multi.Name = "MmiMethod9Multi"
-        Me.MmiMethod9Multi.Size = New System.Drawing.Size(240, 22)
+        Me.MmiMethod9Multi.Size = New System.Drawing.Size(242, 22)
         Me.MmiMethod9Multi.Text = "Method9 (Multi.)"
         '
         'MmiMethod22
         '
         Me.MmiMethod22.MergeIndex = 26
         Me.MmiMethod22.Name = "MmiMethod22"
-        Me.MmiMethod22.Size = New System.Drawing.Size(240, 22)
+        Me.MmiMethod22.Size = New System.Drawing.Size(242, 22)
         Me.MmiMethod22.Text = "Method 22"
         '
         'ToolStripSeparator5
@@ -441,28 +441,28 @@ Partial Class ISMPTestReportAdministrative
         Me.MenuItem4.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiMemo, Me.mmiAddTestingFirm, Me.mmiRefreshLists})
         Me.MenuItem4.MergeIndex = 3
         Me.MenuItem4.Name = "MenuItem4"
-        Me.MenuItem4.Size = New System.Drawing.Size(46, 20)
+        Me.MenuItem4.Size = New System.Drawing.Size(47, 20)
         Me.MenuItem4.Text = "&Tools"
         '
         'mmiMemo
         '
         Me.mmiMemo.MergeIndex = 2
         Me.mmiMemo.Name = "mmiMemo"
-        Me.mmiMemo.Size = New System.Drawing.Size(163, 22)
+        Me.mmiMemo.Size = New System.Drawing.Size(164, 22)
         Me.mmiMemo.Text = "Add Memo"
         '
         'mmiAddTestingFirm
         '
         Me.mmiAddTestingFirm.MergeIndex = 3
         Me.mmiAddTestingFirm.Name = "mmiAddTestingFirm"
-        Me.mmiAddTestingFirm.Size = New System.Drawing.Size(163, 22)
+        Me.mmiAddTestingFirm.Size = New System.Drawing.Size(164, 22)
         Me.mmiAddTestingFirm.Text = "Add Testing Firm"
         '
         'mmiRefreshLists
         '
         Me.mmiRefreshLists.MergeIndex = 4
         Me.mmiRefreshLists.Name = "mmiRefreshLists"
-        Me.mmiRefreshLists.Size = New System.Drawing.Size(163, 22)
+        Me.mmiRefreshLists.Size = New System.Drawing.Size(164, 22)
         Me.mmiRefreshLists.Text = "Refresh Lists"
         '
         'btnLoadCombos
@@ -981,6 +981,7 @@ Partial Class ISMPTestReportAdministrative
         '
         Me.btnOpenTestReport.AutoSize = True
         Me.btnOpenTestReport.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.btnOpenTestReport.Enabled = False
         Me.btnOpenTestReport.Location = New System.Drawing.Point(259, 218)
         Me.btnOpenTestReport.Name = "btnOpenTestReport"
         Me.btnOpenTestReport.Size = New System.Drawing.Size(102, 23)
@@ -995,6 +996,7 @@ Partial Class ISMPTestReportAdministrative
         Me.Panel12.Controls.Add(Me.btnCloseHistoricTestReport)
         Me.Panel12.Controls.Add(Me.txtCloseTestReportRefNum)
         Me.Panel12.Controls.Add(Me.Label78)
+        Me.Panel12.Enabled = False
         Me.Panel12.Location = New System.Drawing.Point(548, 176)
         Me.Panel12.Name = "Panel12"
         Me.Panel12.Size = New System.Drawing.Size(249, 100)
@@ -1043,6 +1045,7 @@ Partial Class ISMPTestReportAdministrative
         'Label77
         '
         Me.Label77.AutoSize = True
+        Me.Label77.Enabled = False
         Me.Label77.Location = New System.Drawing.Point(359, 102)
         Me.Label77.Name = "Label77"
         Me.Label77.Size = New System.Drawing.Size(233, 52)
@@ -1063,6 +1066,7 @@ Partial Class ISMPTestReportAdministrative
         'DTPAddTestReportDateCompleted
         '
         Me.DTPAddTestReportDateCompleted.CustomFormat = "dd-MMM-yyyy"
+        Me.DTPAddTestReportDateCompleted.Enabled = False
         Me.DTPAddTestReportDateCompleted.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DTPAddTestReportDateCompleted.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.DTPAddTestReportDateCompleted.Location = New System.Drawing.Point(345, 176)
@@ -1074,6 +1078,7 @@ Partial Class ISMPTestReportAdministrative
         'Label67
         '
         Me.Label67.AutoSize = True
+        Me.Label67.Enabled = False
         Me.Label67.Location = New System.Drawing.Point(256, 181)
         Me.Label67.Name = "Label67"
         Me.Label67.Size = New System.Drawing.Size(83, 13)
@@ -1084,6 +1089,7 @@ Partial Class ISMPTestReportAdministrative
         '
         Me.btnClearAddTestReport.AutoSize = True
         Me.btnClearAddTestReport.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.btnClearAddTestReport.Enabled = False
         Me.btnClearAddTestReport.Location = New System.Drawing.Point(386, 218)
         Me.btnClearAddTestReport.Name = "btnClearAddTestReport"
         Me.btnClearAddTestReport.Size = New System.Drawing.Size(67, 23)
@@ -1093,6 +1099,7 @@ Partial Class ISMPTestReportAdministrative
         '
         'mtbAddTestReportAIRSNumber
         '
+        Me.mtbAddTestReportAIRSNumber.Enabled = False
         Me.mtbAddTestReportAIRSNumber.Location = New System.Drawing.Point(124, 76)
         Me.mtbAddTestReportAIRSNumber.Mask = "000-00000"
         Me.mtbAddTestReportAIRSNumber.Name = "mtbAddTestReportAIRSNumber"
@@ -1103,6 +1110,7 @@ Partial Class ISMPTestReportAdministrative
         'dtpAddTestReportDateReceived
         '
         Me.dtpAddTestReportDateReceived.CustomFormat = "dd-MMM-yyyy"
+        Me.dtpAddTestReportDateReceived.Enabled = False
         Me.dtpAddTestReportDateReceived.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.dtpAddTestReportDateReceived.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.dtpAddTestReportDateReceived.Location = New System.Drawing.Point(124, 176)
@@ -1115,6 +1123,7 @@ Partial Class ISMPTestReportAdministrative
         '
         Me.txtAddTestReportCommissioner.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
         Me.txtAddTestReportCommissioner.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
+        Me.txtAddTestReportCommissioner.Enabled = False
         Me.txtAddTestReportCommissioner.Location = New System.Drawing.Point(124, 102)
         Me.txtAddTestReportCommissioner.Name = "txtAddTestReportCommissioner"
         Me.txtAddTestReportCommissioner.Size = New System.Drawing.Size(211, 20)
@@ -1124,6 +1133,7 @@ Partial Class ISMPTestReportAdministrative
         '
         Me.txtAddTestReportDirector.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
         Me.txtAddTestReportDirector.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
+        Me.txtAddTestReportDirector.Enabled = False
         Me.txtAddTestReportDirector.Location = New System.Drawing.Point(124, 127)
         Me.txtAddTestReportDirector.Name = "txtAddTestReportDirector"
         Me.txtAddTestReportDirector.Size = New System.Drawing.Size(211, 20)
@@ -1133,6 +1143,7 @@ Partial Class ISMPTestReportAdministrative
         '
         Me.txtAddTestReportProgramManager.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
         Me.txtAddTestReportProgramManager.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
+        Me.txtAddTestReportProgramManager.Enabled = False
         Me.txtAddTestReportProgramManager.Location = New System.Drawing.Point(124, 151)
         Me.txtAddTestReportProgramManager.Name = "txtAddTestReportProgramManager"
         Me.txtAddTestReportProgramManager.Size = New System.Drawing.Size(211, 20)
@@ -1141,6 +1152,7 @@ Partial Class ISMPTestReportAdministrative
         'Label74
         '
         Me.Label74.AutoSize = True
+        Me.Label74.Enabled = False
         Me.Label74.Location = New System.Drawing.Point(20, 181)
         Me.Label74.Name = "Label74"
         Me.Label74.Size = New System.Drawing.Size(79, 13)
@@ -1150,6 +1162,7 @@ Partial Class ISMPTestReportAdministrative
         'Label75
         '
         Me.Label75.AutoSize = True
+        Me.Label75.Enabled = False
         Me.Label75.Location = New System.Drawing.Point(20, 155)
         Me.Label75.Name = "Label75"
         Me.Label75.Size = New System.Drawing.Size(91, 13)
@@ -1159,6 +1172,7 @@ Partial Class ISMPTestReportAdministrative
         'Label66
         '
         Me.Label66.AutoSize = True
+        Me.Label66.Enabled = False
         Me.Label66.Location = New System.Drawing.Point(20, 131)
         Me.Label66.Name = "Label66"
         Me.Label66.Size = New System.Drawing.Size(44, 13)
@@ -1168,6 +1182,7 @@ Partial Class ISMPTestReportAdministrative
         'Label63
         '
         Me.Label63.AutoSize = True
+        Me.Label63.Enabled = False
         Me.Label63.Location = New System.Drawing.Point(20, 106)
         Me.Label63.Name = "Label63"
         Me.Label63.Size = New System.Drawing.Size(74, 13)
@@ -1177,6 +1192,7 @@ Partial Class ISMPTestReportAdministrative
         'Label62
         '
         Me.Label62.AutoSize = True
+        Me.Label62.Enabled = False
         Me.Label62.Location = New System.Drawing.Point(20, 80)
         Me.Label62.Name = "Label62"
         Me.Label62.Size = New System.Drawing.Size(72, 13)
@@ -1187,6 +1203,7 @@ Partial Class ISMPTestReportAdministrative
         '
         Me.txtAddTestReportRefNum.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
         Me.txtAddTestReportRefNum.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
+        Me.txtAddTestReportRefNum.Enabled = False
         Me.txtAddTestReportRefNum.Location = New System.Drawing.Point(124, 51)
         Me.txtAddTestReportRefNum.Name = "txtAddTestReportRefNum"
         Me.txtAddTestReportRefNum.Size = New System.Drawing.Size(108, 20)
@@ -1196,6 +1213,7 @@ Partial Class ISMPTestReportAdministrative
         '
         Me.btnAddTestReport.AutoSize = True
         Me.btnAddTestReport.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.btnAddTestReport.Enabled = False
         Me.btnAddTestReport.Location = New System.Drawing.Point(124, 218)
         Me.btnAddTestReport.Name = "btnAddTestReport"
         Me.btnAddTestReport.Size = New System.Drawing.Size(95, 23)
@@ -1206,6 +1224,7 @@ Partial Class ISMPTestReportAdministrative
         'Label61
         '
         Me.Label61.AutoSize = True
+        Me.Label61.Enabled = False
         Me.Label61.Location = New System.Drawing.Point(20, 55)
         Me.Label61.Name = "Label61"
         Me.Label61.Size = New System.Drawing.Size(97, 13)
