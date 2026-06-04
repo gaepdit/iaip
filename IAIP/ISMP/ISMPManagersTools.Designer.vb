@@ -1288,19 +1288,21 @@ Partial Class ISMPManagersTools
         '
         'txtAverageWitnessed
         '
-        Me.txtAverageWitnessed.Location = New System.Drawing.Point(232, 246)
+        Me.txtAverageWitnessed.Location = New System.Drawing.Point(220, 246)
         Me.txtAverageWitnessed.Name = "txtAverageWitnessed"
         Me.txtAverageWitnessed.ReadOnly = True
-        Me.txtAverageWitnessed.Size = New System.Drawing.Size(39, 20)
+        Me.txtAverageWitnessed.Size = New System.Drawing.Size(51, 20)
         Me.txtAverageWitnessed.TabIndex = 139
+        Me.txtAverageWitnessed.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'txtPercentialAverage
         '
-        Me.txtPercentialAverage.Location = New System.Drawing.Point(232, 223)
+        Me.txtPercentialAverage.Location = New System.Drawing.Point(220, 223)
         Me.txtPercentialAverage.Name = "txtPercentialAverage"
         Me.txtPercentialAverage.ReadOnly = True
-        Me.txtPercentialAverage.Size = New System.Drawing.Size(39, 20)
+        Me.txtPercentialAverage.Size = New System.Drawing.Size(51, 20)
         Me.txtPercentialAverage.TabIndex = 138
+        Me.txtPercentialAverage.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'Label140
         '
@@ -1313,19 +1315,21 @@ Partial Class ISMPManagersTools
         '
         'txtEngineerCount
         '
-        Me.txtEngineerCount.Location = New System.Drawing.Point(232, 69)
+        Me.txtEngineerCount.Location = New System.Drawing.Point(220, 69)
         Me.txtEngineerCount.Name = "txtEngineerCount"
         Me.txtEngineerCount.ReadOnly = True
-        Me.txtEngineerCount.Size = New System.Drawing.Size(39, 20)
+        Me.txtEngineerCount.Size = New System.Drawing.Size(51, 20)
         Me.txtEngineerCount.TabIndex = 129
+        Me.txtEngineerCount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'txtAverageMedianDays
         '
-        Me.txtAverageMedianDays.Location = New System.Drawing.Point(232, 200)
+        Me.txtAverageMedianDays.Location = New System.Drawing.Point(220, 200)
         Me.txtAverageMedianDays.Name = "txtAverageMedianDays"
         Me.txtAverageMedianDays.ReadOnly = True
-        Me.txtAverageMedianDays.Size = New System.Drawing.Size(39, 20)
+        Me.txtAverageMedianDays.Size = New System.Drawing.Size(51, 20)
         Me.txtAverageMedianDays.TabIndex = 128
+        Me.txtAverageMedianDays.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'Label130
         '
@@ -1347,11 +1351,12 @@ Partial Class ISMPManagersTools
         '
         'txtAverageofTotalReviewed
         '
-        Me.txtAverageofTotalReviewed.Location = New System.Drawing.Point(232, 177)
+        Me.txtAverageofTotalReviewed.Location = New System.Drawing.Point(220, 177)
         Me.txtAverageofTotalReviewed.Name = "txtAverageofTotalReviewed"
         Me.txtAverageofTotalReviewed.ReadOnly = True
-        Me.txtAverageofTotalReviewed.Size = New System.Drawing.Size(39, 20)
+        Me.txtAverageofTotalReviewed.Size = New System.Drawing.Size(51, 20)
         Me.txtAverageofTotalReviewed.TabIndex = 125
+        Me.txtAverageofTotalReviewed.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'lblTotalTests
         '
@@ -1365,11 +1370,12 @@ Partial Class ISMPManagersTools
         '
         'txtTotalReviewed
         '
-        Me.txtTotalReviewed.Location = New System.Drawing.Point(232, 98)
+        Me.txtTotalReviewed.Location = New System.Drawing.Point(220, 98)
         Me.txtTotalReviewed.Name = "txtTotalReviewed"
         Me.txtTotalReviewed.ReadOnly = True
-        Me.txtTotalReviewed.Size = New System.Drawing.Size(39, 20)
+        Me.txtTotalReviewed.Size = New System.Drawing.Size(51, 20)
         Me.txtTotalReviewed.TabIndex = 119
+        Me.txtTotalReviewed.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'Label125
         '

@@ -1,4 +1,5 @@
 Imports Microsoft.Data.SqlClient
+Imports GaEpd.DBUtilities
 
 Public Class ISMPManagersTools
     Dim query As String
@@ -882,45 +883,97 @@ Public Class ISMPManagersTools
 
     Private Sub RunUnitStatistics2()
         Try
-            query = "SELECT DISTINCT
-                CONCAT(strLastName, ', ', strFirstName) AS Engineer, strUnitDesc, totalreceived, ReceivedCount, ROUND(CONVERT(float, ReceivedCount) / CONVERT(float, TotalReceived) * 100, 2) AS ProgramPercent, MedDays, PercentDays, Witness1.witcount + witness2.witcount + Witness3.witcount AS Witnessed
-                FROM ISMPReportInformation
-                INNER JOIN EPDUserProfiles ON ISMPReportInformation.strReviewingEngineer = EPDUserProfiles.numUserID
-                INNER JOIN LookUpEPDUnits ON EPDUserProfiles.numUnit = LookUpEPDUnits.numUnitCode
-                INNER JOIN (SELECT COUNT(*) AS TotalReceived
-                FROM ISMPReportInformation
-                WHERE datCompleteDate BETWEEN @startdate AND @enddate AND (strDelete <> 'True' OR strDelete IS NULL) AND strReviewingEngineer <> '0' AND strClosed = 'True') AS TotalReviewed ON ISMPReportInformation.strReviewingEngineer IS NOT NULL
-                LEFT JOIN (SELECT strReviewingEngineer, COUNT(*) AS ReceivedCount
-                FROM ISMPReportInformation
-                WHERE datcompleteDate BETWEEN @startdate AND @enddate AND (strDelete IS NULL OR strDelete <> 'True') AND strReviewingEngineer <> '0' AND strClosed = 'True'
-                GROUP BY strReviewingEngineer) AS TotalRec ON ISMPReportInformation.strReviewingEngineer = TotalRec.strReviewingEngineer
-                LEFT JOIN (SELECT DISTINCT
-                t.strReviewingEngineer, PERCENTILE_CONT(0.8) WITHIN GROUP(ORDER BY t.DaysIn) OVER(PARTITION BY t.strReviewingEngineer) AS percentDays, PERCENTILE_CONT(0.5) WITHIN GROUP(ORDER BY t.DaysIn) OVER(PARTITION BY t.strReviewingEngineer) AS MedDays
-                FROM (SELECT strReviewingEngineer,
-                CASE WHEN strClosed = 'True' THEN DATEDIFF(day, datReceivedDate, datCompleteDate) WHEN strClosed = 'False' THEN DATEDIFF(day, datReceivedDate, GETDATE()) END AS DaysIn
-                FROM ISMPReportInformation
-                WHERE datCompleteDate BETWEEN @startdate AND @enddate AND (strDelete <> 'True' OR strDelete IS NULL) AND strReviewingEngineer <> '0' AND strClosed = 'True') AS t) AS PercentDays ON ISMPREportINformation.strReviewingEngineer = PercentDays.strReviewingEngineer
-                LEFT JOIN (SELECT ISMPReportInformation.strWitnessingEngineer, COUNT(*) AS WitCount
-                FROM ISMPReportInformation
-                WHERE datcompleteDate BETWEEN @startdate AND @enddate AND (strDelete <> 'True' OR strDelete IS NULL) AND ISMPReportInformation.strWitnessingEngineer <> '0' AND strClosed = 'True'
-                GROUP BY ISMPReportInformation.strWitnessingEngineer) AS Witness1 ON ISMPREportINformation.strReviewingEngineer = Witness1.strWitnessingEngineer
-                LEFT JOIN (SELECT ISMPReportInformation.strWitnessingEngineer2, COUNT(*) AS WitCount
-                FROM ISMPReportInformation
-                WHERE datcompleteDate BETWEEN @startdate AND @enddate AND (strDelete <> 'True' OR strDelete IS NULL) AND ISMPReportInformation.strWitnessingEngineer2 <> '0' AND strClosed = 'True'
-                GROUP BY ISMPReportInformation.strWitnessingEngineer2) AS Witness2 ON ISMPREportINformation.strReviewingEngineer = Witness2.strWitnessingEngineer2
-                LEFT JOIN (SELECT ISMPWitnessingEng.strWitnessingEngineer, COUNT(*) AS WitCount
-                FROM ISMPReportInformation, ISMPWitnessingEng
-                WHERE datcompleteDate BETWEEN @startdate AND @enddate AND (strDelete <> 'True' OR strDelete IS NULL) AND ISMPReportInformation.strReferenceNumber = ISMPWitnessingEng.strReferenceNumber AND strClosed = 'True'
-                GROUP BY ISMPWitnessingEng.strWitnessingEngineer) AS Witness3 ON ISMPREportINformation.strReviewingEngineer = Witness3.strWitnessingEngineer
-                WHERE datCompleteDate BETWEEN @startdate AND @enddate AND (strDelete <> 'True' OR strDelete IS NULL) AND ISMPReportInformation.strReviewingEngineer <> '0'
-                ORDER BY strUnitDesc, Engineer"
+            txtUnitStatsCount.Clear()
+            txtUnitStatReferenceNumber.Clear()
 
             Dim p As SqlParameter() = {
                 New SqlParameter("@startdate", DTPUnitStatsStartDate.Value),
                 New SqlParameter("@enddate", DTPUnitStatsEndDate.Value)
             }
 
-            dtUnitStats = DB.GetDataTable(query, p)
+            query = "SELECT COUNT(*)
+                FROM ISMPREPORTINFORMATION
+                WHERE DATCOMPLETEDATE BETWEEN @startdate AND @enddate
+                  AND STRDELETE IS NULL
+                  AND STRREVIEWINGENGINEER <> '0'
+                  AND STRCLOSED = 'True'"
+
+            Dim totalReceived As Integer = DB.GetInteger(query, p)
+
+            If totalReceived = 0 Then
+                txtAverageofTotalReviewed.Clear()
+                txtAverageMedianDays.Clear()
+                txtPercentialAverage.Clear()
+                txtAverageWitnessed.Clear()
+
+                MessageBox.Show("There are no tests completed in that date range.")
+                Return
+            End If
+
+            Dim p2 As SqlParameter() = {
+                New SqlParameter("@startdate", DTPUnitStatsStartDate.Value),
+                New SqlParameter("@enddate", DTPUnitStatsEndDate.Value),
+                New SqlParameter("@totalReceived", totalReceived)
+            }
+            Dim query2 As String = "
+                with Reports as
+                         (SELECT STRREFERENCENUMBER,
+                                 STRREVIEWINGENGINEER,
+                                 STRWITNESSINGENGINEER,
+                                 STRWITNESSINGENGINEER2,
+                                 DATRECEIVEDDATE,
+                                 DATCOMPLETEDATE
+                          FROM ISMPREPORTINFORMATION
+                          WHERE DATCOMPLETEDATE BETWEEN @startdate AND @enddate
+                            AND STRDELETE IS NULL
+                            AND STRREVIEWINGENGINEER <> '0'
+                            AND STRCLOSED = 'True')
+
+                SELECT DISTINCT CONCAT(p.STRLASTNAME, ', ', p.STRFIRSTNAME) AS Engineer,
+                                EngineerCounts.Reviewed                as [Engineer Reviewed],
+                                convert(decimal(6, 2), ROUND(
+                                        CONVERT(float, EngineerCounts.Reviewed) / @totalReceived * 100,
+                                        2))                                 AS [% Program],
+                                MedianDays                                  as [Median Days],
+                                EightyPercentDays                           as [80% Days],
+                                isnull(Witness1.WitCount, 0) + isnull(Witness2.WitCount, 0) + isnull(Witness3.WitCount, 0)
+                                                                            AS Witnessed
+                FROM Reports r
+                    INNER JOIN EPDUSERPROFILES p
+                        ON r.STRREVIEWINGENGINEER = p.NUMUSERID
+                    LEFT JOIN (SELECT STRREVIEWINGENGINEER as Engineer, COUNT(*) AS Reviewed
+                               FROM Reports
+                               GROUP BY STRREVIEWINGENGINEER) as EngineerCounts
+                        ON r.STRREVIEWINGENGINEER = EngineerCounts.Engineer
+
+                    LEFT JOIN (SELECT DISTINCT t.STRREVIEWINGENGINEER,
+                                               convert(int, PERCENTILE_CONT(0.8) WITHIN GROUP (ORDER BY t.DaysIn)
+                                                                            OVER (PARTITION BY t.STRREVIEWINGENGINEER)) AS EightyPercentDays,
+                                               convert(int, PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY t.DaysIn)
+                                                                            OVER (PARTITION BY t.STRREVIEWINGENGINEER)) AS MedianDays
+                               FROM (SELECT STRREVIEWINGENGINEER,
+                                            DATEDIFF(day, DATRECEIVEDDATE, DATCOMPLETEDATE) AS DaysIn
+                                     FROM Reports) AS t) AS PercentDays
+                        ON r.STRREVIEWINGENGINEER = PercentDays.STRREVIEWINGENGINEER
+
+                    LEFT JOIN (SELECT STRWITNESSINGENGINEER, COUNT(*) AS WitCount
+                               FROM Reports
+                               GROUP BY STRWITNESSINGENGINEER) AS Witness1
+                        ON r.STRREVIEWINGENGINEER = Witness1.STRWITNESSINGENGINEER
+                    LEFT JOIN (SELECT STRWITNESSINGENGINEER2, COUNT(*) AS WitCount
+                               FROM Reports
+                               GROUP BY STRWITNESSINGENGINEER2) AS Witness2
+                        ON r.STRREVIEWINGENGINEER = Witness2.STRWITNESSINGENGINEER2
+                    LEFT JOIN (SELECT w3.STRWITNESSINGENGINEER, COUNT(*) AS WitCount
+                               FROM Reports r2
+                                   inner join ISMPWITNESSINGENG w3
+                                       on r2.STRREFERENCENUMBER = w3.STRREFERENCENUMBER
+                               GROUP BY w3.STRWITNESSINGENGINEER) AS Witness3
+                        ON r.STRREVIEWINGENGINEER = Witness3.STRWITNESSINGENGINEER
+
+                ORDER BY Engineer"
+
+            dtUnitStats = DB.GetDataTable(query2, p2)
             dtUnitStats.TableName = "UnitStats"
             dgvUnitStats.DataSource = dtUnitStats
 
@@ -929,25 +982,10 @@ Public Class ISMPManagersTools
             dgvUnitStats.AllowUserToResizeColumns = True
             dgvUnitStats.AllowUserToAddRows = False
             dgvUnitStats.AllowUserToDeleteRows = False
-            dgvUnitStats.AllowUserToOrderColumns = True
-            dgvUnitStats.AllowUserToResizeRows = True
-            dgvUnitStats.ColumnHeadersHeight = "35"
-            dgvUnitStats.Columns("Engineer").HeaderText = "Engineer"
-            dgvUnitStats.Columns("strUnitDesc").HeaderText = "Engineer Unit"
-            dgvUnitStats.Columns("TotalReceived").HeaderText = "Total Reviewed"
-            dgvUnitStats.Columns("TotalReceived").Visible = False
-            dgvUnitStats.Columns("ReceivedCount").HeaderText = "Engineer Reviewed"
-            dgvUnitStats.Columns("ProgramPercent").HeaderText = "% Program "
-            dgvUnitStats.Columns("MedDays").HeaderText = "Median Days"
-            dgvUnitStats.Columns("PercentDays").HeaderText = "80% Days"
-            dgvUnitStats.Columns("Witnessed").HeaderText = "Witnessed"
+            dgvUnitStats.AllowUserToOrderColumns = False
+            dgvUnitStats.AllowUserToResizeRows = False
 
-            Try
-                txtTotalReviewed.Text = dgvUnitStats(2, 0).Value
-            Catch ex As Exception
-                txtTotalReviewed.Text = "0"
-            End Try
-
+            txtTotalReviewed.Text = totalReceived
             txtEngineerCount.Text = dgvUnitStats.RowCount.ToString
 
             Dim TotalAvg As Decimal = 0
@@ -957,35 +995,16 @@ Public Class ISMPManagersTools
             Dim x As Integer = 0
 
             For x = 0 To dgvUnitStats.RowCount - 1
-                If IsDBNull(dgvUnitStats(3, x).Value) Then
-                    TotalAvg = TotalAvg + 0
-                Else
-                    TotalAvg = TotalAvg + (dgvUnitStats(3, x).Value * dgvUnitStats(4, x).Value / 100)
-                End If
-                If IsDBNull(dgvUnitStats(5, x).Value) Then
-                    MedianAvg = MedianAvg + 0
-                Else
-                    MedianAvg = MedianAvg + (dgvUnitStats(5, x).Value * dgvUnitStats(4, x).Value / 100)
-                End If
-                If IsDBNull(dgvUnitStats(6, x).Value) Then
-                    PercentialAvg = PercentialAvg + 0
-                Else
-                    PercentialAvg = PercentialAvg + (dgvUnitStats(6, x).Value * dgvUnitStats(4, x).Value / 100)
-                End If
-                If IsDBNull(dgvUnitStats(7, x).Value) Then
-                    WitnessAvg = WitnessAvg + 0
-                Else
-                    WitnessAvg = WitnessAvg + (dgvUnitStats(7, x).Value * dgvUnitStats(4, x).Value / 100)
-                End If
+                TotalAvg = TotalAvg + (dgvUnitStats.Rows(x).Cells("Engineer Reviewed").Value * dgvUnitStats.Rows(x).Cells("% Program").Value / 100)
+                MedianAvg = MedianAvg + (dgvUnitStats.Rows(x).Cells("Median Days").Value * dgvUnitStats.Rows(x).Cells("% Program").Value / 100)
+                PercentialAvg = PercentialAvg + (dgvUnitStats.Rows(x).Cells("80% Days").Value * dgvUnitStats.Rows(x).Cells("% Program").Value / 100)
+                WitnessAvg = WitnessAvg + (dgvUnitStats.Rows(x).Cells("Witnessed").Value * dgvUnitStats.Rows(x).Cells("% Program").Value / 100)
             Next
 
-            txtAverageofTotalReviewed.Text = TotalAvg
-            txtAverageMedianDays.Text = MedianAvg
-            txtPercentialAverage.Text = PercentialAvg
-            txtAverageWitnessed.Text = WitnessAvg
-
-            txtUnitStatsCount.Clear()
-            txtUnitStatReferenceNumber.Clear()
+            txtAverageofTotalReviewed.Text = Decimal.Round(TotalAvg, 2)
+            txtAverageMedianDays.Text = Decimal.Round(MedianAvg, 2)
+            txtPercentialAverage.Text = Decimal.Round(PercentialAvg, 2)
+            txtAverageWitnessed.Text = Decimal.Round(WitnessAvg, 2)
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
