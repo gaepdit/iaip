@@ -1,7 +1,8 @@
-Imports Microsoft.Data.SqlClient
+Imports System.Collections.Generic
 Imports Iaip.Apb
 Imports Iaip.Apb.Facilities
 Imports Iaip.UrlHelpers
+Imports Microsoft.Data.SqlClient
 
 Public Class IAIPFacilityCreator
 
@@ -1228,104 +1229,124 @@ Public Class IAIPFacilityCreator
         Try
             Dim SSCPSignOff As String = ""
             Dim SSPPSignOff As String = ""
-            Dim SQL As String
 
-            If chbSSCPSignOff.Checked AndAlso chbSSPPSignOff.Checked Then
-                SQL = "Select " &
+            If Not chbSSCPSignOff.Checked OrElse Not chbSSPPSignOff.Checked Then
+                MsgBox("Both SSCP and SSPP have to sign off on the new facility before it can be sent to EPA.", MsgBoxStyle.Information, Me.Text)
+                Return
+            End If
+
+            Dim airs As String = "0413" & txtNewAIRSNumber.Text
+
+            Dim SQL As String = "Select " &
                 "numApprovingSSCP, numApprovingSSPP " &
                 "from APBSupplamentalData " &
                 "where strAIRSNumber = @airs "
 
-                Dim p As New SqlParameter("@airs", "0413" & txtNewAIRSNumber.Text)
+            Dim p As New SqlParameter("@airs", airs)
 
-                Dim dr As DataRow = DB.GetDataRow(SQL, p)
+            Dim dr As DataRow = DB.GetDataRow(SQL, p)
 
-                If dr IsNot Nothing Then
-                    If IsDBNull(dr.Item("numApprovingSSCP")) Then
-                        SSCPSignOff = ""
-                    Else
-                        SSCPSignOff = dr.Item("numApprovingSSCP").ToString
-                    End If
-                    If IsDBNull(dr.Item("numApprovingSSPP")) Then
-                        SSPPSignOff = ""
-                    Else
-                        SSPPSignOff = dr.Item("numApprovingSSPP").ToString
-                    End If
-                End If
+            If dr Is Nothing Then
+                MsgBox("There was an error approving the facility.", MsgBoxStyle.Exclamation, Me.Text)
+                Return
+            End If
 
-                If SSCPSignOff = "" AndAlso SSPPSignOff = "" Then
-                    SQL = "Update APBSupplamentalData set " &
+            If IsDBNull(dr.Item("numApprovingSSCP")) Then
+                SSCPSignOff = ""
+            Else
+                SSCPSignOff = dr.Item("numApprovingSSCP").ToString
+            End If
+            If IsDBNull(dr.Item("numApprovingSSPP")) Then
+                SSPPSignOff = ""
+            Else
+                SSPPSignOff = dr.Item("numApprovingSSPP").ToString
+            End If
+
+            Dim queryList As New List(Of String)
+            Dim paramsList As New List(Of SqlParameter())
+
+            If SSCPSignOff = "" AndAlso SSPPSignOff = "" Then
+                queryList.Add("Update APBSupplamentalData set " &
+                    "numApprovingSSCP = @numApprovingSSCP " &
+                    ", datApproveDateSSCP = @datApproveDateSSCP " &
+                    ", strCommentSSCP = @strCommentSSCP " &
+                    ", numApprovingSSPP = @numApprovingSSPP " &
+                    ", datApproveDateSSPP = @datApproveDateSSPP " &
+                    ", strCommentSSPP = @strCommentSSPP " &
+                    "where strAIRSnumber = @strAIRSnumber ")
+
+                paramsList.Add({
+                    New SqlParameter("@numApprovingSSCP", CurrentUser.UserID),
+                    New SqlParameter("@datApproveDateSSCP", DTPSSCPApproveDate.Text),
+                    New SqlParameter("@strCommentSSCP", txtSSCPComments.Text),
+                    New SqlParameter("@numApprovingSSPP", CurrentUser.UserID),
+                    New SqlParameter("@datApproveDateSSPP", DTPSSCPApproveDate.Text),
+                    New SqlParameter("@strCommentSSPP", txtSSCPComments.Text),
+                    New SqlParameter("@strAIRSnumber", airs)
+                })
+            Else
+                If SSCPSignOff = "" Then
+                    queryList.Add("Update APBSupplamentalData set " &
                         "numApprovingSSCP = @numApprovingSSCP " &
                         ", datApproveDateSSCP = @datApproveDateSSCP " &
                         ", strCommentSSCP = @strCommentSSCP " &
-                        ", numApprovingSSPP = @numApprovingSSPP " &
-                        ", datApproveDateSSPP = @datApproveDateSSPP " &
-                        ", strCommentSSPP = @strCommentSSPP " &
-                        "where strAIRSnumber = @strAIRSnumber "
+                        "where strAIRSnumber = @strAIRSnumber ")
 
-                    Dim p2 As SqlParameter() = {
+                    paramsList.Add({
                         New SqlParameter("@numApprovingSSCP", CurrentUser.UserID),
                         New SqlParameter("@datApproveDateSSCP", DTPSSCPApproveDate.Text),
                         New SqlParameter("@strCommentSSCP", txtSSCPComments.Text),
+                        New SqlParameter("@strAIRSnumber", airs)
+                    })
+                End If
+                If SSPPSignOff = "" Then
+                    queryList.Add("Update APBSupplamentalData set " &
+                        "numApprovingSSPP = @numApprovingSSPP " &
+                        ", datApproveDateSSPP = @datApproveDateSSPP " &
+                        ", strCommentSSPP = @strCommentSSPP " &
+                        "where strAIRSnumber = @strAIRSnumber ")
+
+                    paramsList.Add({
                         New SqlParameter("@numApprovingSSPP", CurrentUser.UserID),
                         New SqlParameter("@datApproveDateSSPP", DTPSSCPApproveDate.Text),
                         New SqlParameter("@strCommentSSPP", txtSSCPComments.Text),
-                        New SqlParameter("@strAIRSnumber", "0413" & txtNewAIRSNumber.Text)
-                    }
-
-                    DB.RunCommand(SQL, p2)
-                Else
-                    If SSCPSignOff = "" Then
-                        SQL = "Update APBSupplamentalData set " &
-                            "numApprovingSSCP = @numApprovingSSCP " &
-                            ", datApproveDateSSCP = @datApproveDateSSCP " &
-                            ", strCommentSSCP = @strCommentSSCP " &
-                            "where strAIRSnumber = @strAIRSnumber "
-
-                        Dim p3 As SqlParameter() = {
-                            New SqlParameter("@numApprovingSSCP", CurrentUser.UserID),
-                            New SqlParameter("@datApproveDateSSCP", DTPSSCPApproveDate.Text),
-                            New SqlParameter("@strCommentSSCP", txtSSCPComments.Text),
-                            New SqlParameter("@strAIRSnumber", "0413" & txtNewAIRSNumber.Text)
-                        }
-
-                        DB.RunCommand(SQL, p3)
-                    End If
-                    If SSPPSignOff = "" Then
-                        SQL = "Update APBSupplamentalData set " &
-                            "numApprovingSSPP = @numApprovingSSPP " &
-                            ", datApproveDateSSPP = @datApproveDateSSPP " &
-                            ", strCommentSSPP = @strCommentSSPP " &
-                            "where strAIRSnumber = @strAIRSnumber "
-
-                        Dim p3 As SqlParameter() = {
-                            New SqlParameter("@numApprovingSSPP", CurrentUser.UserID),
-                            New SqlParameter("@datApproveDateSSPP", DTPSSCPApproveDate.Text),
-                            New SqlParameter("@strCommentSSPP", txtSSCPComments.Text),
-                            New SqlParameter("@strAIRSnumber", "0413" & txtNewAIRSNumber.Text)
-                        }
-
-                        DB.RunCommand(SQL, p3)
-                    End If
+                        New SqlParameter("@strAIRSnumber", airs)
+                    })
                 End If
-
-                SQL = "Update AFSFacilityData set " &
-                    "strUpdateStatus = 'A' " &
-                    "where strAIRSNumber = @airs " &
-                    "and strUpdateStatus = 'H' "
-
-                Dim p4 As New SqlParameter("@airs", "0413" & txtNewAIRSNumber.Text)
-
-                DB.RunCommand(SQL, p4)
-
-                MsgBox(txtNewFacilityName.Text & " (" & txtNewAIRSNumber.Text & ") has been approved", MsgBoxStyle.Information, Me.Text)
-
-                LoadPendingFacilities()
-
-                ClearNewFacility()
-            Else
-                MsgBox("Both SSCP and SSPP have to sign off on the new facility before it can be sent to EPA.", MsgBoxStyle.Information, Me.Text)
             End If
+
+            queryList.Add(" update AFSFACILITYDATA
+                set STRUPDATESTATUS   = 'A',
+                    DATMODIFINGDATE   = GETDATE(),
+                    STRMODIFINGPERSON = @STRMODIFINGPERSON
+                where STRAIRSNUMBER = @airs
+                  and STRUPDATESTATUS = 'H' ")
+
+            paramsList.Add({
+                New SqlParameter("@airs", airs),
+                New SqlParameter("@STRMODIFINGPERSON", CurrentUser.UserID)
+            })
+
+            queryList.Add(" update APBFACILITYINFORMATION
+                set DATMODIFINGDATE   = getdate(),
+                    STRMODIFINGPERSON = @STRMODIFINGPERSON,
+                    STRCOMMENTS       = @STRCOMMENTS
+                where STRAIRSNUMBER = @airs ")
+
+            paramsList.Add({
+                New SqlParameter("@airs", airs),
+                New SqlParameter("@STRCOMMENTS", "Approved by " & CurrentUser.FullName & " in the Facility Creator tool."),
+                New SqlParameter("@STRMODIFINGPERSON", CurrentUser.UserID)
+            })
+
+            DB.RunCommand(queryList, paramsList)
+
+            MsgBox(txtNewFacilityName.Text & " (" & txtNewAIRSNumber.Text & ") has been approved", MsgBoxStyle.Information, Me.Text)
+
+            LoadPendingFacilities()
+
+            ClearNewFacility()
+
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
