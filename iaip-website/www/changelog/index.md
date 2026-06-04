@@ -15,6 +15,10 @@
 [2014](changelog-2014.html) |
 [2013](changelog-2013.html)
 
+## Version 8.0.5 <span>(4-Jun-2026)</span>
+
+* Fixed a bug in the ISMU managers tools where the statistics tab would time out.
+
 ## Version 8.0.4 <span>(26-May-2026)</span>
 
 * Fixed a crashing bug when logging out of the Navigation screen.
