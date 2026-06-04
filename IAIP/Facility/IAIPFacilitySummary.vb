@@ -387,7 +387,6 @@ Public Class IAIPFacilitySummary
 
         MapPictureBox.Visible = True
 
-        Console.WriteLine(staticMapsUrl.ToString)
         Try
             MapPictureBox.LoadAsync(staticMapsUrl.ToString)
         Catch ex As Exception
