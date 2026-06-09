@@ -122,5 +122,14 @@ Namespace DAL.Ismp
             Return DB.RunCommand(queryList, parametersList)
         End Function
 
+        Public Sub DeleteStackTest(referenceNumber As String, staffResponsible As Integer)
+            Dim parameters As SqlParameter() = {
+                New SqlParameter("@referenceNumber", referenceNumber),
+                New SqlParameter("@staffResponsible", staffResponsible.ToString())
+            }
+
+            DB.SPRunCommand("dbo.DeleteStackTest", parameters)
+        End Sub
+
     End Module
 End Namespace
