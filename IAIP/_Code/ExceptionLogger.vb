@@ -11,18 +11,16 @@ Friend Module ExceptionLogger
                                  supplementalMessage As String,
                                  unrecoverable As Boolean) As Boolean
 
-        If CurrentServerEnvironment = ServerEnvironment.Development Then
-            ' Only log if UAT or Prod
-            Return False
-        End If
+        ' Only log if UAT or Prod
+        If CurrentServerEnvironment = ServerEnvironment.Development Then Return False
 
         If String.IsNullOrEmpty(SentryDsn) Then Return False
 
         SentrySdk.ConfigureScope(
             Sub(scope)
                 scope.Contexts("Context Info") = New With {context, supplementalMessage}
-                scope.User = IIf(CurrentUser Is Nothing, New SentryUser(),
-                                 New SentryUser With {.Email = CurrentUser.EmailAddress, .Id = CurrentUser.UserID})
+                scope.User = If(CurrentUser Is Nothing, New SentryUser(),
+                    New SentryUser With {.Email = CurrentUser.EmailAddress, .Id = CurrentUser.UserID})
                 scope.SetTag("Unrecoverable", unrecoverable)
                 scope.SetTag("NetworkStatus", NetworkStatus.GetDescription())
                 scope.SetTag("VpnInterfaceAdapter", VpnInterfaceAdapter)
