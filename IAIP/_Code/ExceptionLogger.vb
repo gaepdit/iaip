@@ -1,9 +1,11 @@
 Imports System.Collections.Generic
+Imports System.Configuration
 Imports Iaip
-Imports Mindscape.Raygun4Net
-Imports Mindscape.Raygun4Net.Messages
+Imports Sentry
 
 Friend Module ExceptionLogger
+    Private ReadOnly SentryDsn As String = ConfigurationManager.AppSettings("SentryDsn")
+
     Friend Function LogException(ex As Exception,
                                  context As String,
                                  supplementalMessage As String,
@@ -14,66 +16,47 @@ Friend Module ExceptionLogger
             Return False
         End If
 
-        If CurrentAppConfig Is Nothing OrElse String.IsNullOrEmpty(CurrentAppConfig.RaygunApiKey) Then Return False
+        If String.IsNullOrEmpty(SentryDsn) Then Return False
 
-        Dim client As New RaygunClient(CurrentAppConfig.RaygunApiKey) With {
-            .ApplicationVersion = GetCurrentVersionAsMajorMinorBuild().ToString
-        }
-
-        If CurrentUser IsNot Nothing Then
-            client.UserInfo = New RaygunIdentifierMessage(CurrentUser.UserID.ToString) With {
-                .Email = CurrentUser.EmailAddress,
-                .FirstName = CurrentUser.Username,
-                .FullName = CurrentUser.FullName,
-                .IsAnonymous = False,
-                .UUID = Environment.MachineName
-            }
-        Else
-            client.UserInfo = New RaygunIdentifierMessage("") With {
-                .IsAnonymous = True,
-                .UUID = Environment.MachineName
-            }
-        End If
-
-        Dim tags As New List(Of String) From {CurrentServerEnvironment.ToString, context}
-        If unrecoverable Then
-            tags.Add("Unrecoverable")
-        End If
-
-        Dim customData As New Dictionary(Of String, Object) From {
-            {"Context", context},
-            {"Supplemental message", supplementalMessage},
-            {"Initial Network Status", NetworkStatus.GetDescription},
-            {"VPN Interface Adapter", VpnInterfaceAdapter}
-        }
+        SentrySdk.ConfigureScope(
+            Sub(scope)
+                scope.Contexts("Context Info") = New With {context, supplementalMessage}
+                scope.User = IIf(CurrentUser Is Nothing, New SentryUser(),
+                                 New SentryUser With {.Email = CurrentUser.EmailAddress, .Id = CurrentUser.UserID})
+                scope.SetTag("Unrecoverable", unrecoverable)
+                scope.SetTag("NetworkStatus", NetworkStatus.GetDescription())
+                scope.SetTag("VpnInterfaceAdapter", VpnInterfaceAdapter)
+                scope.SetTag("ServerEnvironment", CurrentServerEnvironment.GetDescription())
+            End Sub)
 
         Try
-            If unrecoverable Then
-                client.Send(ex, tags, customData)
-            Else
-                client.SendInBackground(ex, tags, customData)
-            End If
-
+            SentrySdk.CaptureException(ex)
             Return True
         Catch rex As Exception
             Return False
         End Try
+
     End Function
 
-    Friend Sub AddBreadcrumb(message As String, Optional sender As Object = Nothing)
-        AddBreadcrumb(message, New Dictionary(Of String, Object), sender)
+    Friend Sub AddBreadcrumb(message As String, category As String)
+        SentrySdk.AddBreadcrumb(message, category)
     End Sub
 
-    Friend Sub AddBreadcrumb(message As String, dataDictionary As Dictionary(Of String, Object),
-                             Optional sender As Object = Nothing)
-        If dataDictionary Is Nothing Then dataDictionary = New Dictionary(Of String, Object)
-        If TypeOf sender Is Control Then dataDictionary.Add("Sender", CType(sender, Control).Name)
-        RaygunClient.RecordBreadcrumb(New RaygunBreadcrumb With {.Message = message, .CustomData = dataDictionary})
+    Friend Sub AddBreadcrumb(message As String, sender As Object)
+        SentrySdk.AddBreadcrumb(message, ParseSender(sender))
     End Sub
 
-    Friend Sub AddBreadcrumb(message As String, name As String, data As Object, Optional sender As Object = Nothing)
-        Dim dataDictionary As New Dictionary(Of String, Object) From {{name, data}}
-        If TypeOf sender Is Control Then dataDictionary.Add("Sender", CType(sender, Control).Name)
-        RaygunClient.RecordBreadcrumb(New RaygunBreadcrumb With {.Message = message, .CustomData = dataDictionary})
+    Friend Sub AddBreadcrumb(message As String, dataDictionary As Dictionary(Of String, String), sender As Object)
+        SentrySdk.AddBreadcrumb(message, ParseSender(sender), , dataDictionary)
     End Sub
+
+    Friend Sub AddBreadcrumb(message As String, name As String, value As String, sender As Object)
+        AddBreadcrumb(message, New Dictionary(Of String, String) From {{name, value}}, sender)
+    End Sub
+
+    Private Function ParseSender(sender As Object) As String
+        If TypeOf sender Is Control Then Return CType(sender, Control).Name
+        Return sender.ToString
+    End Function
+
 End Module

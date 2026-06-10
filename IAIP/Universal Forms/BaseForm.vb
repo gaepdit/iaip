@@ -52,7 +52,7 @@ Public Class BaseForm
     End Sub
 
     Private Sub OpenBreadcrumb()
-        Dim data As New Dictionary(Of String, Object) From {{"ID", ID}}
+        Dim data As New Dictionary(Of String, String) From {{"ID", ID}}
 
         If Parameters IsNot Nothing Then
             For Each kvp As KeyValuePair(Of FormParameter, String) In Parameters

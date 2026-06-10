@@ -4,7 +4,7 @@ Imports System.Linq
 Public Module AppUpdater
 
     Public Function CheckForUpdate() As Boolean
-        AddBreadcrumb("AppUpdater: CheckForUpdate started")
+        AddBreadcrumb("AppUpdater: CheckForUpdate started", "AppUpdater")
 
         Dim openFormCount As Integer = 0
         Dim okayForms As String() = {NameOf(IAIPLogIn), NameOf(IAIPNavigation), NameOf(IaipAbout)}
@@ -20,7 +20,7 @@ Public Module AppUpdater
         Dim info As UpdateCheckInfo
 
         If Not ApplicationDeployment.IsNetworkDeployed Then
-            AddBreadcrumb("AppUpdater: Not Network Deployed")
+            AddBreadcrumb("AppUpdater: Not Network Deployed", "AppUpdater")
             Return False
         End If
 
@@ -29,14 +29,14 @@ Public Module AppUpdater
         Try
             info = ad.CheckForDetailedUpdate(False)
         Catch dde As DeploymentDownloadException
-            AddBreadcrumb("AppUpdater: DeploymentDownloadException")
+            AddBreadcrumb("AppUpdater: DeploymentDownloadException", "AppUpdater")
             MessageBox.Show("The IAIP cannot be updated right now. " & vbNewLine & vbNewLine &
                             "Please check your network connection or try again later. " & vbNewLine & vbNewLine &
                             "Error: " & dde.Message,
                             "Error")
             Return False
         Catch ioe As InvalidOperationException
-            AddBreadcrumb("AppUpdater: InvalidOperationException")
+            AddBreadcrumb("AppUpdater: InvalidOperationException", "AppUpdater")
             MessageBox.Show("This application cannot be updated. Please contact support for more information. " & vbNewLine & vbNewLine &
                             "Error: " & ioe.Message,
                             "Error")
@@ -44,16 +44,16 @@ Public Module AppUpdater
         End Try
 
         If Not info.UpdateAvailable Then
-            AddBreadcrumb("AppUpdater: No update available")
+            AddBreadcrumb("AppUpdater: No update available", "AppUpdater")
             Return False
         End If
 
         Dim doUpdate As Boolean = True
 
         If info.IsUpdateRequired Then
-            AddBreadcrumb("AppUpdater: Update required")
+            AddBreadcrumb("AppUpdater: Update required", "AppUpdater")
         Else
-            AddBreadcrumb("AppUpdater: Update available")
+            AddBreadcrumb("AppUpdater: Update available", "AppUpdater")
             Dim dr As DialogResult
             dr = MessageBox.Show("An update is available (" &
                                  GetVersionAsMajorMinorBuild(info.AvailableVersion).ToString &
