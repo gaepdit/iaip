@@ -7,7 +7,7 @@ Namespace DAL
             NotNullOrEmpty(type, NameOf(type))
             NotNull(url, NameOf(url))
 
-            AddBreadcrumb($"Report type {type} opened: {url}")
+            AddBreadcrumb($"Report type {type} opened: {url}", "IaipLogging")
 
             Dim parameters As SqlParameter() = {
                 New SqlParameter("@type", type),

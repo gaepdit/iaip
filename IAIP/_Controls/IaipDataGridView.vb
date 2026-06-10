@@ -487,7 +487,7 @@ Friend Class DataGridViewSorter
     End Function
 
     Public Overrides Function ToString() As String
-        Return String.Concat(ColumnName, IIf(IsAscending, " ASC", " DESC"))
+        Return String.Concat(ColumnName, If(IsAscending, " ASC", " DESC"))
     End Function
 End Class
 

@@ -12,7 +12,7 @@ Public Module ExcelExport
         NotNull(sender, NameOf(sender))
 
         If dataGridView Is Nothing OrElse dataGridView.RowCount = 0 Then
-            AddBreadcrumb("ExportToExcel: Empty")
+            AddBreadcrumb("ExportToExcel: Empty", "ExcelExport")
             MessageBox.Show("Table is empty", "Nothing to export", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return
         End If
@@ -20,11 +20,11 @@ Public Module ExcelExport
         Dim fileName As String = GetFileName()
 
         If fileName Is Nothing Then
-            AddBreadcrumb("ExportToExcel: Cancelled")
+            AddBreadcrumb("ExportToExcel: Cancelled", "ExcelExport")
             Return
         End If
 
-        AddBreadcrumb("ExportToExcel", "Sender", CType(sender, Control).Name)
+        AddBreadcrumb("ExportToExcel", sender)
 
         If TypeOf sender Is Form Then CType(sender, Form).Cursor = Cursors.AppStarting
 
@@ -57,7 +57,7 @@ Public Module ExcelExport
         NotNull(sender, NameOf(sender))
 
         If dataSet Is Nothing OrElse dataSet.Tables.Count = 0 Then
-            AddBreadcrumb("ExportToExcel: Empty")
+            AddBreadcrumb("ExportToExcel: Empty", "ExcelExport")
             MessageBox.Show("DataSet is empty", "Nothing to export", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return
         End If
@@ -65,11 +65,11 @@ Public Module ExcelExport
         Dim fileName As String = GetFileName(defaultFileName)
 
         If fileName Is Nothing Then
-            AddBreadcrumb("ExportToExcel: Cancelled")
+            AddBreadcrumb("ExportToExcel: Cancelled", "ExcelExport")
             Return
         End If
 
-        AddBreadcrumb("ExportToExcel", "Sender", CType(sender, Control).Name)
+        AddBreadcrumb("ExportToExcel", sender)
 
         If TypeOf sender Is Form Then CType(sender, Form).Cursor = Cursors.AppStarting
 
