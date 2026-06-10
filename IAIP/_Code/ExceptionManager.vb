@@ -103,7 +103,7 @@ Friend Module ExceptionManager
                     td.Show()
                 Catch ex As Exception
                     ' when the task dialog is closed, it throws an unhandled exception that ends 
-                    ' the background worker, but it still works as long as .Buttons is defined above
+                    ' the background worker, but it still works as long as `.Buttons` is defined above
                 End Try
             End Sub
 

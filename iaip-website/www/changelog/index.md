@@ -15,6 +15,10 @@
 [2014](changelog-2014.html) |
 [2013](changelog-2013.html)
 
+## Version 8.0.6 <span>(10-Jun-2026)</span>
+
+* Re-enabled the ability to delete stack tests (previously disabled by version 8.0.0).
+
 ## Version 8.0.5 <span>(4-Jun-2026)</span>
 
 * Fixed a bug in the ISMU managers tools where the statistics tab would time out.

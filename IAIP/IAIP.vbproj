@@ -53,10 +53,10 @@
     <UpdateUrl>https://iaip.gaepd.org/uat/</UpdateUrl>
     <ProductName>IAIP UAT</ProductName>
     <PublisherName>State of Georgia</PublisherName>
-    <MinimumRequiredVersion>8.0.5.0</MinimumRequiredVersion>
+    <MinimumRequiredVersion>8.0.6.0</MinimumRequiredVersion>
     <WebPage>installer.html</WebPage>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>8.0.5.0</ApplicationVersion>
+    <ApplicationVersion>8.0.6.0</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -1089,7 +1089,7 @@
       <Version>1.5.0</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers">
-      <Version>9.0.0</Version>
+      <Version>10.0.301</Version>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
@@ -1098,14 +1098,14 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Mindscape.Raygun4Net">
-      <Version>11.2.4</Version>
+    <PackageReference Include="Sentry">
+      <Version>6.6.0</Version>
     </PackageReference>
     <PackageReference Include="Sigil">
       <Version>5.0.0</Version>
     </PackageReference>
     <PackageReference Include="SonarAnalyzer.VisualBasic">
-      <Version>10.15.0.120848</Version>
+      <Version>10.27.0.140913</Version>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
@@ -1119,7 +1119,7 @@
       <Version>5.0.0</Version>
     </PackageReference>
     <PackageReference Include="System.Text.Json">
-      <Version>9.0.8</Version>
+      <Version>10.0.9</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
