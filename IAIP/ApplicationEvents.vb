@@ -1,4 +1,7 @@
-﻿Imports Microsoft.VisualBasic.ApplicationServices
+﻿Imports System.Deployment.Application
+Imports Microsoft.VisualBasic.ApplicationServices
+Imports Sentry
+Imports Sentry.Protocol
 
 Namespace My
 
@@ -11,8 +14,22 @@ Namespace My
     ' NetworkAvailabilityChanged: Raised when the network connection is connected or disconnected.
     Partial Friend Class MyApplication
 
+        Private _sentry As IDisposable
+
         Private Sub MyApplication_Startup(sender As Object, e As StartupEventArgs) _
             Handles Me.Startup
+
+            ' Initialize Sentry
+            Dim sentryOptions As New SentryOptions With
+            {
+                .Release = GetCurrentVersion.ToString(),
+                .Dsn = "https://ff64fd15e76aa7fc7878695979472555@o104051.ingest.us.sentry.io/4511540846198784",
+                .SendDefaultPii = True,
+                .TracesSampleRate = 1.0,
+                .IsGlobalModeEnabled = True,
+                .AutoSessionTracking = True
+            }
+            _sentry = SentrySdk.Init(sentryOptions)
 
             e.Cancel = Not StartupShutdown.Init()
         End Sub
@@ -21,13 +38,20 @@ Namespace My
             Handles Me.Shutdown
 
             StartupShutdown.Finish()
+
+            _sentry.Dispose()
         End Sub
 
         Private Sub MyApplication_UnhandledException(sender As Object, e As UnhandledExceptionEventArgs) _
             Handles Me.UnhandledException
 
+            ' Set some additional data on the exception for Sentry to recognize this exception as unhandled
+            Dim ex As Exception = e.Exception
+            ex.Data(Mechanism.HandledKey) = False
+            ex.Data(Mechanism.MechanismKey) = "WindowsFormsApplicationBase.UnhandledException"
+
             e.ExitApplication = ExceptionManager.ErrorReport(
-                e.Exception,
+                ex,
                 sender.ToString,
                 NameOf(MyApplication_UnhandledException),
                 True,
