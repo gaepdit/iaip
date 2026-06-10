@@ -18,8 +18,11 @@ Public Class IaipUpdater
     End Sub
 
     Private Sub DeploymentCheckForUpdateCompleted(sender As Object, e As CheckForUpdateCompletedEventArgs)
-        AddBreadcrumb("IaipUpdater: check completed", New Generic.Dictionary(Of String, Object) From {
-                      {"CurrentVersion", deployment.CurrentVersion}, {"UpdatedVersion", deployment.UpdatedVersion}}, Me)
+        AddBreadcrumb("IaipUpdater: check completed",
+                      New Generic.Dictionary(Of String, String) From {
+                        {"CurrentVersion", deployment.CurrentVersion.ToString()},
+                        {"UpdatedVersion", deployment.UpdatedVersion.ToString()}
+                      }, Me)
 
     End Sub
 
@@ -32,7 +35,7 @@ Public Class IaipUpdater
         updating = False
 
         If e.Error IsNot Nothing Then
-            AddBreadcrumb("IaipUpdater: update error", New Generic.Dictionary(Of String, Object) From {{"Error Type", e.Error.GetType}}, Me)
+            AddBreadcrumb("IaipUpdater: update error", "Error Type", e.Error.GetType.ToString(), Me)
             DownloadProgress.Visible = False
 
             If IsHandleCreated Then SetTaskbarProgressState(Handle, TaskbarState.Error)

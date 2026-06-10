@@ -16,26 +16,28 @@ Module FormHandler
                                    id As Integer,
                                    Optional parameters As Dictionary(Of FormParameter, String) = Nothing) As Form
 
-        AddBreadcrumb($"OpenMultiForm: {formName}", "id", id)
+        AddBreadcrumb($"OpenMultiForm: {formName}", "id", id, "FormHandler")
 
         If MultiForm Is Nothing Then MultiForm = New Dictionary(Of String, Dictionary(Of Integer, BaseForm))
 
         If formName Is Nothing Then formName = formType.Name
 
-        If Not MultiForm.ContainsKey(formName) OrElse MultiForm(formName) Is Nothing Then
-            MultiForm(formName) = New Dictionary(Of Integer, BaseForm)
+        Dim theForms As Dictionary(Of Integer, BaseForm) = Nothing
+        If Not MultiForm.TryGetValue(formName, theForms) OrElse theForms Is Nothing Then
+            theForms = New Dictionary(Of Integer, BaseForm)
+            MultiForm(formName) = theForms
         End If
 
         If Not MultiFormIsOpen(formName, id) Then
-            MultiForm(formName)(id) = CType(Activator.CreateInstance(formType), BaseForm)
-            MultiForm(formName)(id).ID = id
+            theForms(id) = CType(Activator.CreateInstance(formType), BaseForm)
+            theForms(id).ID = id
         End If
 
-        If parameters IsNot Nothing Then MultiForm(formName)(id).Parameters = parameters
-        MultiForm(formName)(id).Show()
-        MultiForm(formName)(id).Activate()
+        If parameters IsNot Nothing Then theForms(id).Parameters = parameters
+        theForms(id).Show()
+        theForms(id).Activate()
 
-        Return MultiForm(formName)(id)
+        Return theForms(id)
     End Function
 
     Public Function MultiFormIsOpen(formClass As BaseForm, id As Integer) As Boolean
@@ -43,12 +45,12 @@ Module FormHandler
     End Function
 
     Private Function MultiFormIsOpen(formName As String, id As Integer) As Boolean
-        Return (MultiForm IsNot Nothing AndAlso
+        Return MultiForm IsNot Nothing AndAlso
             MultiForm.ContainsKey(formName) AndAlso
             MultiForm(formName) IsNot Nothing AndAlso
             MultiForm(formName).ContainsKey(id) AndAlso
             MultiForm(formName)(id) IsNot Nothing AndAlso
-        Not MultiForm(formName)(id).IsDisposed)
+        Not MultiForm(formName)(id).IsDisposed
     End Function
 
     Public Function OpenSingleForm(formName As String,
@@ -72,7 +74,7 @@ Module FormHandler
                                     Optional parameters As Dictionary(Of FormParameter, String) = Nothing,
                                     Optional closeFirst As Boolean = False) As Form
 
-        AddBreadcrumb($"OpenSingleForm: {formName}", "id", id)
+        AddBreadcrumb($"OpenSingleForm: {formName}", "id", id, "FormHandler")
 
         If SingleForm Is Nothing Then SingleForm = New Dictionary(Of String, BaseForm)
 
@@ -101,22 +103,26 @@ Module FormHandler
     End Function
 
     Private Function SingleFormIsOpen(formName As String) As Boolean
-        Return (SingleForm IsNot Nothing AndAlso
-            SingleForm.ContainsKey(formName) AndAlso
-            SingleForm(formName) IsNot Nothing AndAlso
-            Not SingleForm(formName).IsDisposed)
+        Dim theForm As BaseForm = Nothing
+        Return SingleForm IsNot Nothing AndAlso
+            SingleForm.TryGetValue(formName,theForm) AndAlso
+            theForm IsNot Nothing AndAlso
+            Not theForm.IsDisposed
     End Function
 
     Public Function GetSingleForm(Of T As BaseForm)() As T
         If SingleForm Is Nothing Then Return Nothing
         Dim formName As String = GetType(T).Name
-        If Not SingleForm.ContainsKey(formName) Then Return Nothing
-        Return SingleForm(formName)
+        Dim theForm As BaseForm = Nothing
+        If Not SingleForm.TryGetValue(formName, theForm) Then Return Nothing
+        Return theForm
     End Function
 
     Public Sub RemoveForm(formName As String, Optional id As Integer = -1)
-        If MultiForm IsNot Nothing AndAlso MultiForm.ContainsKey(formName) AndAlso MultiForm(formName).ContainsKey(id) Then
-            MultiForm(formName).Remove(id)
+        Dim theForms As Dictionary(Of Integer, BaseForm) = Nothing
+
+        If MultiForm IsNot Nothing AndAlso MultiForm.TryGetValue(formName, theForms) AndAlso theForms.ContainsKey(id) Then
+            theForms.Remove(id)
         Else
             SingleForm?.Remove(formName)
         End If

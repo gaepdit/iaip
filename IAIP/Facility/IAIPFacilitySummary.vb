@@ -924,10 +924,11 @@ Public Class IAIPFacilitySummary
 
         Cursor = Cursors.WaitCursor
 
-        Dim data As New Dictionary(Of String, Object) From {
+        Dim data As New Dictionary(Of String, String) From {
             {"Name", Name},
             {"AIRS #", AirsNumber.FormattedString},
-            {"Tab", FSMainTabControl.SelectedTab.Name}}
+            {"Tab", FSMainTabControl.SelectedTab.Name}
+        }
         AddBreadcrumb("Facility Summary: tab changed", data, Me)
 
         Select Case FSMainTabControl.SelectedTab.Name
@@ -1170,7 +1171,7 @@ Public Class IAIPFacilitySummary
 
         Cursor = Cursors.WaitCursor
 
-        Dim data As New Dictionary(Of String, Object) From {
+        Dim data As New Dictionary(Of String, String) From {
             {"Name", Name},
             {"AIRS #", AirsNumber.FormattedString},
             {"Tab", ContactsTabControl.SelectedTab.Name}}

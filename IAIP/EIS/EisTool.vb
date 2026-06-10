@@ -1,6 +1,5 @@
 Imports System.Collections.Generic
 Imports System.Data.SqlTypes
-Imports System.Web.UI.WebControls.WebParts
 Imports Iaip.Apb.Facilities
 Imports Microsoft.Data.SqlClient
 
@@ -3669,7 +3668,9 @@ Public Class EisTool
 
     Private Sub dgvCaersUsers_CellFormatting(sender As Object, e As DataGridViewCellFormattingEventArgs) Handles dgvCaersUsers.CellFormatting
         If e IsNot Nothing AndAlso e.Value IsNot Nothing AndAlso Not IsDBNull(e.Value) Then
-            If dgvCaersUsers.Columns(e.ColumnIndex).HeaderText.ToUpper = "AIRS #" AndAlso Apb.ApbFacilityId.IsValidAirsNumberFormat(e.Value.ToString()) Then
+            If dgvCaersUsers.Columns(e.ColumnIndex).HeaderText.Equals("AIRS #", StringComparison.CurrentCultureIgnoreCase) AndAlso
+                Apb.ApbFacilityId.IsValidAirsNumberFormat(e.Value.ToString()) Then
+
                 e.Value = New Apb.ApbFacilityId(e.Value.ToString).FormattedString
             ElseIf TypeOf e.Value Is Date Then
                 e.CellStyle.Format = DateFormat
