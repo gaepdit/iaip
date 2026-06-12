@@ -11,7 +11,6 @@ public record IaipConfig
     public required string DatabaseUser { get; init; }
     public required string DatabasePassword { get; init; }
     public required string GoogleMapsApiKey { get; init; }
-    public required string RaygunApiKey { get; init; }
     public required Guid EmailQueueClientId { get; init; }
     public required string EmailQueueApiKey { get; init; }
 
