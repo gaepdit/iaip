@@ -526,7 +526,11 @@ Public Class IAIPLogIn
     End Sub
 
     Private Sub bgrOrgNotifications_DoWork(sender As Object, e As DoWorkEventArgs) Handles bgrOrgNotifications.DoWork
-        e.Result = CheckNotificationApiAsync().Result
+        Try
+            e.Result = CheckNotificationApiAsync().Result
+        Catch ex As Exception
+            e.Result = Nothing
+        End Try
     End Sub
 
     Private Sub bgrOrgNotifications_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles bgrOrgNotifications.RunWorkerCompleted

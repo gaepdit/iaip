@@ -10,11 +10,13 @@ Namespace ApiCalls.Notifications
 
     Friend Module NotificationsApi
 
-        Private ReadOnly ApiUrl As New Uri(ConfigurationManager.AppSettings("NotificationsApiUrl"))
-        Private ReadOnly StatusEndpoint As Uri = UriCombine(ApiUrl.AbsoluteUri, "current")
         Private ReadOnly RequestOptions As New Options With {.ContentType = ContentType.ApplicationJson}
 
         Public Async Function CheckNotificationApiAsync() As Task(Of List(Of OrgNotificationModel))
+            Dim uriString As String = ConfigurationManager.AppSettings("NotificationsApiUrl")
+            If String.IsNullOrEmpty(uriString) Then Return Nothing
+
+            Dim StatusEndpoint As Uri = UriCombine(New Uri(uriString).AbsoluteUri, "current")
             Dim response As Response = Await GetApiAsync(StatusEndpoint, RequestOptions).ConfigureAwait(False)
 
             If response Is Nothing OrElse response.Result.StatusCode <> HttpStatusCode.OK OrElse response.Body Is Nothing Then
