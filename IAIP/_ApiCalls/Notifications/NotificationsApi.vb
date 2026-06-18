@@ -16,8 +16,8 @@ Namespace ApiCalls.Notifications
             Dim uriString As String = ConfigurationManager.AppSettings("NotificationsApiUrl")
             If String.IsNullOrEmpty(uriString) Then Return Nothing
 
-            Dim StatusEndpoint As Uri = UriCombine(New Uri(uriString).AbsoluteUri, "current")
-            Dim response As Response = Await GetApiAsync(StatusEndpoint, RequestOptions).ConfigureAwait(False)
+            Dim statusEndpoint As Uri = UriCombine(New Uri(uriString).AbsoluteUri, "current")
+            Dim response As Response = Await GetApiAsync(statusEndpoint, RequestOptions).ConfigureAwait(False)
 
             If response Is Nothing OrElse response.Result.StatusCode <> HttpStatusCode.OK OrElse response.Body Is Nothing Then
                 Return Nothing
