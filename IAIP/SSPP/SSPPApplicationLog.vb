@@ -1,5 +1,6 @@
 Imports Microsoft.Data.SqlClient
 Imports Iaip.Apb.Facilities
+Imports System.ComponentModel
 
 Public Class SSPPApplicationLog
 
@@ -413,7 +414,7 @@ Public Class SSPPApplicationLog
         If bgwApplicationLog.IsBusy Then bgwApplicationLog.CancelAsync()
     End Sub
 
-    Private Sub FetchData(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles bgwApplicationLog.DoWork
+    Private Sub FetchData(sender As Object, e As DoWorkEventArgs) Handles bgwApplicationLog.DoWork
         Dim SQL As String
         Dim SQLLine As String
         Dim SQLSearch1 As String = ""
@@ -1240,7 +1241,15 @@ Public Class SSPPApplicationLog
         End Try
     End Sub
 
-    Private Sub bgwApplicationLog_RunWorkerCompleted(sender As Object, e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bgwApplicationLog.RunWorkerCompleted
+    Private Sub SSPPApplicationLog_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
+        FormIsClosing = True
+    End Sub
+
+    Private FormIsClosing As Boolean
+
+    Private Sub bgwApplicationLog_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles bgwApplicationLog.RunWorkerCompleted
+        If FormIsClosing Then Return
+
         btnFind.Enabled = True
         btnResetSearch.Enabled = True
         btnOpen.Enabled = False
