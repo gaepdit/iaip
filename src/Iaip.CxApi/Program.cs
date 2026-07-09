@@ -6,20 +6,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi;
-using Mindscape.Raygun4Net.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Bind application settings.
 builder.Configuration.GetSection(nameof(AppSettings.IaipConfigOptions)).Bind(AppSettings.IaipConfigOptions);
-
-// Configure application error monitoring.
-builder.Configuration.GetSection(nameof(AppSettings.RaygunSettings)).Bind(AppSettings.RaygunSettings);
-if (!string.IsNullOrEmpty(AppSettings.RaygunSettings.ApiKey))
-{
-    builder.Services.AddRaygun(builder.Configuration,
-        settings => settings.ApiKey = AppSettings.RaygunSettings.ApiKey);
-}
 
 // Configure DB helper.
 if (builder.Configuration.GetValue<bool>("TestDbHelper"))
@@ -65,11 +56,8 @@ if (builder.Environment.IsDevelopment())
     });
 }
 
-// Configure the HTTP request pipeline.
-if (!string.IsNullOrEmpty(AppSettings.RaygunSettings.ApiKey)) app.UseRaygun();
+// Map endpoints.
 app.MapControllers();
-
-// Add status API endpoints.
 app.MapGet("/health", () => Results.Ok("OK"));
 app.MapGet("/version", () => Results.Ok(new { version = AppSettings.GetVersion() }));
 
