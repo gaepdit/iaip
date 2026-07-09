@@ -509,11 +509,11 @@ Public Class ISMPTestReportAdministrative
                     End If
                     Dim query As String = "Select strComplianceStatus " &
                     "from ISMPReportInformation " &
-                    "where strReferenceNumber = @ref "
+                    "where strReferenceNumber = @ReferenceNumber "
 
-                    Dim p As New SqlParameter("@ref", RefNum)
+                    Dim paramRefNum As New SqlParameter("@ReferenceNumber", RefNum)
 
-                    Dim dr As DataRow = DB.GetDataRow(query, p)
+                    Dim dr As DataRow = DB.GetDataRow(query, paramRefNum)
                     If dr IsNot Nothing Then
                         ComplianceStatus = dr.Item("strComplianceStatus")
                     Else
@@ -534,15 +534,30 @@ Public Class ISMPTestReportAdministrative
                             query = "Update ISMPReportInformation set " &
                             "strClosed = 'True', " &
                             "datCompleteDate = @cd " &
-                            "where strReferenceNumber = @ref "
+                            "where strReferenceNumber = @ReferenceNumber "
 
                             Dim p5 As SqlParameter() = {
                                 New SqlParameter("@cd", DTPDateClosed.Text),
-                                New SqlParameter("@ref", RefNum.ToString)
+                                paramRefNum
                             }
-                            DB.RunCommand(query, p5)
+                            Dim CloseReportResult As Boolean = DB.RunCommand(query, p5)
+
+                            If Not CloseReportResult Then
+                                MsgBox("There was an error closing Reference Number " & RefNum.ToString & ".",
+                                   MsgBoxStyle.Exclamation, "ISMP Test Report Information")
+                                Return
+                            End If
+
+                            ' StartComplianceWork
+                            Dim SaveSscpResult As Boolean = DB.SPRunCommand("dbo.SaveStackTestSscpData", paramRefNum)
+
+                            If SaveSscpResult Then
+                                MsgBox("Reference Number " & RefNum.ToString & " closed.", MsgBoxStyle.Information, "ISMP Test Report Information")
+                            Else
+                                MsgBox("Reference Number " & RefNum.ToString & " was closed, but there was an error transferring the report to Compliance.",
+                                       MsgBoxStyle.Exclamation, "ISMP Test Report Information")
+                            End If
                     End Select
-                    StartComplianceWork(RefNum)
                 Next
             End If
 
@@ -552,8 +567,6 @@ Public Class ISMPTestReportAdministrative
 
             clbReferenceNumbers.Items.Clear()
             FillTestReportList()
-
-            MsgBox("Done", MsgBoxStyle.Exclamation, "ISMP Test Report Information")
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -743,31 +756,6 @@ Public Class ISMPTestReportAdministrative
         bgw1.RunWorkerAsync()
 
         Clear()
-    End Sub
-
-    Private Sub StartComplianceWork(ReferenceNumber As String)
-        ' AIRS number required
-        If cboAIRSNumber.Text = "" Then Return
-
-        ' Check if SSCP assignment already exists
-        Dim query As String = "select convert(bit, count(*)) from dbo.ISMPREPORTINFORMATION 
-            where STRREFERENCENUMBER = @ReferenceNumber 
-            and ComplianceAssignment is not null "
-        Dim paramRefNum As New SqlParameter("@ReferenceNumber", ReferenceNumber)
-        If DB.GetBoolean(query, paramRefNum) Then Return
-
-        ' Best guess at SSCP staff
-        query = "select [Staff ID] from iaip_facility.VW_FacilityAssignments_Compliance where AIRS = @airs"
-        Dim paramAirs As New SqlParameter("@airs", "0413" & cboAIRSNumber.Text)
-        Dim StaffResponsible As String = DB.GetString(query, paramAirs)
-        If String.IsNullOrEmpty(StaffResponsible) Then Return
-
-        Dim params As SqlParameter() = {
-            paramRefNum,
-            New SqlParameter("@StaffResponsible", StaffResponsible)
-        }
-
-        DB.SPRunCommand("dbo.SaveStackTestSscpData", params)
     End Sub
 
 #Region "Main Menu"
