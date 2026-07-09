@@ -15,6 +15,11 @@
 [2014](changelog-2014.html) |
 [2013](changelog-2013.html)
 
+## Version 8.0.7 <span>(9-Jul-2026)</span>
+
+* Fixed some crashing bugs.
+* Update how SSCP data is saved when a source test is closed by ISMU.
+
 ## Version 8.0.6 <span>(10-Jun-2026)</span>
 
 * Re-enabled the ability to delete stack tests (previously disabled by version 8.0.0).
