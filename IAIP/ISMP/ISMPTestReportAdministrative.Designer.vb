@@ -102,32 +102,6 @@ Partial Class ISMPTestReportAdministrative
         Me.dgvFacilityInfo = New Iaip.IaipDataGridView()
         Me.TCTestReports = New System.Windows.Forms.TabControl()
         Me.TPNewTestReports = New System.Windows.Forms.TabPage()
-        Me.TPHistoricalReports = New System.Windows.Forms.TabPage()
-        Me.Panel11 = New System.Windows.Forms.Panel()
-        Me.btnOpenTestReport = New System.Windows.Forms.Button()
-        Me.Panel12 = New System.Windows.Forms.Panel()
-        Me.btnReOpenHistoricTestReport = New System.Windows.Forms.Button()
-        Me.btnCloseHistoricTestReport = New System.Windows.Forms.Button()
-        Me.txtCloseTestReportRefNum = New System.Windows.Forms.TextBox()
-        Me.Label78 = New System.Windows.Forms.Label()
-        Me.Label77 = New System.Windows.Forms.Label()
-        Me.Label76 = New System.Windows.Forms.Label()
-        Me.DTPAddTestReportDateCompleted = New System.Windows.Forms.DateTimePicker()
-        Me.Label67 = New System.Windows.Forms.Label()
-        Me.btnClearAddTestReport = New System.Windows.Forms.Button()
-        Me.mtbAddTestReportAIRSNumber = New System.Windows.Forms.MaskedTextBox()
-        Me.dtpAddTestReportDateReceived = New System.Windows.Forms.DateTimePicker()
-        Me.txtAddTestReportCommissioner = New System.Windows.Forms.TextBox()
-        Me.txtAddTestReportDirector = New System.Windows.Forms.TextBox()
-        Me.txtAddTestReportProgramManager = New System.Windows.Forms.TextBox()
-        Me.Label74 = New System.Windows.Forms.Label()
-        Me.Label75 = New System.Windows.Forms.Label()
-        Me.Label66 = New System.Windows.Forms.Label()
-        Me.Label63 = New System.Windows.Forms.Label()
-        Me.Label62 = New System.Windows.Forms.Label()
-        Me.txtAddTestReportRefNum = New System.Windows.Forms.TextBox()
-        Me.btnAddTestReport = New System.Windows.Forms.Button()
-        Me.Label61 = New System.Windows.Forms.Label()
         Me.bgw1 = New System.ComponentModel.BackgroundWorker()
         Me.bgwAIRS = New System.ComponentModel.BackgroundWorker()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
@@ -143,9 +117,6 @@ Partial Class ISMPTestReportAdministrative
         CType(Me.dgvFacilityInfo, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TCTestReports.SuspendLayout()
         Me.TPNewTestReports.SuspendLayout()
-        Me.TPHistoricalReports.SuspendLayout()
-        Me.Panel11.SuspendLayout()
-        Me.Panel12.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -883,7 +854,6 @@ Partial Class ISMPTestReportAdministrative
         'TCTestReports
         '
         Me.TCTestReports.Controls.Add(Me.TPNewTestReports)
-        Me.TCTestReports.Controls.Add(Me.TPHistoricalReports)
         Me.TCTestReports.Dock = System.Windows.Forms.DockStyle.Top
         Me.TCTestReports.Location = New System.Drawing.Point(0, 48)
         Me.TCTestReports.Name = "TCTestReports"
@@ -937,299 +907,6 @@ Partial Class ISMPTestReportAdministrative
         Me.TPNewTestReports.TabIndex = 0
         Me.TPNewTestReports.Text = "Add/Edit New Test Reports"
         Me.TPNewTestReports.UseVisualStyleBackColor = True
-        '
-        'TPHistoricalReports
-        '
-        Me.TPHistoricalReports.Controls.Add(Me.Panel11)
-        Me.TPHistoricalReports.Location = New System.Drawing.Point(4, 22)
-        Me.TPHistoricalReports.Name = "TPHistoricalReports"
-        Me.TPHistoricalReports.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPHistoricalReports.Size = New System.Drawing.Size(808, 288)
-        Me.TPHistoricalReports.TabIndex = 1
-        Me.TPHistoricalReports.Text = "Historical Test Reports"
-        Me.TPHistoricalReports.UseVisualStyleBackColor = True
-        '
-        'Panel11
-        '
-        Me.Panel11.Controls.Add(Me.btnOpenTestReport)
-        Me.Panel11.Controls.Add(Me.Panel12)
-        Me.Panel11.Controls.Add(Me.Label77)
-        Me.Panel11.Controls.Add(Me.Label76)
-        Me.Panel11.Controls.Add(Me.DTPAddTestReportDateCompleted)
-        Me.Panel11.Controls.Add(Me.Label67)
-        Me.Panel11.Controls.Add(Me.btnClearAddTestReport)
-        Me.Panel11.Controls.Add(Me.mtbAddTestReportAIRSNumber)
-        Me.Panel11.Controls.Add(Me.dtpAddTestReportDateReceived)
-        Me.Panel11.Controls.Add(Me.txtAddTestReportCommissioner)
-        Me.Panel11.Controls.Add(Me.txtAddTestReportDirector)
-        Me.Panel11.Controls.Add(Me.txtAddTestReportProgramManager)
-        Me.Panel11.Controls.Add(Me.Label74)
-        Me.Panel11.Controls.Add(Me.Label75)
-        Me.Panel11.Controls.Add(Me.Label66)
-        Me.Panel11.Controls.Add(Me.Label63)
-        Me.Panel11.Controls.Add(Me.Label62)
-        Me.Panel11.Controls.Add(Me.txtAddTestReportRefNum)
-        Me.Panel11.Controls.Add(Me.btnAddTestReport)
-        Me.Panel11.Controls.Add(Me.Label61)
-        Me.Panel11.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel11.Location = New System.Drawing.Point(3, 3)
-        Me.Panel11.Name = "Panel11"
-        Me.Panel11.Size = New System.Drawing.Size(802, 282)
-        Me.Panel11.TabIndex = 1
-        '
-        'btnOpenTestReport
-        '
-        Me.btnOpenTestReport.AutoSize = True
-        Me.btnOpenTestReport.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnOpenTestReport.Enabled = False
-        Me.btnOpenTestReport.Location = New System.Drawing.Point(259, 218)
-        Me.btnOpenTestReport.Name = "btnOpenTestReport"
-        Me.btnOpenTestReport.Size = New System.Drawing.Size(102, 23)
-        Me.btnOpenTestReport.TabIndex = 13
-        Me.btnOpenTestReport.Text = "Open Test Report"
-        Me.btnOpenTestReport.UseVisualStyleBackColor = True
-        '
-        'Panel12
-        '
-        Me.Panel12.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel12.Controls.Add(Me.btnReOpenHistoricTestReport)
-        Me.Panel12.Controls.Add(Me.btnCloseHistoricTestReport)
-        Me.Panel12.Controls.Add(Me.txtCloseTestReportRefNum)
-        Me.Panel12.Controls.Add(Me.Label78)
-        Me.Panel12.Enabled = False
-        Me.Panel12.Location = New System.Drawing.Point(548, 176)
-        Me.Panel12.Name = "Panel12"
-        Me.Panel12.Size = New System.Drawing.Size(249, 100)
-        Me.Panel12.TabIndex = 12
-        '
-        'btnReOpenHistoricTestReport
-        '
-        Me.btnReOpenHistoricTestReport.AutoSize = True
-        Me.btnReOpenHistoricTestReport.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnReOpenHistoricTestReport.Location = New System.Drawing.Point(106, 61)
-        Me.btnReOpenHistoricTestReport.Name = "btnReOpenHistoricTestReport"
-        Me.btnReOpenHistoricTestReport.Size = New System.Drawing.Size(119, 23)
-        Me.btnReOpenHistoricTestReport.TabIndex = 9
-        Me.btnReOpenHistoricTestReport.Text = "Re-Open Test Report"
-        Me.btnReOpenHistoricTestReport.UseVisualStyleBackColor = True
-        '
-        'btnCloseHistoricTestReport
-        '
-        Me.btnCloseHistoricTestReport.AutoSize = True
-        Me.btnCloseHistoricTestReport.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnCloseHistoricTestReport.Location = New System.Drawing.Point(106, 32)
-        Me.btnCloseHistoricTestReport.Name = "btnCloseHistoricTestReport"
-        Me.btnCloseHistoricTestReport.Size = New System.Drawing.Size(102, 23)
-        Me.btnCloseHistoricTestReport.TabIndex = 8
-        Me.btnCloseHistoricTestReport.Text = "Close Test Report"
-        Me.btnCloseHistoricTestReport.UseVisualStyleBackColor = True
-        '
-        'txtCloseTestReportRefNum
-        '
-        Me.txtCloseTestReportRefNum.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
-        Me.txtCloseTestReportRefNum.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
-        Me.txtCloseTestReportRefNum.Location = New System.Drawing.Point(106, 6)
-        Me.txtCloseTestReportRefNum.Name = "txtCloseTestReportRefNum"
-        Me.txtCloseTestReportRefNum.Size = New System.Drawing.Size(136, 20)
-        Me.txtCloseTestReportRefNum.TabIndex = 3
-        '
-        'Label78
-        '
-        Me.Label78.AutoSize = True
-        Me.Label78.Location = New System.Drawing.Point(3, 9)
-        Me.Label78.Name = "Label78"
-        Me.Label78.Size = New System.Drawing.Size(97, 13)
-        Me.Label78.TabIndex = 4
-        Me.Label78.Text = "Reference Number"
-        '
-        'Label77
-        '
-        Me.Label77.AutoSize = True
-        Me.Label77.Enabled = False
-        Me.Label77.Location = New System.Drawing.Point(359, 102)
-        Me.Label77.Name = "Label77"
-        Me.Label77.Size = New System.Drawing.Size(233, 52)
-        Me.Label77.TabIndex = 10
-        Me.Label77.Text = "Please enter the " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Commissioner, Director, and Program Managers " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "from the origin" &
-    "al Test Report " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "not the Current individuals if different. "
-        '
-        'Label76
-        '
-        Me.Label76.AutoSize = True
-        Me.Label76.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label76.Location = New System.Drawing.Point(18, 11)
-        Me.Label76.Name = "Label76"
-        Me.Label76.Size = New System.Drawing.Size(458, 25)
-        Me.Label76.TabIndex = 9
-        Me.Label76.Text = "This tool is for historical test reports only. "
-        '
-        'DTPAddTestReportDateCompleted
-        '
-        Me.DTPAddTestReportDateCompleted.CustomFormat = "dd-MMM-yyyy"
-        Me.DTPAddTestReportDateCompleted.Enabled = False
-        Me.DTPAddTestReportDateCompleted.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.DTPAddTestReportDateCompleted.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPAddTestReportDateCompleted.Location = New System.Drawing.Point(345, 176)
-        Me.DTPAddTestReportDateCompleted.Name = "DTPAddTestReportDateCompleted"
-        Me.DTPAddTestReportDateCompleted.Size = New System.Drawing.Size(110, 22)
-        Me.DTPAddTestReportDateCompleted.TabIndex = 6
-        Me.DTPAddTestReportDateCompleted.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
-        '
-        'Label67
-        '
-        Me.Label67.AutoSize = True
-        Me.Label67.Enabled = False
-        Me.Label67.Location = New System.Drawing.Point(256, 181)
-        Me.Label67.Name = "Label67"
-        Me.Label67.Size = New System.Drawing.Size(83, 13)
-        Me.Label67.TabIndex = 6
-        Me.Label67.Text = "Date Completed"
-        '
-        'btnClearAddTestReport
-        '
-        Me.btnClearAddTestReport.AutoSize = True
-        Me.btnClearAddTestReport.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnClearAddTestReport.Enabled = False
-        Me.btnClearAddTestReport.Location = New System.Drawing.Point(386, 218)
-        Me.btnClearAddTestReport.Name = "btnClearAddTestReport"
-        Me.btnClearAddTestReport.Size = New System.Drawing.Size(67, 23)
-        Me.btnClearAddTestReport.TabIndex = 8
-        Me.btnClearAddTestReport.Text = "Clear Data"
-        Me.btnClearAddTestReport.UseVisualStyleBackColor = True
-        '
-        'mtbAddTestReportAIRSNumber
-        '
-        Me.mtbAddTestReportAIRSNumber.Enabled = False
-        Me.mtbAddTestReportAIRSNumber.Location = New System.Drawing.Point(124, 76)
-        Me.mtbAddTestReportAIRSNumber.Mask = "000-00000"
-        Me.mtbAddTestReportAIRSNumber.Name = "mtbAddTestReportAIRSNumber"
-        Me.mtbAddTestReportAIRSNumber.Size = New System.Drawing.Size(80, 20)
-        Me.mtbAddTestReportAIRSNumber.TabIndex = 1
-        Me.mtbAddTestReportAIRSNumber.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
-        '
-        'dtpAddTestReportDateReceived
-        '
-        Me.dtpAddTestReportDateReceived.CustomFormat = "dd-MMM-yyyy"
-        Me.dtpAddTestReportDateReceived.Enabled = False
-        Me.dtpAddTestReportDateReceived.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.dtpAddTestReportDateReceived.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpAddTestReportDateReceived.Location = New System.Drawing.Point(124, 176)
-        Me.dtpAddTestReportDateReceived.Name = "dtpAddTestReportDateReceived"
-        Me.dtpAddTestReportDateReceived.Size = New System.Drawing.Size(110, 22)
-        Me.dtpAddTestReportDateReceived.TabIndex = 5
-        Me.dtpAddTestReportDateReceived.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
-        '
-        'txtAddTestReportCommissioner
-        '
-        Me.txtAddTestReportCommissioner.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
-        Me.txtAddTestReportCommissioner.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
-        Me.txtAddTestReportCommissioner.Enabled = False
-        Me.txtAddTestReportCommissioner.Location = New System.Drawing.Point(124, 102)
-        Me.txtAddTestReportCommissioner.Name = "txtAddTestReportCommissioner"
-        Me.txtAddTestReportCommissioner.Size = New System.Drawing.Size(211, 20)
-        Me.txtAddTestReportCommissioner.TabIndex = 2
-        '
-        'txtAddTestReportDirector
-        '
-        Me.txtAddTestReportDirector.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
-        Me.txtAddTestReportDirector.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
-        Me.txtAddTestReportDirector.Enabled = False
-        Me.txtAddTestReportDirector.Location = New System.Drawing.Point(124, 127)
-        Me.txtAddTestReportDirector.Name = "txtAddTestReportDirector"
-        Me.txtAddTestReportDirector.Size = New System.Drawing.Size(211, 20)
-        Me.txtAddTestReportDirector.TabIndex = 3
-        '
-        'txtAddTestReportProgramManager
-        '
-        Me.txtAddTestReportProgramManager.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
-        Me.txtAddTestReportProgramManager.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
-        Me.txtAddTestReportProgramManager.Enabled = False
-        Me.txtAddTestReportProgramManager.Location = New System.Drawing.Point(124, 151)
-        Me.txtAddTestReportProgramManager.Name = "txtAddTestReportProgramManager"
-        Me.txtAddTestReportProgramManager.Size = New System.Drawing.Size(211, 20)
-        Me.txtAddTestReportProgramManager.TabIndex = 4
-        '
-        'Label74
-        '
-        Me.Label74.AutoSize = True
-        Me.Label74.Enabled = False
-        Me.Label74.Location = New System.Drawing.Point(20, 181)
-        Me.Label74.Name = "Label74"
-        Me.Label74.Size = New System.Drawing.Size(79, 13)
-        Me.Label74.TabIndex = 8
-        Me.Label74.Text = "Date Received"
-        '
-        'Label75
-        '
-        Me.Label75.AutoSize = True
-        Me.Label75.Enabled = False
-        Me.Label75.Location = New System.Drawing.Point(20, 155)
-        Me.Label75.Name = "Label75"
-        Me.Label75.Size = New System.Drawing.Size(91, 13)
-        Me.Label75.TabIndex = 7
-        Me.Label75.Text = "Program Manager"
-        '
-        'Label66
-        '
-        Me.Label66.AutoSize = True
-        Me.Label66.Enabled = False
-        Me.Label66.Location = New System.Drawing.Point(20, 131)
-        Me.Label66.Name = "Label66"
-        Me.Label66.Size = New System.Drawing.Size(44, 13)
-        Me.Label66.TabIndex = 6
-        Me.Label66.Text = "Director"
-        '
-        'Label63
-        '
-        Me.Label63.AutoSize = True
-        Me.Label63.Enabled = False
-        Me.Label63.Location = New System.Drawing.Point(20, 106)
-        Me.Label63.Name = "Label63"
-        Me.Label63.Size = New System.Drawing.Size(74, 13)
-        Me.Label63.TabIndex = 5
-        Me.Label63.Text = "Commissioner:"
-        '
-        'Label62
-        '
-        Me.Label62.AutoSize = True
-        Me.Label62.Enabled = False
-        Me.Label62.Location = New System.Drawing.Point(20, 80)
-        Me.Label62.Name = "Label62"
-        Me.Label62.Size = New System.Drawing.Size(72, 13)
-        Me.Label62.TabIndex = 4
-        Me.Label62.Text = "AIRS Number"
-        '
-        'txtAddTestReportRefNum
-        '
-        Me.txtAddTestReportRefNum.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
-        Me.txtAddTestReportRefNum.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
-        Me.txtAddTestReportRefNum.Enabled = False
-        Me.txtAddTestReportRefNum.Location = New System.Drawing.Point(124, 51)
-        Me.txtAddTestReportRefNum.Name = "txtAddTestReportRefNum"
-        Me.txtAddTestReportRefNum.Size = New System.Drawing.Size(108, 20)
-        Me.txtAddTestReportRefNum.TabIndex = 0
-        '
-        'btnAddTestReport
-        '
-        Me.btnAddTestReport.AutoSize = True
-        Me.btnAddTestReport.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnAddTestReport.Enabled = False
-        Me.btnAddTestReport.Location = New System.Drawing.Point(124, 218)
-        Me.btnAddTestReport.Name = "btnAddTestReport"
-        Me.btnAddTestReport.Size = New System.Drawing.Size(95, 23)
-        Me.btnAddTestReport.TabIndex = 7
-        Me.btnAddTestReport.Text = "Add Test Report"
-        Me.btnAddTestReport.UseVisualStyleBackColor = True
-        '
-        'Label61
-        '
-        Me.Label61.AutoSize = True
-        Me.Label61.Enabled = False
-        Me.Label61.Location = New System.Drawing.Point(20, 55)
-        Me.Label61.Name = "Label61"
-        Me.Label61.Size = New System.Drawing.Size(97, 13)
-        Me.Label61.TabIndex = 2
-        Me.Label61.Text = "Reference Number"
         '
         'bgw1
         '
@@ -1298,11 +975,6 @@ Partial Class ISMPTestReportAdministrative
         Me.TCTestReports.ResumeLayout(False)
         Me.TPNewTestReports.ResumeLayout(False)
         Me.TPNewTestReports.PerformLayout()
-        Me.TPHistoricalReports.ResumeLayout(False)
-        Me.Panel11.ResumeLayout(False)
-        Me.Panel11.PerformLayout()
-        Me.Panel12.ResumeLayout(False)
-        Me.Panel12.PerformLayout()
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
         Me.ResumeLayout(False)
@@ -1385,34 +1057,8 @@ End Sub
     Friend WithEvents btnClearReferenceNumber As System.Windows.Forms.Button
     Friend WithEvents TCTestReports As System.Windows.Forms.TabControl
     Friend WithEvents TPNewTestReports As System.Windows.Forms.TabPage
-    Friend WithEvents TPHistoricalReports As System.Windows.Forms.TabPage
-    Friend WithEvents Panel11 As System.Windows.Forms.Panel
-    Friend WithEvents Label77 As System.Windows.Forms.Label
-    Friend WithEvents Label76 As System.Windows.Forms.Label
-    Friend WithEvents DTPAddTestReportDateCompleted As System.Windows.Forms.DateTimePicker
-    Friend WithEvents Label67 As System.Windows.Forms.Label
-    Friend WithEvents btnClearAddTestReport As System.Windows.Forms.Button
-    Friend WithEvents mtbAddTestReportAIRSNumber As System.Windows.Forms.MaskedTextBox
-    Friend WithEvents dtpAddTestReportDateReceived As System.Windows.Forms.DateTimePicker
-    Friend WithEvents txtAddTestReportCommissioner As System.Windows.Forms.TextBox
-    Friend WithEvents txtAddTestReportDirector As System.Windows.Forms.TextBox
-    Friend WithEvents txtAddTestReportProgramManager As System.Windows.Forms.TextBox
-    Friend WithEvents Label74 As System.Windows.Forms.Label
-    Friend WithEvents Label75 As System.Windows.Forms.Label
-    Friend WithEvents Label66 As System.Windows.Forms.Label
-    Friend WithEvents Label63 As System.Windows.Forms.Label
-    Friend WithEvents Label62 As System.Windows.Forms.Label
-    Friend WithEvents txtAddTestReportRefNum As System.Windows.Forms.TextBox
-    Friend WithEvents btnAddTestReport As System.Windows.Forms.Button
-    Friend WithEvents Label61 As System.Windows.Forms.Label
     Friend WithEvents bgw1 As System.ComponentModel.BackgroundWorker
     Friend WithEvents bgwAIRS As System.ComponentModel.BackgroundWorker
-    Friend WithEvents Panel12 As System.Windows.Forms.Panel
-    Friend WithEvents btnReOpenHistoricTestReport As System.Windows.Forms.Button
-    Friend WithEvents btnCloseHistoricTestReport As System.Windows.Forms.Button
-    Friend WithEvents txtCloseTestReportRefNum As System.Windows.Forms.TextBox
-    Friend WithEvents Label78 As System.Windows.Forms.Label
-    Friend WithEvents btnOpenTestReport As System.Windows.Forms.Button
     Friend WithEvents btnSearchForAIRS As System.Windows.Forms.Button
     Friend WithEvents btnLoadCombos As System.Windows.Forms.Button
     Friend WithEvents MenuStrip1 As MenuStrip
