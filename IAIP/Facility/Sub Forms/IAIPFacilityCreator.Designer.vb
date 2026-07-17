@@ -1,9 +1,9 @@
-<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class IAIPFacilityCreator
     Inherits BaseForm
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         If disposing AndAlso components IsNot Nothing Then
             components.Dispose()
@@ -17,7 +17,7 @@ Partial Class IAIPFacilityCreator
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(IAIPFacilityCreator))
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
@@ -156,7 +156,6 @@ Partial Class IAIPFacilityCreator
         Me.TPDeactivatedFacilities = New System.Windows.Forms.TabPage()
         Me.btnRefreshDeactivatedFacilities = New System.Windows.Forms.Button()
         Me.dgvDeactivatedFacilities = New Iaip.IaipDataGridView()
-        Me.Label38 = New System.Windows.Forms.Label()
         Me.GBFacilityInformation.SuspendLayout()
         Me.Panel4.SuspendLayout()
         Me.GBContactInformation.SuspendLayout()
@@ -1448,7 +1447,6 @@ Partial Class IAIPFacilityCreator
         '
         'TPDeleteFacility
         '
-        Me.TPDeleteFacility.Controls.Add(Me.Label38)
         Me.TPDeleteFacility.Controls.Add(Me.lblFacilityCannotBeDeletedOrDeactivated)
         Me.TPDeleteFacility.Controls.Add(Me.AirsNumberToRemove)
         Me.TPDeleteFacility.Controls.Add(Me.FacilityLongDisplay)
@@ -1594,17 +1592,6 @@ Partial Class IAIPFacilityCreator
         Me.dgvDeactivatedFacilities.Size = New System.Drawing.Size(738, 484)
         Me.dgvDeactivatedFacilities.StandardTab = True
         Me.dgvDeactivatedFacilities.TabIndex = 0
-        '
-        'Label38
-        '
-        Me.Label38.AutoSize = True
-        Me.Label38.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label38.Location = New System.Drawing.Point(34, 13)
-        Me.Label38.Name = "Label38"
-        Me.Label38.Size = New System.Drawing.Size(592, 13)
-        Me.Label38.TabIndex = 7
-        Me.Label38.Text = "Facilities cannot currently be deactivated or deleted. Please contact EPD-IT for " &
-    "more info. (Ref #1432)"
         '
         'IAIPFacilityCreator
         '
@@ -1827,5 +1814,4 @@ Partial Class IAIPFacilityCreator
     Friend WithEvents TPDeactivatedFacilities As TabPage
     Friend WithEvents btnRefreshDeactivatedFacilities As Button
     Friend WithEvents dgvDeactivatedFacilities As IaipDataGridView
-    Friend WithEvents Label38 As Label
 End Class
