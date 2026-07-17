@@ -11,11 +11,6 @@ Public Class ISMPTestReportAdministrative
     Private Sub ISMPTestReportAdministrative_Load(sender As Object, e As EventArgs) Handles Me.Load
 
         Try
-
-            ' "Historical test reports" tab hidden on 2026-05-26. I don't think this tab is used anymore, and I want to make sure before removing it. -- DW
-            TCTestReports.TabPages.Remove(TPHistoricalReports)
-
-
             DTPDateReceived.Value = Today
             DTPTestDateStart.Value = Today
             DTPTestDateEnd.Value = Today
@@ -32,9 +27,6 @@ Public Class ISMPTestReportAdministrative
             bgw1.WorkerReportsProgress = True
             bgw1.WorkerSupportsCancellation = True
             bgw1.RunWorkerAsync()
-
-            dtpAddTestReportDateReceived.Value = Today
-            DTPAddTestReportDateCompleted.Value = Today
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -1450,164 +1442,6 @@ Public Class ISMPTestReportAdministrative
         CloseTestReport()
     End Sub
 
-    Private Sub btnAddTestReport_Click(sender As Object, e As EventArgs) Handles btnAddTestReport.Click
-        Try
-            Dim RefNum As String
-            Dim AIRSNumber As String
-            Dim Commissioner As String
-            Dim Director As String
-            Dim ProgramManager As String
-            Dim DateReceived As String
-            Dim DateCompleted As String
-
-            If txtAddTestReportRefNum.Text <> "" Then
-                txtAddTestReportRefNum.BackColor = Color.White
-                RefNum = txtAddTestReportRefNum.Text
-                If mtbAddTestReportAIRSNumber.Text <> "" AndAlso Len(mtbAddTestReportAIRSNumber.Text) = 8 Then
-                    AIRSNumber = mtbAddTestReportAIRSNumber.Text
-                    mtbAddTestReportAIRSNumber.BackColor = Color.White
-                Else
-                    mtbAddTestReportAIRSNumber.BackColor = Color.Tomato
-                    MsgBox("Please add a valid AIRS Number.", MsgBoxStyle.Information, "Add Test Report")
-                    Return
-                End If
-                If txtAddTestReportCommissioner.Text <> "" Then
-                    Commissioner = txtAddTestReportCommissioner.Text
-                    txtAddTestReportCommissioner.BackColor = Color.White
-                Else
-                    txtAddTestReportCommissioner.BackColor = Color.Tomato
-                    MsgBox("Please add a valid Commissioner.", MsgBoxStyle.Information, "Add Test Report")
-                    Return
-                End If
-                If txtAddTestReportDirector.Text <> "" Then
-                    Director = txtAddTestReportDirector.Text
-                    txtAddTestReportDirector.BackColor = Color.White
-                Else
-                    txtAddTestReportDirector.BackColor = Color.Tomato
-                    MsgBox("Please add a valid Director.", MsgBoxStyle.Information, "Add Test Report")
-                    Return
-                End If
-                If txtAddTestReportProgramManager.Text <> "" Then
-                    ProgramManager = txtAddTestReportProgramManager.Text
-                    txtAddTestReportProgramManager.BackColor = Color.White
-                Else
-                    txtAddTestReportProgramManager.BackColor = Color.Tomato
-                    MsgBox("Please add a valid Program Manager.", MsgBoxStyle.Information, "Add Test Report")
-                    Return
-                End If
-                DateReceived = dtpAddTestReportDateReceived.Text
-                DateCompleted = DTPAddTestReportDateCompleted.Text
-
-                Dim query As String = "Select " &
-                "strReferenceNumber " &
-                "from ISMPMaster " &
-                "where strReferenceNumber = @ref "
-
-                Dim p As New SqlParameter("@ref", RefNum)
-
-                If DB.ValueExists(query, p) Then
-                    MsgBox("This Reference Number already exists in the system.", MsgBoxStyle.Information, "Add Test Report")
-                    Return
-                End If
-
-                query = "Select " &
-                "strAIRSNumber " &
-                "from APBMasterAIRS " &
-                "where strAIRSNumber = @airs "
-
-                Dim p2 As New SqlParameter("@airs", "0413" & AIRSNumber)
-
-                If Not DB.ValueExists(query, p2) Then
-                    MsgBox("This AIRS Number does not exist in the system.", MsgBoxStyle.Information, "Add Test Report")
-                    Return
-                End If
-
-                query = "Insert into ISMPMaster " &
-                    "(STRREFERENCENUMBER, STRAIRSNUMBER, STRMODIFINGPERSON, DATMODIFINGDATE) " &
-                    "values " &
-                    "(@ref, @airs, @user, getdate()) "
-
-                Dim p3 As SqlParameter() = {
-                    New SqlParameter("@ref", RefNum),
-                    New SqlParameter("@airs", "0413" & AIRSNumber),
-                    New SqlParameter("@user", CurrentUser.UserID)
-                }
-                DB.RunCommand(query, p3)
-
-                query = "Insert into ISMPReportInformation " &
-                   "(strReferenceNumber, strPollutant, strEmissionSource, " &
-                   "strReportType, strDocumentType, strApplicableRequirement, " &
-                   "strTestingFirm, strReviewingEngineer, strWitnessingEngineer, " &
-                   "strWitnessingEngineer2, strReviewingUnit, datReviewedbyUnitManager, " &
-                   "strComplianceManager, datTestDateStart, datTestDateEnd, " &
-                   "datReceivedDate, datCompleteDate, mmoCommentArea, " &
-                   "strClosed, strDirector, strCommissioner, " &
-                   "strProgramManager, strComplianceStatus, strcc, " &
-                   "strModifingPerson, datModifingDate, strControlEquipmentData) " &
-               "values " &
-                "(@strReferenceNumber, '00001', 'N/A', " &
-                "'001', '001', 'N/A', " &
-                "'00001', '329', '0', " &
-                "'0', '12', @DateReceived, " &
-                "'0', '04-Jul-1776', '04-Jul-1776', " &
-                "@DateReceived , @DateCompleted, 'Historical Test report added to IAIP', " &
-                "'False', @Director, @Commissioner, " &
-                "@ProgramManager, '01', '0', " &
-                "@user,  GETDATE() , 'N/A') "
-
-                Dim p4 As SqlParameter() = {
-                    New SqlParameter("@strReferenceNumber", RefNum),
-                    New SqlParameter("@DateReceived", DateReceived),
-                    New SqlParameter("@DateCompleted", DateCompleted),
-                    New SqlParameter("@Commissioner", Commissioner),
-                    New SqlParameter("@Director", Director),
-                    New SqlParameter("@ProgramManager", ProgramManager),
-                    New SqlParameter("@user", CurrentUser.UserID)
-                }
-
-                DB.RunCommand(query, p4)
-
-                bgw1.WorkerReportsProgress = True
-                bgw1.WorkerSupportsCancellation = True
-                bgw1.RunWorkerAsync()
-
-                MsgBox("Record Added.", MsgBoxStyle.Information, "Add Test Report")
-
-            Else
-                txtAddTestReportRefNum.BackColor = Color.Tomato
-                MsgBox("Please add a valid Reference Number.", MsgBoxStyle.Information, "Add Test Report")
-                Return
-            End If
-
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
-    Private Sub btnClearAddTestReport_Click(sender As Object, e As EventArgs) Handles btnClearAddTestReport.Click
-        Try
-            txtAddTestReportRefNum.Clear()
-            txtAddTestReportRefNum.BackColor = Color.White
-            txtAddTestReportCommissioner.Clear()
-            txtAddTestReportCommissioner.BackColor = Color.White
-            txtAddTestReportDirector.Clear()
-            txtAddTestReportDirector.BackColor = Color.White
-            txtAddTestReportProgramManager.Clear()
-            txtAddTestReportProgramManager.BackColor = Color.White
-            mtbAddTestReportAIRSNumber.Clear()
-            mtbAddTestReportAIRSNumber.BackColor = Color.White
-            dtpAddTestReportDateReceived.Value = Today
-            dtpAddTestReportDateReceived.BackColor = Color.White
-            DTPAddTestReportDateCompleted.Value = Today
-            DTPAddTestReportDateCompleted.BackColor = Color.White
-
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
     Private Sub bgw1_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles bgw1.DoWork
         FillDateGrid()
     End Sub
@@ -1628,76 +1462,6 @@ Public Class ISMPTestReportAdministrative
             dgvFacilityInfo.Columns("strDocumentType").HeaderText = "Document Type"
             dgvFacilityInfo.Columns("strDocumentType").DisplayIndex = 5
         End If
-    End Sub
-
-    Private Sub btnCloseHistoricTestReport_Click(sender As Object, e As EventArgs) Handles btnCloseHistoricTestReport.Click
-        Try
-            If txtCloseTestReportRefNum.Text <> "" Then
-                Dim query As String = "Select " &
-                "strReferenceNumber " &
-                "from ISMPReportInformation " &
-                "where strReferenceNumber = @ref "
-
-                Dim p As New SqlParameter("@ref", txtCloseTestReportRefNum.Text)
-
-                If DB.ValueExists(query, p) Then
-                    query = "Update ISMPReportInformation set " &
-                    "strClosed = 'True' " &
-                    "where strReferenceNumber = @ref "
-
-                    DB.RunCommand(query, p)
-
-                    bgw1.WorkerReportsProgress = True
-                    bgw1.WorkerSupportsCancellation = True
-                    bgw1.RunWorkerAsync()
-
-                    MsgBox("Test Report Closed", MsgBoxStyle.Information, "Historical Test Report")
-
-                End If
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
-    Private Sub btnReOpenHistoricTestReport_Click(sender As Object, e As EventArgs) Handles btnReOpenHistoricTestReport.Click
-        Try
-            If txtCloseTestReportRefNum.Text <> "" Then
-                Dim query As String = "Select " &
-                "strReferenceNumber " &
-                "from ISMPReportInformation " &
-                "where strReferenceNumber = @ref "
-
-                Dim p As New SqlParameter("@ref", txtCloseTestReportRefNum.Text)
-
-                If DB.ValueExists(query, p) Then
-                    query = "Update ISMPReportInformation set " &
-                    "strClosed = 'False' " &
-                    "where strReferenceNumber = @ref "
-
-                    DB.RunCommand(query, p)
-
-                    bgw1.WorkerReportsProgress = True
-                    bgw1.WorkerSupportsCancellation = True
-                    bgw1.RunWorkerAsync()
-
-                    MsgBox("Test Report Re-Opened", MsgBoxStyle.Information, "Historical Test Report")
-
-                End If
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
-    Private Sub btnOpenTestReport_Click(sender As Object, e As EventArgs) Handles btnOpenTestReport.Click
-        Try
-            OpenFormTestReportEntry(txtAddTestReportRefNum.Text)
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
     End Sub
 
     Private Sub btnSearchForAIRS_Click(sender As Object, e As EventArgs) Handles btnSearchForAIRS.Click
