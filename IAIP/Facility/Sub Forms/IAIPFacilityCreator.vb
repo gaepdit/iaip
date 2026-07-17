@@ -1934,16 +1934,13 @@ Public Class IAIPFacilityCreator
 
         FacilityLongDisplay.Text = fac.LongDisplay
 
-        ' Currently disabled. See https://github.com/gaepdit/iaip/issues/1432
         If DAL.CanFacilityBeDeactivated(airsToRemove) Then
-            btnDeactivateFacility.Enabled = False
-            'btnDeactivateFacility.Enabled = True
+            btnDeactivateFacility.Enabled = True
             btnDeactivateFacility.BackColor = IaipColors.WarningBackColor
             btnDeactivateFacility.ForeColor = IaipColors.WarningForeColor
 
             If DAL.CanFacilityBeDeleted(airsToRemove) Then
-                btnDeleteAirsNumber.Enabled = False
-                'btnDeleteAirsNumber.Enabled = True
+                btnDeleteAirsNumber.Enabled = True
                 btnDeleteAirsNumber.BackColor = IaipColors.ErrorBackColor
                 btnDeleteAirsNumber.ForeColor = IaipColors.ErrorForeColor
             Else
