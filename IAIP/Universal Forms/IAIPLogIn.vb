@@ -199,20 +199,27 @@ Public Class IAIPLogIn
 
 #Region " Login "
 
+
+    Private UserName As String
+    Private UserPassword As String
+
     Private Sub LogInPreCheck()
         Cursor = Cursors.WaitCursor
         If Message IsNot Nothing Then Message.Clear()
         ForgotPasswordLink.Visible = False
         ForgotUsernameLink.Visible = False
         btnLoginButton.Enabled = False
+
+        UserName = txtUserID.Text
+        UserPassword = txtUserPassword.Text
     End Sub
 
     Private Async Function LogInCheckAsync() As Task(Of DAL.IaipAuthenticationResult)
-        If String.IsNullOrEmpty(txtUserID.Text) OrElse String.IsNullOrEmpty(txtUserPassword.Text) Then
+        If String.IsNullOrEmpty(UserName) OrElse String.IsNullOrEmpty(UserPassword) Then
             CancelLogin(True)
             Return Nothing
         Else
-            Return Await DAL.AuthenticateIaipUserAsync(txtUserID.Text, txtUserPassword.Text).ConfigureAwait(True)
+            Return Await DAL.AuthenticateIaipUserAsync(UserName, UserPassword).ConfigureAwait(True)
         End If
     End Function
 
@@ -233,7 +240,7 @@ Public Class IAIPLogIn
                 CancelLogin(False)
 
             Case DAL.IaipAuthenticationResult.Success
-                CurrentUser = DAL.GetIaipUserByUsername(txtUserID.Text)
+                CurrentUser = DAL.GetIaipUserByUsername(UserName)
 
                 If CurrentUser Is Nothing Then
                     Message = New IaipMessage("There was a system error. Please contact support.", IaipMessage.WarningLevels.ErrorReport)
@@ -253,16 +260,21 @@ Public Class IAIPLogIn
     End Sub
 
     Private Sub StartUsingTheIaip()
-        SaveUserSetting(UserSetting.PrefillLoginId, txtUserID.Text)
+        SaveUserSetting(UserSetting.PrefillLoginId, UserName)
         ResetUserSetting(UserSetting.PasswordResetRequestedDate)
         OpenSingleForm(IAIPNavigation)
         DAL.LogSystemProperties(IsVpnConnected())
+        UserName = Nothing
+        UserPassword = Nothing
 
         Close()
     End Sub
 
     Private Sub CancelLogin(Optional clearPasswordField As Boolean = False)
         CurrentUser = Nothing
+        UserName = Nothing
+        UserPassword = Nothing
+
         If clearPasswordField Then txtUserPassword.Clear()
         FocusLogin()
         Cursor = Cursors.Default
