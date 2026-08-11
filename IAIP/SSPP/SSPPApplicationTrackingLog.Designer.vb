@@ -23,6 +23,7 @@ Partial Class SSPPApplicationTrackingLog
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.btnRefreshAIRSNo = New System.Windows.Forms.Button()
         Me.lblLinkWarning = New System.Windows.Forms.Label()
         Me.rtbFacilityInformation = New System.Windows.Forms.RichTextBox()
@@ -141,128 +142,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.btnAddNewMACTSubpart = New System.Windows.Forms.Button()
         Me.cboMACTSubpart = New System.Windows.Forms.ComboBox()
         Me.TPDocuments = New System.Windows.Forms.TabPage()
-        Me.PanelTitleV = New System.Windows.Forms.Panel()
-        Me.btnTVFinalDownload = New System.Windows.Forms.Button()
-        Me.btnTVPublicNoticeDownload = New System.Windows.Forms.Button()
-        Me.btnTVDraftDownload = New System.Windows.Forms.Button()
-        Me.btnTVNarrativeDownload = New System.Windows.Forms.Button()
-        Me.lblTVFinalDUPDF = New System.Windows.Forms.Label()
-        Me.lblTVFinalSRPDF = New System.Windows.Forms.Label()
-        Me.lblTVFinalDUDoc = New System.Windows.Forms.Label()
-        Me.lblTVFinalSRDoc = New System.Windows.Forms.Label()
-        Me.lblTVPublicNoticeDUPDF = New System.Windows.Forms.Label()
-        Me.lblTVPublicNoticeSRPDF = New System.Windows.Forms.Label()
-        Me.lblTVPublicNoticeDUDoc = New System.Windows.Forms.Label()
-        Me.lblTVPublicNoticeSRDoc = New System.Windows.Forms.Label()
-        Me.lblTVDraftDUPDF = New System.Windows.Forms.Label()
-        Me.lblTVDraftSRPDF = New System.Windows.Forms.Label()
-        Me.lblTVDraftDUDoc = New System.Windows.Forms.Label()
-        Me.lblTVDraftSRDoc = New System.Windows.Forms.Label()
-        Me.lblTVNarrativeDUPDF = New System.Windows.Forms.Label()
-        Me.lblTVNarrativeSRPDF = New System.Windows.Forms.Label()
-        Me.lblTVNarrativeDUDoc = New System.Windows.Forms.Label()
-        Me.lblTVNarrativeSRDoc = New System.Windows.Forms.Label()
-        Me.txtTVFinalPDF = New System.Windows.Forms.TextBox()
-        Me.txtTVPublicNoticePDF = New System.Windows.Forms.TextBox()
-        Me.txtTVDraftPDF = New System.Windows.Forms.TextBox()
-        Me.txtTVNarrativePDF = New System.Windows.Forms.TextBox()
-        Me.txtTVFinalDoc = New System.Windows.Forms.TextBox()
-        Me.txtTVPublicNoticeDoc = New System.Windows.Forms.TextBox()
-        Me.txtTVDraftDoc = New System.Windows.Forms.TextBox()
-        Me.txtTVNarrativeDoc = New System.Windows.Forms.TextBox()
-        Me.chbTVFinal = New System.Windows.Forms.CheckBox()
-        Me.chbTVPublicNotice = New System.Windows.Forms.CheckBox()
-        Me.chbTVDraft = New System.Windows.Forms.CheckBox()
-        Me.chbTVNarrative = New System.Windows.Forms.CheckBox()
-        Me.PanelPSD = New System.Windows.Forms.Panel()
-        Me.btnPSDNarrativeDownload = New System.Windows.Forms.Button()
-        Me.lblPSDNarrativeDUPDF = New System.Windows.Forms.Label()
-        Me.lblPSDNarrativeDUDoc = New System.Windows.Forms.Label()
-        Me.txtPSDNarrativePDF = New System.Windows.Forms.TextBox()
-        Me.txtPSDNarrativeDoc = New System.Windows.Forms.TextBox()
-        Me.chbPSDNarrative = New System.Windows.Forms.CheckBox()
-        Me.lblPSDNarrativeSRPDF = New System.Windows.Forms.Label()
-        Me.lblPSDNarrativeSRDoc = New System.Windows.Forms.Label()
-        Me.btnPSDPublicNoticeDownload = New System.Windows.Forms.Button()
-        Me.btnPSDDraftPermitDownload = New System.Windows.Forms.Button()
-        Me.btnPSDPrelimDetDownload = New System.Windows.Forms.Button()
-        Me.btnPSDHearingNoticeDownload = New System.Windows.Forms.Button()
-        Me.btnPSDFinalDetDownload = New System.Windows.Forms.Button()
-        Me.btnPSDFinalPermitDownload = New System.Windows.Forms.Button()
-        Me.btnPSDAppSummaryDownload = New System.Windows.Forms.Button()
-        Me.lblPSDFinalPermitDUPDF = New System.Windows.Forms.Label()
-        Me.lblPSDFinalPermitSRPDF = New System.Windows.Forms.Label()
-        Me.lblPSDFinalPermitDUDoc = New System.Windows.Forms.Label()
-        Me.lblPSDFinalPermitSRDoc = New System.Windows.Forms.Label()
-        Me.lblPSDFinalDetDUPDF = New System.Windows.Forms.Label()
-        Me.lblPSDFinalDetSRPDF = New System.Windows.Forms.Label()
-        Me.lblPSDFinalDetDUDoc = New System.Windows.Forms.Label()
-        Me.lblPSDFinalDetSRDoc = New System.Windows.Forms.Label()
-        Me.lblPSDHearingNoticeDUPDF = New System.Windows.Forms.Label()
-        Me.lblPSDHearingNoticeSRPDF = New System.Windows.Forms.Label()
-        Me.lblPSDHearingNoticeDUDoc = New System.Windows.Forms.Label()
-        Me.lblPSDHearingNoticeSRDoc = New System.Windows.Forms.Label()
-        Me.lblPSDPublicNoticeDUPDF = New System.Windows.Forms.Label()
-        Me.lblPSDPublicNoticeSRPDF = New System.Windows.Forms.Label()
-        Me.lblPSDPublicNoticeDUDoc = New System.Windows.Forms.Label()
-        Me.lblPSDPublicNoticeSRDoc = New System.Windows.Forms.Label()
-        Me.lblPSDDraftPermitDUPDF = New System.Windows.Forms.Label()
-        Me.lblPSDDraftPermitSRPDF = New System.Windows.Forms.Label()
-        Me.lblPSDDraftPermitDUDoc = New System.Windows.Forms.Label()
-        Me.lblPSDDraftPermitSRDoc = New System.Windows.Forms.Label()
-        Me.lblPSDPrelimDetDUPDF = New System.Windows.Forms.Label()
-        Me.lblPSDPrelimDetSRPDF = New System.Windows.Forms.Label()
-        Me.lblPSDPrelimDetDUDoc = New System.Windows.Forms.Label()
-        Me.lblPSDPrelimDetSRDoc = New System.Windows.Forms.Label()
-        Me.lblPSDAppSummaryDUPDF = New System.Windows.Forms.Label()
-        Me.lblPSDAppSummarySRPDF = New System.Windows.Forms.Label()
-        Me.lblPSDAppSummaryDUDoc = New System.Windows.Forms.Label()
-        Me.lblPSDAppSummarySRDoc = New System.Windows.Forms.Label()
-        Me.txtPSDPrelimDetPDF = New System.Windows.Forms.TextBox()
-        Me.txtPSDDraftPermitPDF = New System.Windows.Forms.TextBox()
-        Me.txtPSDPublicNoticePDF = New System.Windows.Forms.TextBox()
-        Me.txtPSDHearingNoticePDF = New System.Windows.Forms.TextBox()
-        Me.txtPSDFinalDetPDF = New System.Windows.Forms.TextBox()
-        Me.txtPSDAppSummaryPDF = New System.Windows.Forms.TextBox()
-        Me.txtPSDFinalPermitPDF = New System.Windows.Forms.TextBox()
-        Me.txtPSDFinalPermitDoc = New System.Windows.Forms.TextBox()
-        Me.chbPSDFinalPermit = New System.Windows.Forms.CheckBox()
-        Me.txtPSDFinalDetDoc = New System.Windows.Forms.TextBox()
-        Me.chbPSDFinalDet = New System.Windows.Forms.CheckBox()
-        Me.txtPSDHearingNoticeDoc = New System.Windows.Forms.TextBox()
-        Me.chbPSDHearingNotice = New System.Windows.Forms.CheckBox()
-        Me.txtPSDPublicNoticeDoc = New System.Windows.Forms.TextBox()
-        Me.txtPSDDraftPermitDoc = New System.Windows.Forms.TextBox()
-        Me.txtPSDPrelimDetDoc = New System.Windows.Forms.TextBox()
-        Me.txtPSDAppSummaryDoc = New System.Windows.Forms.TextBox()
-        Me.chbPSDPublicNotice = New System.Windows.Forms.CheckBox()
-        Me.chbPSDDraftPermit = New System.Windows.Forms.CheckBox()
-        Me.chbPSDPrelimDet = New System.Windows.Forms.CheckBox()
-        Me.chbPSDApplicationSummary = New System.Windows.Forms.CheckBox()
-        Me.Panel7 = New System.Windows.Forms.Panel()
-        Me.rdbOtherPermit = New System.Windows.Forms.RadioButton()
-        Me.rdbPSDPermit = New System.Windows.Forms.RadioButton()
-        Me.rdbTitleVPermit = New System.Windows.Forms.RadioButton()
-        Me.Label47 = New System.Windows.Forms.Label()
-        Me.lblPDF = New System.Windows.Forms.Label()
-        Me.lblWord = New System.Windows.Forms.Label()
-        Me.PanelOther = New System.Windows.Forms.Panel()
-        Me.btnOtherPermitDownload = New System.Windows.Forms.Button()
-        Me.btnOtherNarrativeDownload = New System.Windows.Forms.Button()
-        Me.lblOtherPermitDUPDF = New System.Windows.Forms.Label()
-        Me.lblOtherPermitSRPDF = New System.Windows.Forms.Label()
-        Me.lblOtherPermitDUDoc = New System.Windows.Forms.Label()
-        Me.lblOtherPermitSRDoc = New System.Windows.Forms.Label()
-        Me.lblOtherNarrativeDUPDF = New System.Windows.Forms.Label()
-        Me.lblOtherNarrativeSRPDF = New System.Windows.Forms.Label()
-        Me.lblOtherNarrativeDUDoc = New System.Windows.Forms.Label()
-        Me.lblOtherNarrativeSRDoc = New System.Windows.Forms.Label()
-        Me.txtOtherNarrativePDF = New System.Windows.Forms.TextBox()
-        Me.txtOtherPermitPDF = New System.Windows.Forms.TextBox()
-        Me.txtOtherNarrativeDoc = New System.Windows.Forms.TextBox()
-        Me.chbOtherNarrative = New System.Windows.Forms.CheckBox()
-        Me.txtOtherPermitDoc = New System.Windows.Forms.TextBox()
-        Me.chbOtherPermit = New System.Windows.Forms.CheckBox()
+        Me.dgvDocumentsTable = New Iaip.IaipDataGridView()
         Me.TPContactInformation = New System.Windows.Forms.TabPage()
         Me.txtContactPhoneNumber = New System.Windows.Forms.TextBox()
         Me.btnEmailAcknowledgmentLetter = New System.Windows.Forms.Button()
@@ -538,6 +418,8 @@ Partial Class SSPPApplicationTrackingLog
         Me.btnOpenFacility = New System.Windows.Forms.Button()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.lblNoDocuments = New System.Windows.Forms.Label()
         Me.TPSubPartEditor.SuspendLayout()
         Me.TCSupParts.SuspendLayout()
         Me.TPSIP.SuspendLayout()
@@ -577,10 +459,7 @@ Partial Class SSPPApplicationTrackingLog
         CType(Me.dgvMACTSubPartDelete, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel32.SuspendLayout()
         Me.TPDocuments.SuspendLayout()
-        Me.PanelTitleV.SuspendLayout()
-        Me.PanelPSD.SuspendLayout()
-        Me.Panel7.SuspendLayout()
-        Me.PanelOther.SuspendLayout()
+        CType(Me.dgvDocumentsTable, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TPContactInformation.SuspendLayout()
         Me.TPWebPublisher.SuspendLayout()
         Me.TPInformationRequests.SuspendLayout()
@@ -1900,13 +1779,8 @@ Partial Class SSPPApplicationTrackingLog
         '
         'TPDocuments
         '
-        Me.TPDocuments.Controls.Add(Me.PanelTitleV)
-        Me.TPDocuments.Controls.Add(Me.PanelPSD)
-        Me.TPDocuments.Controls.Add(Me.Panel7)
-        Me.TPDocuments.Controls.Add(Me.Label47)
-        Me.TPDocuments.Controls.Add(Me.lblPDF)
-        Me.TPDocuments.Controls.Add(Me.lblWord)
-        Me.TPDocuments.Controls.Add(Me.PanelOther)
+        Me.TPDocuments.Controls.Add(Me.lblNoDocuments)
+        Me.TPDocuments.Controls.Add(Me.dgvDocumentsTable)
         Me.TPDocuments.Location = New System.Drawing.Point(4, 22)
         Me.TPDocuments.Name = "TPDocuments"
         Me.TPDocuments.Size = New System.Drawing.Size(784, 477)
@@ -1914,1371 +1788,27 @@ Partial Class SSPPApplicationTrackingLog
         Me.TPDocuments.Text = "Documents"
         Me.TPDocuments.UseVisualStyleBackColor = True
         '
-        'PanelTitleV
-        '
-        Me.PanelTitleV.AutoSize = True
-        Me.PanelTitleV.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.PanelTitleV.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.PanelTitleV.Controls.Add(Me.btnTVFinalDownload)
-        Me.PanelTitleV.Controls.Add(Me.btnTVPublicNoticeDownload)
-        Me.PanelTitleV.Controls.Add(Me.btnTVDraftDownload)
-        Me.PanelTitleV.Controls.Add(Me.btnTVNarrativeDownload)
-        Me.PanelTitleV.Controls.Add(Me.lblTVFinalDUPDF)
-        Me.PanelTitleV.Controls.Add(Me.lblTVFinalSRPDF)
-        Me.PanelTitleV.Controls.Add(Me.lblTVFinalDUDoc)
-        Me.PanelTitleV.Controls.Add(Me.lblTVFinalSRDoc)
-        Me.PanelTitleV.Controls.Add(Me.lblTVPublicNoticeDUPDF)
-        Me.PanelTitleV.Controls.Add(Me.lblTVPublicNoticeSRPDF)
-        Me.PanelTitleV.Controls.Add(Me.lblTVPublicNoticeDUDoc)
-        Me.PanelTitleV.Controls.Add(Me.lblTVPublicNoticeSRDoc)
-        Me.PanelTitleV.Controls.Add(Me.lblTVDraftDUPDF)
-        Me.PanelTitleV.Controls.Add(Me.lblTVDraftSRPDF)
-        Me.PanelTitleV.Controls.Add(Me.lblTVDraftDUDoc)
-        Me.PanelTitleV.Controls.Add(Me.lblTVDraftSRDoc)
-        Me.PanelTitleV.Controls.Add(Me.lblTVNarrativeDUPDF)
-        Me.PanelTitleV.Controls.Add(Me.lblTVNarrativeSRPDF)
-        Me.PanelTitleV.Controls.Add(Me.lblTVNarrativeDUDoc)
-        Me.PanelTitleV.Controls.Add(Me.lblTVNarrativeSRDoc)
-        Me.PanelTitleV.Controls.Add(Me.txtTVFinalPDF)
-        Me.PanelTitleV.Controls.Add(Me.txtTVPublicNoticePDF)
-        Me.PanelTitleV.Controls.Add(Me.txtTVDraftPDF)
-        Me.PanelTitleV.Controls.Add(Me.txtTVNarrativePDF)
-        Me.PanelTitleV.Controls.Add(Me.txtTVFinalDoc)
-        Me.PanelTitleV.Controls.Add(Me.txtTVPublicNoticeDoc)
-        Me.PanelTitleV.Controls.Add(Me.txtTVDraftDoc)
-        Me.PanelTitleV.Controls.Add(Me.txtTVNarrativeDoc)
-        Me.PanelTitleV.Controls.Add(Me.chbTVFinal)
-        Me.PanelTitleV.Controls.Add(Me.chbTVPublicNotice)
-        Me.PanelTitleV.Controls.Add(Me.chbTVDraft)
-        Me.PanelTitleV.Controls.Add(Me.chbTVNarrative)
-        Me.PanelTitleV.Location = New System.Drawing.Point(97, 25)
-        Me.PanelTitleV.Name = "PanelTitleV"
-        Me.PanelTitleV.Size = New System.Drawing.Size(652, 224)
-        Me.PanelTitleV.TabIndex = 1
-        Me.PanelTitleV.Visible = False
-        '
-        'btnTVFinalDownload
-        '
-        Me.btnTVFinalDownload.Image = Global.Iaip.My.Resources.Resources.DownloadIcon
-        Me.btnTVFinalDownload.Location = New System.Drawing.Point(623, 166)
-        Me.btnTVFinalDownload.Name = "btnTVFinalDownload"
-        Me.btnTVFinalDownload.Size = New System.Drawing.Size(24, 23)
-        Me.btnTVFinalDownload.TabIndex = 13
-        Me.btnTVFinalDownload.UseVisualStyleBackColor = True
-        Me.btnTVFinalDownload.Visible = False
-        '
-        'btnTVPublicNoticeDownload
-        '
-        Me.btnTVPublicNoticeDownload.Image = Global.Iaip.My.Resources.Resources.DownloadIcon
-        Me.btnTVPublicNoticeDownload.Location = New System.Drawing.Point(623, 113)
-        Me.btnTVPublicNoticeDownload.Name = "btnTVPublicNoticeDownload"
-        Me.btnTVPublicNoticeDownload.Size = New System.Drawing.Size(24, 23)
-        Me.btnTVPublicNoticeDownload.TabIndex = 9
-        Me.btnTVPublicNoticeDownload.UseVisualStyleBackColor = True
-        Me.btnTVPublicNoticeDownload.Visible = False
-        '
-        'btnTVDraftDownload
-        '
-        Me.btnTVDraftDownload.Image = Global.Iaip.My.Resources.Resources.DownloadIcon
-        Me.btnTVDraftDownload.Location = New System.Drawing.Point(623, 58)
-        Me.btnTVDraftDownload.Name = "btnTVDraftDownload"
-        Me.btnTVDraftDownload.Size = New System.Drawing.Size(24, 23)
-        Me.btnTVDraftDownload.TabIndex = 5
-        Me.btnTVDraftDownload.UseVisualStyleBackColor = True
-        Me.btnTVDraftDownload.Visible = False
-        '
-        'btnTVNarrativeDownload
-        '
-        Me.btnTVNarrativeDownload.Image = Global.Iaip.My.Resources.Resources.DownloadIcon
-        Me.btnTVNarrativeDownload.Location = New System.Drawing.Point(623, 4)
-        Me.btnTVNarrativeDownload.Name = "btnTVNarrativeDownload"
-        Me.btnTVNarrativeDownload.Size = New System.Drawing.Size(24, 23)
-        Me.btnTVNarrativeDownload.TabIndex = 2
-        Me.btnTVNarrativeDownload.UseVisualStyleBackColor = True
-        Me.btnTVNarrativeDownload.Visible = False
-        '
-        'lblTVFinalDUPDF
-        '
-        Me.lblTVFinalDUPDF.AutoSize = True
-        Me.lblTVFinalDUPDF.Location = New System.Drawing.Point(385, 207)
-        Me.lblTVFinalDUPDF.Name = "lblTVFinalDUPDF"
-        Me.lblTVFinalDUPDF.Size = New System.Drawing.Size(76, 13)
-        Me.lblTVFinalDUPDF.TabIndex = 40
-        Me.lblTVFinalDUPDF.Text = "DateUploaded"
-        Me.lblTVFinalDUPDF.Visible = False
-        '
-        'lblTVFinalSRPDF
-        '
-        Me.lblTVFinalSRPDF.AutoSize = True
-        Me.lblTVFinalSRPDF.Location = New System.Drawing.Point(385, 190)
-        Me.lblTVFinalSRPDF.Name = "lblTVFinalSRPDF"
-        Me.lblTVFinalSRPDF.Size = New System.Drawing.Size(90, 13)
-        Me.lblTVFinalSRPDF.TabIndex = 39
-        Me.lblTVFinalSRPDF.Text = "Staff Responsible"
-        Me.lblTVFinalSRPDF.Visible = False
-        '
-        'lblTVFinalDUDoc
-        '
-        Me.lblTVFinalDUDoc.AutoSize = True
-        Me.lblTVFinalDUDoc.Location = New System.Drawing.Point(135, 209)
-        Me.lblTVFinalDUDoc.Name = "lblTVFinalDUDoc"
-        Me.lblTVFinalDUDoc.Size = New System.Drawing.Size(76, 13)
-        Me.lblTVFinalDUDoc.TabIndex = 38
-        Me.lblTVFinalDUDoc.Text = "DateUploaded"
-        Me.lblTVFinalDUDoc.Visible = False
-        '
-        'lblTVFinalSRDoc
-        '
-        Me.lblTVFinalSRDoc.AutoSize = True
-        Me.lblTVFinalSRDoc.Location = New System.Drawing.Point(135, 190)
-        Me.lblTVFinalSRDoc.Name = "lblTVFinalSRDoc"
-        Me.lblTVFinalSRDoc.Size = New System.Drawing.Size(90, 13)
-        Me.lblTVFinalSRDoc.TabIndex = 37
-        Me.lblTVFinalSRDoc.Text = "Staff Responsible"
-        Me.lblTVFinalSRDoc.Visible = False
-        '
-        'lblTVPublicNoticeDUPDF
-        '
-        Me.lblTVPublicNoticeDUPDF.AutoSize = True
-        Me.lblTVPublicNoticeDUPDF.Location = New System.Drawing.Point(385, 151)
-        Me.lblTVPublicNoticeDUPDF.Name = "lblTVPublicNoticeDUPDF"
-        Me.lblTVPublicNoticeDUPDF.Size = New System.Drawing.Size(76, 13)
-        Me.lblTVPublicNoticeDUPDF.TabIndex = 36
-        Me.lblTVPublicNoticeDUPDF.Text = "DateUploaded"
-        Me.lblTVPublicNoticeDUPDF.Visible = False
-        '
-        'lblTVPublicNoticeSRPDF
-        '
-        Me.lblTVPublicNoticeSRPDF.AutoSize = True
-        Me.lblTVPublicNoticeSRPDF.Location = New System.Drawing.Point(385, 137)
-        Me.lblTVPublicNoticeSRPDF.Name = "lblTVPublicNoticeSRPDF"
-        Me.lblTVPublicNoticeSRPDF.Size = New System.Drawing.Size(90, 13)
-        Me.lblTVPublicNoticeSRPDF.TabIndex = 35
-        Me.lblTVPublicNoticeSRPDF.Text = "Staff Responsible"
-        Me.lblTVPublicNoticeSRPDF.Visible = False
-        '
-        'lblTVPublicNoticeDUDoc
-        '
-        Me.lblTVPublicNoticeDUDoc.AutoSize = True
-        Me.lblTVPublicNoticeDUDoc.Location = New System.Drawing.Point(135, 152)
-        Me.lblTVPublicNoticeDUDoc.Name = "lblTVPublicNoticeDUDoc"
-        Me.lblTVPublicNoticeDUDoc.Size = New System.Drawing.Size(76, 13)
-        Me.lblTVPublicNoticeDUDoc.TabIndex = 34
-        Me.lblTVPublicNoticeDUDoc.Text = "DateUploaded"
-        Me.lblTVPublicNoticeDUDoc.Visible = False
-        '
-        'lblTVPublicNoticeSRDoc
-        '
-        Me.lblTVPublicNoticeSRDoc.AutoSize = True
-        Me.lblTVPublicNoticeSRDoc.Location = New System.Drawing.Point(135, 137)
-        Me.lblTVPublicNoticeSRDoc.Name = "lblTVPublicNoticeSRDoc"
-        Me.lblTVPublicNoticeSRDoc.Size = New System.Drawing.Size(90, 13)
-        Me.lblTVPublicNoticeSRDoc.TabIndex = 33
-        Me.lblTVPublicNoticeSRDoc.Text = "Staff Responsible"
-        Me.lblTVPublicNoticeSRDoc.Visible = False
-        '
-        'lblTVDraftDUPDF
-        '
-        Me.lblTVDraftDUPDF.AutoSize = True
-        Me.lblTVDraftDUPDF.Location = New System.Drawing.Point(385, 97)
-        Me.lblTVDraftDUPDF.Name = "lblTVDraftDUPDF"
-        Me.lblTVDraftDUPDF.Size = New System.Drawing.Size(76, 13)
-        Me.lblTVDraftDUPDF.TabIndex = 32
-        Me.lblTVDraftDUPDF.Text = "DateUploaded"
-        Me.lblTVDraftDUPDF.Visible = False
-        '
-        'lblTVDraftSRPDF
-        '
-        Me.lblTVDraftSRPDF.AutoSize = True
-        Me.lblTVDraftSRPDF.Location = New System.Drawing.Point(385, 82)
-        Me.lblTVDraftSRPDF.Name = "lblTVDraftSRPDF"
-        Me.lblTVDraftSRPDF.Size = New System.Drawing.Size(90, 13)
-        Me.lblTVDraftSRPDF.TabIndex = 31
-        Me.lblTVDraftSRPDF.Text = "Staff Responsible"
-        Me.lblTVDraftSRPDF.Visible = False
-        '
-        'lblTVDraftDUDoc
-        '
-        Me.lblTVDraftDUDoc.AutoSize = True
-        Me.lblTVDraftDUDoc.Location = New System.Drawing.Point(135, 97)
-        Me.lblTVDraftDUDoc.Name = "lblTVDraftDUDoc"
-        Me.lblTVDraftDUDoc.Size = New System.Drawing.Size(76, 13)
-        Me.lblTVDraftDUDoc.TabIndex = 30
-        Me.lblTVDraftDUDoc.Text = "DateUploaded"
-        Me.lblTVDraftDUDoc.Visible = False
-        '
-        'lblTVDraftSRDoc
-        '
-        Me.lblTVDraftSRDoc.AutoSize = True
-        Me.lblTVDraftSRDoc.Location = New System.Drawing.Point(135, 82)
-        Me.lblTVDraftSRDoc.Name = "lblTVDraftSRDoc"
-        Me.lblTVDraftSRDoc.Size = New System.Drawing.Size(90, 13)
-        Me.lblTVDraftSRDoc.TabIndex = 29
-        Me.lblTVDraftSRDoc.Text = "Staff Responsible"
-        Me.lblTVDraftSRDoc.Visible = False
-        '
-        'lblTVNarrativeDUPDF
-        '
-        Me.lblTVNarrativeDUPDF.AutoSize = True
-        Me.lblTVNarrativeDUPDF.Location = New System.Drawing.Point(385, 44)
-        Me.lblTVNarrativeDUPDF.Name = "lblTVNarrativeDUPDF"
-        Me.lblTVNarrativeDUPDF.Size = New System.Drawing.Size(76, 13)
-        Me.lblTVNarrativeDUPDF.TabIndex = 28
-        Me.lblTVNarrativeDUPDF.Text = "DateUploaded"
-        Me.lblTVNarrativeDUPDF.Visible = False
-        '
-        'lblTVNarrativeSRPDF
-        '
-        Me.lblTVNarrativeSRPDF.AutoSize = True
-        Me.lblTVNarrativeSRPDF.Location = New System.Drawing.Point(385, 28)
-        Me.lblTVNarrativeSRPDF.Name = "lblTVNarrativeSRPDF"
-        Me.lblTVNarrativeSRPDF.Size = New System.Drawing.Size(90, 13)
-        Me.lblTVNarrativeSRPDF.TabIndex = 27
-        Me.lblTVNarrativeSRPDF.Text = "Staff Responsible"
-        Me.lblTVNarrativeSRPDF.Visible = False
-        '
-        'lblTVNarrativeDUDoc
-        '
-        Me.lblTVNarrativeDUDoc.AutoSize = True
-        Me.lblTVNarrativeDUDoc.Location = New System.Drawing.Point(135, 43)
-        Me.lblTVNarrativeDUDoc.Name = "lblTVNarrativeDUDoc"
-        Me.lblTVNarrativeDUDoc.Size = New System.Drawing.Size(76, 13)
-        Me.lblTVNarrativeDUDoc.TabIndex = 26
-        Me.lblTVNarrativeDUDoc.Text = "DateUploaded"
-        Me.lblTVNarrativeDUDoc.Visible = False
-        '
-        'lblTVNarrativeSRDoc
-        '
-        Me.lblTVNarrativeSRDoc.AutoSize = True
-        Me.lblTVNarrativeSRDoc.Location = New System.Drawing.Point(135, 28)
-        Me.lblTVNarrativeSRDoc.Name = "lblTVNarrativeSRDoc"
-        Me.lblTVNarrativeSRDoc.Size = New System.Drawing.Size(90, 13)
-        Me.lblTVNarrativeSRDoc.TabIndex = 25
-        Me.lblTVNarrativeSRDoc.Text = "Staff Responsible"
-        Me.lblTVNarrativeSRDoc.Visible = False
-        '
-        'txtTVFinalPDF
-        '
-        Me.txtTVFinalPDF.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
-        Me.txtTVFinalPDF.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
-        Me.txtTVFinalPDF.Location = New System.Drawing.Point(380, 169)
-        Me.txtTVFinalPDF.Name = "txtTVFinalPDF"
-        Me.txtTVFinalPDF.ReadOnly = True
-        Me.txtTVFinalPDF.Size = New System.Drawing.Size(241, 20)
-        Me.txtTVFinalPDF.TabIndex = 12
-        Me.txtTVFinalPDF.Visible = False
-        '
-        'txtTVPublicNoticePDF
-        '
-        Me.txtTVPublicNoticePDF.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
-        Me.txtTVPublicNoticePDF.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
-        Me.txtTVPublicNoticePDF.Location = New System.Drawing.Point(376, 114)
-        Me.txtTVPublicNoticePDF.Name = "txtTVPublicNoticePDF"
-        Me.txtTVPublicNoticePDF.ReadOnly = True
-        Me.txtTVPublicNoticePDF.Size = New System.Drawing.Size(241, 20)
-        Me.txtTVPublicNoticePDF.TabIndex = 8
-        Me.txtTVPublicNoticePDF.Visible = False
-        '
-        'txtTVDraftPDF
-        '
-        Me.txtTVDraftPDF.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
-        Me.txtTVDraftPDF.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
-        Me.txtTVDraftPDF.Location = New System.Drawing.Point(376, 60)
-        Me.txtTVDraftPDF.Name = "txtTVDraftPDF"
-        Me.txtTVDraftPDF.ReadOnly = True
-        Me.txtTVDraftPDF.Size = New System.Drawing.Size(241, 20)
-        Me.txtTVDraftPDF.TabIndex = 4
-        Me.txtTVDraftPDF.Visible = False
-        '
-        'txtTVNarrativePDF
-        '
-        Me.txtTVNarrativePDF.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
-        Me.txtTVNarrativePDF.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
-        Me.txtTVNarrativePDF.Location = New System.Drawing.Point(376, 5)
-        Me.txtTVNarrativePDF.Name = "txtTVNarrativePDF"
-        Me.txtTVNarrativePDF.ReadOnly = True
-        Me.txtTVNarrativePDF.Size = New System.Drawing.Size(241, 20)
-        Me.txtTVNarrativePDF.TabIndex = 1
-        Me.txtTVNarrativePDF.Visible = False
-        '
-        'txtTVFinalDoc
-        '
-        Me.txtTVFinalDoc.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
-        Me.txtTVFinalDoc.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
-        Me.txtTVFinalDoc.Location = New System.Drawing.Point(129, 169)
-        Me.txtTVFinalDoc.Name = "txtTVFinalDoc"
-        Me.txtTVFinalDoc.ReadOnly = True
-        Me.txtTVFinalDoc.Size = New System.Drawing.Size(241, 20)
-        Me.txtTVFinalDoc.TabIndex = 11
-        Me.txtTVFinalDoc.Visible = False
-        '
-        'txtTVPublicNoticeDoc
-        '
-        Me.txtTVPublicNoticeDoc.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
-        Me.txtTVPublicNoticeDoc.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
-        Me.txtTVPublicNoticeDoc.Location = New System.Drawing.Point(129, 114)
-        Me.txtTVPublicNoticeDoc.Name = "txtTVPublicNoticeDoc"
-        Me.txtTVPublicNoticeDoc.ReadOnly = True
-        Me.txtTVPublicNoticeDoc.Size = New System.Drawing.Size(241, 20)
-        Me.txtTVPublicNoticeDoc.TabIndex = 7
-        Me.txtTVPublicNoticeDoc.Visible = False
-        '
-        'txtTVDraftDoc
-        '
-        Me.txtTVDraftDoc.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
-        Me.txtTVDraftDoc.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
-        Me.txtTVDraftDoc.Location = New System.Drawing.Point(129, 58)
-        Me.txtTVDraftDoc.Name = "txtTVDraftDoc"
-        Me.txtTVDraftDoc.ReadOnly = True
-        Me.txtTVDraftDoc.Size = New System.Drawing.Size(241, 20)
-        Me.txtTVDraftDoc.TabIndex = 3
-        Me.txtTVDraftDoc.Visible = False
-        '
-        'txtTVNarrativeDoc
-        '
-        Me.txtTVNarrativeDoc.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
-        Me.txtTVNarrativeDoc.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
-        Me.txtTVNarrativeDoc.Location = New System.Drawing.Point(129, 5)
-        Me.txtTVNarrativeDoc.Name = "txtTVNarrativeDoc"
-        Me.txtTVNarrativeDoc.ReadOnly = True
-        Me.txtTVNarrativeDoc.Size = New System.Drawing.Size(241, 20)
-        Me.txtTVNarrativeDoc.TabIndex = 0
-        Me.txtTVNarrativeDoc.Visible = False
-        '
-        'chbTVFinal
-        '
-        Me.chbTVFinal.AutoSize = True
-        Me.chbTVFinal.Location = New System.Drawing.Point(4, 170)
-        Me.chbTVFinal.Name = "chbTVFinal"
-        Me.chbTVFinal.Size = New System.Drawing.Size(80, 17)
-        Me.chbTVFinal.TabIndex = 10
-        Me.chbTVFinal.Text = "Final Permit"
-        Me.chbTVFinal.UseVisualStyleBackColor = True
-        '
-        'chbTVPublicNotice
-        '
-        Me.chbTVPublicNotice.AutoSize = True
-        Me.chbTVPublicNotice.Location = New System.Drawing.Point(4, 116)
-        Me.chbTVPublicNotice.Name = "chbTVPublicNotice"
-        Me.chbTVPublicNotice.Size = New System.Drawing.Size(89, 17)
-        Me.chbTVPublicNotice.TabIndex = 6
-        Me.chbTVPublicNotice.Text = "Public Notice"
-        Me.chbTVPublicNotice.UseVisualStyleBackColor = True
-        '
-        'chbTVDraft
-        '
-        Me.chbTVDraft.AutoSize = True
-        Me.chbTVDraft.Location = New System.Drawing.Point(4, 62)
-        Me.chbTVDraft.Name = "chbTVDraft"
-        Me.chbTVDraft.Size = New System.Drawing.Size(81, 17)
-        Me.chbTVDraft.TabIndex = 4
-        Me.chbTVDraft.Text = "Draft Permit"
-        Me.chbTVDraft.UseVisualStyleBackColor = True
-        '
-        'chbTVNarrative
-        '
-        Me.chbTVNarrative.AutoSize = True
-        Me.chbTVNarrative.Location = New System.Drawing.Point(4, 7)
-        Me.chbTVNarrative.Name = "chbTVNarrative"
-        Me.chbTVNarrative.Size = New System.Drawing.Size(69, 17)
-        Me.chbTVNarrative.TabIndex = 3
-        Me.chbTVNarrative.Text = "Narrative"
-        Me.chbTVNarrative.UseVisualStyleBackColor = True
-        '
-        'PanelPSD
-        '
-        Me.PanelPSD.AutoSize = True
-        Me.PanelPSD.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.PanelPSD.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.PanelPSD.Controls.Add(Me.btnPSDNarrativeDownload)
-        Me.PanelPSD.Controls.Add(Me.lblPSDNarrativeDUPDF)
-        Me.PanelPSD.Controls.Add(Me.lblPSDNarrativeDUDoc)
-        Me.PanelPSD.Controls.Add(Me.txtPSDNarrativePDF)
-        Me.PanelPSD.Controls.Add(Me.txtPSDNarrativeDoc)
-        Me.PanelPSD.Controls.Add(Me.chbPSDNarrative)
-        Me.PanelPSD.Controls.Add(Me.lblPSDNarrativeSRPDF)
-        Me.PanelPSD.Controls.Add(Me.lblPSDNarrativeSRDoc)
-        Me.PanelPSD.Controls.Add(Me.btnPSDPublicNoticeDownload)
-        Me.PanelPSD.Controls.Add(Me.btnPSDDraftPermitDownload)
-        Me.PanelPSD.Controls.Add(Me.btnPSDPrelimDetDownload)
-        Me.PanelPSD.Controls.Add(Me.btnPSDHearingNoticeDownload)
-        Me.PanelPSD.Controls.Add(Me.btnPSDFinalDetDownload)
-        Me.PanelPSD.Controls.Add(Me.btnPSDFinalPermitDownload)
-        Me.PanelPSD.Controls.Add(Me.btnPSDAppSummaryDownload)
-        Me.PanelPSD.Controls.Add(Me.lblPSDFinalPermitDUPDF)
-        Me.PanelPSD.Controls.Add(Me.lblPSDFinalPermitSRPDF)
-        Me.PanelPSD.Controls.Add(Me.lblPSDFinalPermitDUDoc)
-        Me.PanelPSD.Controls.Add(Me.lblPSDFinalPermitSRDoc)
-        Me.PanelPSD.Controls.Add(Me.lblPSDFinalDetDUPDF)
-        Me.PanelPSD.Controls.Add(Me.lblPSDFinalDetSRPDF)
-        Me.PanelPSD.Controls.Add(Me.lblPSDFinalDetDUDoc)
-        Me.PanelPSD.Controls.Add(Me.lblPSDFinalDetSRDoc)
-        Me.PanelPSD.Controls.Add(Me.lblPSDHearingNoticeDUPDF)
-        Me.PanelPSD.Controls.Add(Me.lblPSDHearingNoticeSRPDF)
-        Me.PanelPSD.Controls.Add(Me.lblPSDHearingNoticeDUDoc)
-        Me.PanelPSD.Controls.Add(Me.lblPSDHearingNoticeSRDoc)
-        Me.PanelPSD.Controls.Add(Me.lblPSDPublicNoticeDUPDF)
-        Me.PanelPSD.Controls.Add(Me.lblPSDPublicNoticeSRPDF)
-        Me.PanelPSD.Controls.Add(Me.lblPSDPublicNoticeDUDoc)
-        Me.PanelPSD.Controls.Add(Me.lblPSDPublicNoticeSRDoc)
-        Me.PanelPSD.Controls.Add(Me.lblPSDDraftPermitDUPDF)
-        Me.PanelPSD.Controls.Add(Me.lblPSDDraftPermitSRPDF)
-        Me.PanelPSD.Controls.Add(Me.lblPSDDraftPermitDUDoc)
-        Me.PanelPSD.Controls.Add(Me.lblPSDDraftPermitSRDoc)
-        Me.PanelPSD.Controls.Add(Me.lblPSDPrelimDetDUPDF)
-        Me.PanelPSD.Controls.Add(Me.lblPSDPrelimDetSRPDF)
-        Me.PanelPSD.Controls.Add(Me.lblPSDPrelimDetDUDoc)
-        Me.PanelPSD.Controls.Add(Me.lblPSDPrelimDetSRDoc)
-        Me.PanelPSD.Controls.Add(Me.lblPSDAppSummaryDUPDF)
-        Me.PanelPSD.Controls.Add(Me.lblPSDAppSummarySRPDF)
-        Me.PanelPSD.Controls.Add(Me.lblPSDAppSummaryDUDoc)
-        Me.PanelPSD.Controls.Add(Me.lblPSDAppSummarySRDoc)
-        Me.PanelPSD.Controls.Add(Me.txtPSDPrelimDetPDF)
-        Me.PanelPSD.Controls.Add(Me.txtPSDDraftPermitPDF)
-        Me.PanelPSD.Controls.Add(Me.txtPSDPublicNoticePDF)
-        Me.PanelPSD.Controls.Add(Me.txtPSDHearingNoticePDF)
-        Me.PanelPSD.Controls.Add(Me.txtPSDFinalDetPDF)
-        Me.PanelPSD.Controls.Add(Me.txtPSDAppSummaryPDF)
-        Me.PanelPSD.Controls.Add(Me.txtPSDFinalPermitPDF)
-        Me.PanelPSD.Controls.Add(Me.txtPSDFinalPermitDoc)
-        Me.PanelPSD.Controls.Add(Me.chbPSDFinalPermit)
-        Me.PanelPSD.Controls.Add(Me.txtPSDFinalDetDoc)
-        Me.PanelPSD.Controls.Add(Me.chbPSDFinalDet)
-        Me.PanelPSD.Controls.Add(Me.txtPSDHearingNoticeDoc)
-        Me.PanelPSD.Controls.Add(Me.chbPSDHearingNotice)
-        Me.PanelPSD.Controls.Add(Me.txtPSDPublicNoticeDoc)
-        Me.PanelPSD.Controls.Add(Me.txtPSDDraftPermitDoc)
-        Me.PanelPSD.Controls.Add(Me.txtPSDPrelimDetDoc)
-        Me.PanelPSD.Controls.Add(Me.txtPSDAppSummaryDoc)
-        Me.PanelPSD.Controls.Add(Me.chbPSDPublicNotice)
-        Me.PanelPSD.Controls.Add(Me.chbPSDDraftPermit)
-        Me.PanelPSD.Controls.Add(Me.chbPSDPrelimDet)
-        Me.PanelPSD.Controls.Add(Me.chbPSDApplicationSummary)
-        Me.PanelPSD.Location = New System.Drawing.Point(101, 25)
-        Me.PanelPSD.Name = "PanelPSD"
-        Me.PanelPSD.Size = New System.Drawing.Size(652, 439)
-        Me.PanelPSD.TabIndex = 2
-        Me.PanelPSD.Visible = False
-        '
-        'btnPSDNarrativeDownload
-        '
-        Me.btnPSDNarrativeDownload.Image = Global.Iaip.My.Resources.Resources.DownloadIcon
-        Me.btnPSDNarrativeDownload.Location = New System.Drawing.Point(623, 114)
-        Me.btnPSDNarrativeDownload.Name = "btnPSDNarrativeDownload"
-        Me.btnPSDNarrativeDownload.Size = New System.Drawing.Size(24, 23)
-        Me.btnPSDNarrativeDownload.TabIndex = 11
-        Me.btnPSDNarrativeDownload.UseVisualStyleBackColor = True
-        Me.btnPSDNarrativeDownload.Visible = False
-        '
-        'lblPSDNarrativeDUPDF
-        '
-        Me.lblPSDNarrativeDUPDF.AutoSize = True
-        Me.lblPSDNarrativeDUPDF.Location = New System.Drawing.Point(385, 154)
-        Me.lblPSDNarrativeDUPDF.Name = "lblPSDNarrativeDUPDF"
-        Me.lblPSDNarrativeDUPDF.Size = New System.Drawing.Size(76, 13)
-        Me.lblPSDNarrativeDUPDF.TabIndex = 84
-        Me.lblPSDNarrativeDUPDF.Text = "DateUploaded"
-        Me.lblPSDNarrativeDUPDF.Visible = False
-        '
-        'lblPSDNarrativeDUDoc
-        '
-        Me.lblPSDNarrativeDUDoc.AutoSize = True
-        Me.lblPSDNarrativeDUDoc.Location = New System.Drawing.Point(135, 154)
-        Me.lblPSDNarrativeDUDoc.Name = "lblPSDNarrativeDUDoc"
-        Me.lblPSDNarrativeDUDoc.Size = New System.Drawing.Size(76, 13)
-        Me.lblPSDNarrativeDUDoc.TabIndex = 82
-        Me.lblPSDNarrativeDUDoc.Text = "DateUploaded"
-        Me.lblPSDNarrativeDUDoc.Visible = False
-        '
-        'txtPSDNarrativePDF
-        '
-        Me.txtPSDNarrativePDF.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
-        Me.txtPSDNarrativePDF.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
-        Me.txtPSDNarrativePDF.Location = New System.Drawing.Point(376, 115)
-        Me.txtPSDNarrativePDF.Name = "txtPSDNarrativePDF"
-        Me.txtPSDNarrativePDF.ReadOnly = True
-        Me.txtPSDNarrativePDF.Size = New System.Drawing.Size(241, 20)
-        Me.txtPSDNarrativePDF.TabIndex = 10
-        Me.txtPSDNarrativePDF.Visible = False
-        '
-        'txtPSDNarrativeDoc
-        '
-        Me.txtPSDNarrativeDoc.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
-        Me.txtPSDNarrativeDoc.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
-        Me.txtPSDNarrativeDoc.Location = New System.Drawing.Point(129, 115)
-        Me.txtPSDNarrativeDoc.Name = "txtPSDNarrativeDoc"
-        Me.txtPSDNarrativeDoc.ReadOnly = True
-        Me.txtPSDNarrativeDoc.Size = New System.Drawing.Size(241, 20)
-        Me.txtPSDNarrativeDoc.TabIndex = 9
-        Me.txtPSDNarrativeDoc.Visible = False
-        '
-        'chbPSDNarrative
-        '
-        Me.chbPSDNarrative.AutoSize = True
-        Me.chbPSDNarrative.Location = New System.Drawing.Point(4, 117)
-        Me.chbPSDNarrative.Name = "chbPSDNarrative"
-        Me.chbPSDNarrative.Size = New System.Drawing.Size(69, 17)
-        Me.chbPSDNarrative.TabIndex = 8
-        Me.chbPSDNarrative.Text = "Narrative"
-        Me.chbPSDNarrative.UseVisualStyleBackColor = True
-        '
-        'lblPSDNarrativeSRPDF
-        '
-        Me.lblPSDNarrativeSRPDF.AutoSize = True
-        Me.lblPSDNarrativeSRPDF.Location = New System.Drawing.Point(385, 138)
-        Me.lblPSDNarrativeSRPDF.Name = "lblPSDNarrativeSRPDF"
-        Me.lblPSDNarrativeSRPDF.Size = New System.Drawing.Size(90, 13)
-        Me.lblPSDNarrativeSRPDF.TabIndex = 83
-        Me.lblPSDNarrativeSRPDF.Text = "Staff Responsible"
-        Me.lblPSDNarrativeSRPDF.Visible = False
-        '
-        'lblPSDNarrativeSRDoc
-        '
-        Me.lblPSDNarrativeSRDoc.AutoSize = True
-        Me.lblPSDNarrativeSRDoc.Location = New System.Drawing.Point(135, 138)
-        Me.lblPSDNarrativeSRDoc.Name = "lblPSDNarrativeSRDoc"
-        Me.lblPSDNarrativeSRDoc.Size = New System.Drawing.Size(90, 13)
-        Me.lblPSDNarrativeSRDoc.TabIndex = 81
-        Me.lblPSDNarrativeSRDoc.Text = "Staff Responsible"
-        Me.lblPSDNarrativeSRDoc.Visible = False
-        '
-        'btnPSDPublicNoticeDownload
-        '
-        Me.btnPSDPublicNoticeDownload.Image = Global.Iaip.My.Resources.Resources.DownloadIcon
-        Me.btnPSDPublicNoticeDownload.Location = New System.Drawing.Point(623, 225)
-        Me.btnPSDPublicNoticeDownload.Name = "btnPSDPublicNoticeDownload"
-        Me.btnPSDPublicNoticeDownload.Size = New System.Drawing.Size(24, 23)
-        Me.btnPSDPublicNoticeDownload.TabIndex = 20
-        Me.btnPSDPublicNoticeDownload.UseVisualStyleBackColor = True
-        Me.btnPSDPublicNoticeDownload.Visible = False
-        '
-        'btnPSDDraftPermitDownload
-        '
-        Me.btnPSDDraftPermitDownload.Image = Global.Iaip.My.Resources.Resources.DownloadIcon
-        Me.btnPSDDraftPermitDownload.Location = New System.Drawing.Point(623, 169)
-        Me.btnPSDDraftPermitDownload.Name = "btnPSDDraftPermitDownload"
-        Me.btnPSDDraftPermitDownload.Size = New System.Drawing.Size(24, 23)
-        Me.btnPSDDraftPermitDownload.TabIndex = 16
-        Me.btnPSDDraftPermitDownload.UseVisualStyleBackColor = True
-        Me.btnPSDDraftPermitDownload.Visible = False
-        '
-        'btnPSDPrelimDetDownload
-        '
-        Me.btnPSDPrelimDetDownload.Image = Global.Iaip.My.Resources.Resources.DownloadIcon
-        Me.btnPSDPrelimDetDownload.Location = New System.Drawing.Point(623, 55)
-        Me.btnPSDPrelimDetDownload.Name = "btnPSDPrelimDetDownload"
-        Me.btnPSDPrelimDetDownload.Size = New System.Drawing.Size(24, 23)
-        Me.btnPSDPrelimDetDownload.TabIndex = 7
-        Me.btnPSDPrelimDetDownload.UseVisualStyleBackColor = True
-        Me.btnPSDPrelimDetDownload.Visible = False
-        '
-        'btnPSDHearingNoticeDownload
-        '
-        Me.btnPSDHearingNoticeDownload.Image = Global.Iaip.My.Resources.Resources.DownloadIcon
-        Me.btnPSDHearingNoticeDownload.Location = New System.Drawing.Point(623, 280)
-        Me.btnPSDHearingNoticeDownload.Name = "btnPSDHearingNoticeDownload"
-        Me.btnPSDHearingNoticeDownload.Size = New System.Drawing.Size(24, 23)
-        Me.btnPSDHearingNoticeDownload.TabIndex = 24
-        Me.btnPSDHearingNoticeDownload.UseVisualStyleBackColor = True
-        Me.btnPSDHearingNoticeDownload.Visible = False
-        '
-        'btnPSDFinalDetDownload
-        '
-        Me.btnPSDFinalDetDownload.Image = Global.Iaip.My.Resources.Resources.DownloadIcon
-        Me.btnPSDFinalDetDownload.Location = New System.Drawing.Point(623, 332)
-        Me.btnPSDFinalDetDownload.Name = "btnPSDFinalDetDownload"
-        Me.btnPSDFinalDetDownload.Size = New System.Drawing.Size(24, 23)
-        Me.btnPSDFinalDetDownload.TabIndex = 28
-        Me.btnPSDFinalDetDownload.UseVisualStyleBackColor = True
-        Me.btnPSDFinalDetDownload.Visible = False
-        '
-        'btnPSDFinalPermitDownload
-        '
-        Me.btnPSDFinalPermitDownload.Image = Global.Iaip.My.Resources.Resources.DownloadIcon
-        Me.btnPSDFinalPermitDownload.Location = New System.Drawing.Point(623, 387)
-        Me.btnPSDFinalPermitDownload.Name = "btnPSDFinalPermitDownload"
-        Me.btnPSDFinalPermitDownload.Size = New System.Drawing.Size(24, 23)
-        Me.btnPSDFinalPermitDownload.TabIndex = 32
-        Me.btnPSDFinalPermitDownload.UseVisualStyleBackColor = True
-        Me.btnPSDFinalPermitDownload.Visible = False
-        '
-        'btnPSDAppSummaryDownload
-        '
-        Me.btnPSDAppSummaryDownload.Image = Global.Iaip.My.Resources.Resources.DownloadIcon
-        Me.btnPSDAppSummaryDownload.Location = New System.Drawing.Point(623, 5)
-        Me.btnPSDAppSummaryDownload.Name = "btnPSDAppSummaryDownload"
-        Me.btnPSDAppSummaryDownload.Size = New System.Drawing.Size(24, 23)
-        Me.btnPSDAppSummaryDownload.TabIndex = 2
-        Me.btnPSDAppSummaryDownload.UseVisualStyleBackColor = True
-        Me.btnPSDAppSummaryDownload.Visible = False
-        '
-        'lblPSDFinalPermitDUPDF
-        '
-        Me.lblPSDFinalPermitDUPDF.AutoSize = True
-        Me.lblPSDFinalPermitDUPDF.Location = New System.Drawing.Point(386, 424)
-        Me.lblPSDFinalPermitDUPDF.Name = "lblPSDFinalPermitDUPDF"
-        Me.lblPSDFinalPermitDUPDF.Size = New System.Drawing.Size(76, 13)
-        Me.lblPSDFinalPermitDUPDF.TabIndex = 60
-        Me.lblPSDFinalPermitDUPDF.Text = "DateUploaded"
-        Me.lblPSDFinalPermitDUPDF.Visible = False
-        '
-        'lblPSDFinalPermitSRPDF
-        '
-        Me.lblPSDFinalPermitSRPDF.AutoSize = True
-        Me.lblPSDFinalPermitSRPDF.Location = New System.Drawing.Point(385, 409)
-        Me.lblPSDFinalPermitSRPDF.Name = "lblPSDFinalPermitSRPDF"
-        Me.lblPSDFinalPermitSRPDF.Size = New System.Drawing.Size(90, 13)
-        Me.lblPSDFinalPermitSRPDF.TabIndex = 59
-        Me.lblPSDFinalPermitSRPDF.Text = "Staff Responsible"
-        Me.lblPSDFinalPermitSRPDF.Visible = False
-        '
-        'lblPSDFinalPermitDUDoc
-        '
-        Me.lblPSDFinalPermitDUDoc.AutoSize = True
-        Me.lblPSDFinalPermitDUDoc.Location = New System.Drawing.Point(135, 424)
-        Me.lblPSDFinalPermitDUDoc.Name = "lblPSDFinalPermitDUDoc"
-        Me.lblPSDFinalPermitDUDoc.Size = New System.Drawing.Size(76, 13)
-        Me.lblPSDFinalPermitDUDoc.TabIndex = 58
-        Me.lblPSDFinalPermitDUDoc.Text = "DateUploaded"
-        Me.lblPSDFinalPermitDUDoc.Visible = False
-        '
-        'lblPSDFinalPermitSRDoc
-        '
-        Me.lblPSDFinalPermitSRDoc.AutoSize = True
-        Me.lblPSDFinalPermitSRDoc.Location = New System.Drawing.Point(135, 409)
-        Me.lblPSDFinalPermitSRDoc.Name = "lblPSDFinalPermitSRDoc"
-        Me.lblPSDFinalPermitSRDoc.Size = New System.Drawing.Size(90, 13)
-        Me.lblPSDFinalPermitSRDoc.TabIndex = 57
-        Me.lblPSDFinalPermitSRDoc.Text = "Staff Responsible"
-        Me.lblPSDFinalPermitSRDoc.Visible = False
-        '
-        'lblPSDFinalDetDUPDF
-        '
-        Me.lblPSDFinalDetDUPDF.AutoSize = True
-        Me.lblPSDFinalDetDUPDF.Location = New System.Drawing.Point(385, 371)
-        Me.lblPSDFinalDetDUPDF.Name = "lblPSDFinalDetDUPDF"
-        Me.lblPSDFinalDetDUPDF.Size = New System.Drawing.Size(76, 13)
-        Me.lblPSDFinalDetDUPDF.TabIndex = 56
-        Me.lblPSDFinalDetDUPDF.Text = "DateUploaded"
-        Me.lblPSDFinalDetDUPDF.Visible = False
-        '
-        'lblPSDFinalDetSRPDF
-        '
-        Me.lblPSDFinalDetSRPDF.AutoSize = True
-        Me.lblPSDFinalDetSRPDF.Location = New System.Drawing.Point(385, 355)
-        Me.lblPSDFinalDetSRPDF.Name = "lblPSDFinalDetSRPDF"
-        Me.lblPSDFinalDetSRPDF.Size = New System.Drawing.Size(90, 13)
-        Me.lblPSDFinalDetSRPDF.TabIndex = 55
-        Me.lblPSDFinalDetSRPDF.Text = "Staff Responsible"
-        Me.lblPSDFinalDetSRPDF.Visible = False
-        '
-        'lblPSDFinalDetDUDoc
-        '
-        Me.lblPSDFinalDetDUDoc.AutoSize = True
-        Me.lblPSDFinalDetDUDoc.Location = New System.Drawing.Point(135, 371)
-        Me.lblPSDFinalDetDUDoc.Name = "lblPSDFinalDetDUDoc"
-        Me.lblPSDFinalDetDUDoc.Size = New System.Drawing.Size(76, 13)
-        Me.lblPSDFinalDetDUDoc.TabIndex = 54
-        Me.lblPSDFinalDetDUDoc.Text = "DateUploaded"
-        Me.lblPSDFinalDetDUDoc.Visible = False
-        '
-        'lblPSDFinalDetSRDoc
-        '
-        Me.lblPSDFinalDetSRDoc.AutoSize = True
-        Me.lblPSDFinalDetSRDoc.Location = New System.Drawing.Point(135, 355)
-        Me.lblPSDFinalDetSRDoc.Name = "lblPSDFinalDetSRDoc"
-        Me.lblPSDFinalDetSRDoc.Size = New System.Drawing.Size(90, 13)
-        Me.lblPSDFinalDetSRDoc.TabIndex = 53
-        Me.lblPSDFinalDetSRDoc.Text = "Staff Responsible"
-        Me.lblPSDFinalDetSRDoc.Visible = False
-        '
-        'lblPSDHearingNoticeDUPDF
-        '
-        Me.lblPSDHearingNoticeDUPDF.AutoSize = True
-        Me.lblPSDHearingNoticeDUPDF.Location = New System.Drawing.Point(385, 318)
-        Me.lblPSDHearingNoticeDUPDF.Name = "lblPSDHearingNoticeDUPDF"
-        Me.lblPSDHearingNoticeDUPDF.Size = New System.Drawing.Size(76, 13)
-        Me.lblPSDHearingNoticeDUPDF.TabIndex = 52
-        Me.lblPSDHearingNoticeDUPDF.Text = "DateUploaded"
-        Me.lblPSDHearingNoticeDUPDF.Visible = False
-        '
-        'lblPSDHearingNoticeSRPDF
-        '
-        Me.lblPSDHearingNoticeSRPDF.AutoSize = True
-        Me.lblPSDHearingNoticeSRPDF.Location = New System.Drawing.Point(385, 303)
-        Me.lblPSDHearingNoticeSRPDF.Name = "lblPSDHearingNoticeSRPDF"
-        Me.lblPSDHearingNoticeSRPDF.Size = New System.Drawing.Size(90, 13)
-        Me.lblPSDHearingNoticeSRPDF.TabIndex = 51
-        Me.lblPSDHearingNoticeSRPDF.Text = "Staff Responsible"
-        Me.lblPSDHearingNoticeSRPDF.Visible = False
-        '
-        'lblPSDHearingNoticeDUDoc
-        '
-        Me.lblPSDHearingNoticeDUDoc.AutoSize = True
-        Me.lblPSDHearingNoticeDUDoc.Location = New System.Drawing.Point(135, 318)
-        Me.lblPSDHearingNoticeDUDoc.Name = "lblPSDHearingNoticeDUDoc"
-        Me.lblPSDHearingNoticeDUDoc.Size = New System.Drawing.Size(76, 13)
-        Me.lblPSDHearingNoticeDUDoc.TabIndex = 50
-        Me.lblPSDHearingNoticeDUDoc.Text = "DateUploaded"
-        Me.lblPSDHearingNoticeDUDoc.Visible = False
-        '
-        'lblPSDHearingNoticeSRDoc
-        '
-        Me.lblPSDHearingNoticeSRDoc.AutoSize = True
-        Me.lblPSDHearingNoticeSRDoc.Location = New System.Drawing.Point(135, 303)
-        Me.lblPSDHearingNoticeSRDoc.Name = "lblPSDHearingNoticeSRDoc"
-        Me.lblPSDHearingNoticeSRDoc.Size = New System.Drawing.Size(90, 13)
-        Me.lblPSDHearingNoticeSRDoc.TabIndex = 49
-        Me.lblPSDHearingNoticeSRDoc.Text = "Staff Responsible"
-        Me.lblPSDHearingNoticeSRDoc.Visible = False
-        '
-        'lblPSDPublicNoticeDUPDF
-        '
-        Me.lblPSDPublicNoticeDUPDF.AutoSize = True
-        Me.lblPSDPublicNoticeDUPDF.Location = New System.Drawing.Point(385, 265)
-        Me.lblPSDPublicNoticeDUPDF.Name = "lblPSDPublicNoticeDUPDF"
-        Me.lblPSDPublicNoticeDUPDF.Size = New System.Drawing.Size(76, 13)
-        Me.lblPSDPublicNoticeDUPDF.TabIndex = 48
-        Me.lblPSDPublicNoticeDUPDF.Text = "DateUploaded"
-        Me.lblPSDPublicNoticeDUPDF.Visible = False
-        '
-        'lblPSDPublicNoticeSRPDF
-        '
-        Me.lblPSDPublicNoticeSRPDF.AutoSize = True
-        Me.lblPSDPublicNoticeSRPDF.Location = New System.Drawing.Point(385, 249)
-        Me.lblPSDPublicNoticeSRPDF.Name = "lblPSDPublicNoticeSRPDF"
-        Me.lblPSDPublicNoticeSRPDF.Size = New System.Drawing.Size(90, 13)
-        Me.lblPSDPublicNoticeSRPDF.TabIndex = 47
-        Me.lblPSDPublicNoticeSRPDF.Text = "Staff Responsible"
-        Me.lblPSDPublicNoticeSRPDF.Visible = False
-        '
-        'lblPSDPublicNoticeDUDoc
-        '
-        Me.lblPSDPublicNoticeDUDoc.AutoSize = True
-        Me.lblPSDPublicNoticeDUDoc.Location = New System.Drawing.Point(135, 265)
-        Me.lblPSDPublicNoticeDUDoc.Name = "lblPSDPublicNoticeDUDoc"
-        Me.lblPSDPublicNoticeDUDoc.Size = New System.Drawing.Size(76, 13)
-        Me.lblPSDPublicNoticeDUDoc.TabIndex = 46
-        Me.lblPSDPublicNoticeDUDoc.Text = "DateUploaded"
-        Me.lblPSDPublicNoticeDUDoc.Visible = False
-        '
-        'lblPSDPublicNoticeSRDoc
-        '
-        Me.lblPSDPublicNoticeSRDoc.AutoSize = True
-        Me.lblPSDPublicNoticeSRDoc.Location = New System.Drawing.Point(135, 249)
-        Me.lblPSDPublicNoticeSRDoc.Name = "lblPSDPublicNoticeSRDoc"
-        Me.lblPSDPublicNoticeSRDoc.Size = New System.Drawing.Size(90, 13)
-        Me.lblPSDPublicNoticeSRDoc.TabIndex = 45
-        Me.lblPSDPublicNoticeSRDoc.Text = "Staff Responsible"
-        Me.lblPSDPublicNoticeSRDoc.Visible = False
-        '
-        'lblPSDDraftPermitDUPDF
-        '
-        Me.lblPSDDraftPermitDUPDF.AutoSize = True
-        Me.lblPSDDraftPermitDUPDF.Location = New System.Drawing.Point(385, 211)
-        Me.lblPSDDraftPermitDUPDF.Name = "lblPSDDraftPermitDUPDF"
-        Me.lblPSDDraftPermitDUPDF.Size = New System.Drawing.Size(76, 13)
-        Me.lblPSDDraftPermitDUPDF.TabIndex = 44
-        Me.lblPSDDraftPermitDUPDF.Text = "DateUploaded"
-        Me.lblPSDDraftPermitDUPDF.Visible = False
-        '
-        'lblPSDDraftPermitSRPDF
-        '
-        Me.lblPSDDraftPermitSRPDF.AutoSize = True
-        Me.lblPSDDraftPermitSRPDF.Location = New System.Drawing.Point(385, 195)
-        Me.lblPSDDraftPermitSRPDF.Name = "lblPSDDraftPermitSRPDF"
-        Me.lblPSDDraftPermitSRPDF.Size = New System.Drawing.Size(90, 13)
-        Me.lblPSDDraftPermitSRPDF.TabIndex = 43
-        Me.lblPSDDraftPermitSRPDF.Text = "Staff Responsible"
-        Me.lblPSDDraftPermitSRPDF.Visible = False
-        '
-        'lblPSDDraftPermitDUDoc
-        '
-        Me.lblPSDDraftPermitDUDoc.AutoSize = True
-        Me.lblPSDDraftPermitDUDoc.Location = New System.Drawing.Point(135, 211)
-        Me.lblPSDDraftPermitDUDoc.Name = "lblPSDDraftPermitDUDoc"
-        Me.lblPSDDraftPermitDUDoc.Size = New System.Drawing.Size(76, 13)
-        Me.lblPSDDraftPermitDUDoc.TabIndex = 42
-        Me.lblPSDDraftPermitDUDoc.Text = "DateUploaded"
-        Me.lblPSDDraftPermitDUDoc.Visible = False
-        '
-        'lblPSDDraftPermitSRDoc
-        '
-        Me.lblPSDDraftPermitSRDoc.AutoSize = True
-        Me.lblPSDDraftPermitSRDoc.Location = New System.Drawing.Point(135, 195)
-        Me.lblPSDDraftPermitSRDoc.Name = "lblPSDDraftPermitSRDoc"
-        Me.lblPSDDraftPermitSRDoc.Size = New System.Drawing.Size(90, 13)
-        Me.lblPSDDraftPermitSRDoc.TabIndex = 41
-        Me.lblPSDDraftPermitSRDoc.Text = "Staff Responsible"
-        Me.lblPSDDraftPermitSRDoc.Visible = False
-        '
-        'lblPSDPrelimDetDUPDF
-        '
-        Me.lblPSDPrelimDetDUPDF.AutoSize = True
-        Me.lblPSDPrelimDetDUPDF.Location = New System.Drawing.Point(385, 98)
-        Me.lblPSDPrelimDetDUPDF.Name = "lblPSDPrelimDetDUPDF"
-        Me.lblPSDPrelimDetDUPDF.Size = New System.Drawing.Size(76, 13)
-        Me.lblPSDPrelimDetDUPDF.TabIndex = 40
-        Me.lblPSDPrelimDetDUPDF.Text = "DateUploaded"
-        Me.lblPSDPrelimDetDUPDF.Visible = False
-        '
-        'lblPSDPrelimDetSRPDF
-        '
-        Me.lblPSDPrelimDetSRPDF.AutoSize = True
-        Me.lblPSDPrelimDetSRPDF.Location = New System.Drawing.Point(385, 81)
-        Me.lblPSDPrelimDetSRPDF.Name = "lblPSDPrelimDetSRPDF"
-        Me.lblPSDPrelimDetSRPDF.Size = New System.Drawing.Size(90, 13)
-        Me.lblPSDPrelimDetSRPDF.TabIndex = 39
-        Me.lblPSDPrelimDetSRPDF.Text = "Staff Responsible"
-        Me.lblPSDPrelimDetSRPDF.Visible = False
-        '
-        'lblPSDPrelimDetDUDoc
-        '
-        Me.lblPSDPrelimDetDUDoc.AutoSize = True
-        Me.lblPSDPrelimDetDUDoc.Location = New System.Drawing.Point(135, 98)
-        Me.lblPSDPrelimDetDUDoc.Name = "lblPSDPrelimDetDUDoc"
-        Me.lblPSDPrelimDetDUDoc.Size = New System.Drawing.Size(76, 13)
-        Me.lblPSDPrelimDetDUDoc.TabIndex = 38
-        Me.lblPSDPrelimDetDUDoc.Text = "DateUploaded"
-        Me.lblPSDPrelimDetDUDoc.Visible = False
-        '
-        'lblPSDPrelimDetSRDoc
-        '
-        Me.lblPSDPrelimDetSRDoc.AutoSize = True
-        Me.lblPSDPrelimDetSRDoc.Location = New System.Drawing.Point(135, 81)
-        Me.lblPSDPrelimDetSRDoc.Name = "lblPSDPrelimDetSRDoc"
-        Me.lblPSDPrelimDetSRDoc.Size = New System.Drawing.Size(90, 13)
-        Me.lblPSDPrelimDetSRDoc.TabIndex = 37
-        Me.lblPSDPrelimDetSRDoc.Text = "Staff Responsible"
-        Me.lblPSDPrelimDetSRDoc.Visible = False
-        '
-        'lblPSDAppSummaryDUPDF
-        '
-        Me.lblPSDAppSummaryDUPDF.AutoSize = True
-        Me.lblPSDAppSummaryDUPDF.Location = New System.Drawing.Point(385, 42)
-        Me.lblPSDAppSummaryDUPDF.Name = "lblPSDAppSummaryDUPDF"
-        Me.lblPSDAppSummaryDUPDF.Size = New System.Drawing.Size(76, 13)
-        Me.lblPSDAppSummaryDUPDF.TabIndex = 36
-        Me.lblPSDAppSummaryDUPDF.Text = "DateUploaded"
-        Me.lblPSDAppSummaryDUPDF.Visible = False
-        '
-        'lblPSDAppSummarySRPDF
-        '
-        Me.lblPSDAppSummarySRPDF.AutoSize = True
-        Me.lblPSDAppSummarySRPDF.Location = New System.Drawing.Point(385, 28)
-        Me.lblPSDAppSummarySRPDF.Name = "lblPSDAppSummarySRPDF"
-        Me.lblPSDAppSummarySRPDF.Size = New System.Drawing.Size(90, 13)
-        Me.lblPSDAppSummarySRPDF.TabIndex = 35
-        Me.lblPSDAppSummarySRPDF.Text = "Staff Responsible"
-        Me.lblPSDAppSummarySRPDF.Visible = False
-        '
-        'lblPSDAppSummaryDUDoc
-        '
-        Me.lblPSDAppSummaryDUDoc.AutoSize = True
-        Me.lblPSDAppSummaryDUDoc.Location = New System.Drawing.Point(135, 43)
-        Me.lblPSDAppSummaryDUDoc.Name = "lblPSDAppSummaryDUDoc"
-        Me.lblPSDAppSummaryDUDoc.Size = New System.Drawing.Size(76, 13)
-        Me.lblPSDAppSummaryDUDoc.TabIndex = 34
-        Me.lblPSDAppSummaryDUDoc.Text = "DateUploaded"
-        Me.lblPSDAppSummaryDUDoc.Visible = False
-        '
-        'lblPSDAppSummarySRDoc
-        '
-        Me.lblPSDAppSummarySRDoc.AutoSize = True
-        Me.lblPSDAppSummarySRDoc.Location = New System.Drawing.Point(135, 28)
-        Me.lblPSDAppSummarySRDoc.Name = "lblPSDAppSummarySRDoc"
-        Me.lblPSDAppSummarySRDoc.Size = New System.Drawing.Size(90, 13)
-        Me.lblPSDAppSummarySRDoc.TabIndex = 33
-        Me.lblPSDAppSummarySRDoc.Text = "Staff Responsible"
-        Me.lblPSDAppSummarySRDoc.Visible = False
-        '
-        'txtPSDPrelimDetPDF
-        '
-        Me.txtPSDPrelimDetPDF.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
-        Me.txtPSDPrelimDetPDF.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
-        Me.txtPSDPrelimDetPDF.Location = New System.Drawing.Point(376, 59)
-        Me.txtPSDPrelimDetPDF.Name = "txtPSDPrelimDetPDF"
-        Me.txtPSDPrelimDetPDF.ReadOnly = True
-        Me.txtPSDPrelimDetPDF.Size = New System.Drawing.Size(241, 20)
-        Me.txtPSDPrelimDetPDF.TabIndex = 6
-        Me.txtPSDPrelimDetPDF.Visible = False
-        '
-        'txtPSDDraftPermitPDF
-        '
-        Me.txtPSDDraftPermitPDF.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
-        Me.txtPSDDraftPermitPDF.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
-        Me.txtPSDDraftPermitPDF.Location = New System.Drawing.Point(376, 172)
-        Me.txtPSDDraftPermitPDF.Name = "txtPSDDraftPermitPDF"
-        Me.txtPSDDraftPermitPDF.ReadOnly = True
-        Me.txtPSDDraftPermitPDF.Size = New System.Drawing.Size(241, 20)
-        Me.txtPSDDraftPermitPDF.TabIndex = 15
-        Me.txtPSDDraftPermitPDF.Visible = False
-        '
-        'txtPSDPublicNoticePDF
-        '
-        Me.txtPSDPublicNoticePDF.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
-        Me.txtPSDPublicNoticePDF.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
-        Me.txtPSDPublicNoticePDF.Location = New System.Drawing.Point(376, 226)
-        Me.txtPSDPublicNoticePDF.Name = "txtPSDPublicNoticePDF"
-        Me.txtPSDPublicNoticePDF.ReadOnly = True
-        Me.txtPSDPublicNoticePDF.Size = New System.Drawing.Size(241, 20)
-        Me.txtPSDPublicNoticePDF.TabIndex = 19
-        Me.txtPSDPublicNoticePDF.Visible = False
-        '
-        'txtPSDHearingNoticePDF
-        '
-        Me.txtPSDHearingNoticePDF.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
-        Me.txtPSDHearingNoticePDF.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
-        Me.txtPSDHearingNoticePDF.Location = New System.Drawing.Point(376, 282)
-        Me.txtPSDHearingNoticePDF.Name = "txtPSDHearingNoticePDF"
-        Me.txtPSDHearingNoticePDF.ReadOnly = True
-        Me.txtPSDHearingNoticePDF.Size = New System.Drawing.Size(241, 20)
-        Me.txtPSDHearingNoticePDF.TabIndex = 23
-        Me.txtPSDHearingNoticePDF.Visible = False
-        '
-        'txtPSDFinalDetPDF
-        '
-        Me.txtPSDFinalDetPDF.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
-        Me.txtPSDFinalDetPDF.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
-        Me.txtPSDFinalDetPDF.Location = New System.Drawing.Point(376, 334)
-        Me.txtPSDFinalDetPDF.Name = "txtPSDFinalDetPDF"
-        Me.txtPSDFinalDetPDF.ReadOnly = True
-        Me.txtPSDFinalDetPDF.Size = New System.Drawing.Size(241, 20)
-        Me.txtPSDFinalDetPDF.TabIndex = 27
-        Me.txtPSDFinalDetPDF.Visible = False
-        '
-        'txtPSDAppSummaryPDF
-        '
-        Me.txtPSDAppSummaryPDF.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
-        Me.txtPSDAppSummaryPDF.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
-        Me.txtPSDAppSummaryPDF.Location = New System.Drawing.Point(376, 5)
-        Me.txtPSDAppSummaryPDF.Name = "txtPSDAppSummaryPDF"
-        Me.txtPSDAppSummaryPDF.ReadOnly = True
-        Me.txtPSDAppSummaryPDF.Size = New System.Drawing.Size(241, 20)
-        Me.txtPSDAppSummaryPDF.TabIndex = 1
-        Me.txtPSDAppSummaryPDF.Visible = False
-        '
-        'txtPSDFinalPermitPDF
-        '
-        Me.txtPSDFinalPermitPDF.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
-        Me.txtPSDFinalPermitPDF.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
-        Me.txtPSDFinalPermitPDF.Location = New System.Drawing.Point(376, 387)
-        Me.txtPSDFinalPermitPDF.Name = "txtPSDFinalPermitPDF"
-        Me.txtPSDFinalPermitPDF.ReadOnly = True
-        Me.txtPSDFinalPermitPDF.Size = New System.Drawing.Size(241, 20)
-        Me.txtPSDFinalPermitPDF.TabIndex = 31
-        Me.txtPSDFinalPermitPDF.Visible = False
-        '
-        'txtPSDFinalPermitDoc
-        '
-        Me.txtPSDFinalPermitDoc.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
-        Me.txtPSDFinalPermitDoc.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
-        Me.txtPSDFinalPermitDoc.Location = New System.Drawing.Point(129, 387)
-        Me.txtPSDFinalPermitDoc.Name = "txtPSDFinalPermitDoc"
-        Me.txtPSDFinalPermitDoc.ReadOnly = True
-        Me.txtPSDFinalPermitDoc.Size = New System.Drawing.Size(241, 20)
-        Me.txtPSDFinalPermitDoc.TabIndex = 30
-        Me.txtPSDFinalPermitDoc.Visible = False
-        '
-        'chbPSDFinalPermit
-        '
-        Me.chbPSDFinalPermit.AutoSize = True
-        Me.chbPSDFinalPermit.Location = New System.Drawing.Point(4, 389)
-        Me.chbPSDFinalPermit.Name = "chbPSDFinalPermit"
-        Me.chbPSDFinalPermit.Size = New System.Drawing.Size(80, 17)
-        Me.chbPSDFinalPermit.TabIndex = 29
-        Me.chbPSDFinalPermit.Text = "Final Permit"
-        Me.chbPSDFinalPermit.UseVisualStyleBackColor = True
-        '
-        'txtPSDFinalDetDoc
-        '
-        Me.txtPSDFinalDetDoc.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
-        Me.txtPSDFinalDetDoc.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
-        Me.txtPSDFinalDetDoc.Location = New System.Drawing.Point(129, 334)
-        Me.txtPSDFinalDetDoc.Name = "txtPSDFinalDetDoc"
-        Me.txtPSDFinalDetDoc.ReadOnly = True
-        Me.txtPSDFinalDetDoc.Size = New System.Drawing.Size(241, 20)
-        Me.txtPSDFinalDetDoc.TabIndex = 26
-        Me.txtPSDFinalDetDoc.Visible = False
-        '
-        'chbPSDFinalDet
-        '
-        Me.chbPSDFinalDet.AutoSize = True
-        Me.chbPSDFinalDet.Location = New System.Drawing.Point(4, 337)
-        Me.chbPSDFinalDet.Name = "chbPSDFinalDet"
-        Me.chbPSDFinalDet.Size = New System.Drawing.Size(71, 17)
-        Me.chbPSDFinalDet.TabIndex = 25
-        Me.chbPSDFinalDet.Text = "Final Det."
-        Me.chbPSDFinalDet.UseVisualStyleBackColor = True
-        '
-        'txtPSDHearingNoticeDoc
-        '
-        Me.txtPSDHearingNoticeDoc.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
-        Me.txtPSDHearingNoticeDoc.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
-        Me.txtPSDHearingNoticeDoc.Location = New System.Drawing.Point(129, 282)
-        Me.txtPSDHearingNoticeDoc.Name = "txtPSDHearingNoticeDoc"
-        Me.txtPSDHearingNoticeDoc.ReadOnly = True
-        Me.txtPSDHearingNoticeDoc.Size = New System.Drawing.Size(241, 20)
-        Me.txtPSDHearingNoticeDoc.TabIndex = 22
-        Me.txtPSDHearingNoticeDoc.Visible = False
-        '
-        'chbPSDHearingNotice
-        '
-        Me.chbPSDHearingNotice.AutoSize = True
-        Me.chbPSDHearingNotice.Location = New System.Drawing.Point(4, 284)
-        Me.chbPSDHearingNotice.Name = "chbPSDHearingNotice"
-        Me.chbPSDHearingNotice.Size = New System.Drawing.Size(97, 17)
-        Me.chbPSDHearingNotice.TabIndex = 21
-        Me.chbPSDHearingNotice.Text = "Hearing Notice"
-        Me.chbPSDHearingNotice.UseVisualStyleBackColor = True
-        '
-        'txtPSDPublicNoticeDoc
-        '
-        Me.txtPSDPublicNoticeDoc.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
-        Me.txtPSDPublicNoticeDoc.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
-        Me.txtPSDPublicNoticeDoc.Location = New System.Drawing.Point(129, 227)
-        Me.txtPSDPublicNoticeDoc.Name = "txtPSDPublicNoticeDoc"
-        Me.txtPSDPublicNoticeDoc.ReadOnly = True
-        Me.txtPSDPublicNoticeDoc.Size = New System.Drawing.Size(241, 20)
-        Me.txtPSDPublicNoticeDoc.TabIndex = 18
-        Me.txtPSDPublicNoticeDoc.Visible = False
-        '
-        'txtPSDDraftPermitDoc
-        '
-        Me.txtPSDDraftPermitDoc.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
-        Me.txtPSDDraftPermitDoc.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
-        Me.txtPSDDraftPermitDoc.Location = New System.Drawing.Point(129, 173)
-        Me.txtPSDDraftPermitDoc.Name = "txtPSDDraftPermitDoc"
-        Me.txtPSDDraftPermitDoc.ReadOnly = True
-        Me.txtPSDDraftPermitDoc.Size = New System.Drawing.Size(241, 20)
-        Me.txtPSDDraftPermitDoc.TabIndex = 14
-        Me.txtPSDDraftPermitDoc.Visible = False
-        '
-        'txtPSDPrelimDetDoc
-        '
-        Me.txtPSDPrelimDetDoc.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
-        Me.txtPSDPrelimDetDoc.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
-        Me.txtPSDPrelimDetDoc.Location = New System.Drawing.Point(129, 59)
-        Me.txtPSDPrelimDetDoc.Name = "txtPSDPrelimDetDoc"
-        Me.txtPSDPrelimDetDoc.ReadOnly = True
-        Me.txtPSDPrelimDetDoc.Size = New System.Drawing.Size(241, 20)
-        Me.txtPSDPrelimDetDoc.TabIndex = 5
-        Me.txtPSDPrelimDetDoc.Visible = False
-        '
-        'txtPSDAppSummaryDoc
-        '
-        Me.txtPSDAppSummaryDoc.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
-        Me.txtPSDAppSummaryDoc.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
-        Me.txtPSDAppSummaryDoc.Location = New System.Drawing.Point(129, 5)
-        Me.txtPSDAppSummaryDoc.Name = "txtPSDAppSummaryDoc"
-        Me.txtPSDAppSummaryDoc.ReadOnly = True
-        Me.txtPSDAppSummaryDoc.Size = New System.Drawing.Size(241, 20)
-        Me.txtPSDAppSummaryDoc.TabIndex = 0
-        Me.txtPSDAppSummaryDoc.Visible = False
-        '
-        'chbPSDPublicNotice
-        '
-        Me.chbPSDPublicNotice.AutoSize = True
-        Me.chbPSDPublicNotice.Location = New System.Drawing.Point(4, 229)
-        Me.chbPSDPublicNotice.Name = "chbPSDPublicNotice"
-        Me.chbPSDPublicNotice.Size = New System.Drawing.Size(89, 17)
-        Me.chbPSDPublicNotice.TabIndex = 17
-        Me.chbPSDPublicNotice.Text = "Public Notice"
-        Me.chbPSDPublicNotice.UseVisualStyleBackColor = True
-        '
-        'chbPSDDraftPermit
-        '
-        Me.chbPSDDraftPermit.AutoSize = True
-        Me.chbPSDDraftPermit.Location = New System.Drawing.Point(4, 175)
-        Me.chbPSDDraftPermit.Name = "chbPSDDraftPermit"
-        Me.chbPSDDraftPermit.Size = New System.Drawing.Size(81, 17)
-        Me.chbPSDDraftPermit.TabIndex = 12
-        Me.chbPSDDraftPermit.Text = "Draft Permit"
-        Me.chbPSDDraftPermit.UseVisualStyleBackColor = True
-        '
-        'chbPSDPrelimDet
-        '
-        Me.chbPSDPrelimDet.AutoSize = True
-        Me.chbPSDPrelimDet.Location = New System.Drawing.Point(4, 61)
-        Me.chbPSDPrelimDet.Name = "chbPSDPrelimDet"
-        Me.chbPSDPrelimDet.Size = New System.Drawing.Size(77, 17)
-        Me.chbPSDPrelimDet.TabIndex = 4
-        Me.chbPSDPrelimDet.Text = "Prelim. Det"
-        Me.chbPSDPrelimDet.UseVisualStyleBackColor = True
-        '
-        'chbPSDApplicationSummary
-        '
-        Me.chbPSDApplicationSummary.AutoSize = True
-        Me.chbPSDApplicationSummary.Location = New System.Drawing.Point(4, 7)
-        Me.chbPSDApplicationSummary.Name = "chbPSDApplicationSummary"
-        Me.chbPSDApplicationSummary.Size = New System.Drawing.Size(94, 17)
-        Me.chbPSDApplicationSummary.TabIndex = 3
-        Me.chbPSDApplicationSummary.Text = "App. Summary"
-        Me.chbPSDApplicationSummary.UseVisualStyleBackColor = True
-        '
-        'Panel7
-        '
-        Me.Panel7.AutoSize = True
-        Me.Panel7.Controls.Add(Me.rdbOtherPermit)
-        Me.Panel7.Controls.Add(Me.rdbPSDPermit)
-        Me.Panel7.Controls.Add(Me.rdbTitleVPermit)
-        Me.Panel7.Location = New System.Drawing.Point(15, 23)
-        Me.Panel7.Name = "Panel7"
-        Me.Panel7.Size = New System.Drawing.Size(83, 69)
-        Me.Panel7.TabIndex = 0
-        '
-        'rdbOtherPermit
-        '
-        Me.rdbOtherPermit.AutoSize = True
-        Me.rdbOtherPermit.Location = New System.Drawing.Point(3, 49)
-        Me.rdbOtherPermit.Name = "rdbOtherPermit"
-        Me.rdbOtherPermit.Size = New System.Drawing.Size(77, 17)
-        Me.rdbOtherPermit.TabIndex = 2
-        Me.rdbOtherPermit.TabStop = True
-        Me.rdbOtherPermit.Text = "Other (SIP)"
-        Me.rdbOtherPermit.UseVisualStyleBackColor = True
-        '
-        'rdbPSDPermit
-        '
-        Me.rdbPSDPermit.AutoSize = True
-        Me.rdbPSDPermit.Location = New System.Drawing.Point(3, 26)
-        Me.rdbPSDPermit.Name = "rdbPSDPermit"
-        Me.rdbPSDPermit.Size = New System.Drawing.Size(75, 17)
-        Me.rdbPSDPermit.TabIndex = 1
-        Me.rdbPSDPermit.TabStop = True
-        Me.rdbPSDPermit.Text = "PSD/NSR"
-        Me.rdbPSDPermit.UseVisualStyleBackColor = True
-        '
-        'rdbTitleVPermit
-        '
-        Me.rdbTitleVPermit.AutoSize = True
-        Me.rdbTitleVPermit.Location = New System.Drawing.Point(3, 3)
-        Me.rdbTitleVPermit.Name = "rdbTitleVPermit"
-        Me.rdbTitleVPermit.Size = New System.Drawing.Size(55, 17)
-        Me.rdbTitleVPermit.TabIndex = 0
-        Me.rdbTitleVPermit.TabStop = True
-        Me.rdbTitleVPermit.Text = "Title V"
-        Me.rdbTitleVPermit.UseVisualStyleBackColor = True
-        '
-        'Label47
-        '
-        Me.Label47.AutoSize = True
-        Me.Label47.Location = New System.Drawing.Point(4, 8)
-        Me.Label47.Name = "Label47"
-        Me.Label47.Size = New System.Drawing.Size(63, 13)
-        Me.Label47.TabIndex = 12
-        Me.Label47.Text = "Permit Type"
-        '
-        'lblPDF
-        '
-        Me.lblPDF.AutoSize = True
-        Me.lblPDF.Location = New System.Drawing.Point(474, 9)
-        Me.lblPDF.Name = "lblPDF"
-        Me.lblPDF.Size = New System.Drawing.Size(47, 13)
-        Me.lblPDF.TabIndex = 21
-        Me.lblPDF.Text = "PDF File"
-        Me.lblPDF.Visible = False
-        '
-        'lblWord
-        '
-        Me.lblWord.AutoSize = True
-        Me.lblWord.Location = New System.Drawing.Point(227, 9)
-        Me.lblWord.Name = "lblWord"
-        Me.lblWord.Size = New System.Drawing.Size(52, 13)
-        Me.lblWord.TabIndex = 20
-        Me.lblWord.Text = "Word File"
-        Me.lblWord.Visible = False
-        '
-        'PanelOther
-        '
-        Me.PanelOther.AutoSize = True
-        Me.PanelOther.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.PanelOther.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.PanelOther.Controls.Add(Me.btnOtherPermitDownload)
-        Me.PanelOther.Controls.Add(Me.btnOtherNarrativeDownload)
-        Me.PanelOther.Controls.Add(Me.lblOtherPermitDUPDF)
-        Me.PanelOther.Controls.Add(Me.lblOtherPermitSRPDF)
-        Me.PanelOther.Controls.Add(Me.lblOtherPermitDUDoc)
-        Me.PanelOther.Controls.Add(Me.lblOtherPermitSRDoc)
-        Me.PanelOther.Controls.Add(Me.lblOtherNarrativeDUPDF)
-        Me.PanelOther.Controls.Add(Me.lblOtherNarrativeSRPDF)
-        Me.PanelOther.Controls.Add(Me.lblOtherNarrativeDUDoc)
-        Me.PanelOther.Controls.Add(Me.lblOtherNarrativeSRDoc)
-        Me.PanelOther.Controls.Add(Me.txtOtherNarrativePDF)
-        Me.PanelOther.Controls.Add(Me.txtOtherPermitPDF)
-        Me.PanelOther.Controls.Add(Me.txtOtherNarrativeDoc)
-        Me.PanelOther.Controls.Add(Me.chbOtherNarrative)
-        Me.PanelOther.Controls.Add(Me.txtOtherPermitDoc)
-        Me.PanelOther.Controls.Add(Me.chbOtherPermit)
-        Me.PanelOther.Location = New System.Drawing.Point(100, 25)
-        Me.PanelOther.Name = "PanelOther"
-        Me.PanelOther.Size = New System.Drawing.Size(652, 114)
-        Me.PanelOther.TabIndex = 17
-        Me.PanelOther.Visible = False
-        '
-        'btnOtherPermitDownload
-        '
-        Me.btnOtherPermitDownload.Image = Global.Iaip.My.Resources.Resources.DownloadIcon
-        Me.btnOtherPermitDownload.Location = New System.Drawing.Point(623, 59)
-        Me.btnOtherPermitDownload.Name = "btnOtherPermitDownload"
-        Me.btnOtherPermitDownload.Size = New System.Drawing.Size(24, 23)
-        Me.btnOtherPermitDownload.TabIndex = 30
-        Me.btnOtherPermitDownload.UseVisualStyleBackColor = True
-        Me.btnOtherPermitDownload.Visible = False
-        '
-        'btnOtherNarrativeDownload
-        '
-        Me.btnOtherNarrativeDownload.Image = Global.Iaip.My.Resources.Resources.DownloadIcon
-        Me.btnOtherNarrativeDownload.Location = New System.Drawing.Point(623, 4)
-        Me.btnOtherNarrativeDownload.Name = "btnOtherNarrativeDownload"
-        Me.btnOtherNarrativeDownload.Size = New System.Drawing.Size(24, 23)
-        Me.btnOtherNarrativeDownload.TabIndex = 29
-        Me.btnOtherNarrativeDownload.UseVisualStyleBackColor = True
-        Me.btnOtherNarrativeDownload.Visible = False
-        '
-        'lblOtherPermitDUPDF
-        '
-        Me.lblOtherPermitDUPDF.AutoSize = True
-        Me.lblOtherPermitDUPDF.Location = New System.Drawing.Point(386, 99)
-        Me.lblOtherPermitDUPDF.Name = "lblOtherPermitDUPDF"
-        Me.lblOtherPermitDUPDF.Size = New System.Drawing.Size(76, 13)
-        Me.lblOtherPermitDUPDF.TabIndex = 28
-        Me.lblOtherPermitDUPDF.Text = "DateUploaded"
-        Me.lblOtherPermitDUPDF.Visible = False
-        '
-        'lblOtherPermitSRPDF
-        '
-        Me.lblOtherPermitSRPDF.AutoSize = True
-        Me.lblOtherPermitSRPDF.Location = New System.Drawing.Point(386, 85)
-        Me.lblOtherPermitSRPDF.Name = "lblOtherPermitSRPDF"
-        Me.lblOtherPermitSRPDF.Size = New System.Drawing.Size(90, 13)
-        Me.lblOtherPermitSRPDF.TabIndex = 27
-        Me.lblOtherPermitSRPDF.Text = "Staff Responsible"
-        Me.lblOtherPermitSRPDF.Visible = False
-        '
-        'lblOtherPermitDUDoc
-        '
-        Me.lblOtherPermitDUDoc.AutoSize = True
-        Me.lblOtherPermitDUDoc.Location = New System.Drawing.Point(135, 99)
-        Me.lblOtherPermitDUDoc.Name = "lblOtherPermitDUDoc"
-        Me.lblOtherPermitDUDoc.Size = New System.Drawing.Size(76, 13)
-        Me.lblOtherPermitDUDoc.TabIndex = 26
-        Me.lblOtherPermitDUDoc.Text = "DateUploaded"
-        Me.lblOtherPermitDUDoc.Visible = False
-        '
-        'lblOtherPermitSRDoc
-        '
-        Me.lblOtherPermitSRDoc.AutoSize = True
-        Me.lblOtherPermitSRDoc.Location = New System.Drawing.Point(135, 85)
-        Me.lblOtherPermitSRDoc.Name = "lblOtherPermitSRDoc"
-        Me.lblOtherPermitSRDoc.Size = New System.Drawing.Size(90, 13)
-        Me.lblOtherPermitSRDoc.TabIndex = 25
-        Me.lblOtherPermitSRDoc.Text = "Staff Responsible"
-        Me.lblOtherPermitSRDoc.Visible = False
-        '
-        'lblOtherNarrativeDUPDF
-        '
-        Me.lblOtherNarrativeDUPDF.AutoSize = True
-        Me.lblOtherNarrativeDUPDF.Location = New System.Drawing.Point(387, 42)
-        Me.lblOtherNarrativeDUPDF.Name = "lblOtherNarrativeDUPDF"
-        Me.lblOtherNarrativeDUPDF.Size = New System.Drawing.Size(76, 13)
-        Me.lblOtherNarrativeDUPDF.TabIndex = 24
-        Me.lblOtherNarrativeDUPDF.Text = "DateUploaded"
-        Me.lblOtherNarrativeDUPDF.Visible = False
-        '
-        'lblOtherNarrativeSRPDF
-        '
-        Me.lblOtherNarrativeSRPDF.AutoSize = True
-        Me.lblOtherNarrativeSRPDF.Location = New System.Drawing.Point(385, 27)
-        Me.lblOtherNarrativeSRPDF.Name = "lblOtherNarrativeSRPDF"
-        Me.lblOtherNarrativeSRPDF.Size = New System.Drawing.Size(90, 13)
-        Me.lblOtherNarrativeSRPDF.TabIndex = 23
-        Me.lblOtherNarrativeSRPDF.Text = "Staff Responsible"
-        Me.lblOtherNarrativeSRPDF.Visible = False
-        '
-        'lblOtherNarrativeDUDoc
-        '
-        Me.lblOtherNarrativeDUDoc.AutoSize = True
-        Me.lblOtherNarrativeDUDoc.Location = New System.Drawing.Point(135, 44)
-        Me.lblOtherNarrativeDUDoc.Name = "lblOtherNarrativeDUDoc"
-        Me.lblOtherNarrativeDUDoc.Size = New System.Drawing.Size(76, 13)
-        Me.lblOtherNarrativeDUDoc.TabIndex = 22
-        Me.lblOtherNarrativeDUDoc.Text = "DateUploaded"
-        Me.lblOtherNarrativeDUDoc.Visible = False
-        '
-        'lblOtherNarrativeSRDoc
-        '
-        Me.lblOtherNarrativeSRDoc.AutoSize = True
-        Me.lblOtherNarrativeSRDoc.Location = New System.Drawing.Point(135, 29)
-        Me.lblOtherNarrativeSRDoc.Name = "lblOtherNarrativeSRDoc"
-        Me.lblOtherNarrativeSRDoc.Size = New System.Drawing.Size(90, 13)
-        Me.lblOtherNarrativeSRDoc.TabIndex = 21
-        Me.lblOtherNarrativeSRDoc.Text = "Staff Responsible"
-        Me.lblOtherNarrativeSRDoc.Visible = False
-        '
-        'txtOtherNarrativePDF
-        '
-        Me.txtOtherNarrativePDF.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
-        Me.txtOtherNarrativePDF.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
-        Me.txtOtherNarrativePDF.Location = New System.Drawing.Point(376, 5)
-        Me.txtOtherNarrativePDF.Name = "txtOtherNarrativePDF"
-        Me.txtOtherNarrativePDF.ReadOnly = True
-        Me.txtOtherNarrativePDF.Size = New System.Drawing.Size(241, 20)
-        Me.txtOtherNarrativePDF.TabIndex = 20
-        Me.txtOtherNarrativePDF.Visible = False
-        '
-        'txtOtherPermitPDF
-        '
-        Me.txtOtherPermitPDF.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
-        Me.txtOtherPermitPDF.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
-        Me.txtOtherPermitPDF.Location = New System.Drawing.Point(376, 62)
-        Me.txtOtherPermitPDF.Name = "txtOtherPermitPDF"
-        Me.txtOtherPermitPDF.ReadOnly = True
-        Me.txtOtherPermitPDF.Size = New System.Drawing.Size(241, 20)
-        Me.txtOtherPermitPDF.TabIndex = 19
-        Me.txtOtherPermitPDF.Visible = False
-        '
-        'txtOtherNarrativeDoc
-        '
-        Me.txtOtherNarrativeDoc.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
-        Me.txtOtherNarrativeDoc.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
-        Me.txtOtherNarrativeDoc.Location = New System.Drawing.Point(129, 6)
-        Me.txtOtherNarrativeDoc.Name = "txtOtherNarrativeDoc"
-        Me.txtOtherNarrativeDoc.ReadOnly = True
-        Me.txtOtherNarrativeDoc.Size = New System.Drawing.Size(241, 20)
-        Me.txtOtherNarrativeDoc.TabIndex = 17
-        Me.txtOtherNarrativeDoc.Visible = False
-        '
-        'chbOtherNarrative
-        '
-        Me.chbOtherNarrative.AutoSize = True
-        Me.chbOtherNarrative.Location = New System.Drawing.Point(4, 10)
-        Me.chbOtherNarrative.Name = "chbOtherNarrative"
-        Me.chbOtherNarrative.Size = New System.Drawing.Size(69, 17)
-        Me.chbOtherNarrative.TabIndex = 0
-        Me.chbOtherNarrative.Text = "Narrative"
-        Me.chbOtherNarrative.UseVisualStyleBackColor = True
-        '
-        'txtOtherPermitDoc
-        '
-        Me.txtOtherPermitDoc.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
-        Me.txtOtherPermitDoc.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
-        Me.txtOtherPermitDoc.Location = New System.Drawing.Point(129, 62)
-        Me.txtOtherPermitDoc.Name = "txtOtherPermitDoc"
-        Me.txtOtherPermitDoc.ReadOnly = True
-        Me.txtOtherPermitDoc.Size = New System.Drawing.Size(241, 20)
-        Me.txtOtherPermitDoc.TabIndex = 14
-        Me.txtOtherPermitDoc.Visible = False
-        '
-        'chbOtherPermit
-        '
-        Me.chbOtherPermit.AutoSize = True
-        Me.chbOtherPermit.Location = New System.Drawing.Point(4, 64)
-        Me.chbOtherPermit.Name = "chbOtherPermit"
-        Me.chbOtherPermit.Size = New System.Drawing.Size(48, 17)
-        Me.chbOtherPermit.TabIndex = 0
-        Me.chbOtherPermit.Text = "Final"
-        Me.chbOtherPermit.UseVisualStyleBackColor = True
+        'DocumentsTable
+        '
+        Me.dgvDocumentsTable.AllowUserToOrderColumns = False
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvDocumentsTable.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        Me.dgvDocumentsTable.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.dgvDocumentsTable.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
+        Me.dgvDocumentsTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvDocumentsTable.GridColor = System.Drawing.SystemColors.ControlLight
+        Me.dgvDocumentsTable.LinkifyColumnByName = Nothing
+        Me.dgvDocumentsTable.LinkifyFirstColumn = True
+        Me.dgvDocumentsTable.Location = New System.Drawing.Point(8, 13)
+        Me.dgvDocumentsTable.Name = "DocumentsTable"
+        Me.dgvDocumentsTable.ResultsCountLabel = Nothing
+        Me.dgvDocumentsTable.ResultsCountLabelFormat = "{0} found"
+        Me.dgvDocumentsTable.Size = New System.Drawing.Size(768, 456)
+        Me.dgvDocumentsTable.StandardTab = True
+        Me.dgvDocumentsTable.TabIndex = 0
+        Me.dgvDocumentsTable.Visible = False
         '
         'TPContactInformation
         '
@@ -5920,10 +4450,10 @@ Partial Class SSPPApplicationTrackingLog
         '
         'txtFeeTotalInvoiced
         '
-        Me.txtFeeTotalInvoiced.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
-        Me.txtFeeTotalInvoiced.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtFeeTotalInvoiced.Amount = New Decimal(New Integer() {0, 0, 0, 0})
         Me.txtFeeTotalInvoiced.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtFeeTotalInvoiced.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtFeeTotalInvoiced.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtFeeTotalInvoiced.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.txtFeeTotalInvoiced.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtFeeTotalInvoiced.Cue = "$ 0"
@@ -5949,8 +4479,8 @@ Partial Class SSPPApplicationTrackingLog
         '
         'dgvApplicationInvoices
         '
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgvApplicationInvoices.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvApplicationInvoices.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle2
         Me.dgvApplicationInvoices.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -5994,10 +4524,10 @@ Partial Class SSPPApplicationTrackingLog
         '
         'txtFeeTotalPaid
         '
-        Me.txtFeeTotalPaid.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
-        Me.txtFeeTotalPaid.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtFeeTotalPaid.Amount = New Decimal(New Integer() {999999, 0, 0, 0})
         Me.txtFeeTotalPaid.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtFeeTotalPaid.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtFeeTotalPaid.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.txtFeeTotalPaid.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.txtFeeTotalPaid.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtFeeTotalPaid.Cue = "$ 0"
@@ -6023,8 +4553,8 @@ Partial Class SSPPApplicationTrackingLog
         '
         'dgvApplicationPayments
         '
-        DataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgvApplicationPayments.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle3.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvApplicationPayments.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle3
         Me.dgvApplicationPayments.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -6043,9 +4573,9 @@ Partial Class SSPPApplicationTrackingLog
         '
         'txtAppFeeAmount
         '
+        Me.txtAppFeeAmount.Amount = New Decimal(New Integer() {0, 0, 0, 0})
         Me.txtAppFeeAmount.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
         Me.txtAppFeeAmount.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
-        Me.txtAppFeeAmount.Amount = New Decimal(New Integer() {0, 0, 0, 0})
         Me.txtAppFeeAmount.Cue = "$ 0"
         Me.txtAppFeeAmount.Location = New System.Drawing.Point(214, 71)
         Me.txtAppFeeAmount.MaxValue = New Decimal(New Integer() {-1, -1, -1, 0})
@@ -6059,9 +4589,9 @@ Partial Class SSPPApplicationTrackingLog
         '
         'txtExpFeeAmount
         '
+        Me.txtExpFeeAmount.Amount = New Decimal(New Integer() {0, 0, 0, 0})
         Me.txtExpFeeAmount.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
         Me.txtExpFeeAmount.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
-        Me.txtExpFeeAmount.Amount = New Decimal(New Integer() {0, 0, 0, 0})
         Me.txtExpFeeAmount.Cue = "$ 0"
         Me.txtExpFeeAmount.Location = New System.Drawing.Point(214, 162)
         Me.txtExpFeeAmount.MaxValue = New Decimal(New Integer() {-1, -1, -1, 0})
@@ -6303,8 +4833,8 @@ Partial Class SSPPApplicationTrackingLog
         '
         'dgvEmailsSent
         '
-        DataGridViewCellStyle3.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgvEmailsSent.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle4.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvEmailsSent.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle4
         Me.dgvEmailsSent.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -6443,6 +4973,24 @@ Partial Class SSPPApplicationTrackingLog
         Me.Label3.TabIndex = 250
         Me.Label3.Text = "Current Facility Info"
         '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Location = New System.Drawing.Point(0, 0)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(100, 23)
+        Me.Label4.TabIndex = 0
+        Me.Label4.Text = "Label4"
+        '
+        'lblNoDocuments
+        '
+        Me.lblNoDocuments.AutoSize = True
+        Me.lblNoDocuments.Location = New System.Drawing.Point(8, 13)
+        Me.lblNoDocuments.Name = "lblNoDocuments"
+        Me.lblNoDocuments.Size = New System.Drawing.Size(268, 13)
+        Me.lblNoDocuments.TabIndex = 1
+        Me.lblNoDocuments.Text = "No documents have been uploaded for this application."
+        '
         'SSPPApplicationTrackingLog
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -6510,14 +5058,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.Panel32.PerformLayout()
         Me.TPDocuments.ResumeLayout(False)
         Me.TPDocuments.PerformLayout()
-        Me.PanelTitleV.ResumeLayout(False)
-        Me.PanelTitleV.PerformLayout()
-        Me.PanelPSD.ResumeLayout(False)
-        Me.PanelPSD.PerformLayout()
-        Me.Panel7.ResumeLayout(False)
-        Me.Panel7.PerformLayout()
-        Me.PanelOther.ResumeLayout(False)
-        Me.PanelOther.PerformLayout()
+        CType(Me.dgvDocumentsTable, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TPContactInformation.ResumeLayout(False)
         Me.TPContactInformation.PerformLayout()
         Me.TPWebPublisher.ResumeLayout(False)
@@ -6605,128 +5146,6 @@ Partial Class SSPPApplicationTrackingLog
     Friend WithEvents TPPart61 As System.Windows.Forms.TabPage
     Friend WithEvents TPPart63 As System.Windows.Forms.TabPage
     Friend WithEvents TPDocuments As System.Windows.Forms.TabPage
-    Friend WithEvents PanelPSD As System.Windows.Forms.Panel
-    Friend WithEvents btnPSDNarrativeDownload As System.Windows.Forms.Button
-    Friend WithEvents lblPSDNarrativeDUPDF As System.Windows.Forms.Label
-    Friend WithEvents lblPSDNarrativeDUDoc As System.Windows.Forms.Label
-    Friend WithEvents txtPSDNarrativePDF As System.Windows.Forms.TextBox
-    Friend WithEvents txtPSDNarrativeDoc As System.Windows.Forms.TextBox
-    Friend WithEvents chbPSDNarrative As System.Windows.Forms.CheckBox
-    Friend WithEvents lblPSDNarrativeSRPDF As System.Windows.Forms.Label
-    Friend WithEvents lblPSDNarrativeSRDoc As System.Windows.Forms.Label
-    Friend WithEvents btnPSDPublicNoticeDownload As System.Windows.Forms.Button
-    Friend WithEvents btnPSDDraftPermitDownload As System.Windows.Forms.Button
-    Friend WithEvents btnPSDPrelimDetDownload As System.Windows.Forms.Button
-    Friend WithEvents btnPSDHearingNoticeDownload As System.Windows.Forms.Button
-    Friend WithEvents btnPSDFinalDetDownload As System.Windows.Forms.Button
-    Friend WithEvents btnPSDFinalPermitDownload As System.Windows.Forms.Button
-    Friend WithEvents btnPSDAppSummaryDownload As System.Windows.Forms.Button
-    Friend WithEvents lblPSDFinalPermitDUPDF As System.Windows.Forms.Label
-    Friend WithEvents lblPSDFinalPermitSRPDF As System.Windows.Forms.Label
-    Friend WithEvents lblPSDFinalPermitDUDoc As System.Windows.Forms.Label
-    Friend WithEvents lblPSDFinalPermitSRDoc As System.Windows.Forms.Label
-    Friend WithEvents lblPSDFinalDetDUPDF As System.Windows.Forms.Label
-    Friend WithEvents lblPSDFinalDetSRPDF As System.Windows.Forms.Label
-    Friend WithEvents lblPSDFinalDetDUDoc As System.Windows.Forms.Label
-    Friend WithEvents lblPSDFinalDetSRDoc As System.Windows.Forms.Label
-    Friend WithEvents lblPSDHearingNoticeDUPDF As System.Windows.Forms.Label
-    Friend WithEvents lblPSDHearingNoticeSRPDF As System.Windows.Forms.Label
-    Friend WithEvents lblPSDHearingNoticeDUDoc As System.Windows.Forms.Label
-    Friend WithEvents lblPSDHearingNoticeSRDoc As System.Windows.Forms.Label
-    Friend WithEvents lblPSDPublicNoticeDUPDF As System.Windows.Forms.Label
-    Friend WithEvents lblPSDPublicNoticeSRPDF As System.Windows.Forms.Label
-    Friend WithEvents lblPSDPublicNoticeDUDoc As System.Windows.Forms.Label
-    Friend WithEvents lblPSDPublicNoticeSRDoc As System.Windows.Forms.Label
-    Friend WithEvents lblPSDDraftPermitDUPDF As System.Windows.Forms.Label
-    Friend WithEvents lblPSDDraftPermitSRPDF As System.Windows.Forms.Label
-    Friend WithEvents lblPSDDraftPermitDUDoc As System.Windows.Forms.Label
-    Friend WithEvents lblPSDDraftPermitSRDoc As System.Windows.Forms.Label
-    Friend WithEvents lblPSDPrelimDetDUPDF As System.Windows.Forms.Label
-    Friend WithEvents lblPSDPrelimDetSRPDF As System.Windows.Forms.Label
-    Friend WithEvents lblPSDPrelimDetDUDoc As System.Windows.Forms.Label
-    Friend WithEvents lblPSDPrelimDetSRDoc As System.Windows.Forms.Label
-    Friend WithEvents lblPSDAppSummaryDUPDF As System.Windows.Forms.Label
-    Friend WithEvents lblPSDAppSummarySRPDF As System.Windows.Forms.Label
-    Friend WithEvents lblPSDAppSummaryDUDoc As System.Windows.Forms.Label
-    Friend WithEvents lblPSDAppSummarySRDoc As System.Windows.Forms.Label
-    Friend WithEvents txtPSDPrelimDetPDF As System.Windows.Forms.TextBox
-    Friend WithEvents txtPSDDraftPermitPDF As System.Windows.Forms.TextBox
-    Friend WithEvents txtPSDPublicNoticePDF As System.Windows.Forms.TextBox
-    Friend WithEvents txtPSDHearingNoticePDF As System.Windows.Forms.TextBox
-    Friend WithEvents txtPSDFinalDetPDF As System.Windows.Forms.TextBox
-    Friend WithEvents txtPSDAppSummaryPDF As System.Windows.Forms.TextBox
-    Friend WithEvents txtPSDFinalPermitPDF As System.Windows.Forms.TextBox
-    Friend WithEvents txtPSDFinalPermitDoc As System.Windows.Forms.TextBox
-    Friend WithEvents chbPSDFinalPermit As System.Windows.Forms.CheckBox
-    Friend WithEvents txtPSDFinalDetDoc As System.Windows.Forms.TextBox
-    Friend WithEvents chbPSDFinalDet As System.Windows.Forms.CheckBox
-    Friend WithEvents txtPSDHearingNoticeDoc As System.Windows.Forms.TextBox
-    Friend WithEvents chbPSDHearingNotice As System.Windows.Forms.CheckBox
-    Friend WithEvents txtPSDPublicNoticeDoc As System.Windows.Forms.TextBox
-    Friend WithEvents txtPSDDraftPermitDoc As System.Windows.Forms.TextBox
-    Friend WithEvents txtPSDPrelimDetDoc As System.Windows.Forms.TextBox
-    Friend WithEvents txtPSDAppSummaryDoc As System.Windows.Forms.TextBox
-    Friend WithEvents chbPSDPublicNotice As System.Windows.Forms.CheckBox
-    Friend WithEvents chbPSDDraftPermit As System.Windows.Forms.CheckBox
-    Friend WithEvents chbPSDPrelimDet As System.Windows.Forms.CheckBox
-    Friend WithEvents chbPSDApplicationSummary As System.Windows.Forms.CheckBox
-    Friend WithEvents PanelTitleV As System.Windows.Forms.Panel
-    Friend WithEvents btnTVFinalDownload As System.Windows.Forms.Button
-    Friend WithEvents btnTVPublicNoticeDownload As System.Windows.Forms.Button
-    Friend WithEvents btnTVDraftDownload As System.Windows.Forms.Button
-    Friend WithEvents btnTVNarrativeDownload As System.Windows.Forms.Button
-    Friend WithEvents lblTVFinalDUPDF As System.Windows.Forms.Label
-    Friend WithEvents lblTVFinalSRPDF As System.Windows.Forms.Label
-    Friend WithEvents lblTVFinalDUDoc As System.Windows.Forms.Label
-    Friend WithEvents lblTVFinalSRDoc As System.Windows.Forms.Label
-    Friend WithEvents lblTVPublicNoticeDUPDF As System.Windows.Forms.Label
-    Friend WithEvents lblTVPublicNoticeSRPDF As System.Windows.Forms.Label
-    Friend WithEvents lblTVPublicNoticeDUDoc As System.Windows.Forms.Label
-    Friend WithEvents lblTVPublicNoticeSRDoc As System.Windows.Forms.Label
-    Friend WithEvents lblTVDraftDUPDF As System.Windows.Forms.Label
-    Friend WithEvents lblTVDraftSRPDF As System.Windows.Forms.Label
-    Friend WithEvents lblTVDraftDUDoc As System.Windows.Forms.Label
-    Friend WithEvents lblTVDraftSRDoc As System.Windows.Forms.Label
-    Friend WithEvents lblTVNarrativeDUPDF As System.Windows.Forms.Label
-    Friend WithEvents lblTVNarrativeSRPDF As System.Windows.Forms.Label
-    Friend WithEvents lblTVNarrativeDUDoc As System.Windows.Forms.Label
-    Friend WithEvents lblTVNarrativeSRDoc As System.Windows.Forms.Label
-    Friend WithEvents txtTVFinalPDF As System.Windows.Forms.TextBox
-    Friend WithEvents txtTVPublicNoticePDF As System.Windows.Forms.TextBox
-    Friend WithEvents txtTVDraftPDF As System.Windows.Forms.TextBox
-    Friend WithEvents txtTVNarrativePDF As System.Windows.Forms.TextBox
-    Friend WithEvents txtTVFinalDoc As System.Windows.Forms.TextBox
-    Friend WithEvents txtTVPublicNoticeDoc As System.Windows.Forms.TextBox
-    Friend WithEvents txtTVDraftDoc As System.Windows.Forms.TextBox
-    Friend WithEvents txtTVNarrativeDoc As System.Windows.Forms.TextBox
-    Friend WithEvents chbTVFinal As System.Windows.Forms.CheckBox
-    Friend WithEvents chbTVPublicNotice As System.Windows.Forms.CheckBox
-    Friend WithEvents chbTVDraft As System.Windows.Forms.CheckBox
-    Friend WithEvents chbTVNarrative As System.Windows.Forms.CheckBox
-    Friend WithEvents PanelOther As System.Windows.Forms.Panel
-    Friend WithEvents btnOtherPermitDownload As System.Windows.Forms.Button
-    Friend WithEvents btnOtherNarrativeDownload As System.Windows.Forms.Button
-    Friend WithEvents lblOtherPermitDUPDF As System.Windows.Forms.Label
-    Friend WithEvents lblOtherPermitSRPDF As System.Windows.Forms.Label
-    Friend WithEvents lblOtherPermitDUDoc As System.Windows.Forms.Label
-    Friend WithEvents lblOtherPermitSRDoc As System.Windows.Forms.Label
-    Friend WithEvents lblOtherNarrativeDUPDF As System.Windows.Forms.Label
-    Friend WithEvents lblOtherNarrativeSRPDF As System.Windows.Forms.Label
-    Friend WithEvents lblOtherNarrativeDUDoc As System.Windows.Forms.Label
-    Friend WithEvents lblOtherNarrativeSRDoc As System.Windows.Forms.Label
-    Friend WithEvents txtOtherNarrativePDF As System.Windows.Forms.TextBox
-    Friend WithEvents txtOtherPermitPDF As System.Windows.Forms.TextBox
-    Friend WithEvents txtOtherNarrativeDoc As System.Windows.Forms.TextBox
-    Friend WithEvents chbOtherNarrative As System.Windows.Forms.CheckBox
-    Friend WithEvents txtOtherPermitDoc As System.Windows.Forms.TextBox
-    Friend WithEvents chbOtherPermit As System.Windows.Forms.CheckBox
-    Friend WithEvents Panel7 As System.Windows.Forms.Panel
-    Friend WithEvents rdbOtherPermit As System.Windows.Forms.RadioButton
-    Friend WithEvents rdbPSDPermit As System.Windows.Forms.RadioButton
-    Friend WithEvents rdbTitleVPermit As System.Windows.Forms.RadioButton
-    Friend WithEvents Label47 As System.Windows.Forms.Label
-    Friend WithEvents lblPDF As System.Windows.Forms.Label
-    Friend WithEvents lblWord As System.Windows.Forms.Label
     Friend WithEvents TPContactInformation As System.Windows.Forms.TabPage
     Friend WithEvents btnGetCurrentPermittingContact As System.Windows.Forms.Button
     Friend WithEvents mtbContactZipCode As System.Windows.Forms.MaskedTextBox
@@ -7097,4 +5516,7 @@ Partial Class SSPPApplicationTrackingLog
     Friend WithEvents dgvEmailsSent As IaipDataGridView
     Friend WithEvents lblEmailsSent As Label
     Friend WithEvents lklRecipientLink As LinkLabel
+    Friend WithEvents dgvDocumentsTable As IaipDataGridView
+    Friend WithEvents Label4 As Label
+    Friend WithEvents lblNoDocuments As Label
 End Class
