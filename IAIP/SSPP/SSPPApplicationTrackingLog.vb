@@ -6703,22 +6703,7 @@ Public Class SSPPApplicationTrackingLog
 
             Dim fn As String = DB.GetString(query, parameter)
 
-            If fn <> "" Then
-                Dim temp As String = Mid(fn, 1, 1)
-                Select Case temp
-                    Case "V"
-                        rdbTitleVPermit.Checked = True
-                    Case "P"
-                        rdbPSDPermit.Checked = True
-                    Case "O"
-                        rdbOtherPermit.Checked = True
-                    Case Else
-                        rdbOtherPermit.Checked = True
-                End Select
-
-                lblPermitNumber.Visible = False
-                llbPermitNumber.Visible = True
-            Else
+            If fn = "" Then
                 Select Case AppType
                     Case "SM(TV)", "TV-Initial", "TV-Renewal", "TV-Amend", "Title V"
                         rdbTitleVPermit.Checked = True
@@ -6734,6 +6719,21 @@ Public Class SSPPApplicationTrackingLog
 
                 lblPermitNumber.Visible = True
                 llbPermitNumber.Visible = False
+            Else
+                Dim temp As String = Mid(fn, 1, 1)
+                Select Case temp
+                    Case "V"
+                        rdbTitleVPermit.Checked = True
+                    Case "P"
+                        rdbPSDPermit.Checked = True
+                    Case "O"
+                        rdbOtherPermit.Checked = True
+                    Case Else
+                        rdbOtherPermit.Checked = True
+                End Select
+
+                lblPermitNumber.Visible = False
+                llbPermitNumber.Visible = True
             End If
 
         Catch ex As Exception
@@ -9765,56 +9765,21 @@ Public Class SSPPApplicationTrackingLog
 
     Private Sub llbPermitNumber_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbPermitNumber.LinkClicked
         Try
-            Dim temp As String = ""
-            Dim URL As String = ""
-            Dim PDFFile As String = ""
 
             Dim query As String = "SELECT strFileName
-                                         , strDocFileSize
-                                         , strPDFFileSize
                                     FROM   APBpermits
                                     WHERE  strFileName LIKE @MasterAppFn
-                                           AND (strFileName LIKE '%VF%'
-                                                OR strFileName LIKE '%PI%'
-                                                OR strFileName LIKE '%OP%') "
+                                           AND (strFileName LIKE 'VF-%'
+                                                OR strFileName LIKE 'PI-%'
+                                                OR strFileName LIKE 'OP-%') "
 
-            Dim parameter As SqlParameter() = {
-                New SqlParameter("@MasterAppFn", "%-" & MasterApp)
-            }
+            Dim parameter As New SqlParameter("@MasterAppFn", "%-" & MasterApp)
 
-            Dim dr As DataRow = DB.GetDataRow(query, parameter)
+            Dim filename As String = DB.GetString(query, parameter)
 
-            If dr IsNot Nothing Then
-                temp = dr.Item("strFileName")
-                If IsDBNull(dr.Item("strPDFFileSize")) Then
-                    PDFFile = ""
-                Else
-                    PDFFile = dr.Item("strPDFFileSize")
-                End If
-            End If
+            If filename Is Nothing Then Return
 
-            Select Case Mid(temp, 1, 1)
-                Case "V"
-                    If PDFFile <> "" Then
-                        URL = "https://permitsearch.gaepd.org/permit.aspx?id=PDF-VF-" & MasterApp
-                    Else
-                        URL = "https://permitsearch.gaepd.org/permit.aspx?id=DOC-VF-" & MasterApp
-                    End If
-                Case "P"
-                    If PDFFile <> "" Then
-                        URL = "https://permitsearch.gaepd.org/permit.aspx?id=PDF-PI-" & MasterApp
-                    Else
-                        URL = "https://permitsearch.gaepd.org/permit.aspx?id=DOC-PI-" & MasterApp
-                    End If
-                Case Else
-                    If PDFFile <> "" Then
-                        URL = "https://permitsearch.gaepd.org/permit.aspx?id=PDF-OP-" & MasterApp
-                    Else
-                        URL = "https://permitsearch.gaepd.org/permit.aspx?id=DOC-OP-" & MasterApp
-                    End If
-            End Select
-
-            If URL <> "" Then OpenUrl(New Uri(URL), Me)
+            OpenUriString($"https://permitsearch.gaepd.org/Permit/{filename}", Me)
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
