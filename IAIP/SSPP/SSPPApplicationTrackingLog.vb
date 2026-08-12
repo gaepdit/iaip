@@ -12052,6 +12052,10 @@ Public Class SSPPApplicationTrackingLog
         form.FindApplicationInformation()
     End Sub
 
+    Private Sub btnRefreshDocsTable_Click(sender As Object, e As EventArgs) Handles btnRefreshDocsTable.Click
+        LoadDocumentsTab()
+    End Sub
+
 #End Region
 
 End Class

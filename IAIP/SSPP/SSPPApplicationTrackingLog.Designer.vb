@@ -142,6 +142,8 @@ Partial Class SSPPApplicationTrackingLog
         Me.btnAddNewMACTSubpart = New System.Windows.Forms.Button()
         Me.cboMACTSubpart = New System.Windows.Forms.ComboBox()
         Me.TPDocuments = New System.Windows.Forms.TabPage()
+        Me.btnRefreshDocsTable = New System.Windows.Forms.Button()
+        Me.btnFileUploader = New System.Windows.Forms.Button()
         Me.lblNoDocuments = New System.Windows.Forms.Label()
         Me.dgvDocumentsTable = New Iaip.IaipDataGridView()
         Me.TPContactInformation = New System.Windows.Forms.TabPage()
@@ -420,7 +422,6 @@ Partial Class SSPPApplicationTrackingLog
         Me.Label3 = New System.Windows.Forms.Label()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.Label4 = New System.Windows.Forms.Label()
-        Me.btnFileUploader = New System.Windows.Forms.Button()
         Me.TPSubPartEditor.SuspendLayout()
         Me.TCSupParts.SuspendLayout()
         Me.TPSIP.SuspendLayout()
@@ -1780,6 +1781,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         'TPDocuments
         '
+        Me.TPDocuments.Controls.Add(Me.btnRefreshDocsTable)
         Me.TPDocuments.Controls.Add(Me.btnFileUploader)
         Me.TPDocuments.Controls.Add(Me.lblNoDocuments)
         Me.TPDocuments.Controls.Add(Me.dgvDocumentsTable)
@@ -1789,6 +1791,29 @@ Partial Class SSPPApplicationTrackingLog
         Me.TPDocuments.TabIndex = 7
         Me.TPDocuments.Text = "Documents"
         Me.TPDocuments.UseVisualStyleBackColor = True
+        '
+        'btnRefreshDocsTable
+        '
+        Me.btnRefreshDocsTable.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnRefreshDocsTable.AutoSize = True
+        Me.btnRefreshDocsTable.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.btnRefreshDocsTable.Image = Global.Iaip.My.Resources.Resources.RefreshIcon
+        Me.btnRefreshDocsTable.Location = New System.Drawing.Point(754, 8)
+        Me.btnRefreshDocsTable.Name = "btnRefreshDocsTable"
+        Me.btnRefreshDocsTable.Size = New System.Drawing.Size(22, 22)
+        Me.btnRefreshDocsTable.TabIndex = 2
+        Me.btnRefreshDocsTable.UseVisualStyleBackColor = True
+        '
+        'btnFileUploader
+        '
+        Me.btnFileUploader.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.btnFileUploader.AutoSize = True
+        Me.btnFileUploader.Location = New System.Drawing.Point(8, 446)
+        Me.btnFileUploader.Name = "btnFileUploader"
+        Me.btnFileUploader.Size = New System.Drawing.Size(121, 23)
+        Me.btnFileUploader.TabIndex = 2
+        Me.btnFileUploader.Text = "Open File Uploader"
+        Me.btnFileUploader.UseVisualStyleBackColor = True
         '
         'lblNoDocuments
         '
@@ -1812,11 +1837,11 @@ Partial Class SSPPApplicationTrackingLog
         Me.dgvDocumentsTable.GridColor = System.Drawing.SystemColors.ControlLight
         Me.dgvDocumentsTable.LinkifyColumnByName = Nothing
         Me.dgvDocumentsTable.LinkifyFirstColumn = True
-        Me.dgvDocumentsTable.Location = New System.Drawing.Point(8, 13)
+        Me.dgvDocumentsTable.Location = New System.Drawing.Point(8, 37)
         Me.dgvDocumentsTable.Name = "dgvDocumentsTable"
         Me.dgvDocumentsTable.ResultsCountLabel = Nothing
         Me.dgvDocumentsTable.ResultsCountLabelFormat = "{0} found"
-        Me.dgvDocumentsTable.Size = New System.Drawing.Size(768, 427)
+        Me.dgvDocumentsTable.Size = New System.Drawing.Size(768, 403)
         Me.dgvDocumentsTable.StandardTab = True
         Me.dgvDocumentsTable.TabIndex = 0
         Me.dgvDocumentsTable.Visible = False
@@ -4993,17 +5018,6 @@ Partial Class SSPPApplicationTrackingLog
         Me.Label4.TabIndex = 0
         Me.Label4.Text = "Label4"
         '
-        'btnFileUploader
-        '
-        Me.btnFileUploader.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btnFileUploader.AutoSize = True
-        Me.btnFileUploader.Location = New System.Drawing.Point(8, 446)
-        Me.btnFileUploader.Name = "btnFileUploader"
-        Me.btnFileUploader.Size = New System.Drawing.Size(121, 23)
-        Me.btnFileUploader.TabIndex = 2
-        Me.btnFileUploader.Text = "Open File Uploader"
-        Me.btnFileUploader.UseVisualStyleBackColor = True
-        '
         'SSPPApplicationTrackingLog
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -5533,4 +5547,5 @@ Partial Class SSPPApplicationTrackingLog
     Friend WithEvents Label4 As Label
     Friend WithEvents lblNoDocuments As Label
     Friend WithEvents btnFileUploader As Button
+    Friend WithEvents btnRefreshDocsTable As Button
 End Class
