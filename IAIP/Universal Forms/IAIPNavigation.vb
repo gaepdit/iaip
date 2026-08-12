@@ -727,14 +727,6 @@ Public Class IAIPNavigation
 
 #Region " Implementation "
 
-    Private Shared Function AccountHasAccessToForm(index As Integer) As Boolean
-        Return (AccountFormAccess(index, 0) IsNot Nothing _
-                AndAlso AccountFormAccess(index, 0) = index.ToString _
-                AndAlso (AccountFormAccess(index, 1) = "1" OrElse AccountFormAccess(index, 2) = "1" _
-                         OrElse AccountFormAccess(index, 3) = "1" OrElse AccountFormAccess(index, 4) = "1")
-                         )
-    End Function
-
     Private Sub AddNavButton(buttonText As String, formName As String, category As NavButtonCategories)
         If Not AllTheNavButtonCategories.Exists(Function(x) x.Category = category) Then
             AllTheNavButtonCategories.Add(New NavButtonCategory(category, category.ToString))

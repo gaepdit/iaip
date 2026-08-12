@@ -2373,6 +2373,8 @@ Public Class SSPPApplicationTrackingLog
                 txtSSCPComments.BackColor = Color.Yellow
             End If
 
+            btnFileUploader.Visible = AccountHasAccessToForm(9) OrElse CurrentUser.HasRole(118)
+
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -12040,6 +12042,14 @@ Public Class SSPPApplicationTrackingLog
 
     Private Sub txtAIRSNumber_AirsNumberChanged(sender As Object, e As EventArgs) Handles txtAIRSNumber.AirsNumberChanged
         btnOpenFacility.Visible = txtAIRSNumber.AirsNumber IsNot Nothing
+    End Sub
+
+    Private Sub btnFileUploader_Click(sender As Object, e As EventArgs) Handles btnFileUploader.Click
+        If AppNumber = 0 Then Return
+
+        Dim form As SSPPPermitUploader = OpenSingleForm(SSPPPermitUploader)
+        form.txtApplicationNumber.Text = AppNumber
+        form.FindApplicationInformation()
     End Sub
 
 #End Region

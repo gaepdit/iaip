@@ -142,6 +142,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.btnAddNewMACTSubpart = New System.Windows.Forms.Button()
         Me.cboMACTSubpart = New System.Windows.Forms.ComboBox()
         Me.TPDocuments = New System.Windows.Forms.TabPage()
+        Me.lblNoDocuments = New System.Windows.Forms.Label()
         Me.dgvDocumentsTable = New Iaip.IaipDataGridView()
         Me.TPContactInformation = New System.Windows.Forms.TabPage()
         Me.txtContactPhoneNumber = New System.Windows.Forms.TextBox()
@@ -419,7 +420,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.Label3 = New System.Windows.Forms.Label()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.Label4 = New System.Windows.Forms.Label()
-        Me.lblNoDocuments = New System.Windows.Forms.Label()
+        Me.btnFileUploader = New System.Windows.Forms.Button()
         Me.TPSubPartEditor.SuspendLayout()
         Me.TCSupParts.SuspendLayout()
         Me.TPSIP.SuspendLayout()
@@ -1779,6 +1780,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         'TPDocuments
         '
+        Me.TPDocuments.Controls.Add(Me.btnFileUploader)
         Me.TPDocuments.Controls.Add(Me.lblNoDocuments)
         Me.TPDocuments.Controls.Add(Me.dgvDocumentsTable)
         Me.TPDocuments.Location = New System.Drawing.Point(4, 22)
@@ -1788,7 +1790,16 @@ Partial Class SSPPApplicationTrackingLog
         Me.TPDocuments.Text = "Documents"
         Me.TPDocuments.UseVisualStyleBackColor = True
         '
-        'DocumentsTable
+        'lblNoDocuments
+        '
+        Me.lblNoDocuments.AutoSize = True
+        Me.lblNoDocuments.Location = New System.Drawing.Point(8, 13)
+        Me.lblNoDocuments.Name = "lblNoDocuments"
+        Me.lblNoDocuments.Size = New System.Drawing.Size(268, 13)
+        Me.lblNoDocuments.TabIndex = 1
+        Me.lblNoDocuments.Text = "No documents have been uploaded for this application."
+        '
+        'dgvDocumentsTable
         '
         Me.dgvDocumentsTable.AllowUserToOrderColumns = False
         DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
@@ -1802,10 +1813,10 @@ Partial Class SSPPApplicationTrackingLog
         Me.dgvDocumentsTable.LinkifyColumnByName = Nothing
         Me.dgvDocumentsTable.LinkifyFirstColumn = True
         Me.dgvDocumentsTable.Location = New System.Drawing.Point(8, 13)
-        Me.dgvDocumentsTable.Name = "DocumentsTable"
+        Me.dgvDocumentsTable.Name = "dgvDocumentsTable"
         Me.dgvDocumentsTable.ResultsCountLabel = Nothing
         Me.dgvDocumentsTable.ResultsCountLabelFormat = "{0} found"
-        Me.dgvDocumentsTable.Size = New System.Drawing.Size(768, 456)
+        Me.dgvDocumentsTable.Size = New System.Drawing.Size(768, 427)
         Me.dgvDocumentsTable.StandardTab = True
         Me.dgvDocumentsTable.TabIndex = 0
         Me.dgvDocumentsTable.Visible = False
@@ -4982,14 +4993,16 @@ Partial Class SSPPApplicationTrackingLog
         Me.Label4.TabIndex = 0
         Me.Label4.Text = "Label4"
         '
-        'lblNoDocuments
+        'btnFileUploader
         '
-        Me.lblNoDocuments.AutoSize = True
-        Me.lblNoDocuments.Location = New System.Drawing.Point(8, 13)
-        Me.lblNoDocuments.Name = "lblNoDocuments"
-        Me.lblNoDocuments.Size = New System.Drawing.Size(268, 13)
-        Me.lblNoDocuments.TabIndex = 1
-        Me.lblNoDocuments.Text = "No documents have been uploaded for this application."
+        Me.btnFileUploader.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.btnFileUploader.AutoSize = True
+        Me.btnFileUploader.Location = New System.Drawing.Point(8, 446)
+        Me.btnFileUploader.Name = "btnFileUploader"
+        Me.btnFileUploader.Size = New System.Drawing.Size(121, 23)
+        Me.btnFileUploader.TabIndex = 2
+        Me.btnFileUploader.Text = "Open File Uploader"
+        Me.btnFileUploader.UseVisualStyleBackColor = True
         '
         'SSPPApplicationTrackingLog
         '
@@ -5519,4 +5532,5 @@ Partial Class SSPPApplicationTrackingLog
     Friend WithEvents dgvDocumentsTable As IaipDataGridView
     Friend WithEvents Label4 As Label
     Friend WithEvents lblNoDocuments As Label
+    Friend WithEvents btnFileUploader As Button
 End Class

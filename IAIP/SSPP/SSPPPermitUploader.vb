@@ -31,7 +31,7 @@ Public Class SSPPPermitUploader
         If txtApplicationNumber.Text <> "" Then FindApplicationInformation()
     End Sub
 
-    Private Sub FindApplicationInformation()
+    Friend Sub FindApplicationInformation()
         Try
             Dim ZipCode As String = ""
             Dim PermitType As String = ""
