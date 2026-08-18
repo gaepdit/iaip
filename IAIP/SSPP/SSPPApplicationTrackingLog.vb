@@ -6650,10 +6650,10 @@ Public Class SSPPApplicationTrackingLog
     Private Sub LinkPermitNumber()
 
         Const query As String = "select convert(bit, count(1))
-                from APBPERMITS p
-                where p.STRFILENAME = 'VF-' + @MasterApp
-                   or p.STRFILENAME = 'PI-' + @MasterApp
-                   or p.STRFILENAME = 'OP-' + @MasterApp"
+            from APBPERMITS p
+            where p.STRFILENAME = 'VF-' + @MasterApp
+                or p.STRFILENAME = 'PI-' + @MasterApp
+                or p.STRFILENAME = 'OP-' + @MasterApp"
 
         Dim parameter As New SqlParameter("@MasterApp", MasterApp)
 
@@ -6713,71 +6713,6 @@ Public Class SSPPApplicationTrackingLog
         If Not String.IsNullOrEmpty(filename) Then OpenPermitFileLink(filename, Me)
     End Sub
 
-    Private Sub DownloadFile(fileName As String, fileType As String)
-        If fileType = "00" Then
-            Return
-        End If
-        Try
-            Dim saveFilePath As String
-            Dim query As String = ""
-            Dim parameter As New SqlParameter("@FileName", fileName)
-
-            Dim sfd As New SaveFileDialog With {
-                .InitialDirectory = GetUserSetting(UserSetting.FileDownloadLocation),
-                .FileName = fileName,
-                .FilterIndex = 1
-            }
-
-            Select Case fileType
-                Case "10", "11"
-                    sfd.Filter = "Microsoft Office Work file (*.doc)|.doc"
-                    sfd.DefaultExt = ".doc"
-                    query = "select " &
-                        "DocPermitData " &
-                        "from APBPermits " &
-                        "where strFileName = @FileName "
-                Case "01"
-                    sfd.Filter = "Adobe PDF Files (*.pdf)|.pdf"
-                    sfd.DefaultExt = ".pdf"
-                    query = "select " &
-                        "PdfPermitData " &
-                        "from APBPermits " &
-                        "where strFileName = @FileName "
-            End Select
-
-            If sfd.ShowDialog = DialogResult.OK Then
-                saveFilePath = sfd.FileName.ToString
-                SaveBinaryFileFromDB(saveFilePath, query, parameter)
-
-                If IO.Path.GetDirectoryName(sfd.FileName) <> sfd.InitialDirectory Then
-                    SaveUserSetting(UserSetting.FileDownloadLocation, IO.Path.GetDirectoryName(sfd.FileName))
-                    sfd.InitialDirectory = IO.Path.GetDirectoryName(sfd.FileName)
-                End If
-            End If
-
-            If fileType = "11" Then
-                sfd.Filter = "Adobe PDF Files (*.pdf)|.pdf"
-                sfd.DefaultExt = ".pdf"
-                query = "select " &
-                    "PdfPermitData " &
-                    "from APBPermits " &
-                    "where strFileName = @FileName "
-
-                If sfd.ShowDialog = DialogResult.OK Then
-                    saveFilePath = sfd.FileName.ToString
-                    SaveBinaryFileFromDB(saveFilePath, query, parameter)
-
-                    If IO.Path.GetDirectoryName(sfd.FileName) <> sfd.InitialDirectory Then
-                        SaveUserSetting(UserSetting.FileDownloadLocation, IO.Path.GetDirectoryName(sfd.FileName))
-                    End If
-                End If
-            End If
-
-            sfd.Dispose()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
 
     Private Sub chbClosedOut_CheckedChanged(sender As Object, e As EventArgs) Handles chbClosedOut.CheckedChanged
         If chbClosedOut.Checked AndAlso DTPFinalAction.Checked AndAlso AirsId IsNot Nothing AndAlso
@@ -7556,12 +7491,10 @@ Public Class SSPPApplicationTrackingLog
     End Sub
 
     Private Sub llbPermitNumber_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbPermitNumber.LinkClicked
-        Const query As String = "SELECT strFileName
-                                    FROM   APBpermits
-                                    WHERE  strFileName LIKE @MasterAppFn
-                                           AND (strFileName LIKE 'VF-%'
-                                                OR strFileName LIKE 'PI-%'
-                                                OR strFileName LIKE 'OP-%') "
+        Const query As String = "SELECT STRFILENAME
+            FROM APBpermits
+            WHERE STRFILENAME LIKE @MasterAppFn
+                AND (STRFILENAME LIKE 'VF-%' OR STRFILENAME LIKE 'PI-%' OR STRFILENAME LIKE 'OP-%') "
 
         Dim parameter As New SqlParameter("@MasterAppFn", "%-" & MasterApp)
         Dim filename As String = DB.GetString(query, parameter)

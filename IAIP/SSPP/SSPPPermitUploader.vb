@@ -184,13 +184,12 @@ Public Class SSPPPermitUploader
             rdbPSDPermit.Checked = False
             rdbOtherPermit.Checked = False
 
-            SQL = "select " &
-            "top (1) APBPermits.strFileName  " &
-            "from APBpermits " &
-            "left join SSPPApplicationLinking " &
-            "on SUBSTRING(APBpermits.strFileName, 4,10) = SSPPAPPlicationLinking.strmasterapplication " &
-            "where (SSPPApplicationLinking.strApplicationNumber = @appnum " &
-            "or APBPermits.strFileName like @appnumlike) "
+            SQL = "select top (1) p.STRFILENAME
+                from APBPERMITS p
+                    left join SSPPAPPLICATIONLINKING l
+                        on SUBSTRING(p.STRFILENAME, 4, 10) = l.STRMASTERAPPLICATION
+                where (l.STRAPPLICATIONNUMBER = @appnum
+                    or p.STRFILENAME like @appnumlike) "
 
             Dim p3 As SqlParameter() = {
                 p2,
@@ -328,7 +327,7 @@ Public Class SSPPPermitUploader
                 If ResultPDF = DialogResult.No Then
                     Return False
                 Else
-                    SQL = "Delete APBPermits where strFileName = @FileName "
+                    SQL = "delete APBPERMITS where STRFILENAME = @FileName "
                     DB.RunCommand(SQL, p)
                 End If
             End If
@@ -354,15 +353,13 @@ Public Class SSPPPermitUploader
 
             fs.Close()
 
-            SQL = "insert into APBPermits " &
-                "([rowCount], strFileName, pdfPermitData, strPDFFileSize, strPDFModifingPerson, datPDFModifingDate) " &
-                "Values " &
-                "((select (max([rowCount]) + 1) from APBPERMITS), @filename, @rawdata, @length, @user, getdate()) "
+            SQL = "insert into APBPERMITS
+                ([ROWCOUNT], STRFILENAME, PDFPERMITDATA, STRPDFMODIFINGPERSON, DATPDFMODIFINGDATE)
+                values ((select (max([ROWCOUNT]) + 1) from APBPERMITS), @filename, @rawdata, @user, getdate()) "
 
             Dim pf As SqlParameter() = {
                 New SqlParameter("@filename", FileName),
                 New SqlParameter("@rawdata", rawData),
-                New SqlParameter("@length", rawData.Length),
                 New SqlParameter("@user", CurrentUser.UserID)
             }
 
@@ -471,7 +468,7 @@ Public Class SSPPPermitUploader
                     MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1)
 
             If ResultDoc = DialogResult.Yes Then
-                Dim Sql As String = "Delete APBPermits where strFileName = @filename "
+                Dim Sql As String = "delete APBPERMITS where STRFILENAME = @filename "
                 Dim p As New SqlParameter("@filename", FileType & "-" & MasterApp)
 
                 DB.RunCommand(Sql, p)
@@ -527,10 +524,7 @@ Public Class SSPPPermitUploader
             DisplayPermitPanel()
 
             If rdbTitleVPermit.Checked AndAlso MasterApp <> "" Then
-                SQL = "select " &
-                "strFileName " &
-                "from APBPermits " &
-                "where strFileName like @filename "
+                SQL = "select STRFILENAME from APBPERMITS where STRFILENAME like @filename "
 
                 Dim p As New SqlParameter("@filename", "V_-" & MasterApp)
 
@@ -592,10 +586,7 @@ Public Class SSPPPermitUploader
             DisplayPermitPanel()
 
             If rdbPSDPermit.Checked AndAlso MasterApp <> "" Then
-                SQL = "select " &
-                "strFileName " &
-                "from APBPermits " &
-                "where strFileName like @filename "
+                SQL = "select STRFILENAME from APBPERMITS where STRFILENAME like @filename "
 
                 Dim p As New SqlParameter("@filename", "P_-" & MasterApp)
 
@@ -665,10 +656,7 @@ Public Class SSPPPermitUploader
             DisplayPermitPanel()
 
             If rdbOtherPermit.Checked AndAlso MasterApp <> "" Then
-                SQL = "select " &
-                "strFileName " &
-                "from APBPermits " &
-                "where strFileName like @filename "
+                SQL = "select STRFILENAME from APBPERMITS where STRFILENAME like @filename "
 
                 Dim p As New SqlParameter("@filename", "O_-" & MasterApp)
 
@@ -892,7 +880,7 @@ Public Class SSPPPermitUploader
                     SaveUserSetting(UserSetting.FileDownloadLocation, IO.Path.GetDirectoryName(saveFile.FileName))
                 End If
 
-                Dim Sql As String = "select pdfPermitData from APBPermits where strFileName = @filename "
+                Dim Sql As String = "select PDFPERMITDATA from APBPERMITS where STRFILENAME = @filename "
                 Dim p2 As New SqlParameter("@filename", FileName)
                 SaveBinaryFileFromDB(saveFile.FileName, Sql, p2)
 
