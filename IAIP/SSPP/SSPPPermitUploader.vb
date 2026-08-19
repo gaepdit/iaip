@@ -259,9 +259,9 @@ Public Class SSPPPermitUploader
 
     Private Function UploadFile(fileName As String, pdfLocation As String) As Boolean
         Try
-            Dim query As String = "select convert(bit, count(*)) from APBPERMITS where STRFILENAME = @FileName "
-            Dim p As New SqlParameter("@FileName", fileName)
-            Dim fileExists As Boolean = DB.GetBoolean(query, p)
+            Dim query As String = "select convert(bit, count(*)) from APBPERMITS where STRFILENAME = @fileName "
+            Dim pFileName As New SqlParameter("@fileName", fileName)
+            Dim fileExists As Boolean = DB.GetBoolean(query, pFileName)
 
             If fileExists Then
                 Dim ResultPDF As DialogResult
@@ -308,7 +308,7 @@ Public Class SSPPPermitUploader
                     Return False
                 Else
                     query = "delete APBPERMITS where STRFILENAME = @FileName "
-                    DB.RunCommand(query, p)
+                    DB.RunCommand(query, pFileName)
                 End If
             End If
 
@@ -338,7 +338,7 @@ Public Class SSPPPermitUploader
                 values ((select (max([ROWCOUNT]) + 1) from APBPERMITS), @filename, @rawdata, @user, getdate()) "
 
             Dim pf As SqlParameter() = {
-                New SqlParameter("@filename", fileName),
+                pFileName,
                 New SqlParameter("@rawdata", rawData),
                 New SqlParameter("@user", CurrentUser.UserID)
             }
