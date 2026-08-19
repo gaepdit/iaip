@@ -5,6 +5,7 @@ Imports System.Text
 
 Public Class SSPPPermitUploader
     Private Property MasterApp As String
+    Private Const OnFileText As String = "On File"
 
 #Region "Form events"
 
@@ -442,15 +443,15 @@ Public Class SSPPPermitUploader
 
     Sub DeleteFile(FileType As String)
         Try
-            Dim ResultDoc As DialogResult = MessageBox.Show("Are you sure you want to delete this file?" & vbCrLf &
+            Dim result As DialogResult = MessageBox.Show("Are you sure you want to delete this file?" & vbCrLf &
                     "It will not be recoverable if you delete it.", "Permit Delete",
                     MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1)
 
-            If ResultDoc = DialogResult.Yes Then
-                Dim Sql As String = "delete APBPERMITS where STRFILENAME = @filename "
+            If result = DialogResult.Yes Then
+                Dim sql As String = "delete APBPERMITS where STRFILENAME = @filename "
                 Dim p As New SqlParameter("@filename", FileType & "-" & MasterApp)
 
-                DB.RunCommand(Sql, p)
+                DB.RunCommand(sql, p)
 
                 FindApplicationInformation()
             End If
@@ -700,7 +701,7 @@ Public Class SSPPPermitUploader
             If IsDBNull(dr.Item("PDFDataExists")) Then
                 txt.Text = ""
             Else
-                txt.Text = "On File"
+                txt.Text = OnFileText
             End If
             lblStaff.Visible = True
             lblStaff.Text = DBUtilities.GetNullableString(dr.Item("StaffName"))
@@ -708,7 +709,7 @@ Public Class SSPPPermitUploader
             lblDate.Text = Format(DBUtilities.GetNullableDateTime(dr.Item("DateUploaded")), "dd-MMM-yyyy")
         End If
 
-        If txt.Text = "On File" Then
+        If txt.Text = OnFileText Then
             btnDown.Visible = True
             If CurrentUser.HasPermission(UserCan.DeletePermitFile) Then
                 btnDelete.Visible = True
@@ -843,13 +844,13 @@ Public Class SSPPPermitUploader
 
 #Region "Download files"
 
-    Private Sub DownloadFile(FileType As String)
+    Private Sub DownloadFile(fileType As String)
         If MasterApp = "" Then Return
-        Dim FileName As String = $"{FileType}-{MasterApp}"
+        Dim fileName As String = $"{fileType}-{MasterApp}"
 
         Using saveFile As New SaveFileDialog
             saveFile.InitialDirectory = GetUserSetting(UserSetting.FileDownloadLocation)
-            saveFile.FileName = FileName
+            saveFile.FileName = fileName
             saveFile.Filter = "Adobe PDF Files (*.pdf)|.pdf"
             saveFile.FilterIndex = 1
             saveFile.DefaultExt = ".pdf"
@@ -859,9 +860,9 @@ Public Class SSPPPermitUploader
                     SaveUserSetting(UserSetting.FileDownloadLocation, IO.Path.GetDirectoryName(saveFile.FileName))
                 End If
 
-                Dim Sql As String = "select PDFPERMITDATA from APBPERMITS where STRFILENAME = @filename "
-                Dim p2 As New SqlParameter("@filename", FileName)
-                SaveBinaryFileFromDB(saveFile.FileName, Sql, p2)
+                Dim sql As String = "select PDFPERMITDATA from APBPERMITS where STRFILENAME = @filename "
+                Dim p2 As New SqlParameter("@filename", fileName)
+                SaveBinaryFileFromDB(saveFile.FileName, sql, p2)
 
                 Process.Start(saveFile.FileName)
             End If
@@ -873,46 +874,46 @@ Public Class SSPPPermitUploader
 #Region " Buttons "
 
     Private Sub btnOtherNarrativeDownload_Click(sender As Object, e As EventArgs) Handles btnOtherNarrativeDownload.Click
-        If txtOtherNarrativePDF.Text = "On File" Then DownloadFile("ON")
+        If txtOtherNarrativePDF.Text = OnFileText Then DownloadFile("ON")
     End Sub
     Private Sub btnOtherPermitDownload_Click(sender As Object, e As EventArgs) Handles btnOtherPermitDownload.Click
-        If txtOtherPermitPDF.Text = "On File" Then DownloadFile("OP")
+        If txtOtherPermitPDF.Text = OnFileText Then DownloadFile("OP")
     End Sub
     Private Sub btnTVNarrativeDownload_Click(sender As Object, e As EventArgs) Handles btnTVNarrativeDownload.Click
-        If txtTVNarrativePDF.Text = "On File" Then DownloadFile("VN")
+        If txtTVNarrativePDF.Text = OnFileText Then DownloadFile("VN")
     End Sub
     Private Sub btnTVDraftDownload_Click(sender As Object, e As EventArgs) Handles btnTVDraftDownload.Click
-        If txtTVDraftPDF.Text = "On File" Then DownloadFile("VD")
+        If txtTVDraftPDF.Text = OnFileText Then DownloadFile("VD")
     End Sub
     Private Sub btnTVPublicNoticeDownload_Click(sender As Object, e As EventArgs) Handles btnTVPublicNoticeDownload.Click
-        If txtTVPublicNoticePDF.Text = "On File" Then DownloadFile("VP")
+        If txtTVPublicNoticePDF.Text = OnFileText Then DownloadFile("VP")
     End Sub
     Private Sub btnTVFinalDownload_Click(sender As Object, e As EventArgs) Handles btnTVFinalDownload.Click
-        If txtTVFinalPDF.Text = "On File" Then DownloadFile("VF")
+        If txtTVFinalPDF.Text = OnFileText Then DownloadFile("VF")
     End Sub
     Private Sub btnPSDAppSummaryDownload_Click(sender As Object, e As EventArgs) Handles btnPSDAppSummaryDownload.Click
-        If txtPSDAppSummaryPDF.Text = "On File" Then DownloadFile("PA")
+        If txtPSDAppSummaryPDF.Text = OnFileText Then DownloadFile("PA")
     End Sub
     Private Sub btnPSDPrelimDetDownload_Click(sender As Object, e As EventArgs) Handles btnPSDPrelimDetDownload.Click
-        If txtPSDPrelimDetPDF.Text = "On File" Then DownloadFile("PP")
+        If txtPSDPrelimDetPDF.Text = OnFileText Then DownloadFile("PP")
     End Sub
     Private Sub btnPSDNarrativeDownload_Click(sender As Object, e As EventArgs) Handles btnPSDNarrativeDownload.Click
-        If txtPSDNarrativePDF.Text = "On File" Then DownloadFile("PT")
+        If txtPSDNarrativePDF.Text = OnFileText Then DownloadFile("PT")
     End Sub
     Private Sub btnPSDDraftPermitDownload_Click(sender As Object, e As EventArgs) Handles btnPSDDraftPermitDownload.Click
-        If txtPSDDraftPermitPDF.Text = "On File" Then DownloadFile("PD")
+        If txtPSDDraftPermitPDF.Text = OnFileText Then DownloadFile("PD")
     End Sub
     Private Sub btnPSDPublicNoticeDownload_Click(sender As Object, e As EventArgs) Handles btnPSDPublicNoticeDownload.Click
-        If txtPSDPublicNoticePDF.Text = "On File" Then DownloadFile("PN")
+        If txtPSDPublicNoticePDF.Text = OnFileText Then DownloadFile("PN")
     End Sub
     Private Sub btnPSDHearingNoticeDownload_Click(sender As Object, e As EventArgs) Handles btnPSDHearingNoticeDownload.Click
-        If txtPSDHearingNoticePDF.Text = "On File" Then DownloadFile("PH")
+        If txtPSDHearingNoticePDF.Text = OnFileText Then DownloadFile("PH")
     End Sub
     Private Sub btnPSDFinalDetDownload_Click(sender As Object, e As EventArgs) Handles btnPSDFinalDetDownload.Click
-        If txtPSDFinalDetPDF.Text = "On File" Then DownloadFile("PF")
+        If txtPSDFinalDetPDF.Text = OnFileText Then DownloadFile("PF")
     End Sub
     Private Sub btnPSDFinalPermitDownload_Click(sender As Object, e As EventArgs) Handles btnPSDFinalPermitDownload.Click
-        If txtPSDFinalPermitPDF.Text = "On File" Then DownloadFile("PI")
+        If txtPSDFinalPermitPDF.Text = OnFileText Then DownloadFile("PI")
     End Sub
 
 #End Region
