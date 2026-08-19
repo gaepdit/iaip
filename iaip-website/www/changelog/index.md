@@ -15,6 +15,10 @@
 [2014](changelog-2014.html) |
 [2013](changelog-2013.html)
 
+## Version 8.0.9 <span>(19-Aug-2026)</span>
+
+* Only PDF format permit documents are allowed.
+
 ## Version 8.0.8 <span>(17-Jul-2026)</span>
 
 * This update restores some features that were temporarily removed when the new Air Web App was released:
