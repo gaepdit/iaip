@@ -1,6 +1,7 @@
 Imports GaEpd
 Imports Microsoft.Data.SqlClient
 Imports System.IO
+Imports System.Text
 
 Public Class SSPPPermitUploader
     Private Property MasterApp As String
@@ -172,10 +173,13 @@ Public Class SSPPPermitUploader
                 "where strMasterApplication = @appnum "
 
                 Dim dt As DataTable = DB.GetDataTable(SQL, p2)
+                Dim linkedSB As New StringBuilder(txtApplicationLinks.Text)
 
                 For Each dr As DataRow In dt.Rows
-                    txtApplicationLinks.Text = txtApplicationLinks.Text & dr.Item("strApplicationNumber") & vbCrLf
+                    linkedSB.AppendLine(dr.Item("strApplicationNumber"))
                 Next
+
+                txtApplicationLinks.Text = linkedSB.ToString
             Else
                 txtApplicationLinks.Clear()
             End If
