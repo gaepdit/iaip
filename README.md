@@ -1,20 +1,20 @@
 # Integrated Air Information Platform
 
-The Integrated Air Information Platform ("IAIP" or "the Platform") was built beginning in 2004 to collect and organize the data required to operate an efficient air quality program for the State of Georgia Environmental Protection Division. It is currently used by several programs in the Air Protection Branch and the District Offices.
+The Integrated Air Information Platform ("IAIP" or "the Platform") was built beginning in 2004 to collect and organize the data required to operate an efficient air quality program for the State of Georgia [Environmental Protection Division](https://epd.georgia.gov). It is currently used by several programs in the Air Protection Branch and the District Offices.
 
 Users must [install the application](https://iaip.gaepd.org/) locally and connect to the state network in order to use it.
 
 There are several associated repositories that interact with this project:
 
-* Data is stored in the [airbranch database](https://github.com/gaepdit/airbranch-db).
+* IAIP data is stored in the [airbranch database](https://github.com/gaepdit/airbranch-db).
 * The IAIP uses the [DB Helper](https://github.com/gaepdit/db-helper) NuGet package to handle all database interaction.
 * The [IAIP Connections API](https://github.com/gaepdit/iaip/tree/main/src/Iaip.CxApi) (included in this repository) handles user authentication.
-* [GECO](https://github.com/gaepdit/geco) is a web application used by regulated facilities to view and submit data.
+* Some modules previously in the IAIP have been moved to a new [web application](https://github.com/gaepdit/air-web).
+* [GECO](https://github.com/gaepdit/geco) is a web application used by regulated facilities to view and submit facility data.
 * The general public can search for air quality permits using the [Permit Search](https://github.com/gaepdit/permit-search) application.
-* Various IAIP reports are generated and displayed by a separate [reports application](https://github.com/gaepdit/airbranch-reports).
-* Some data from the Platform are transmitted to EPA's [ICIS-Air data exchange]( https://github.com/gaepdit/icis-air-data-exchange).
+* Some data from the IAIP are transmitted to EPA's [ICIS-Air data exchange](https://github.com/gaepdit/icis-air-data-exchange).
 * Some data are received from the [GEOS data exchange](https://github.com/gaepdit/geos-fis-fims-data-exchange).
-* The [IAIP website](https://github.com/gaepdit/iaip/iaip-website) hosts the installation files and some documentation.
+* The [IAIP website](https://github.com/gaepdit/iaip/iaip-website) (included in this repository) hosts the installation files and some documentation.
 
 [![Georgia EPD-IT](https://raw.githubusercontent.com/gaepdit/gaepd-brand/main/blinkies/blinkies.cafe-gaepdit.gif)](https://github.com/gaepdit)
 [![SonarCloud Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=gaepdit_iaip&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=gaepdit_iaip)
