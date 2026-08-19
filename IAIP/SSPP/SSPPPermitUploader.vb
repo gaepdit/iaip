@@ -362,19 +362,19 @@ Public Class SSPPPermitUploader
 
             If rdbTitleVPermit.Checked Then
                 If chbTVNarrative.Checked AndAlso txtTVNarrativePDF.Text <> "" AndAlso txtTVNarrativePDF.Text <> "N/A" AndAlso
-                    Mid(txtTVNarrativePDF.Text, (txtTVNarrativePDF.Text.Length - 3)).ToUpper = ".PDF" Then
+                        Mid(txtTVNarrativePDF.Text, (txtTVNarrativePDF.Text.Length - 3)).Equals(".PDF", StringComparison.CurrentCultureIgnoreCase) Then
                     UploadFile("VN-" & MasterApp, txtTVNarrativePDF.Text)
                 End If
                 If chbTVDraft.Checked AndAlso txtTVDraftPDF.Text <> "" AndAlso txtTVDraftPDF.Text <> "N/A" AndAlso
-                    Mid(txtTVDraftPDF.Text, (txtTVDraftPDF.Text.Length - 3)).ToUpper = ".PDF" Then
+                        Mid(txtTVDraftPDF.Text, (txtTVDraftPDF.Text.Length - 3)).Equals(".PDF", StringComparison.CurrentCultureIgnoreCase) Then
                     UploadFile("VD-" & MasterApp, txtTVDraftPDF.Text)
                 End If
                 If chbTVPublicNotice.Checked AndAlso txtTVPublicNoticePDF.Text <> "" AndAlso txtTVPublicNoticePDF.Text <> "N/A" AndAlso
-                    Mid(txtTVPublicNoticePDF.Text, (txtTVPublicNoticePDF.Text.Length - 3)).ToUpper = ".PDF" Then
+                        Mid(txtTVPublicNoticePDF.Text, (txtTVPublicNoticePDF.Text.Length - 3)).Equals(".PDF", StringComparison.CurrentCultureIgnoreCase) Then
                     UploadFile("VP-" & MasterApp, txtTVPublicNoticePDF.Text)
                 End If
                 If chbTVFinal.Checked AndAlso txtTVFinalPDF.Text <> "" AndAlso txtTVFinalPDF.Text <> "N/A" AndAlso
-                    Mid(txtTVFinalPDF.Text, (txtTVFinalPDF.Text.Length - 3)).ToUpper = ".PDF" Then
+                        Mid(txtTVFinalPDF.Text, (txtTVFinalPDF.Text.Length - 3)).Equals(".PDF", StringComparison.CurrentCultureIgnoreCase) Then
 
                     If UploadFile("VF-" & MasterApp, txtTVFinalPDF.Text) Then DB.RunCommand(SQL, p)
 
@@ -383,35 +383,35 @@ Public Class SSPPPermitUploader
 
             If rdbPSDPermit.Checked Then
                 If chbPSDApplicationSummary.Checked AndAlso txtPSDAppSummaryPDF.Text <> "" AndAlso txtPSDAppSummaryPDF.Text <> "N/A" AndAlso
-                        Mid(txtPSDAppSummaryPDF.Text, (txtPSDAppSummaryPDF.Text.Length - 3)).ToUpper = ".PDF" Then
+                        Mid(txtPSDAppSummaryPDF.Text, (txtPSDAppSummaryPDF.Text.Length - 3)).Equals(".PDF", StringComparison.CurrentCultureIgnoreCase) Then
                     UploadFile("PA-" & MasterApp, txtPSDAppSummaryPDF.Text)
                 End If
                 If chbPSDPrelimDet.Checked AndAlso txtPSDPrelimDetPDF.Text <> "" AndAlso txtPSDPrelimDetPDF.Text <> "N/A" AndAlso
-                        Mid(txtPSDPrelimDetPDF.Text, (txtPSDPrelimDetPDF.Text.Length - 3)).ToUpper = ".PDF" Then
+                        Mid(txtPSDPrelimDetPDF.Text, (txtPSDPrelimDetPDF.Text.Length - 3)).Equals(".PDF", StringComparison.CurrentCultureIgnoreCase) Then
                     UploadFile("PP-" & MasterApp, txtPSDPrelimDetPDF.Text)
                 End If
                 If chbPSDNarrative.Checked AndAlso txtPSDNarrativePDF.Text <> "" AndAlso txtPSDNarrativePDF.Text <> "N/A" AndAlso
-                        Mid(txtPSDNarrativePDF.Text, (txtPSDNarrativePDF.Text.Length - 3)).ToUpper = ".PDF" Then
+                        Mid(txtPSDNarrativePDF.Text, (txtPSDNarrativePDF.Text.Length - 3)).Equals(".PDF", StringComparison.CurrentCultureIgnoreCase) Then
                     UploadFile("PT-" & MasterApp, txtPSDNarrativePDF.Text)
                 End If
                 If chbPSDDraftPermit.Checked AndAlso txtPSDDraftPermitPDF.Text <> "" AndAlso txtPSDDraftPermitPDF.Text <> "N/A" AndAlso
-                        Mid(txtPSDDraftPermitPDF.Text, (txtPSDDraftPermitPDF.Text.Length - 3)).ToUpper = ".PDF" Then
+                        Mid(txtPSDDraftPermitPDF.Text, (txtPSDDraftPermitPDF.Text.Length - 3)).Equals(".PDF", StringComparison.CurrentCultureIgnoreCase) Then
                     UploadFile("PD-" & MasterApp, txtPSDDraftPermitPDF.Text)
                 End If
                 If chbPSDPublicNotice.Checked AndAlso txtPSDPublicNoticePDF.Text <> "" AndAlso txtPSDPublicNoticePDF.Text <> "N/A" AndAlso
-                        (Mid(txtPSDPublicNoticePDF.Text, (txtPSDPublicNoticePDF.Text.Length - 3))).ToUpper = ".PDF" Then
+                        Mid(txtPSDPublicNoticePDF.Text, (txtPSDPublicNoticePDF.Text.Length - 3)).Equals(".PDF", StringComparison.CurrentCultureIgnoreCase) Then
                     UploadFile("PN-" & MasterApp, txtPSDPublicNoticePDF.Text)
                 End If
                 If chbPSDHearingNotice.Checked AndAlso txtPSDHearingNoticePDF.Text <> "" AndAlso txtPSDHearingNoticePDF.Text <> "N/A" AndAlso
-                        (Mid(txtPSDHearingNoticePDF.Text, (txtPSDHearingNoticePDF.Text.Length - 3))).ToUpper = ".PDF" Then
+                        Mid(txtPSDHearingNoticePDF.Text, (txtPSDHearingNoticePDF.Text.Length - 3)).Equals(".PDF", StringComparison.CurrentCultureIgnoreCase) Then
                     UploadFile("PH-" & MasterApp, txtPSDHearingNoticePDF.Text)
                 End If
                 If chbPSDFinalDet.Checked AndAlso txtPSDFinalDetPDF.Text <> "" AndAlso txtPSDFinalDetPDF.Text <> "N/A" AndAlso
-                        (Mid(txtPSDFinalDetPDF.Text, (txtPSDFinalDetPDF.Text.Length - 3))).ToUpper = ".PDF" Then
+                        Mid(txtPSDFinalDetPDF.Text, (txtPSDFinalDetPDF.Text.Length - 3)).Equals(".PDF", StringComparison.CurrentCultureIgnoreCase) Then
                     UploadFile("PF-" & MasterApp, txtPSDFinalDetPDF.Text)
                 End If
                 If chbPSDFinalPermit.Checked AndAlso txtPSDFinalPermitPDF.Text <> "" AndAlso txtPSDFinalPermitPDF.Text <> "N/A" AndAlso
-                        (Mid(txtPSDFinalPermitPDF.Text, (txtPSDFinalPermitPDF.Text.Length - 3))).ToUpper = ".PDF" Then
+                        Mid(txtPSDFinalPermitPDF.Text, (txtPSDFinalPermitPDF.Text.Length - 3)).Equals(".PDF", StringComparison.CurrentCultureIgnoreCase) Then
 
                     If UploadFile("PI-" & MasterApp, txtPSDFinalPermitPDF.Text) Then DB.RunCommand(SQL, p)
 
@@ -420,11 +420,11 @@ Public Class SSPPPermitUploader
 
             If rdbOtherPermit.Checked Then
                 If chbOtherNarrative.Checked AndAlso txtOtherNarrativePDF.Text <> "" AndAlso txtOtherNarrativePDF.Text <> "N/A" AndAlso
-                        (Mid(txtOtherNarrativePDF.Text, (txtOtherNarrativePDF.Text.Length - 3))).ToUpper = ".PDF" Then
+                        Mid(txtOtherNarrativePDF.Text, (txtOtherNarrativePDF.Text.Length - 3)).Equals(".PDF", StringComparison.CurrentCultureIgnoreCase) Then
                     UploadFile("ON-" & MasterApp, txtOtherNarrativePDF.Text)
                 End If
                 If chbOtherPermit.Checked AndAlso txtOtherPermitPDF.Text <> "" AndAlso txtOtherPermitPDF.Text <> "N/A" AndAlso
-                        (Mid(txtOtherPermitPDF.Text, (txtOtherPermitPDF.Text.Length - 3))).ToUpper = ".PDF" Then
+                        Mid(txtOtherPermitPDF.Text, (txtOtherPermitPDF.Text.Length - 3)).Equals(".PDF", StringComparison.CurrentCultureIgnoreCase) Then
 
                     If UploadFile("OP-" & MasterApp, txtOtherPermitPDF.Text) Then DB.RunCommand(SQL, p)
 
