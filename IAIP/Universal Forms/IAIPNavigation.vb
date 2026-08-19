@@ -1,9 +1,10 @@
+Imports Iaip.ApiCalls.Notifications
+Imports Iaip.DAL.NavigationScreenData
+Imports Iaip.UrlHelpers
 Imports System.Collections.Generic
 Imports System.ComponentModel
 Imports System.Net.NetworkInformation
-Imports Iaip.DAL.NavigationScreenData
-Imports Iaip.UrlHelpers
-Imports Iaip.ApiCalls.Notifications
+Imports System.Text
 
 Public Class IAIPNavigation
 
@@ -1021,15 +1022,20 @@ Public Class IAIPNavigation
         pnlNotificationContainer.Visible = True
 
         Dim first As Boolean = True
-        lblNotification.Text = ""
+        Dim notificationSB As New StringBuilder()
 
         For Each notification As OrgNotificationModel In notifications
             If notification.Message IsNot Nothing AndAlso notification.Message.Trim().Length > 0 Then
-                If Not first Then lblNotification.Text &= Environment.NewLine & Environment.NewLine
-                lblNotification.Text &= notification.Message
+                If Not first Then
+                    notificationSB.AppendLine()
+                    notificationSB.AppendLine()
+                End If
+                notificationSB.AppendLine(notification.Message)
                 first = False
             End If
         Next
+
+        lblNotification.Text = notificationSB.ToString
     End Sub
 
     Private Sub DismissMessageButton_Click(sender As Object, e As EventArgs) Handles DismissMessageButton.Click
