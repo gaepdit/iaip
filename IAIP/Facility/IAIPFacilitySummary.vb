@@ -835,7 +835,7 @@ Public Class IAIPFacilitySummary
     End Sub
 
     Private Sub PermitsLink_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles PermitsLink.LinkClicked
-        OpenPermitSearchUrl(AirsNumber, Me)
+        OpenPermitAirsSearchLink(AirsNumber, Me)
     End Sub
 
     ' " ICIS-Air Update "

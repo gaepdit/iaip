@@ -1,9 +1,10 @@
+Imports Iaip.ApiCalls.Notifications
+Imports Iaip.DAL.NavigationScreenData
+Imports Iaip.UrlHelpers
 Imports System.Collections.Generic
 Imports System.ComponentModel
 Imports System.Net.NetworkInformation
-Imports Iaip.DAL.NavigationScreenData
-Imports Iaip.UrlHelpers
-Imports Iaip.ApiCalls.Notifications
+Imports System.Text
 
 Public Class IAIPNavigation
 
@@ -355,9 +356,10 @@ Public Class IAIPNavigation
         OpenFormTestReport(txtOpenTestReport.Text, Me)
     End Sub
 
+    Private Const ErrorCaption As String = "Error"
     Private Sub OpenEnforcement()
         If Not IsNumeric(txtOpenEnforcement.Text) Then
-            MessageBox.Show("Enforcement number must be numeric.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            MessageBox.Show("Enforcement number must be numeric.", ErrorCaption, MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return
         End If
         OpenEnforcementOnWeb(txtOpenEnforcement.Text)
@@ -365,7 +367,7 @@ Public Class IAIPNavigation
 
     Private Sub OpenSscpItem()
         If Not IsNumeric(txtOpenSscpItem.Text) Then
-            MessageBox.Show("Tracking number must be numeric.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            MessageBox.Show("Tracking number must be numeric.", ErrorCaption, MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return
         End If
         OpenComplianceWorkOnWeb(txtOpenSscpItem.Text)
@@ -376,9 +378,9 @@ Public Class IAIPNavigation
             Case DAL.AirsNumberValidationResult.Empty
                 OpenFormFacilitySummary()
             Case DAL.AirsNumberValidationResult.InvalidFormat
-                MessageBox.Show("AIRS number is not valid.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show("AIRS number is not valid.", ErrorCaption, MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Case DAL.AirsNumberValidationResult.NonExistent
-                MessageBox.Show("Facility does not exist.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show("Facility does not exist.", ErrorCaption, MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Case DAL.AirsNumberValidationResult.Valid
                 OpenFormFacilitySummary(txtOpenFacilitySummary.AirsNumber)
         End Select
@@ -727,14 +729,6 @@ Public Class IAIPNavigation
 
 #Region " Implementation "
 
-    Private Shared Function AccountHasAccessToForm(index As Integer) As Boolean
-        Return (AccountFormAccess(index, 0) IsNot Nothing _
-                AndAlso AccountFormAccess(index, 0) = index.ToString _
-                AndAlso (AccountFormAccess(index, 1) = "1" OrElse AccountFormAccess(index, 2) = "1" _
-                         OrElse AccountFormAccess(index, 3) = "1" OrElse AccountFormAccess(index, 4) = "1")
-                         )
-    End Function
-
     Private Sub AddNavButton(buttonText As String, formName As String, category As NavButtonCategories)
         If Not AllTheNavButtonCategories.Exists(Function(x) x.Category = category) Then
             AllTheNavButtonCategories.Add(New NavButtonCategory(category, category.ToString))
@@ -1029,15 +1023,20 @@ Public Class IAIPNavigation
         pnlNotificationContainer.Visible = True
 
         Dim first As Boolean = True
-        lblNotification.Text = ""
+        Dim notificationSB As New StringBuilder()
 
         For Each notification As OrgNotificationModel In notifications
             If notification.Message IsNot Nothing AndAlso notification.Message.Trim().Length > 0 Then
-                If Not first Then lblNotification.Text &= Environment.NewLine & Environment.NewLine
-                lblNotification.Text &= notification.Message
+                If Not first Then
+                    notificationSB.AppendLine()
+                    notificationSB.AppendLine()
+                End If
+                notificationSB.AppendLine(notification.Message)
                 first = False
             End If
         Next
+
+        lblNotification.Text = notificationSB.ToString
     End Sub
 
     Private Sub DismissMessageButton_Click(sender As Object, e As EventArgs) Handles DismissMessageButton.Click
