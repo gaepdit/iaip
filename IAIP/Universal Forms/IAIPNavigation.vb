@@ -356,9 +356,10 @@ Public Class IAIPNavigation
         OpenFormTestReport(txtOpenTestReport.Text, Me)
     End Sub
 
+    Private Const ErrorCaption As String = "Error"
     Private Sub OpenEnforcement()
         If Not IsNumeric(txtOpenEnforcement.Text) Then
-            MessageBox.Show("Enforcement number must be numeric.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            MessageBox.Show("Enforcement number must be numeric.", ErrorCaption, MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return
         End If
         OpenEnforcementOnWeb(txtOpenEnforcement.Text)
@@ -366,7 +367,7 @@ Public Class IAIPNavigation
 
     Private Sub OpenSscpItem()
         If Not IsNumeric(txtOpenSscpItem.Text) Then
-            MessageBox.Show("Tracking number must be numeric.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            MessageBox.Show("Tracking number must be numeric.", ErrorCaption, MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return
         End If
         OpenComplianceWorkOnWeb(txtOpenSscpItem.Text)
@@ -377,9 +378,9 @@ Public Class IAIPNavigation
             Case DAL.AirsNumberValidationResult.Empty
                 OpenFormFacilitySummary()
             Case DAL.AirsNumberValidationResult.InvalidFormat
-                MessageBox.Show("AIRS number is not valid.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show("AIRS number is not valid.", ErrorCaption, MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Case DAL.AirsNumberValidationResult.NonExistent
-                MessageBox.Show("Facility does not exist.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show("Facility does not exist.", ErrorCaption, MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Case DAL.AirsNumberValidationResult.Valid
                 OpenFormFacilitySummary(txtOpenFacilitySummary.AirsNumber)
         End Select
