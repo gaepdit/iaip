@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
-  <asmv1:assemblyIdentity name="IaipHorizon.exe" version="8.0.8.0" publicKeyToken="2304a293dc7543f7" language="neutral" processorArchitecture="x86" type="win32" />
+  <asmv1:assemblyIdentity name="IaipHorizon.exe" version="8.0.9.0" publicKeyToken="2304a293dc7543f7" language="neutral" processorArchitecture="x86" type="win32" />
   <description asmv2:iconFile="Resources\UatIcon.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
@@ -151,14 +151,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="IaipHorizon.exe" size="5977512">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="IaipHorizon.exe" size="5846440">
       <assemblyIdentity name="IaipHorizon" version="8.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>jyjdtJ+up8GNwbVbqNdeEKXS73jfWIM5cPX9gKt7rb0=</dsig:DigestValue>
+        <dsig:DigestValue>W1O2a1HsFetnpWyG8IVRro92NaqRn8ro53fGWmamfJY=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -643,18 +643,6 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="System.IdentityModel.Tokens.Jwt.dll" size="89008">
-      <assemblyIdentity name="System.IdentityModel.Tokens.Jwt" version="7.7.1.0" publicKeyToken="31BF3856AD364E35" language="neutral" processorArchitecture="msil" />
-      <hash>
-        <dsig:Transforms>
-          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-        </dsig:Transforms>
-        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>Q3qYUM+4n8IV6z8F/Ehi9wG9BBdwrpNVvrjklD3O4ew=</dsig:DigestValue>
-      </hash>
-    </dependentAssembly>
-  </dependency>
-  <dependency>
     <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="System.IO.FileSystem.AccessControl.dll" size="28552">
       <assemblyIdentity name="System.IO.FileSystem.AccessControl" version="5.0.0.0" publicKeyToken="B03F5F7F11D50A3A" language="neutral" processorArchitecture="msil" />
       <hash>
@@ -675,6 +663,18 @@
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
         <dsig:DigestValue>A+cSQf515+qRc2WhdqBCIst29hp5nuWM8QsUqQeOQvc=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="System.IdentityModel.Tokens.Jwt.dll" size="89008">
+      <assemblyIdentity name="System.IdentityModel.Tokens.Jwt" version="7.7.1.0" publicKeyToken="31BF3856AD364E35" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>Q3qYUM+4n8IV6z8F/Ehi9wG9BBdwrpNVvrjklD3O4ew=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -888,4 +888,4 @@
       <dsig:DigestValue>4SPxnCYq2IwZLIQkRX0hWq2yQQhovLAth+9G9MnrwRs=</dsig:DigestValue>
     </hash>
   </file>
-<publisherIdentity name="CN=SOG\DWaldron" issuerKeyHash="68739f7fdb267828257df4f21919e61caa19e422" /><Signature Id="StrongNameSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha256" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" /><DigestValue>suS3wvl9qgpCfunWHyMEIITWypV9Qax7NYVizSjCe7s=</DigestValue></Reference></SignedInfo><SignatureValue>FIq30PFX84VG30qKnmkofrGcJVH+FSP4UP8Iuw63GYVp9CTOH/DQlq2OIKPOv8LmeVuKpGFHajZjUpbA59JVRBXFDqdQV+TJA44lkLvoL3QqTzVazIzucEzN5WuGrJx1gISrfhgayVe/jShK2o8EP20ZHQ1clSCIV/1OnO//b+g=</SignatureValue><KeyInfo Id="StrongNameKeyInfo"><KeyValue><RSAKeyValue><Modulus>1hyts7mzP/vfaPVCwoF8TBC59nIa+ra9RkeKi6K6umh77XmLwTh2NBfHEPSYvaI7qpVOp6L5I8/hYjzXtsNDJtc54WLnSePCacgrLw/f7I0ghT/izk+93AEWzJpiRSFYDz5/9FVfBBv8czrjHdrIEjh1CIud72v17PrO8Fd6XD0=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><msrel:RelData xmlns:msrel="http://schemas.microsoft.com/windows/rel/2005/reldata"><r:license xmlns:r="urn:mpeg:mpeg21:2003:01-REL-R-NS" xmlns:as="http://schemas.microsoft.com/windows/pki/2005/Authenticode"><r:grant><as:ManifestInformation Hash="bb7bc228cd6285357bac417d95cad6842004231fd6e97e420aaa7df9c2b7e4b2" Description="" Url=""><as:assemblyIdentity name="IaipHorizon.exe" version="8.0.8.0" publicKeyToken="2304a293dc7543f7" language="neutral" processorArchitecture="x86" type="win32" /></as:ManifestInformation><as:SignedBy /><as:AuthenticodePublisher><as:X509SubjectName>CN=SOG\DWaldron</as:X509SubjectName></as:AuthenticodePublisher></r:grant><r:issuer><Signature Id="AuthenticodeSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha256" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" /><DigestValue>t2L1vyjIaW63Vcm2QtnNxaj1po+XrE6YmUSr502ebgQ=</DigestValue></Reference></SignedInfo><SignatureValue>tz8pYrNuj0Mw09fc83TOqinGQzQQxL3r16Hfbjn3n7S3LC4SzmqiEeEqiwMY0L7mBAAbesO8PrFt0ZeHcpQuICaXpXtqHfLUz3LeMzWatFop2T6mChvjcIGBcohpeoklufDYn6RUcSL2GbBYclo1ZA3zlqBuzKnX3noo4Hptjb4=</SignatureValue><KeyInfo><KeyValue><RSAKeyValue><Modulus>1hyts7mzP/vfaPVCwoF8TBC59nIa+ra9RkeKi6K6umh77XmLwTh2NBfHEPSYvaI7qpVOp6L5I8/hYjzXtsNDJtc54WLnSePCacgrLw/f7I0ghT/izk+93AEWzJpiRSFYDz5/9FVfBBv8czrjHdrIEjh1CIud72v17PrO8Fd6XD0=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><X509Data><X509Certificate>MIIByTCCATKgAwIBAgIQdtkDzA7iLZFCYMqSQsWHgjANBgkqhkiG9w0BAQsFADAjMSEwHwYDVQQDHhgAUwBPAEcAXABEAFcAYQBsAGQAcgBvAG4wHhcNMjYwMjI3MTg0OTEwWhcNMjcwMjI4MDA0OTEwWjAjMSEwHwYDVQQDHhgAUwBPAEcAXABEAFcAYQBsAGQAcgBvAG4wgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBANYcrbO5sz/732j1QsKBfEwQufZyGvq2vUZHiouiurpoe+15i8E4djQXxxD0mL2iO6qVTqei+SPP4WI817bDQybXOeFi50njwmnIKy8P3+yNIIU/4s5PvdwBFsyaYkUhWA8+f/RVXwQb/HM64x3ayBI4dQiLne9r9ez6zvBXelw9AgMBAAEwDQYJKoZIhvcNAQELBQADgYEAWkhDFKZC0YZ8cFC6NRKevYd1xoWgibcNW0n1dZRFw3Ed+6ZQsaB9y2XXvSKvg4LD3eohUGVd/ZduNgMQE1HlzbmKe1biDPHLkWqTLBgdklhgCA1MWverfN90gPnM8iyidACOOzE4bkE1LuQAGBWBbHyNI6hH5dRCdVuZ7lGSsDY=</X509Certificate></X509Data></KeyInfo></Signature></r:issuer></r:license></msrel:RelData></KeyInfo></Signature></asmv1:assembly>
+<publisherIdentity name="CN=SOG\DWaldron" issuerKeyHash="68739f7fdb267828257df4f21919e61caa19e422" /><Signature Id="StrongNameSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha256" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" /><DigestValue>e2OJZaNt2wfDeh0MYV/qOanOd4AjEPOySk0vKkrFsX8=</DigestValue></Reference></SignedInfo><SignatureValue>np5OWbQ6i4Be7KLC+krDcS1IBeBTr+S6y+NV3lBogyp8MB+sRlsjnlDTfkD9M2r9Q/kywvnP8HFJ4MbDVqSpTtO59OwZ9K1VtVt94epbv3GO1F7M7Lk/h1u4WlD4J9RjQlPiqjZFvO+0HnfCsdsQmnXVOxXeyawjUSnsaESyXNs=</SignatureValue><KeyInfo Id="StrongNameKeyInfo"><KeyValue><RSAKeyValue><Modulus>1hyts7mzP/vfaPVCwoF8TBC59nIa+ra9RkeKi6K6umh77XmLwTh2NBfHEPSYvaI7qpVOp6L5I8/hYjzXtsNDJtc54WLnSePCacgrLw/f7I0ghT/izk+93AEWzJpiRSFYDz5/9FVfBBv8czrjHdrIEjh1CIud72v17PrO8Fd6XD0=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><msrel:RelData xmlns:msrel="http://schemas.microsoft.com/windows/rel/2005/reldata"><r:license xmlns:r="urn:mpeg:mpeg21:2003:01-REL-R-NS" xmlns:as="http://schemas.microsoft.com/windows/pki/2005/Authenticode"><r:grant><as:ManifestInformation Hash="7fb1c54a2a2f4d4ab2f310238077cea939ea5f610c1d7ac307db6da36589637b" Description="" Url=""><as:assemblyIdentity name="IaipHorizon.exe" version="8.0.9.0" publicKeyToken="2304a293dc7543f7" language="neutral" processorArchitecture="x86" type="win32" /></as:ManifestInformation><as:SignedBy /><as:AuthenticodePublisher><as:X509SubjectName>CN=SOG\DWaldron</as:X509SubjectName></as:AuthenticodePublisher></r:grant><r:issuer><Signature Id="AuthenticodeSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha256" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" /><DigestValue>UsoflytOner4HF2jvWf4UjL7Wi5mUwmRb2wUXPqNoYk=</DigestValue></Reference></SignedInfo><SignatureValue>aDtifmwVvOdpDISDR/cXVRE1b5zG+fmBcmYVaKK6jioafduSEFrCdrt3zbbv4Mc+npSDL2coQJmcmDx1JG/JCtQCKSGkfcD+m56g4n3l5teTvcgpwDIF8h9A2BQNav2Fi99VyutKPFMK0nYKGp7npzeONZRm/n4ANQmDSEMael4=</SignatureValue><KeyInfo><KeyValue><RSAKeyValue><Modulus>1hyts7mzP/vfaPVCwoF8TBC59nIa+ra9RkeKi6K6umh77XmLwTh2NBfHEPSYvaI7qpVOp6L5I8/hYjzXtsNDJtc54WLnSePCacgrLw/f7I0ghT/izk+93AEWzJpiRSFYDz5/9FVfBBv8czrjHdrIEjh1CIud72v17PrO8Fd6XD0=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><X509Data><X509Certificate>MIIByTCCATKgAwIBAgIQdtkDzA7iLZFCYMqSQsWHgjANBgkqhkiG9w0BAQsFADAjMSEwHwYDVQQDHhgAUwBPAEcAXABEAFcAYQBsAGQAcgBvAG4wHhcNMjYwMjI3MTg0OTEwWhcNMjcwMjI4MDA0OTEwWjAjMSEwHwYDVQQDHhgAUwBPAEcAXABEAFcAYQBsAGQAcgBvAG4wgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBANYcrbO5sz/732j1QsKBfEwQufZyGvq2vUZHiouiurpoe+15i8E4djQXxxD0mL2iO6qVTqei+SPP4WI817bDQybXOeFi50njwmnIKy8P3+yNIIU/4s5PvdwBFsyaYkUhWA8+f/RVXwQb/HM64x3ayBI4dQiLne9r9ez6zvBXelw9AgMBAAEwDQYJKoZIhvcNAQELBQADgYEAWkhDFKZC0YZ8cFC6NRKevYd1xoWgibcNW0n1dZRFw3Ed+6ZQsaB9y2XXvSKvg4LD3eohUGVd/ZduNgMQE1HlzbmKe1biDPHLkWqTLBgdklhgCA1MWverfN90gPnM8iyidACOOzE4bkE1LuQAGBWBbHyNI6hH5dRCdVuZ7lGSsDY=</X509Certificate></X509Data></KeyInfo></Signature></r:issuer></r:license></msrel:RelData></KeyInfo></Signature></asmv1:assembly>
