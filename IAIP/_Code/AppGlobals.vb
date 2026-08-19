@@ -31,6 +31,13 @@ Module AppGlobals
 
     Friend CurrentUser As IaipUser
     Friend AccountFormAccess(150, 4) As String
+    Friend Function AccountHasAccessToForm(index As Integer) As Boolean
+        Return AccountFormAccess(index, 0) IsNot Nothing _
+                AndAlso AccountFormAccess(index, 0) = index.ToString _
+                AndAlso (AccountFormAccess(index, 1) = "1" OrElse AccountFormAccess(index, 2) = "1" _
+                         OrElse AccountFormAccess(index, 3) = "1" OrElse AccountFormAccess(index, 4) = "1")
+    End Function
+
 
     ' Network connection
 
