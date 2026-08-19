@@ -256,90 +256,65 @@ Public Class SSPPPermitUploader
         End Try
     End Sub
 
-    Private Function UploadFile(FileName As String, PDFLocation As String) As Boolean
+    Private Function UploadFile(fileName As String, pdfLocation As String) As Boolean
         Try
-            Dim SQL As String = "select convert(bit, count(*)) from APBPERMITS where STRFILENAME = @FileName "
-            Dim p As New SqlParameter("@FileName", FileName)
-            Dim fileExists As Boolean = DB.GetBoolean(SQL, p)
+            Dim query As String = "select convert(bit, count(*)) from APBPERMITS where STRFILENAME = @FileName "
+            Dim p As New SqlParameter("@FileName", fileName)
+            Dim fileExists As Boolean = DB.GetBoolean(query, p)
 
             If fileExists Then
                 Dim ResultPDF As DialogResult
+                Dim msg As String
 
-                Select Case Mid(FileName, 1, 2)
+                Select Case Mid(fileName, 1, 2)
                     Case "VN"
-                        ResultPDF = MessageBox.Show("A PDF file currently exists for this Title V Narrative." & vbCrLf &
-                        "Do you want to overwrite this file?", "Permit Uploader",
-                        MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1)
+                        msg = "Title V Narrative"
                     Case "VD"
-                        ResultPDF = MessageBox.Show("A PDF file currently exists for this Title V Draft Permit." & vbCrLf &
-                        "Do you want to overwrite this file?", "Permit Uploader",
-                        MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1)
+                        msg = "Title V Draft Permit"
                     Case "VP"
-                        ResultPDF = MessageBox.Show("A PDF file currently exists for this Title V Public Notice." & vbCrLf &
-                        "Do you want to overwrite this file?", "Permit Uploader",
-                        MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1)
+                        msg = "Title V Public Notice"
                     Case "VF"
-                        ResultPDF = MessageBox.Show("A PDF file currently exists for this Title V Final Permit." & vbCrLf &
-                        "Do you want to overwrite this file?", "Permit Uploader",
-                        MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1)
+                        msg = "Title V Final Permit"
                     Case "PA"
-                        ResultPDF = MessageBox.Show("A PDF file currently exists for this PSD Application Summary." & vbCrLf &
-                        "Do you want to overwrite this file?", "Permit Uploader",
-                        MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1)
+                        msg = "PSD Application Summary"
                     Case "PP"
-                        ResultPDF = MessageBox.Show("A PDF file currently exists for this PSD Preliminary Determination." & vbCrLf &
-                        "Do you want to overwrite this file?", "Permit Uploader",
-                        MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1)
+                        msg = "PSD Preliminary Determination"
                     Case "PT"
-                        ResultPDF = MessageBox.Show("A PDF file currently exists for this PSD Narrative." & vbCrLf &
-                        "Do you want to overwrite this file?", "Permit Uploader",
-                        MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1)
+                        msg = "PSD Narrative"
                     Case "PD"
-                        ResultPDF = MessageBox.Show("A PDF file currently exists for this PSD Draft Permit." & vbCrLf &
-                        "Do you want to overwrite this file?", "Permit Uploader",
-                        MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1)
+                        msg = "PSD Draft Permit"
                     Case "PN"
-                        ResultPDF = MessageBox.Show("A PDF file currently exists for this PSD Public Notice." & vbCrLf &
-                        "Do you want to overwrite this file?", "Permit Uploader",
-                        MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1)
+                        msg = "PSD Public Notice"
                     Case "PH"
-                        ResultPDF = MessageBox.Show("A PDF file currently exists for this PSD Hearing Notice." & vbCrLf &
-                        "Do you want to overwrite this file?", "Permit Uploader",
-                        MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1)
+                        msg = "PSD Hearing Notice"
                     Case "PF"
-                        ResultPDF = MessageBox.Show("A PDF file currently exists for this PSD Final Determination." & vbCrLf &
-                        "Do you want to overwrite this file?", "Permit Uploader",
-                        MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1)
+                        msg = "PSD Final Determination"
                     Case "PI"
-                        ResultPDF = MessageBox.Show("A PDF file currently exists for this PSD Final Permit." & vbCrLf &
-                        "Do you want to overwrite this file?", "Permit Uploader",
-                        MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1)
+                        msg = "PSD Final Permit"
                     Case "ON"
-                        ResultPDF = MessageBox.Show("A PDF file currently exists for this Other Narrative." & vbCrLf &
-                        "Do you want to overwrite this file?", "Permit Uploader",
-                        MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1)
+                        msg = "Other Narrative"
                     Case "OP"
-                        ResultPDF = MessageBox.Show("A PDF file currently exists for this Other Permit." & vbCrLf &
-                        "Do you want to overwrite this file?", "Permit Uploader",
-                        MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1)
+                        msg = "Other Permit"
                     Case Else
-                        ResultPDF = MessageBox.Show("A PDF file currently exists for this 'Unknown' application." & vbCrLf &
+                        msg = "'Unknown' application"
+                End Select
+
+                ResultPDF = MessageBox.Show($"A PDF file currently exists for this {msg}." & vbCrLf &
                         "Do you want to overwrite this file?", "Permit Uploader",
                         MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1)
-                End Select
 
                 If ResultPDF = DialogResult.No Then
                     Return False
                 Else
-                    SQL = "delete APBPERMITS where STRFILENAME = @FileName "
-                    DB.RunCommand(SQL, p)
+                    query = "delete APBPERMITS where STRFILENAME = @FileName "
+                    DB.RunCommand(query, p)
                 End If
             End If
 
             Dim fs As FileStream
 
             Try
-                fs = New FileStream(PDFLocation, FileMode.OpenOrCreate, FileAccess.Read)
+                fs = New FileStream(pdfLocation, FileMode.OpenOrCreate, FileAccess.Read)
             Catch ex As IOException
                 If ex.Message.Contains("it is being used by another process") Then
                     MessageBox.Show("The file is currently in use. Please close the file and try again.")
@@ -357,17 +332,17 @@ Public Class SSPPPermitUploader
 
             fs.Close()
 
-            SQL = "insert into APBPERMITS
+            query = "insert into APBPERMITS
                 ([ROWCOUNT], STRFILENAME, PDFPERMITDATA, STRPDFMODIFINGPERSON, DATPDFMODIFINGDATE)
                 values ((select (max([ROWCOUNT]) + 1) from APBPERMITS), @filename, @rawdata, @user, getdate()) "
 
             Dim pf As SqlParameter() = {
-                New SqlParameter("@filename", FileName),
+                New SqlParameter("@filename", fileName),
                 New SqlParameter("@rawdata", rawData),
                 New SqlParameter("@user", CurrentUser.UserID)
             }
 
-            DB.RunCommand(SQL, pf)
+            DB.RunCommand(query, pf)
 
             Return True
 
