@@ -1,10 +1,11 @@
-﻿Imports Iaip.Apb
+﻿Imports System.Configuration
+Imports Iaip.Apb
 
 Namespace UrlHelpers
 
     Public Module PermitSearchUrls
 
-        Private Const PermitSearchUrl As String = "https://air.gaepd.org/Permits"
+        Private ReadOnly PermitSearchUrl As String = ConfigurationManager.AppSettings("PermitSearchUrl")
 
         Public Function GetPermitFileLink(permitFileName As String) As String
             If String.IsNullOrEmpty(permitFileName) Then Return Nothing
