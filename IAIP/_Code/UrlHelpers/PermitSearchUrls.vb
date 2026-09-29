@@ -4,17 +4,17 @@ Namespace UrlHelpers
 
     Public Module PermitSearchUrls
 
-        Private Const PermitSearchUrl As String = "https://permitsearch.gaepd.org"
+        Private Const PermitSearchUrl As String = "https://air.gaepd.org/Permits"
 
         Public Function GetPermitFileLink(permitFileName As String) As String
             If String.IsNullOrEmpty(permitFileName) Then Return Nothing
 
-            Return $"{PermitSearchUrl}/Permit/{permitFileName}"
+            Return $"{PermitSearchUrl}/View/{permitFileName}"
         End Function
 
         Public Function GetPermitAirsSearchLink(airs As ApbFacilityId) As String
             If airs Is Nothing Then Return Nothing
-            Return $"{PermitSearchUrl}/AirsNumber/{airs.ShortString}"
+            Return $"{PermitSearchUrl}/Facility?Id={airs.FormattedString}"
         End Function
 
         Public Sub OpenPermitFileLink(permitFileName As String, Optional sender As Form = Nothing)
