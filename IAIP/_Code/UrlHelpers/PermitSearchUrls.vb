@@ -15,7 +15,7 @@ Namespace UrlHelpers
 
         Public Function GetPermitAirsSearchLink(airs As ApbFacilityId) As String
             If airs Is Nothing Then Return Nothing
-            Return $"{PermitSearchUrl}/Facility?Id={airs.FormattedString}"
+            Return $"{PermitSearchUrl}/Facility/{airs.FormattedString}"
         End Function
 
         Public Sub OpenPermitFileLink(permitFileName As String, Optional sender As Form = Nothing)
