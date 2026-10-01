@@ -2161,10 +2161,10 @@ Partial Class IAIPFacilitySummary
         Me.PermitsLink.AutoSize = True
         Me.PermitsLink.Location = New System.Drawing.Point(24, 15)
         Me.PermitsLink.Name = "PermitsLink"
-        Me.PermitsLink.Size = New System.Drawing.Size(97, 13)
+        Me.PermitsLink.Size = New System.Drawing.Size(200, 13)
         Me.PermitsLink.TabIndex = 5
         Me.PermitsLink.TabStop = True
-        Me.PermitsLink.Text = "View permits online"
+        Me.PermitsLink.Text = "Open facility in permit search page online"
         '
         'FSEmissionsFees
         '
