@@ -15,6 +15,10 @@
 [2014](changelog-2014.html) |
 [2013](changelog-2013.html)
 
+## Version 8.0.10 <span>(5-Oct-2026)</span>
+
+* Update links to the new permit search page.
+
 ## Version 8.0.9 <span>(19-Aug-2026)</span>
 
 * Only PDF format permit documents are allowed.
