@@ -1,4 +1,5 @@
 @HostAddress = https://localhost:44373
+#@HostAddress = https://iaip-cx.gaepd.org
 
 GET {{HostAddress}}/health
 
