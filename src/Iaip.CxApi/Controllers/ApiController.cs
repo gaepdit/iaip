@@ -4,6 +4,7 @@ using Iaip.CxApi.DbHelper;
 using Iaip.CxApi.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using ZLogger;
 
 namespace Iaip.CxApi.Controllers;
 
@@ -45,7 +46,7 @@ public class ApiController(IDbHelper dbHelper, ILogger<ApiController> logger) : 
         if (string.IsNullOrEmpty(request.Token) || string.IsNullOrEmpty(request.MachineName) ||
             string.IsNullOrEmpty(request.WindowsDomainName) || string.IsNullOrEmpty(request.WindowsUserName))
         {
-            logger.LogWarning("Missing session details on {Env} for User ID {User}", env, request.UserId.ToString());
+            logger.ZLogWarning($"Missing session details on {env} for User ID {request.UserId:@User}");
             return IaipAuthResult.AuthErrorResult(string.Empty);
         }
 
@@ -62,7 +63,7 @@ public class ApiController(IDbHelper dbHelper, ILogger<ApiController> logger) : 
         Guard.NotNullOrWhiteSpace(request.Email);
 
         var result = await DatabaseService.RequestUsernameReminder(dbHelper, env, request);
-        logger.LogInformation("Username requested for {Email} with result {Result}", request.Email, result);
+        logger.ZLogInformation($"Username requested for {request.Email} with result {result}");
         return result;
     }
 
@@ -75,8 +76,7 @@ public class ApiController(IDbHelper dbHelper, ILogger<ApiController> logger) : 
         Guard.NotNullOrWhiteSpace(request.Username);
 
         var result = await DatabaseService.RequestResetUserPassword(dbHelper, env, request);
-        logger.LogInformation("Password reset request submitted for {User} with result {Result}", request.Username,
-            result);
+        logger.ZLogInformation($"Password reset request submitted for {request.Username:@User} with result {result}");
         return result;
     }
 
@@ -89,7 +89,7 @@ public class ApiController(IDbHelper dbHelper, ILogger<ApiController> logger) : 
         Guard.NotNullOrWhiteSpace(request.ResetToken);
 
         var result = await DatabaseService.ResetUserPassword(dbHelper, env, request);
-        logger.LogInformation("Password reset submitted for {User} with result {Result}", request.Username, result);
+        logger.ZLogInformation($"Password reset submitted for {request.Username:@User} with result {result}");
         return result;
     }
 
@@ -97,25 +97,25 @@ public class ApiController(IDbHelper dbHelper, ILogger<ApiController> logger) : 
 
     private IaipAuthResult ValidCredentials(string message, string env, string user)
     {
-        logger.LogInformation("Valid credentials accepted on {Env} for {User}", env, user);
+        logger.ZLogInformation($"Valid credentials accepted on {env} for {user}");
         return IaipAuthResult.AuthSuccessResult(env, message);
     }
 
     private IaipAuthResult InvalidCredentials(string result, string env, string user)
     {
-        logger.LogWarning("Invalid login credentials on {Env} for {User} with result {Result}", env, user, result);
+        logger.ZLogWarning($"Invalid login credentials on {env} for {user} with result {result}");
         return IaipAuthResult.AuthErrorResult(result);
     }
 
     private IaipAuthResult ValidSession(string message, string env, int userId)
     {
-        logger.LogInformation("Valid session accepted on {Env} for User ID {User}", env, userId.ToString());
+        logger.ZLogInformation($"Valid session accepted on {env} for User ID {userId:@User}");
         return IaipAuthResult.AuthSuccessResult(env, message);
     }
 
     private IaipAuthResult InvalidSession(string env, int userId)
     {
-        logger.LogWarning("Invalid session token on {Env} for User ID {User}", env, userId.ToString());
+        logger.ZLogWarning($"Invalid session token on {env} for User ID {userId:@User}");
         return IaipAuthResult.AuthErrorResult(string.Empty);
     }
 }
