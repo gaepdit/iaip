@@ -37,4 +37,12 @@
     </MsDeploySkipRules>
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Properties\PublishProfiles\dev-api.pubxml">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+    </None>
+  </ItemGroup>
+
 </Project>

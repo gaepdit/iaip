@@ -63,6 +63,7 @@ if (builder.Environment.IsDevelopment())
 
 // Map endpoints.
 app.MapControllers();
+app.MapGet("/", () => Results.Ok());
 app.MapGet("/health", () => Results.Ok("OK"));
 app.MapGet("/version", () => Results.Ok(new { AppSettings.Version }));
 
