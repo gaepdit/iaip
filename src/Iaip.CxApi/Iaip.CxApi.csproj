@@ -21,12 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="appsettings.Development.json">
-      <DependentUpon>appsettings.json</DependentUpon>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
     <MsDeploySkipRules Include="SkipAppSettings">
       <ObjectName>filePath</ObjectName>
       <AbsolutePath>appsettings.*.json</AbsolutePath>
