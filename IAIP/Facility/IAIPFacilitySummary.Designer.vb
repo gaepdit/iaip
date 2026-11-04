@@ -272,6 +272,7 @@ Partial Class IAIPFacilitySummary
         Me.HelpMenu = New System.Windows.Forms.ToolStripMenuItem()
         Me.HelpMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
+        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.NavigationPanel.SuspendLayout()
         Me.FSMainTabControl.SuspendLayout()
         Me.FSInfo.SuspendLayout()
@@ -3143,7 +3144,7 @@ Partial Class IAIPFacilitySummary
         '
         'ToolsMenu
         '
-        Me.ToolsMenu.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.CreateFacilityMenuItem, Me.OpenCurrentTabByDefaultToolStripMenuItem, Me.ToolsMenuSeparator, Me.UpdateEpaMenuItem})
+        Me.ToolsMenu.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OpenCurrentTabByDefaultToolStripMenuItem, Me.ToolStripSeparator1, Me.CreateFacilityMenuItem, Me.ToolsMenuSeparator, Me.UpdateEpaMenuItem})
         Me.ToolsMenu.Name = "ToolsMenu"
         Me.ToolsMenu.Size = New System.Drawing.Size(47, 20)
         Me.ToolsMenu.Text = "&Tools"
@@ -3184,6 +3185,11 @@ Partial Class IAIPFacilitySummary
         Me.HelpMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.H), System.Windows.Forms.Keys)
         Me.HelpMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.HelpMenuItem.Text = "Online &Help"
+        '
+        'ToolStripSeparator1
+        '
+        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(222, 6)
         '
         'IAIPFacilitySummary
         '
@@ -3514,4 +3520,5 @@ Partial Class IAIPFacilitySummary
     Friend WithEvents lnkWebFce As LinkLabel
     Friend WithEvents lnkWebComplianceWork As LinkLabel
     Friend WithEvents OpenCurrentTabByDefaultToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ToolStripSeparator1 As ToolStripSeparator
 End Class
