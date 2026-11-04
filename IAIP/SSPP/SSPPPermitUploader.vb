@@ -355,9 +355,10 @@ Public Class SSPPPermitUploader
 
     Private Sub SaveFiles()
         Try
-            Const SQL As String = "Update SSPPApplicationTracking set " &
-                "datFinalOnWeb =  GETDATE()  " &
-                "where strApplicationNumber = @appnum and datfinalonweb is not null "
+            Const SQL As String = "update SSPPAPPLICATIONTRACKING
+                set DATFINALONWEB = GETDATE()
+                where STRAPPLICATIONNUMBER = @appnum
+                  and DATFINALONWEB is null "
 
             Dim p As New SqlParameter("@appnum", MasterApp)
 

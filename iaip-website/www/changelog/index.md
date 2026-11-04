@@ -18,6 +18,7 @@
 ## Version 8.0.12 <span>(4-Nov-2026)</span>
 
 * Added the ability to choose a different tab to open by default in the Facility Summary.
+* Fixed a bug in the permit file uploader.
 
 ## Version 8.0.11 <span>(8-Oct-2026)</span>
 
