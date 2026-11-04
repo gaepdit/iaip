@@ -266,6 +266,7 @@ Partial Class IAIPFacilitySummary
         Me.CloseMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolsMenu = New System.Windows.Forms.ToolStripMenuItem()
         Me.CreateFacilityMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.OpenCurrentTabByDefaultToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolsMenuSeparator = New System.Windows.Forms.ToolStripSeparator()
         Me.UpdateEpaMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.HelpMenu = New System.Windows.Forms.ToolStripMenuItem()
@@ -3142,7 +3143,7 @@ Partial Class IAIPFacilitySummary
         '
         'ToolsMenu
         '
-        Me.ToolsMenu.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.CreateFacilityMenuItem, Me.ToolsMenuSeparator, Me.UpdateEpaMenuItem})
+        Me.ToolsMenu.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.CreateFacilityMenuItem, Me.OpenCurrentTabByDefaultToolStripMenuItem, Me.ToolsMenuSeparator, Me.UpdateEpaMenuItem})
         Me.ToolsMenu.Name = "ToolsMenu"
         Me.ToolsMenu.Size = New System.Drawing.Size(47, 20)
         Me.ToolsMenu.Text = "&Tools"
@@ -3150,18 +3151,24 @@ Partial Class IAIPFacilitySummary
         'CreateFacilityMenuItem
         '
         Me.CreateFacilityMenuItem.Name = "CreateFacilityMenuItem"
-        Me.CreateFacilityMenuItem.Size = New System.Drawing.Size(219, 22)
+        Me.CreateFacilityMenuItem.Size = New System.Drawing.Size(225, 22)
         Me.CreateFacilityMenuItem.Text = "&Create New Facility"
+        '
+        'OpenCurrentTabByDefaultToolStripMenuItem
+        '
+        Me.OpenCurrentTabByDefaultToolStripMenuItem.Name = "OpenCurrentTabByDefaultToolStripMenuItem"
+        Me.OpenCurrentTabByDefaultToolStripMenuItem.Size = New System.Drawing.Size(225, 22)
+        Me.OpenCurrentTabByDefaultToolStripMenuItem.Text = "&Open Current Tab By Default"
         '
         'ToolsMenuSeparator
         '
         Me.ToolsMenuSeparator.Name = "ToolsMenuSeparator"
-        Me.ToolsMenuSeparator.Size = New System.Drawing.Size(216, 6)
+        Me.ToolsMenuSeparator.Size = New System.Drawing.Size(222, 6)
         '
         'UpdateEpaMenuItem
         '
         Me.UpdateEpaMenuItem.Name = "UpdateEpaMenuItem"
-        Me.UpdateEpaMenuItem.Size = New System.Drawing.Size(219, 22)
+        Me.UpdateEpaMenuItem.Size = New System.Drawing.Size(225, 22)
         Me.UpdateEpaMenuItem.Text = "&Update All Data Sent to EPA"
         '
         'HelpMenu
@@ -3506,4 +3513,5 @@ Partial Class IAIPFacilitySummary
     Friend WithEvents lnkWebEnforcement As LinkLabel
     Friend WithEvents lnkWebFce As LinkLabel
     Friend WithEvents lnkWebComplianceWork As LinkLabel
+    Friend WithEvents OpenCurrentTabByDefaultToolStripMenuItem As ToolStripMenuItem
 End Class

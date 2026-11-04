@@ -10,6 +10,7 @@ Module UserSettings
         PasswordResetRequestedDate
         SelectedNavWorkListContext
         SelectedNavWorkListScope
+        DefaultFacilitySummaryTab
     End Enum
 
     ' Define default value for above user settings here
@@ -35,6 +36,9 @@ Module UserSettings
 
             Case UserSetting.SelectedNavWorkListScope
                 Return IAIPNavigation.NavWorkListScope.StaffView.ToString
+
+            Case UserSetting.DefaultFacilitySummaryTab
+                Return IAIPFacilitySummary.FSInfo.Name
 
             Case Else
                 Return ""

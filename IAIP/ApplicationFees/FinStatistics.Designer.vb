@@ -144,6 +144,8 @@ Partial Class FinStatistics
         'chkApplyDates
         '
         Me.chkApplyDates.AutoSize = True
+        Me.chkApplyDates.Checked = True
+        Me.chkApplyDates.CheckState = System.Windows.Forms.CheckState.Checked
         Me.chkApplyDates.Location = New System.Drawing.Point(17, 31)
         Me.chkApplyDates.Name = "chkApplyDates"
         Me.chkApplyDates.Size = New System.Drawing.Size(88, 17)

@@ -15,7 +15,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Logging.ClearProviders().AddZLoggerConsole(options => options.UseJsonFormatter());
 
 // Bind application settings.
-builder.Configuration.GetSection(nameof(AppSettings.IaipConfigOptions)).Bind(AppSettings.IaipConfigOptions);
+builder.LoadAppSettings();
 
 // Configure DB helper.
 if (builder.Configuration.GetValue<bool>("TestDbHelper"))
@@ -63,8 +63,9 @@ if (builder.Environment.IsDevelopment())
 
 // Map endpoints.
 app.MapControllers();
+app.MapGet("/", () => Results.Ok());
 app.MapGet("/health", () => Results.Ok("OK"));
-app.MapGet("/version", () => Results.Ok(new { version = AppSettings.GetVersion() }));
+app.MapGet("/version", () => Results.Ok(new { AppSettings.Version }));
 
 // Make it so.
 await app.RunAsync();

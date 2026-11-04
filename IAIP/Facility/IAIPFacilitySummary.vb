@@ -133,6 +133,8 @@ Public Class IAIPFacilitySummary
             LoadBasicFacilityAndHeaderData()
             FSMainTabControl.Focus()
         End If
+
+        OpenDefaultTab()
     End Sub
 
     ' " Clear all data "
@@ -921,6 +923,7 @@ Public Class IAIPFacilitySummary
         If AirsNumber Is Nothing Then Return
 
         Cursor = Cursors.WaitCursor
+        CurrentTab = FSMainTabControl.SelectedTab.Name
 
         Dim data As New Dictionary(Of String, String) From {
             {"Name", Name},
@@ -1168,6 +1171,7 @@ Public Class IAIPFacilitySummary
         If AirsNumber Is Nothing OrElse ContactsTabControl.SelectedTab Is Nothing Then Return
 
         Cursor = Cursors.WaitCursor
+        CurrentTab = ContactsTabControl.SelectedTab.Name
 
         Dim data As New Dictionary(Of String, String) From {
             {"Name", Name},
@@ -1196,5 +1200,153 @@ Public Class IAIPFacilitySummary
 
     Private Sub lnkWebEnforcement_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lnkWebEnforcement.LinkClicked
         If AirsNumber IsNot Nothing Then OpenEnforcementOnWeb(AirsNumber, Me)
+    End Sub
+
+    Private Property CurrentTab As String
+
+    Private Sub OpenDefaultTab()
+        Dim defaultTab As String = GetUserSetting(UserSetting.DefaultFacilitySummaryTab)
+
+        Select Case defaultTab
+            Case "FSInfo"
+                FSMainTabControl.SelectedTab = FSInfo
+
+            Case "FSHeaderData"
+                FSMainTabControl.SelectedTab = FSHeaderData
+
+            Case "FSContacts"
+                FSMainTabControl.SelectedTab = FSContacts
+
+            Case "FSTesting"
+                FSMainTabControl.SelectedTab = FSTesting
+
+            Case "FSCompliance"
+                FSMainTabControl.SelectedTab = FSCompliance
+
+            Case "FSPermitting"
+                FSMainTabControl.SelectedTab = FSPermitting
+
+            Case "FSEmissionsFees"
+                FSMainTabControl.SelectedTab = FSEmissionsFees
+
+            Case "FSEmissionInventory"
+                FSMainTabControl.SelectedTab = FSEmissionInventory
+
+            Case "FSNotes"
+                FSMainTabControl.SelectedTab = FSNotes
+
+            Case "TPContactsFacility"
+                FSMainTabControl.SelectedTab = FSContacts
+                ContactsTabControl.SelectedTab = TPContactsFacility
+
+            Case "TPContactsStaff"
+                FSMainTabControl.SelectedTab = FSContacts
+                ContactsTabControl.SelectedTab = TPContactsStaff
+
+            Case "TPContactsGeco"
+                FSMainTabControl.SelectedTab = FSContacts
+                ContactsTabControl.SelectedTab = TPContactsGeco
+
+            Case "TPTestReport"
+                FSMainTabControl.SelectedTab = FSTesting
+                TestingTabControl.SelectedTab = TPTestReport
+
+            Case "TPTestNotifications"
+                FSMainTabControl.SelectedTab = FSTesting
+                TestingTabControl.SelectedTab = TPTestNotifications
+
+            Case "TPTestMemos"
+                FSMainTabControl.SelectedTab = FSTesting
+                TestingTabControl.SelectedTab = TPTestMemos
+
+            Case "TPAppTrackingLog"
+                FSMainTabControl.SelectedTab = FSPermitting
+                PermittingTabControl.SelectedTab = TPAppTrackingLog
+
+            Case "TPApplicationInvoices"
+                FSMainTabControl.SelectedTab = FSPermitting
+                PermittingTabControl.SelectedTab = TPApplicationInvoices
+
+            Case "TPCurrentRules"
+                FSMainTabControl.SelectedTab = FSPermitting
+                PermittingTabControl.SelectedTab = TPCurrentRules
+
+            Case "TPRuleHistory"
+                FSMainTabControl.SelectedTab = FSPermitting
+                PermittingTabControl.SelectedTab = TPRuleHistory
+
+            Case "TPPermits"
+                FSMainTabControl.SelectedTab = FSPermitting
+                PermittingTabControl.SelectedTab = TPPermits
+
+            Case "TPEmissionsAnnual"
+                FSMainTabControl.SelectedTab = FSEmissionsFees
+                EmissionsFeesTabControl.SelectedTab = TPEmissionsAnnual
+
+            Case "TPEmissionsData"
+                FSMainTabControl.SelectedTab = FSEmissionsFees
+                EmissionsFeesTabControl.SelectedTab = TPEmissionsData
+
+            Case "TPEmissionsInvoices"
+                FSMainTabControl.SelectedTab = FSEmissionsFees
+                EmissionsFeesTabControl.SelectedTab = TPEmissionsInvoices
+
+            Case "TPEmissionsDeposits"
+                FSMainTabControl.SelectedTab = FSEmissionsFees
+                EmissionsFeesTabControl.SelectedTab = TPEmissionsDeposits
+
+            Case "TPEiPost2009"
+                FSMainTabControl.SelectedTab = FSEmissionsFees
+                EiTabControl.SelectedTab = TPEiPost2009
+
+            Case "TpEiPre2009"
+                FSMainTabControl.SelectedTab = FSEmissionsFees
+                EiTabControl.SelectedTab = TpEiPre2009
+
+            Case "TPGecoUsers"
+                FSMainTabControl.SelectedTab = FSContacts
+                ContactsTabControl.SelectedTab = TPContactsGeco
+                GecoContactsTabControl.SelectedTab = TPGecoUsers
+
+            Case "TPGecoContacts"
+                FSMainTabControl.SelectedTab = FSContacts
+                ContactsTabControl.SelectedTab = TPContactsGeco
+                GecoContactsTabControl.SelectedTab = TPGecoContacts
+
+            Case "TPGecoEmailContacts"
+                FSMainTabControl.SelectedTab = FSContacts
+                ContactsTabControl.SelectedTab = TPContactsGeco
+                GecoContactsTabControl.SelectedTab = TPGecoEmailContacts
+
+            Case "TPCaersUsers"
+                FSMainTabControl.SelectedTab = FSContacts
+                ContactsTabControl.SelectedTab = TPContactsGeco
+                GecoContactsTabControl.SelectedTab = TPCaersUsers
+
+        End Select
+    End Sub
+
+    Private Sub OpenCurrentTabByDefaultToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles OpenCurrentTabByDefaultToolStripMenuItem.Click
+        SaveUserSetting(UserSetting.DefaultFacilitySummaryTab, CurrentTab)
+    End Sub
+
+    Private Sub TestingTabControl_SelectedIndexChanged(sender As Object, e As EventArgs) Handles TestingTabControl.SelectedIndexChanged
+        CurrentTab = TestingTabControl.SelectedTab.Name
+    End Sub
+
+    Private Sub PermittingTabControl_SelectedIndexChanged(sender As Object, e As EventArgs) Handles PermittingTabControl.SelectedIndexChanged
+        CurrentTab = PermittingTabControl.SelectedTab.Name
+    End Sub
+
+    Private Sub EmissionsFeesTabControl_SelectedIndexChanged(sender As Object, e As EventArgs) Handles EmissionsFeesTabControl.SelectedIndexChanged
+        CurrentTab = EmissionsFeesTabControl.SelectedTab.Name
+    End Sub
+
+    Private Sub EiTabControl_SelectedIndexChanged(sender As Object, e As EventArgs) Handles EiTabControl.SelectedIndexChanged
+        CurrentTab = EiTabControl.SelectedTab.Name
+    End Sub
+
+    Private Sub GecoContactsTabControl_SelectedIndexChanged(sender As Object, e As EventArgs) Handles GecoContactsTabControl.SelectedIndexChanged
+        CurrentTab = GecoContactsTabControl.SelectedTab.Name
     End Sub
 End Class

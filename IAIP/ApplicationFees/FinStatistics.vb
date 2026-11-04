@@ -22,6 +22,7 @@ Public Class FinStatistics
         FeesAssessedPerFeeType
         FeesReceivedPerType
         UnpaidApplications
+        AllApplications
     End Enum
 
     Private ReadOnly ReportList As New Dictionary(Of ReportType, String) From {
@@ -30,7 +31,8 @@ Public Class FinStatistics
         {ReportType.FeesAssessedPerExpeditedFeeType, "Fees assessed per expedited fee type"},
         {ReportType.FeesAssessedPerFeeType, "Fees assessed per application/expedited fee type"},
         {ReportType.FeesReceivedPerType, "Fees received per application type"},
-        {ReportType.UnpaidApplications, "Unpaid permit application fees"}
+        {ReportType.UnpaidApplications, "Unpaid fees assessed"},
+        {ReportType.AllApplications, "Fees assessed and received per application"}
     }
 
     Private Sub SetDateRange()
@@ -53,18 +55,20 @@ Public Class FinStatistics
         Dim spName As String = ""
 
         Select Case CType(cmbReportType.SelectedValue, ReportType)
-            Case ReportType.UnpaidApplications
-                spName = "fees.GetApplicationFeeStatusReport"
             Case ReportType.FeesAssessedPerApplicationType
                 spName = "fees.GetApplicationTypeFeeSummary"
-            Case ReportType.FeesReceivedPerType
-                spName = "fees.GetApplicationTypeDepositSummary"
             Case ReportType.FeesAssessedPerApplicationFeeType
                 spName = "fees.GetApplicationFeeTypeFeeSummary"
             Case ReportType.FeesAssessedPerExpeditedFeeType
                 spName = "fees.GetExpeditedFeeTypeFeeSummary"
             Case ReportType.FeesAssessedPerFeeType
                 spName = "fees.GetAllFeeTypesFeeSummary"
+            Case ReportType.FeesReceivedPerType
+                spName = "fees.GetApplicationTypeDepositSummary"
+            Case ReportType.UnpaidApplications
+                spName = "fees.GetApplicationUnpaidFeeStatusReport"
+            Case ReportType.AllApplications
+                spName = "fees.GetApplicationFeeStatusReport"
         End Select
 
         Dim params As SqlParameter() = Array.Empty(Of SqlParameter)()
