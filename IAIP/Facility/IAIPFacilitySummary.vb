@@ -1296,11 +1296,11 @@ Public Class IAIPFacilitySummary
                 EmissionsFeesTabControl.SelectedTab = TPEmissionsDeposits
 
             Case "TPEiPost2009"
-                FSMainTabControl.SelectedTab = FSEmissionsFees
+                FSMainTabControl.SelectedTab = FSEmissionInventory
                 EiTabControl.SelectedTab = TPEiPost2009
 
             Case "TpEiPre2009"
-                FSMainTabControl.SelectedTab = FSEmissionsFees
+                FSMainTabControl.SelectedTab = FSEmissionInventory
                 EiTabControl.SelectedTab = TpEiPre2009
 
             Case "TPGecoUsers"
@@ -1324,6 +1324,8 @@ Public Class IAIPFacilitySummary
                 GecoContactsTabControl.SelectedTab = TPCaersUsers
 
         End Select
+
+        AirsNumberEntry.Focus()
     End Sub
 
     Private Sub OpenCurrentTabByDefaultToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles OpenCurrentTabByDefaultToolStripMenuItem.Click
@@ -1349,4 +1351,5 @@ Public Class IAIPFacilitySummary
     Private Sub GecoContactsTabControl_SelectedIndexChanged(sender As Object, e As EventArgs) Handles GecoContactsTabControl.SelectedIndexChanged
         CurrentTab = GecoContactsTabControl.SelectedTab.Name
     End Sub
+
 End Class
