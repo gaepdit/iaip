@@ -437,7 +437,7 @@ Friend Class IaipDataGridView
     Protected Overrides Sub OnKeyUp(e As KeyEventArgs)
         NotNull(e, NameOf(e))
 
-        If e.KeyCode = Keys.Enter Then
+        If e.KeyCode = Keys.Enter AndAlso CurrentRow IsNot Nothing Then
             If LinkifyFirstColumn Then
                 OnCellLinkActivated(New IaipDataGridViewCellLinkEventArgs(CurrentRow.Cells(0).Value))
             ElseIf LinkifiedByColumnName Then
