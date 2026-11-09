@@ -451,7 +451,7 @@ Public Class SSPPApplicationTrackingLog
                 TCApplicationTrackingLog.TabPages.Remove(TPOtherInfo)
             End If
 
-            If Not (CurrentUser.HasRole(118) OrElse
+            If Not (CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
@@ -466,7 +466,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'btnAddApplicationToList 
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse ' not used
@@ -485,7 +485,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'btnAddNewMactSubpart 
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
@@ -495,7 +495,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'btnAddNewNESHAPSubpart 
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
@@ -505,7 +505,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'btnAddNewNSPSSubpart 
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
@@ -515,7 +515,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'btnAddNewSIPSubpart 
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
@@ -525,7 +525,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'btnClearAddModifiedMACTs 
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
@@ -535,7 +535,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'btnClearAddModifiedNESHAPs 
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
@@ -545,7 +545,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'btnClearAddModifiedNSPSs 
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
@@ -555,7 +555,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'btnClearAddModifiedSIPs 
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
@@ -565,7 +565,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'btnClearMACTDeletes 
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
@@ -575,7 +575,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'btnClearNESHAPDeletes 
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
@@ -585,7 +585,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'btnClearNSPSDeletes 
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
@@ -595,7 +595,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'btnClearSIPDeletes 
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
@@ -605,7 +605,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'btnMACTDelete 
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
@@ -615,7 +615,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'btnMACTDeleteAll 
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
@@ -625,7 +625,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'btnMACTEdit 
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
@@ -635,7 +635,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'btnMACTEditAll 
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
@@ -645,7 +645,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'btnMACTunDelete 
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
@@ -655,7 +655,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'btnMACTunDeleteAll 
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
@@ -665,7 +665,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'btnMACTUnedit 
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
@@ -675,7 +675,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'btnMACTUneditAll 
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
@@ -685,7 +685,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'btnNESHAPDelete 
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
@@ -695,7 +695,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'btnNESHAPDeleteAll 
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
@@ -705,7 +705,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'btnNESHAPEdit 
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
@@ -715,7 +715,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'btnNESHAPEditAll 
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
@@ -725,7 +725,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'btnNESHAPunDelete 
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
@@ -735,7 +735,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'btnNESHAPunDeleteAll 
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
@@ -745,7 +745,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'btnNESHAPUnedit 
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
@@ -755,7 +755,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'btnNESHAPUneditAll 
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
@@ -765,7 +765,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'btnNSPSDelete 
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
@@ -775,7 +775,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'btnNSPSDeleteAll 
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
@@ -785,7 +785,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'btnNSPSEdit 
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
@@ -795,7 +795,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'btnNSPSEditAll 
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
@@ -805,7 +805,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'btnNSPSunDelete 
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
@@ -815,7 +815,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'btnNSPSunDeleteAll 
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
@@ -825,7 +825,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'btnNSPSUnedit 
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
@@ -835,7 +835,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'btnNSPSUneditAll 
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
@@ -845,7 +845,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'btnSIPDelete 
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
@@ -855,7 +855,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'btnSIPDeleteAll 
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
@@ -865,7 +865,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'btnSIPEdit 
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
@@ -875,7 +875,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'btnSIPEditAll 
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
@@ -885,7 +885,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'btnSIPunDelete 
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
@@ -895,7 +895,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'btnSIPunDeleteAll 
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
@@ -905,7 +905,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'btnSIPUnedit 
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
@@ -915,7 +915,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'btnSIPUneditAll 
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
@@ -925,7 +925,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'btnSaveMACTSubpart 
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
@@ -935,7 +935,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'btnSaveNESHAPSubpart 
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
@@ -945,7 +945,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'btnSaveNSPSSubpart 
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
@@ -955,7 +955,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'btnSaveSIPSubpart 
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
@@ -965,7 +965,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'btnClearInformationRequest
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse ' not used
@@ -982,7 +982,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'btnClearLinks
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse ' not used
@@ -999,7 +999,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'btnDeleteInformationRequest
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse ' not used
@@ -1016,7 +1016,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'btnLinkApplications
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse ' not used
@@ -1033,7 +1033,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'btnSaveInformationRequest
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse ' not used
@@ -1050,7 +1050,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'BtnRefreshAIRSNo
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") Then
                 btnRefreshAIRSNo.Visible = True
@@ -1059,7 +1059,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'btnSaveSIPSubpart
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then ' 122, N'SSPP Engineer'
@@ -1069,7 +1069,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'btnSaveMACTSubpart
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
              (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
              (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
              (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then ' 122, N'SSPP Engineer'
@@ -1079,7 +1079,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'btnSaveNESHAPSubpart
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
              (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
              (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
              (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then ' 122, N'SSPP Engineer'
@@ -1089,7 +1089,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'btnSaveNSPSSubpart
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
              (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
              (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
              (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then ' 122, N'SSPP Engineer'
@@ -1099,7 +1099,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'btnSaveWebPublisher
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                (AccountFormAccess(131, 2) = "1" AndAlso AccountFormAccess(127, 3) = "1" AndAlso AccountFormAccess(127, 4) = "0") Then
                 btnSaveWebPublisher.Enabled = True
@@ -1110,7 +1110,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'btnGetCurrentPermittingContact
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
@@ -1122,7 +1122,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'cboApplicationType
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
@@ -1146,7 +1146,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'cboApplicationUnit
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") Then
@@ -1163,7 +1163,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'cboClassification
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse ' not used
@@ -1182,7 +1182,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'cboEngineer
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then ' 121, N'SSPP Unit Manager'
                 cboEngineer.Enabled = True
@@ -1194,7 +1194,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'cboFacilityCity
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
@@ -1222,7 +1222,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'cboOperationalStatus
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
@@ -1246,7 +1246,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'cboPermitAction
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse ' not used
@@ -1265,7 +1265,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'cboPublicAdvisory
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse ' not used
@@ -1294,21 +1294,21 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'chbNAANSR
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
               (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
               (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then ' 121, N'SSPP Unit Manager'
                 chbNAANSR.Enabled = True
             End If
 
             'chb112
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
               (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
               (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then ' 121, N'SSPP Unit Manager'
                 chb112g.Enabled = True
             End If
 
             'chbCDS_0
-            If CurrentUser.HasRole(118) Then
+            If CurrentUser.HasRoleType(RoleType.EpdIt) Then
                 chbCDS_0.Enabled = True
             End If
             If (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
@@ -1321,7 +1321,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'chbCDS_6
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
              (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
              (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
              (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse ' not used
@@ -1338,7 +1338,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'chbCDS_7
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
            (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
            (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
            (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse ' not used
@@ -1355,7 +1355,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'chbCDS_8
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
            (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
            (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
            (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse ' not used
@@ -1372,7 +1372,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'chbCDS_9
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
            (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
            (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
            (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse ' not used
@@ -1389,7 +1389,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'chbCDS_A
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
           (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
           (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
           (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse ' not used
@@ -1406,7 +1406,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'chbCDS_M
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
            (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
            (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
            (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse ' not used
@@ -1423,7 +1423,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'chbCDS_RMP
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
            (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
            (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
            (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse ' not used
@@ -1440,7 +1440,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'chbCDS_V
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
           (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
           (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
           (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse ' not used
@@ -1457,7 +1457,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'chbClosedOut 
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") Then
@@ -1472,7 +1472,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'chbHAPsMajor
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then ' 121, N'SSPP Unit Manager'
                 chbHAPsMajor.Enabled = True
@@ -1483,7 +1483,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'chbNSRMajor
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                  (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                  (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then ' 121, N'SSPP Unit Manager'
                 chbNSRMajor.Enabled = True
@@ -1494,21 +1494,21 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'chbPal
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then ' 121, N'SSPP Unit Manager'
                 chbPal.Enabled = True
             End If
 
             'chbExpeditedReview
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then ' 121, N'SSPP Unit Manager'
                 chbExpFee.Enabled = True
             End If
 
             'chbConfidential
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                 CurrentUser.HasRole(29) Then
@@ -1516,7 +1516,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'chbPAReady
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse ' not used
@@ -1533,7 +1533,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'chbPNReady
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse ' not used
@@ -1555,28 +1555,28 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'chbPSD
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then ' 121, N'SSPP Unit Manager'
                 chbPSD.Enabled = True
             End If
 
             'chbRulett
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then ' 121, N'SSPP Unit Manager'
                 chbRulett.Enabled = True
             End If
 
             'chbRuleyy
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then ' 121, N'SSPP Unit Manager'
                 chbRuleyy.Enabled = True
             End If
 
             'DTPDateAcknowledge 
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                 (AccountFormAccess(3, 2) = "1" AndAlso AccountFormAccess(3, 4) = "0") Then ' 122, N'SSPP Engineer'
@@ -1584,14 +1584,14 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'DTPDateAssigned
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then ' 121, N'SSPP Unit Manager'
                 DTPDateAssigned.Enabled = True
             End If
 
             'DTPDatePAExpires
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
@@ -1600,7 +1600,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'DTPDatePNExpires
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                (AccountFormAccess(131, 2) = "1" AndAlso AccountFormAccess(127, 3) = "1" AndAlso AccountFormAccess(127, 4) = "0") Then
@@ -1608,14 +1608,14 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'DTPDateReassigned
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
             (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
             (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then ' 121, N'SSPP Unit Manager'
                 DTPDateReassigned.Enabled = True
             End If
 
             'DTPDateReceived
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
             (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
             (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
             (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") Then
@@ -1623,7 +1623,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'DTPDateSent
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
             (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
             (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
             (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") Then
@@ -1631,7 +1631,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'DTPDateToBC
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) Then ' not used
@@ -1639,7 +1639,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'DTPDateToDO
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) Then ' not used
@@ -1647,14 +1647,14 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'DTPDateToPM
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then ' 121, N'SSPP Unit Manager'
                 DTPDateToPM.Enabled = True
             End If
 
             'DTPDateToUC
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse ' not used
@@ -1663,14 +1663,14 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'DTPDeadline
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then ' 121, N'SSPP Unit Manager'
                 DTPDeadline.Enabled = True
             End If
 
             'DTPDraftIssued
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
             (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
             (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
             (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
@@ -1679,21 +1679,21 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'DTPDraftOnWeb
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                (AccountFormAccess(131, 2) = "1" AndAlso AccountFormAccess(127, 3) = "1" AndAlso AccountFormAccess(127, 4) = "0") Then
                 DTPDraftOnWeb.Enabled = True
             End If
 
             'DTPEffectiveDateofPermit
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                 (AccountFormAccess(131, 2) = "1" AndAlso AccountFormAccess(127, 3) = "1" AndAlso AccountFormAccess(127, 4) = "0") Then
                 DTPEffectiveDateofPermit.Enabled = True
             End If
 
             'DTPEPAEnds
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) Then ' not used
@@ -1701,21 +1701,21 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'DTPEPANotifiedPermitOnWeb
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
             (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                 (AccountFormAccess(131, 2) = "1" AndAlso AccountFormAccess(127, 3) = "1" AndAlso AccountFormAccess(127, 4) = "0") Then
                 DTPEPANotifiedPermitOnWeb.Enabled = True
             End If
 
             'DTPEPAStatesNotified
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
             (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                 (AccountFormAccess(131, 2) = "1" AndAlso AccountFormAccess(127, 3) = "1" AndAlso AccountFormAccess(127, 4) = "0") Then
                 DTPEPAStatesNotified.Enabled = True
             End If
 
             'DTPEPAWaived
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) Then ' not used
@@ -1723,14 +1723,14 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'DTPExperationDate
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
             (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
              (AccountFormAccess(131, 2) = "1" AndAlso AccountFormAccess(127, 3) = "1" AndAlso AccountFormAccess(127, 4) = "0") Then
                 DTPExperationDate.Enabled = True
             End If
 
             'DTPFinalAction
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
@@ -1739,14 +1739,14 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'DTPFinalOnWeb
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
             (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
             (AccountFormAccess(131, 2) = "1" AndAlso AccountFormAccess(127, 3) = "1" AndAlso AccountFormAccess(127, 4) = "0") Then
                 DTPFinalOnWeb.Enabled = True
             End If
 
             'DTPInformationReceived
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse ' not used
@@ -1755,7 +1755,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'DTPInformationRequested
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse ' not used
@@ -1764,21 +1764,21 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'DTPNotifiedAppReceived
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                (AccountFormAccess(131, 2) = "1" AndAlso AccountFormAccess(127, 3) = "1" AndAlso AccountFormAccess(127, 4) = "0") Then
                 DTPNotifiedAppReceived.Enabled = True
             End If
 
             'DTPPNExpires
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                  (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                  (AccountFormAccess(131, 2) = "1" AndAlso AccountFormAccess(127, 3) = "1" AndAlso AccountFormAccess(127, 4) = "0") Then
                 DTPPNExpires.Enabled = True
             End If
 
             'DTPReviewSubmitted
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse ' not used
@@ -2055,7 +2055,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'txtAIRSNumber
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                  (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                  (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                  (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") Then
@@ -2070,7 +2070,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'txtComments
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse ' not used
@@ -2089,7 +2089,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'txtEPATargetedComments
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
               (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
               (AccountFormAccess(131, 2) = "1" AndAlso AccountFormAccess(127, 3) = "1" AndAlso AccountFormAccess(127, 4) = "0") Then
                 txtEPATargetedComments.ReadOnly = False
@@ -2102,7 +2102,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'txtFacilityName
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
@@ -2125,7 +2125,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'txtFacilityStreetAddress
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                  (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                  (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                  (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
@@ -2148,7 +2148,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'txtFacilityZipCode
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                  (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                  (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                  (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
@@ -2171,7 +2171,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'txtInformationReceived
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                  (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                  (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                  (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse ' not used
@@ -2191,7 +2191,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'txtInformationRequested
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                  (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                  (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                  (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse ' not used
@@ -2217,7 +2217,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'txtNAICSCode
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                  (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                  (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                  (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
@@ -2240,7 +2240,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'chbFederallyOwned
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then ' 121, N'SSPP Unit Manager'
                 chbFederallyOwned.Enabled = True
@@ -2251,7 +2251,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'chbNspsFeeExempt
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") Then ' 121, N'SSPP Unit Manager'
                 chbNspsFeeExempt.Enabled = True
@@ -2262,7 +2262,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'txtPermitNumber
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse ' not used
@@ -2281,7 +2281,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'txtPlantDescription
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
@@ -2304,7 +2304,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'txtReasonAppSubmitted
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
@@ -2327,7 +2327,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'txtSICCode
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
               (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
               (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
               (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
@@ -2350,7 +2350,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
             'txtSignificantComments
-            If CurrentUser.HasRole(118) OrElse
+            If CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse ' not used
@@ -2373,7 +2373,7 @@ Public Class SSPPApplicationTrackingLog
                 txtSSCPComments.BackColor = Color.Yellow
             End If
 
-            btnFileUploader.Visible = AccountHasAccessToForm(9) OrElse CurrentUser.HasRole(118)
+            btnFileUploader.Visible = AccountHasAccessToForm(9) OrElse CurrentUser.HasRoleType(RoleType.EpdIt)
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -2392,7 +2392,7 @@ Public Class SSPPApplicationTrackingLog
 
     Private Shared Function UserCanAccessReviewsTab() As Boolean
         Return CurrentUser.HasRole(CanAccessReviewsTab)
-        'Return CurrentUser.HasRole(118) OrElse
+        'Return CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
         '        (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
         '        (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
         '        (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse ' not used
@@ -2402,7 +2402,7 @@ Public Class SSPPApplicationTrackingLog
     End Function
 
     Private Shared Function UserCanAccessHistoryTab() As Boolean
-        Return CurrentUser.HasRole(118) OrElse
+        Return CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                 (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                 (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
@@ -2412,7 +2412,7 @@ Public Class SSPPApplicationTrackingLog
     End Function
 
     Private Shared Function UserCanAccessInformationRequestTab() As Boolean
-        Return CurrentUser.HasRole(118) OrElse
+        Return CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                  (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                  (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                  (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(138, 0) Is Nothing) OrElse ' not used
@@ -2420,14 +2420,14 @@ Public Class SSPPApplicationTrackingLog
     End Function
 
     Private Shared Function UserCanAccessWebPublisherTab() As Boolean
-        Return CurrentUser.HasRole(118) OrElse
+        Return CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                   (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                   (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse
                    AccountFormAccess(131, 2) = "1" AndAlso AccountFormAccess(127, 3) = "1" AndAlso AccountFormAccess(127, 4) = "0"
     End Function
 
     Private Shared Function UserCanAccessOtherInfoTab() As Boolean
-        Return CurrentUser.HasRole(118) OrElse
+        Return CurrentUser.HasRoleType(RoleType.EpdIt) OrElse
                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(3, 4) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0") OrElse ' 28, N'SSPP Program Manager'
                (AccountFormAccess(24, 3) = "1" AndAlso AccountFormAccess(12, 1) = "1" AndAlso AccountFormAccess(12, 2) = "0" AndAlso AccountFormAccess(3, 4) = "0") OrElse ' 121, N'SSPP Unit Manager'
                (AccountFormAccess(51, 4) = "1" AndAlso AccountFormAccess(23, 3) = "1" AndAlso AccountFormAccess(138, 1) = "1") OrElse

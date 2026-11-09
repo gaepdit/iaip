@@ -749,7 +749,7 @@ Public Class IAIPNavigation
     Private Sub AddNavButtonIfAccountHasFormAccess(index As Integer,
                                                     buttonText As String, formName As String,
                                                     category As NavButtonCategories)
-        If AccountHasAccessToForm(index) OrElse CurrentUser.HasRole(118) Then
+        If AccountHasAccessToForm(index) OrElse CurrentUser.HasRoleType(RoleType.EpdIt) Then
             AddNavButton(buttonText, formName, category)
         End If
     End Sub
@@ -757,7 +757,7 @@ Public Class IAIPNavigation
     Private Sub AddNavButtonIfUserHasPermission(permissionsAllowed As Integer(),
                                                  buttonText As String, formName As String,
                                                  category As NavButtonCategories)
-        If CurrentUser.HasRole(permissionsAllowed) OrElse CurrentUser.HasRole(118) Then
+        If CurrentUser.HasRole(permissionsAllowed) OrElse CurrentUser.HasRoleType(RoleType.EpdIt) Then
             AddNavButton(buttonText, formName, category)
         End If
     End Sub

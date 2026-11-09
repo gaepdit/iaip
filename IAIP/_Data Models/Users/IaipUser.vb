@@ -77,13 +77,16 @@
             Case RoleType.DistrictManager
                 Return HasRole(DistrictManagerCodes)
 
+            Case RoleType.EpdIt
+                Return HasRole(118)
+
             Case Else
                 Return False
         End Select
     End Function
 
     Public Function HasPermission(capability As UserCan) As Boolean
-        If HasRole(118) Then Return True ' EPD-IT
+        If HasRoleType(RoleType.EpdIt) Then Return True ' EPD-IT
 
         Select Case capability
 
@@ -253,4 +256,5 @@ Public Enum RoleType
     UnitManager
     BranchAdmin
     DistrictManager
+    EpdIt
 End Enum

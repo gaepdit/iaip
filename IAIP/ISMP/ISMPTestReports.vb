@@ -5121,7 +5121,7 @@ Public Class ISMPTestReports
             If Not (AccountFormAccess(69, 1) = "1" OrElse
                 AccountFormAccess(69, 2) = "1" OrElse AccountFormAccess(69, 3) = "1" OrElse
                 AccountFormAccess(69, 4) = "1" OrElse
-                CurrentUser.HasRole(118)) Then
+                CurrentUser.HasRoleType(RoleType.EpdIt)) Then
 
                 tsbSave.Visible = False
                 mmiSave.Visible = False
@@ -5146,7 +5146,7 @@ Public Class ISMPTestReports
                 mmiDefaultCompliance.Visible = False
             End If
 
-            If Not ReportClosed AndAlso (AccountFormAccess(69, 3) = "1" OrElse CurrentUser.HasRole(118)) Then
+            If Not ReportClosed AndAlso (AccountFormAccess(69, 3) = "1" OrElse CurrentUser.HasRoleType(RoleType.EpdIt)) Then
                 txtSourceTested.ReadOnly = False
                 cboPollutantDetermined.Enabled = True
                 cboMethodDetermined.Enabled = True
