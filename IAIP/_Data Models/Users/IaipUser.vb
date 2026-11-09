@@ -60,6 +60,26 @@
     Private Shared ReadOnly ProgramManagerCodes As Integer() = {2, 11, 19, 28, 45, 57, 104}
     Private Shared ReadOnly UnitManagerCodes As Integer() = {47, 63, 106, 114, 115, 121, 128}
     Private Shared ReadOnly DistrictManagerCodes As Integer() = {133, 134, 135, 136, 137, 138, 140}
+    Private Shared ReadOnly SaveEnforcementRoles As Integer() = {19, 20, 113, 114, 102}
+    Private Shared ReadOnly ResolveEnforcementRoles As Integer() = {19, 114, 102}
+    Private Shared ReadOnly EditFacilityHeaderDataRoles As Integer() = {102, 114, 2, 19, 28}
+    Private Shared ReadOnly EditFacilityAddressRoles As Integer() = {2, 19, 27, 28, 29, 102, 114, 121}
+    Private Shared ReadOnly ShutDownFacilityRoles As Integer() = {114, 19, 102, 27, 28}
+    Private Shared ReadOnly CreateFacility As Integer() = {28, 29, 121, 19}
+    Private Shared ReadOnly DeleteFacilityNoteRoles As Integer() = {2, 19, 27, 28, 29, 102, 114, 121}
+    Private Shared ReadOnly CreatePermitAppRoles As Integer() = {28, 29, 102}
+    Private Shared ReadOnly EditPermitAppRoles As Integer() = {28, 29, 121, 122, 102}
+    Private Shared ReadOnly UploadPermitFileRoles As Integer() = {28, 121, 29, 102}
+    Private Shared ReadOnly DeletePermitFileRoles As Integer() = {28, 29, 120}
+    Private Shared ReadOnly EditFinancialDataRoles As Integer() = {123, 124, 125}
+    Private Shared ReadOnly VoidUnpaidApplicationFeeInvoicesRoles As Integer() = {123, 124, 125, 28, 121}
+    Private Shared ReadOnly ManageAnnualFeesRoles As Integer() = {11, 123, 124}
+    Private Shared ReadOnly EditAnnualFeesRoles As Integer() = {11, 19, 119, 123, 124}
+    Private Shared ReadOnly EditAnnualFeesDepositsRoles As Integer() = {2, 11, 123, 124, 125, 127}
+    Private Shared ReadOnly AccessEmissionsInventoryRoles As Integer() = {144, 145}
+    Private Shared ReadOnly AccessGecoUserManagementRoles As Integer() = {123, 124, 144, 145}
+    Private Shared ReadOnly AccessEdtToolsRoles As Integer() = {19, 28}
+    Private Shared ReadOnly ResetEpaIcisAirDataRoles As Integer() = {19}
     Public Function HasRoleType(roleType As RoleType) As Boolean
         Select Case roleType
             Case RoleType.BranchAdmin
@@ -93,43 +113,39 @@
             ' === Compliance caps
             Case UserCan.SaveEnforcement
                 ' District offices, SSCP, or Branch Chief
-                Return BranchID = 5 OrElse
-                    ProgramID = 4 OrElse
-                    HasRole({19, 20, 113, 114, 102})
+                Return BranchID = 5 OrElse ProgramID = 4 OrElse HasRole(SaveEnforcementRoles)
 
             Case UserCan.ResolveEnforcement
                 ' SSCP Program Manager, SSCP Unit Manager, or Branch Chief
-                Return HasRole({19, 114, 102})
+                Return HasRole(ResolveEnforcementRoles)
 
             ' === Facility caps
             Case UserCan.AddPollutantsToFacility
-                ' Air Branch
-                Return BranchID = 1 OrElse ' Air Branch
-                    BranchID = 5 ' District Offices
+                ' Air Branch or District Offices
+                Return BranchID = 1 OrElse BranchID = 5
 
             Case UserCan.EditFacilityHeaderData
                 ' Branch Chief; SSCP Unit Manager; SSCP, ISMP, or SSPP Program Manager; District Manager
-                Return HasRole({102, 114, 2, 19, 28}) OrElse
-                    HasRoleType(RoleType.DistrictManager)
+                Return HasRole(EditFacilityHeaderDataRoles) OrElse HasRoleType(RoleType.DistrictManager)
 
             Case UserCan.EditFacilityAddress
                 ' ISMP Program Manager, SSCP Program Manager, District Liaison, SSPP Program Manager,
                 ' SSPP Administrative, Branch Chief, SSCP Unit Manager, SSPP Unit Manager
-                Return HasRole({2, 19, 27, 28, 29, 102, 114, 121})
+                Return HasRole(EditFacilityAddressRoles)
 
             Case UserCan.ShutDownFacility
                 ' SSCP Unit Manager, SSCP Program Manager, Branch Chief, District Liaison, SSPP Program Manager
-                Return HasRole({114, 19, 102, 27, 28})
+                Return HasRole(ShutDownFacilityRoles)
 
             Case UserCan.CreateFacility
                 ' SSPP Program Manager, SSPP Administrative, SSPP Unit Manager, SSCP Program Manager
-                Return HasRole({28, 29, 121, 19}) OrElse
+                Return HasRole(CreateFacility) OrElse
                     (HasRoleType(RoleType.UnitManager) AndAlso UnitId = 30) ' SSCP Air Toxics Unit Manager
 
             Case UserCan.DeleteFacilityNote
                 ' ISMP Program Manager, SSCP Program Manager, District Liaison, SSPP Program Manager,
                 ' SSPP Administrative, Branch Chief, SSCP Unit Manager, SSPP Unit Manager
-                Return HasRole({2, 19, 27, 28, 29, 102, 114, 121})
+                Return HasRole(DeleteFacilityNoteRoles)
 
             Case UserCan.EditFacilityColocationGroups
                 Return HasPermission(UserCan.EditFacilityHeaderData)
@@ -150,20 +166,19 @@
             ' === SSPP caps
             Case UserCan.CreatePermitApp
                 ' SSPP Program Manager, SSPP Administrative, Branch Chief
-                Return HasRole({28, 29, 102})
+                Return HasRole(CreatePermitAppRoles)
 
             Case UserCan.EditPermitApp
                 ' SSPP users, Branch Chief 
-                Return ProgramID = 5 OrElse
-                    HasRole({28, 29, 121, 122, 102})
+                Return ProgramID = 5 OrElse HasRole(EditPermitAppRoles)
 
             Case UserCan.UploadPermitFile
                 ' SSPP Program Manager, SSPP Unit Manager, SSPP Administrative, Branch Chief
-                Return HasRole({28, 121, 29, 102})
+                Return HasRole(UploadPermitFileRoles)
 
             Case UserCan.DeletePermitFile
                 ' SSPP Program Manager, SSPP Administrative, Web Publisher
-                Return HasRole({28, 29, 120})
+                Return HasRole(DeletePermitFileRoles)
 
             ' === Application Fees
             Case UserCan.OverrideFeeAmount
@@ -174,46 +189,46 @@
 
             Case UserCan.EditFinancialData
                 ' All Finance staff
-                Return HasRole({123, 124, 125})
+                Return HasRole(EditFinancialDataRoles)
 
             Case UserCan.VoidUnpaidApplicationFeeInvoices
                 ' All Finance staff, SSPP Program Manager, SSPP Unit Manager
-                Return HasRole({123, 124, 125, 28, 121})
+                Return HasRole(VoidUnpaidApplicationFeeInvoicesRoles)
 
             ' === Annual Fees
             Case UserCan.ManageAnnualFees
                 'Planning & Support Manager, Financial Administrative, Financial Manager
-                Return HasRole({11, 123, 124})
+                Return HasRole(ManageAnnualFeesRoles)
 
             Case UserCan.EditAnnualFees
                 ' Planning & Support Manager, SSCP Program Manager, EPD-IT,
                 ' Financial Administrative, Financial Manager
-                Return HasRole({11, 19, 119, 123, 124})
+                Return HasRole(EditAnnualFeesRoles)
 
             Case UserCan.EditAnnualFeesDeposits
                 ' ISMP Program Manager, Planning & Support Manager, Financial Administrative,
                 ' Financial Manager, Financial Staff, Planning & Support Hourly Worker
-                Return HasRole({2, 11, 123, 124, 125, 127})
+                Return HasRole(EditAnnualFeesDepositsRoles)
 
             ' === ECSU
             Case UserCan.AccessEmissionsInventory
                 ' 144 - ECSU Staff
                 ' 145 - ECSU Manager
-                Return HasRole({144, 145})
+                Return HasRole(AccessEmissionsInventoryRoles)
 
             Case UserCan.AccessGecoUserManagement
                 ' 123 - Financial Administrative
                 ' 124 - Financial Manager
                 ' 144 - ECSU Staff
                 ' 145 - ECSU Manager
-                Return HasRole({123, 124, 144, 145})
+                Return HasRole(AccessGecoUserManagementRoles)
 
             ' === EPA ICIS-Air EDT caps
             Case UserCan.AccessEdtTools
-                Return HasRole({19, 28})
+                Return HasRole(AccessEdtToolsRoles)
 
             Case UserCan.ResetEpaIcisAirData
-                Return HasRole(19)
+                Return HasRole(ResetEpaIcisAirDataRoles)
 
             Case Else
                 Return False
