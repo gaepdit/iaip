@@ -5,60 +5,6 @@
         LoadAPBManagement()
     End Sub
 
-#Region "ApplicationTypes"
-
-    Private Sub TCLookUpTables_SelectedIndexChanged(sender As Object, e As EventArgs) Handles TCLookUpTables.SelectedIndexChanged
-        If Not AppTypesLoaded AndAlso TCLookUpTables.SelectedTab Is TPApplicationTypes Then
-            LoadApplicationTypes()
-            AppTypesLoaded = True
-        End If
-    End Sub
-
-    Private Sub LoadApplicationTypes()
-        dgvApplicationType.DataSource = DAL.Sspp.GetApplicationTypes(True)
-
-        With dgvApplicationType
-            .RowHeadersVisible = False
-            .AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            .AllowUserToResizeColumns = True
-            .AllowUserToAddRows = False
-            .AllowUserToDeleteRows = False
-            .AllowUserToOrderColumns = False
-            .AllowUserToResizeRows = False
-            .SelectionMode = DataGridViewSelectionMode.FullRowSelect
-            .MultiSelect = False
-            .ReadOnly = True
-            .SanelyResizeColumns
-            .ClearSelection()
-        End With
-    End Sub
-
-    Private Sub dgvApplicationType_SelectionChanged(sender As Object, e As EventArgs) Handles dgvApplicationType.SelectionChanged
-        If dgvApplicationType.SelectedRows.Count = 1 Then
-            txtSelectedAppType.Text = dgvApplicationType.SelectedRows(0).Cells("Application Type").Value.ToString
-        Else
-            txtSelectedAppType.Text = ""
-        End If
-    End Sub
-
-    Private Sub btnAddNewAppType_Click(sender As Object, e As EventArgs) Handles btnAddNewAppType.Click
-        If Not String.IsNullOrWhiteSpace(txtNewAppType.Text) Then
-            DAL.Sspp.SaveNewApplicationType(txtNewAppType.Text)
-            txtNewAppType.Text = ""
-            LoadApplicationTypes()
-        End If
-    End Sub
-
-    Private Sub btnChangeAppStatus_Click(sender As Object, e As EventArgs) Handles btnChangeAppStatus.Click
-        If dgvApplicationType.SelectedRows.Count = 1 Then
-            Dim newStatus As Boolean = (dgvApplicationType.SelectedRows(0).Cells("Status").Value = "Inactive")
-            DAL.Sspp.UpdateApplicationTypeStatus(dgvApplicationType.SelectedRows(0).Cells("Application Type Code").Value, newStatus)
-            LoadApplicationTypes()
-        End If
-    End Sub
-
-#End Region
-
 #Region " EPD Management "
 
     Private Sub LoadAPBManagement()
@@ -107,11 +53,11 @@
     End Sub
 
     Private Sub txtApbManagementName_Enter(sender As Object, e As EventArgs) Handles txtApbManagementName.Enter
-        Me.AcceptButton = btnSaveAPBManagement
+        AcceptButton = btnSaveAPBManagement
     End Sub
 
     Private Sub txtApbManagementName_Leave(sender As Object, e As EventArgs) Handles txtApbManagementName.Leave
-        Me.AcceptButton = Nothing
+        AcceptButton = Nothing
     End Sub
 
 #End Region
