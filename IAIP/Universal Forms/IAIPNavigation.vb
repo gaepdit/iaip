@@ -33,6 +33,8 @@ Public Class IAIPNavigation
 
         AddHandler NetworkChange.NetworkAddressChanged, AddressOf AddressChangedCallback
 
+        CheckToolsPermissions()
+
         MyBase.OnLoad(e)
     End Sub
 
@@ -904,8 +906,6 @@ Public Class IAIPNavigation
 
         ' DMU
         AddNavButtonIfUserCan(UserCan.AccessEdtTools, "EDT Errors", NameOf(DmuEdtErrorMessages), NavButtonCategories.DX)
-        AddNavButtonIfUserHasPermission(118, "District Tools", NameOf(IAIPDistrictSourceTool), NavButtonCategories.DX)
-        AddNavButtonIfUserHasPermission(118, "Lookup Tables", NameOf(IAIPLookUpTables), NavButtonCategories.DX)
 
         ' EIS
         AddNavButtonIfUserCan(UserCan.AccessEmissionsInventory, "Emissions Inventory", NameOf(EisTool), NavButtonCategories.EIS)
@@ -1105,6 +1105,21 @@ Public Class IAIPNavigation
 
     Private Sub UnhandledExceptionTest(sender As Object, e As EventArgs) Handles RunTest2.Click
         Throw New ArgumentException("NavScreen unhandled exception testing")
+    End Sub
+
+    Private Sub CheckToolsPermissions()
+        If CurrentUser.HasRoleType(RoleType.EpdIt) Then Return
+
+        mmiEditDistrictOffices.Enabled = False
+        mmiEditEpdManagement.Enabled = False
+    End Sub
+
+    Private Sub mmiEditDistrictOffices_Click(sender As Object, e As EventArgs) Handles mmiEditDistrictOffices.Click
+        OpenSingleForm(IAIPDistrictSourceTool)
+    End Sub
+
+    Private Sub mmiEditEpdManagement_Click(sender As Object, e As EventArgs) Handles mmiEditEpdManagement.Click
+        OpenSingleForm(IAIPLookUpTables)
     End Sub
 
 #End Region

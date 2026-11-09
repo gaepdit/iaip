@@ -102,6 +102,9 @@ Partial Class IAIPNavigation
         Me.bgrOrgNotifications = New System.ComponentModel.BackgroundWorker()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.bgrDataPreloader = New System.ComponentModel.BackgroundWorker()
+        Me.mmiEditDistrictOffices = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mmiEditEpdManagement = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mmiToolsSeparator = New System.Windows.Forms.ToolStripSeparator()
         Me.MainMenu1.SuspendLayout()
         Me.grpQuickAccess.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -142,7 +145,7 @@ Partial Class IAIPNavigation
         '
         'mmiTools
         '
-        Me.mmiTools.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiExport})
+        Me.mmiTools.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiExport, Me.mmiToolsSeparator, Me.mmiEditDistrictOffices, Me.mmiEditEpdManagement})
         Me.mmiTools.MergeIndex = 1
         Me.mmiTools.Name = "mmiTools"
         Me.mmiTools.Size = New System.Drawing.Size(47, 20)
@@ -152,7 +155,7 @@ Partial Class IAIPNavigation
         '
         Me.mmiExport.MergeIndex = 0
         Me.mmiExport.Name = "mmiExport"
-        Me.mmiExport.Size = New System.Drawing.Size(168, 22)
+        Me.mmiExport.Size = New System.Drawing.Size(192, 22)
         Me.mmiExport.Text = "&Export list to Excel"
         '
         'mmiAccount
@@ -894,6 +897,23 @@ Partial Class IAIPNavigation
         '
         Me.bgrDataPreloader.WorkerSupportsCancellation = True
         '
+        'mmiEditDistrictOffices
+        '
+        Me.mmiEditDistrictOffices.Name = "mmiEditDistrictOffices"
+        Me.mmiEditDistrictOffices.Size = New System.Drawing.Size(192, 22)
+        Me.mmiEditDistrictOffices.Text = "Edit &District Office"
+        '
+        'mmiEditEpdManagement
+        '
+        Me.mmiEditEpdManagement.Name = "mmiEditEpdManagement"
+        Me.mmiEditEpdManagement.Size = New System.Drawing.Size(192, 22)
+        Me.mmiEditEpdManagement.Text = "Edit EPD &Management"
+        '
+        'mmiToolsSeparator
+        '
+        Me.mmiToolsSeparator.Name = "mmiToolsSeparator"
+        Me.mmiToolsSeparator.Size = New System.Drawing.Size(189, 6)
+        '
         'IAIPNavigation
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1018,4 +1038,7 @@ Partial Class IAIPNavigation
     Friend WithEvents pnlNoticeLabelPanel As Panel
     Friend WithEvents pnlSpacing As Panel
     Friend WithEvents bgrDataPreloader As System.ComponentModel.BackgroundWorker
+    Friend WithEvents mmiEditDistrictOffices As ToolStripMenuItem
+    Friend WithEvents mmiEditEpdManagement As ToolStripMenuItem
+    Friend WithEvents mmiToolsSeparator As ToolStripSeparator
 End Class
